@@ -1,0 +1,32 @@
+@import "~zen-css/import";
+
+:host {
+    width: var(--size-main);
+    height: var(--size-main);
+
+    & {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    svg {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        height: 100%;
+
+        @each $name in $colors {
+            &.#{$name} use {
+                fill: var(--color-#{$name});
+            }
+        }
+    }
+}
+
+
+@each $size in $sizes {
+    :host-context([size="#{$size}"]) {
+        width: var(--size-#{$size});
+        height: var(--size-#{$size});
+    }
+}

@@ -1,0 +1,17 @@
+:host {
+    display: block;
+}
+
+span.error {
+    display: block;
+    margin-bottom: 1rem;
+
+    &:empty { display: none; }
+}
+
+
+wc-wysiwyg {
+    background-color: var(--color-main-offset);
+    padding: var(--input-padding);
+    border-radius: var(--input-border-radius);
+}
