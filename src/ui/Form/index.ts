@@ -22,16 +22,16 @@ export interface Field {
 }
 
 
-export default class ZenForm extends Element {
+export default class Form extends Element {
     form: HTMLFormElement;
     error: string | null = null;
     values: {[key: string]: any} = {};
     fields: Field[] = [];
 
     constructor() {
-        super(HTML, CSS.toString());
+        super(HTML, CSS.toString(), 'Form');
 
-        this.form = this._sr.querySelector('form') as HTMLFormElement;
+        this.form = this._root.querySelector('form') as HTMLFormElement;
     }
 
     connectedCallback() {
@@ -78,7 +78,7 @@ export default class ZenForm extends Element {
     }
 
     updateError() {
-        const err = this._sr.querySelector('.error');
+        const err = this._root.querySelector('.error');
         if (err) err.classList.toggle('hide', !this.error);
     }
 
@@ -122,9 +122,9 @@ export default class ZenForm extends Element {
 
     private _updateExistingRow(f: Field, v: any): boolean {
         // Attempt to find an existing element...
-        let existing = this._sr.querySelector(`*[name='${f.name}'`) as HTMLInputElement;
+        let existing = this._root.querySelector(`*[name='${f.name}'`) as HTMLInputElement;
         if (!existing && f.type === 'submit') {
-            existing = this._sr.querySelector('*[type="submit"]') as HTMLInputElement;
+            existing = this._root.querySelector('*[type="submit"]') as HTMLInputElement;
         }
 
         // If there is an existing element, update it's value, then continue
@@ -231,4 +231,4 @@ export default class ZenForm extends Element {
     }
 }
 
-window.customElements.define('zen-ui-form', ZenForm);
+window.customElements.define('zen-ui-form', Form);

@@ -7,7 +7,6 @@ interface TextNodeMapValue {
     template: string;
 }
 
-
 export default class Element extends HTMLElement {
     static boundProps: string[] = [];
     static defaultProps: object = {};
@@ -16,18 +15,19 @@ export default class Element extends HTMLElement {
         [key: string]: DocumentFragment
     } = {};
 
-    private _cssLibHref: string = '/admin/origami.css';
-    private _readyPromise: Promise<void>;
+    private readonly _readyPromise: Promise<void>;
     private _textNodeMap: Map<Node, TextNodeMapValue> = new Map();
-    private _css: string = '';
-    private _cssLib = document.createElement('link');
-    private _cssLibLoaded = false;
-    protected _sr: ShadowRoot = this.shadowRoot as ShadowRoot;
+    private _html: string;
+    private _css: string | null;
+    private _cssStyleTag: HTMLStyleElement | null = null;
+    private readonly _name: string;
+    private readonly _useShadowRoot: boolean;
+
 
     attributeChangedCallback(attr: string, oldV: string, newV: string): void {}
 
 
-    constructor(html: string, css: string) {
+    constructor(html: string, css: string | false, name: string, useShadowRoot: boolean = true) {
         super();
 
         const c = (this.constructor as typeof Element);
@@ -56,37 +56,45 @@ export default class Element extends HTMLElement {
         //         this[k] = v;
         //     });
         // }
+        this._name = name;
+        this._useShadowRoot = useShadowRoot;
 
-        this._readyPromise = new Promise(this.init(html, css));
+        this._html = html;
+        this._css = css || null;
+
+        this._readyPromise = this._useShadowRoot
+            ? new Promise(this._initShadow())
+            : Promise.resolve();
     }
 
-    init(html: string, css: string) {
+    protected get _root(): ShadowRoot | this {
+        return this._useShadowRoot
+            ? this.shadowRoot as ShadowRoot
+            : this;
+    }
+
+    private _initShadow() {
         return (res: Function) => {
-            this.attachShadow({mode: 'open'});
+            if (this._useShadowRoot) this.attachShadow({mode: 'open'});
 
-            this._cssLib.rel = 'stylesheet';
-            this._cssLib.href = this._cssLibHref;
-            this._cssLib.id = 'css-lib';
-            this._cssLib.onload = () => {
-                this.style.display = '';
-                this._cssLibLoaded = true;
-            };
-
-            const c = (this.constructor as typeof Element);
-            this._sr.appendChild(this._cssLib);
-            this.css = css;
-
-            if (html) this.html = html;
-            this._updateTemplates();
+            this._setupDOM();
 
             res();
         };
     }
 
+    private _setupDOM() {
+        const c = (this.constructor as typeof Element);
+        if (this._css) {
+            this.css = this._css;
+        }
+
+        if (this._html) this.html = this._html;
+        this._updateTemplates();
+    }
+
     set html(v: string) {
-        this._sr.innerHTML = v;
-        // @ts-ignore: This does actually exist
-        this._sr.prepend(this._cssLib);
+        this._root.innerHTML = v;
 
         this.css = this._css;
         this._updateTemplates();
@@ -94,15 +102,30 @@ export default class Element extends HTMLElement {
         this.render();
     }
 
-    set css(v: string) {
+    set css(v: string | null) {
         this._css = v;
-        const style = document.createElement('style');
-        style.innerHTML = v;
-        this._sr.insertBefore(style, this._cssLib.nextElementSibling);
+
+        // If the css is set to null, remove the style tag
+        if (!v) {
+            if (this._cssStyleTag) this._cssStyleTag.remove();
+            this._cssStyleTag = null;
+            return;
+        }
+
+        if (!this._cssStyleTag) this._cssStyleTag = document.createElement('style');
+        this._cssStyleTag.innerHTML = v;
+        this._root.insertBefore(this._cssStyleTag, this._root.firstChild);
     }
 
+    get css(): string | null {
+        if (!this._cssStyleTag) return null;
+        return this._cssStyleTag.innerText;
+    }
+
+
+
     private _updateTemplates() {
-        const ts = Array.from(this._sr.querySelectorAll('template'));
+        const ts = Array.from(this._root.querySelectorAll('template'));
         ts.forEach(t => {
             if (t.id) this.templates[t.id] = t.content;
         });
@@ -113,7 +136,8 @@ export default class Element extends HTMLElement {
 
 
     connectedCallback() {
-        if (!this._cssLibLoaded) this.style.display = 'none';
+        if (!this._useShadowRoot) this._setupDOM();
+        // if (!this._cssLibLoaded) this.style.display = 'none';
 
         this.render();
     }
@@ -137,7 +161,7 @@ export default class Element extends HTMLElement {
 
 
     trigger(event: string, detail?: object, bubbles = true) {
-        this._sr.dispatchEvent(new CustomEvent(event, {
+        this._root.dispatchEvent(new CustomEvent(event, {
             bubbles,
             detail
         }));
@@ -148,11 +172,16 @@ export default class Element extends HTMLElement {
         return this._readyPromise;
     }
 
+    // Throw a named error
+    protected _error(msg: string) {
+        throw new Error(`Zen.UI.${this._name}: ${msg}`);
+    }
+
     private _updateTextNodeMap() {
         // TODO: Move this to a Mutation Observer
         this._textNodeMap = new Map();
         const filter: NodeFilter = <NodeFilter><any>NodeFilter.SHOW_TEXT;
-        const nodes = document.createTreeWalker(this._sr, NodeFilter.SHOW_TEXT, filter);
+        const nodes = document.createTreeWalker(this._root, NodeFilter.SHOW_TEXT, filter);
         let node = nodes.nextNode();
         while (node) {
             const template = node.nodeValue;

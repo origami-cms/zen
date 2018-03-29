@@ -5,10 +5,10 @@ export default class Checkbox extends Element {
     input: HTMLInputElement;
 
     constructor() {
-        super(HTML, '');
+        super(HTML, false, 'Checkbox');
         this.html = HTML;
 
-        this.input = this._sr.querySelector('input') as HTMLInputElement;
+        this.input = this._root.querySelector('input') as HTMLInputElement;
         this.input.addEventListener('change', () => this.trigger('change'));
     }
 

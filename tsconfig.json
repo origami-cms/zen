@@ -1,12 +1,12 @@
 {
     "include": [
-        "src/index.ts", "src/ui/Button"
+        "src/**/*.ts"
     ],
     "exclude": [],
     "compilerOptions": {
         /* Basic Options */
-        "target": "ES2016",
-        // "module": "commonjs",
+        "target": "es2017",
+        "module": "commonjs",
         "lib": [
             "es5",
             "es6",
@@ -19,9 +19,9 @@
         // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
         "declaration": true,
         /* Generates corresponding '.d.ts' file. */
-        // "sourceMap": true,                     /* Generates corresponding '.map' file. */
+        "sourceMap": true,                     /* Generates corresponding '.map' file. */
         // "outFile": "./",                       /* Concatenate and emit output to single file. */
-        "outDir": "./",
+        "outDir": "lib",
         /* Redirect output structure to the directory. */
         // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
         // "removeComments": true,                /* Do not emit comments to output. */

@@ -1,8 +1,8 @@
 @import "~zen-css/import";
 
 :host {
-    width: var(--size-main);
-    height: var(--size-main);
+    width: default('size-main');
+    height: default('size-main');
 
     & {
         display: inline-block;

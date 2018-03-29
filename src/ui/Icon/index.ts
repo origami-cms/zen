@@ -11,13 +11,11 @@ export default class Icon extends Element {
     private _prefix = '#zen-icon-';
 
     constructor() {
-        super(HTML, CSS.toString());
-        // this.html = HTML;
-        // this.css = CSS.toString();
+        super(HTML, CSS.toString(), 'Icon');
     }
 
     get svg(): SVGElement {
-        return this._sr.querySelector('svg') as SVGElement;
+        return this._root.querySelector('svg') as SVGElement;
     }
     get use(): SVGUseElement {
         return this.svg.querySelector('use') as SVGUseElement;
@@ -25,8 +23,8 @@ export default class Icon extends Element {
 
     static get defaultProps() {
         return {
-            'color': 'main',
-            'size': 'main'
+            color: 'main',
+            size: 'main'
         };
     }
     static get boundProps() {
@@ -50,12 +48,13 @@ export default class Icon extends Element {
     async propertyChangedCallback(prop: string, oldV: string, newV: string): Promise<void> {
         switch (prop) {
             case 'type':
+                if (!newV) return;
                 // Remove all old symbols and replace with new one
                 Array.from(this.svg.querySelectorAll('symbol')).forEach(s => s.remove());
 
                 // Clone the new symbol from the icon set
                 const existing = document.querySelector(this._prefix + newV);
-                if (!existing) throw new Error(`Zen.Icon: No icon found for '${newV}'`);
+                if (!existing) return this._error(`No icons found for '${newV}'`);
 
                 const symbol = existing.cloneNode(true);
                 this.svg.appendChild(symbol);

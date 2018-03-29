@@ -5,17 +5,17 @@ import CSS from './button-group.scss';
 
 export default class ZenButtonGroup extends Element {
     group: HTMLElement;
-    buttons: Array<object>;
+    buttons: object[] = [];
 
     constructor() {
-        super(HTML, CSS.toString());
-        this.group = this._sr.querySelector('.button-group') as HTMLElement;
+        super(HTML, CSS.toString(), 'ButtonGroup');
+        this.group = this._root.querySelector('.button-group') as HTMLElement;
     }
 
 
     static get defaultProps() {
         return {
-            'buttons': []
+            buttons: []
         };
     }
 
@@ -50,7 +50,7 @@ export default class ZenButtonGroup extends Element {
             .slice(this.buttons.length)
             .forEach(e => e.remove());
     }
-};
+}
 
 
 window.customElements.define('zen-ui-button-group', ZenButtonGroup);

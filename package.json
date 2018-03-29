@@ -2,12 +2,15 @@
   "name": "origami-zen",
   "version": "0.0.1",
   "description": "Collection of reusable web components. Built for Origami CMS.",
-  "main": "dist/zen.js",
+  "main": "_bundles/zen.js",
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
+  "typings": "./_bundles/lib/index.d.ts",
   "scripts": {
-    "build": "webpack-cli",
+    "clean": "rm -rf _bundles lib lib-esm",
+    "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm && webpack-cli",
+    "watch": "webpack-cli --watch",
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped src/**/*.ts --fix"
   },
   "dependencies": {
@@ -29,6 +32,7 @@
     "tslint": "^5.9.1",
     "tslint-config-origami": "^1.0.0",
     "typescript": "^2.7.2",
-    "webpack": "^4.2.0"
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13"
   }
 }

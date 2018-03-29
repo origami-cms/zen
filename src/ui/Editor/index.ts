@@ -4,19 +4,21 @@ import Element from '../../lib/Element';
 import HTML from './editor.html';
 import CSS from './editor.scss';
 
-window.customElements.define('zen-ui-editor', class ZenForm extends Element {
+window.customElements.define('zen-ui-editor', class Editor extends Element {
+    private _editor: HTMLElement;
+    editor: any;
     constructor() {
-        super(HTML, CSS.toString());
+        super(HTML, CSS.toString(), 'Editor');
 
-        this._editor = this._sr.querySelector('#editor');
+        this._editor = this._root.querySelector('#editor') as HTMLElement;
     }
 
     connectedCallback() {
         super.connectedCallback();
-        this.$editor = this._sr.querySelector('#editor');
+        this._editor = this._root.querySelector('#editor') as HTMLElement;
 
         this.editor = grapesjs.init({
-            container: this.$editor
+            container: this._editor
         });
     }
 
