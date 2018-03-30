@@ -6,4 +6,4 @@ export default class IconSheet extends HTMLElement {
         this.innerHTML = icons;
     }
 }
-window.customElements.define('zen-icon-set', IconSheet);
+window.customElements.define('zen-ui-icon-set', IconSheet);
