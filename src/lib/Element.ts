@@ -1,11 +1,13 @@
 import '../imports';
-import * as query from 'json-query';
+import {query} from 'jsonpath';
 import deepequal from 'deepequal';
 
-interface TextNodeMapValue {
+export interface TextNodeMapValue {
     words: string[];
     template: string;
 }
+
+export type TemplateMap = Map<Node, TextNodeMapValue>;
 
 export default class Element extends HTMLElement {
     static boundProps: string[] = [];
@@ -16,7 +18,7 @@ export default class Element extends HTMLElement {
     } = {};
 
     private readonly _readyPromise: Promise<void>;
-    private _textNodeMap: Map<Node, TextNodeMapValue> = new Map();
+    private _textNodeMap: TemplateMap = new Map();
     private _html: string;
     private _css: string | null;
     private _cssStyleTag: HTMLStyleElement | null = null;
@@ -98,7 +100,7 @@ export default class Element extends HTMLElement {
 
         this.css = this._css;
         this._updateTemplates();
-        this._updateTextNodeMap();
+        this._textNodeMap = this._getTemplateMap();
         this.render();
     }
 
@@ -143,20 +145,7 @@ export default class Element extends HTMLElement {
     }
 
     render() {
-        const existing = Array.from(this._textNodeMap);
-        for (const [node, {words, template}] of existing) {
-            let replace = template;
-            words.forEach(w => {
-                // TODO: This is broken
-                let replacement = undefined;
-                // let {value: replacement} = query(w, {data: this});
-                if (replacement === undefined) replacement = '';
-                const r = new RegExp(`{{${w}}}`, 'g');
-                replace = replace.replace(r, replacement);
-            });
-
-            node.nodeValue = replace;
-        }
+        this._updateTemplateNodes(this._textNodeMap);
     }
 
 
@@ -177,12 +166,21 @@ export default class Element extends HTMLElement {
         throw new Error(`Zen.UI.${this._name}: ${msg}`);
     }
 
-    private _updateTextNodeMap() {
+    // Show named console warning
+    protected _warn(msg: string) {
+        console.warn(`Zen.UI.${this._name}: ${msg}`);
+    }
+
+    // Recursively get a map of nodes that contain {{variable}} so they can be
+    // updated later
+    protected _getTemplateMap(root: ShadowRoot | HTMLElement | DocumentFragment | this = this._root): TemplateMap {
         // TODO: Move this to a Mutation Observer
-        this._textNodeMap = new Map();
+        const textNodeMap: TemplateMap = new Map();
         const filter: NodeFilter = <NodeFilter><any>NodeFilter.SHOW_TEXT;
-        const nodes = document.createTreeWalker(this._root, NodeFilter.SHOW_TEXT, filter);
+
+        const nodes = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, filter);
         let node = nodes.nextNode();
+
         while (node) {
             const template = node.nodeValue;
             if (!template) continue;
@@ -199,10 +197,41 @@ export default class Element extends HTMLElement {
                     })
                     .filter(x => x != null);
 
-                this._textNodeMap.set(node, {words, template} as TextNodeMapValue);
+                textNodeMap.set(node, {words, template} as TextNodeMapValue);
             }
 
             node = nodes.nextNode();
         }
+
+        return textNodeMap;
+    }
+
+    // Loop over a TemplateMap, and replace the text nodes with data keys
+    protected _updateTemplateNodes(templateNodeMap: TemplateMap, data: object = this) {
+        const existing = Array.from(templateNodeMap);
+        for (const [node, {words, template}] of existing) {
+            let replace = template;
+            words.forEach(w => {
+                let replacement: any = query(data, w);
+                if (replacement === undefined) replacement = '';
+                const r = new RegExp(`{{${w}}}`, 'g');
+                replace = replace.replace(r, replacement);
+            });
+
+            node.nodeValue = replace;
+        }
+    }
+
+    protected _renderTemplate(template: string, data: object = this): DocumentFragment {
+        const t = this.templates[template];
+        if (!t) {
+            this._error(`Could not render template ${template}. Template does not exist`);
+        }
+
+        const tn: DocumentFragment = document.importNode(this.templates[template], true);
+        const nodeMap: TemplateMap = this._getTemplateMap(tn);
+        this._updateTemplateNodes(nodeMap, data);
+
+        return tn;
     }
 }

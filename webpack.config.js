@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['.ts'],
+        extensions: ['.ts', '.js', '.json'],
         alias: {
             'icons': path.resolve(__dirname, 'node_modules/origami-icons')
         }
@@ -40,5 +40,8 @@ module.exports = {
         libraryTarget: 'umd',
         library: 'zen',
         umdNamedDefine: true
+    },
+    node: {
+        fs: "empty"
     }
 }

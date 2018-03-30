@@ -14,9 +14,10 @@
     "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped src/**/*.ts --fix"
   },
   "dependencies": {
+    "@types/jsonpath": "^0.2.0",
     "css-loader": "^0.28.11",
     "deepequal": "^0.0.1",
-    "json-query": "^2.2.2",
+    "jsonpath": "^1.0.0",
     "origami-icons": "^0.0.3",
     "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.7",
