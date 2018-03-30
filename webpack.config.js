@@ -2,6 +2,8 @@ const path = require('path');
 const PATH_SRC = path.resolve(__dirname, 'src');
 const PATH_DIST = path.resolve(__dirname, '_bundles');
 
+const BitBarPlugin = require('bitbar-webpack-progress-plugin');
+
 module.exports = {
     entry: {
         "zen": path.join(PATH_SRC, 'index.ts'),
@@ -43,5 +45,8 @@ module.exports = {
     },
     node: {
         fs: "empty"
-    }
+    },
+    plugins: [
+        new BitBarPlugin()
+    ]
 }

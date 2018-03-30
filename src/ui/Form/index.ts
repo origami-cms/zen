@@ -136,6 +136,7 @@ export default class Form extends Element {
     private _updateExistingRow(f: Field, v: any): boolean {
         // Attempt to find an existing element...
         let existing = this._root.querySelector(`*[name='${f.name}'`) as HTMLInputElement;
+
         if (!existing && f.type === 'submit') {
             existing = this._root.querySelector('*[type="submit"]') as HTMLInputElement;
         }
@@ -233,6 +234,7 @@ export default class Form extends Element {
 
             case 'checkbox':
                 field = document.createElement('zen-ui-checkbox') as Checkbox;
+                if (f.name) field.setAttribute('name', f.name);
                 break;
 
 

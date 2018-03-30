@@ -12,7 +12,8 @@
             "es6",
             "es2015.promise",
             "dom",
-            "es2017.object"
+            "es2017.object",
+            "es2016.array.include"
         ],
         // "allowJs": true,                       /* Allow javascript files to be compiled. */
         // "checkJs": true,                       /* Report errors in .js files. */

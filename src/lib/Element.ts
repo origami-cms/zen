@@ -34,8 +34,9 @@ export default class Element extends HTMLElement {
 
         const c = (this.constructor as typeof Element);
 
-        c.boundProps.forEach(p => {
+        c.boundProps.forEach((p: string) => {
             let prop: string;
+
 
             Object.defineProperty(this, p, {
                 get: () => prop,
@@ -53,11 +54,6 @@ export default class Element extends HTMLElement {
             });
         });
 
-        // if (c.defaultProps) {
-        //     Object.entries(c.defaultProps).forEach(([k, v]: [string, any]) => {
-        //         this[k] = v;
-        //     });
-        // }
         this._name = name;
         this._useShadowRoot = useShadowRoot;
 
