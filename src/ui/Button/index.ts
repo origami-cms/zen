@@ -10,6 +10,7 @@ import Icon from '../Icon';
 export default class Button extends Element {
     size: string = 'main';
     icon: string | false = false;
+    'icon-position': boolean = false;
     hollow: boolean = false;
     color: string = 'main';
     private _icon: Icon;
@@ -20,11 +21,11 @@ export default class Button extends Element {
     }
 
     static get boundProps() {
-        return ['type', 'color', 'size', 'icon', 'hollow'];
+        return ['type', 'color', 'size', 'icon', 'hollow', 'icon-position'];
     }
 
     static get observedAttributes() {
-        return ['type', 'color', 'size', 'hollow'];
+        return ['type', 'color', 'size', 'hollow', 'icon-position'];
     }
 
     attributeChangedCallback(attr: keyof Button, oldV: string, newV: string): void {
@@ -33,12 +34,19 @@ export default class Button extends Element {
             case 'color':
             case 'size':
             case 'hollow':
+            case 'icon-position':
                 this[attr] = newV;
                 break;
         }
     }
 
-    async propertyChangedCallback(prop: string, oldV: string, newV: string): Promise<void> {
+    connectedCallback() {
+        super.connectedCallback();
+
+        this.icon = this.getAttribute('icon') || false;
+    }
+
+    async propertyChangedCallback(prop: keyof Button, oldV: string, newV: string): Promise<void> {
         await this.ready();
         switch (prop) {
             case 'icon':
@@ -49,6 +57,17 @@ export default class Button extends Element {
                     this._icon.size = this.size;
                 }
                 break;
+
+            case 'icon-position':
+                if (!this.icon) return;
+                if (newV === 'right') {
+                    this._root.appendChild(this._icon);
+                    this.classList.add('icon-right');
+                } else {
+                    this._root.insertBefore(this._icon, this._root.firstChild);
+                    this.classList.remove('icon-right');
+                }
+
 
             case 'color':
                 // this.button.classList.toggle(oldV, false);
