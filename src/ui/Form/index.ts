@@ -4,11 +4,14 @@ import CSS from './form.scss';
 import * as _ from 'lodash';
 
 
-import './Checkbox';
 import Icon from '../Icon';
+import Checkbox from './Checkbox';
 
 
-export type FieldType = 'text' | 'submit' | 'textarea' | 'input' | 'password' | 'email';
+export {default as Checkbox} from './Checkbox';
+
+
+export type FieldType = 'text' | 'submit' | 'textarea' | 'input' | 'password' | 'email' | 'select' | 'date' | 'checkbox' | 'number';
 
 
 export interface Field {
@@ -19,6 +22,10 @@ export interface Field {
     iconColor?: string;
     placeholder?: string;
     color?: string;
+    options?: {
+        [key: string]: string
+    };
+    required?: boolean;
 }
 
 
@@ -73,6 +80,8 @@ export default class Form extends Element {
                 break;
 
             default:
+                console.log(prop);
+
                 break;
         }
     }
@@ -86,13 +95,15 @@ export default class Form extends Element {
     render() {
         super.render();
 
+        if (!this.fields) return;
+
         // Loop over each field and either update the existing row, or
         // create a new one
         this.fields.forEach(f => {
             const v = this.values[f.name] || '';
 
-            // Attempt to update an existing field or create a new one
-            if (!this._updateExistingRow(f, v)) this._createField(f, v);
+            // Attempt to update an existing row/field or create a new one
+            if (!this._updateExistingRow(f, v)) this._createRow(f, v);
         });
 
 
@@ -167,7 +178,7 @@ export default class Form extends Element {
     private _createField(f: Field, v: any): HTMLElement | false {
         let field: any = document.createElement('input');
 
-        const keyup = () => {
+        const change = () => {
             this.values = {
                 ...this.values,
                 ...{[f.name]: field.value}
@@ -175,17 +186,10 @@ export default class Form extends Element {
         };
 
         switch (f.type) {
-            // Case 'textarea':
-            // field = document.createElement('textarea');
-            // field.value = v;
-            // field.name = f.name;
-            // field.addEventListener('keyup', keyup);
-            // break;
-
             case 'textarea':
                 field = document.createElement('wc-wysiwyg');
                 field.name = f.name;
-                field.addEventListener('keyup', keyup);
+                field.addEventListener('keyup', change);
 
                 // TODO: Wait for ready
                 setTimeout(() => {
@@ -197,11 +201,13 @@ export default class Form extends Element {
             case 'input':
             case 'password':
             case 'email':
+            case 'number':
+            case 'date':
                 field.value = v;
                 field.name = f.name;
                 field.type = f.type;
-                field.addEventListener('keyup', keyup);
-                field.placeholder = f.placeholder;
+                field.addEventListener('keyup', change);
+                if (f.placeholder) field.placeholder = f.placeholder;
                 break;
 
             case 'submit':
@@ -210,8 +216,28 @@ export default class Form extends Element {
                 if (f.color) field.classList.add(f.color);
                 break;
 
+            case 'select':
+                field = document.createElement('select');
+                field.name = f.name;
+                if (f.options) {
+                    Object.entries(f.options).forEach(([o, v]) => {
+                        const opt = document.createElement('option');
+                        opt.value = o;
+                        opt.innerHTML = v;
+                        field.appendChild(opt);
+                    });
+                }
+                break;
+
+            case 'checkbox':
+                console.log('shiet');
+
+                field = document.createElement('zen-ui-checkbox') as Checkbox;
+                break;
+
+
             default:
-                console.warn(`Field type '${f.type}' is not supported`);
+                this._warn(`Field type '${f.type}' is not supported`);
 
                 return false;
         }

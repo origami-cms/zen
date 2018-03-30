@@ -1,5 +1,7 @@
+@import '~zen-css/import';
 :host {
     display: block;
+    @extend %comp-form;
 }
 
 span.error {

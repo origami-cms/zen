@@ -1,18 +1,21 @@
 import Element from '../../../lib/Element';
 import HTML from './checkbox.html';
+import CSS from './checkbox.scss';
 
 export default class Checkbox extends Element {
-    input: HTMLInputElement;
+    input: HTMLInputElement | null = null;
 
     constructor() {
-        super(HTML, false, 'Checkbox');
-        this.html = HTML;
+        super(HTML, CSS, 'Checkbox');
+    }
 
+    connectedCallback() {
         this.input = this._root.querySelector('input') as HTMLInputElement;
         this.input.addEventListener('change', () => this.trigger('change'));
     }
 
-    get checked() {
+    get checked(): boolean | null {
+        if (!this.input) return null;
         return this.input.checked;
     }
 

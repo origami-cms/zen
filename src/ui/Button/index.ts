@@ -7,7 +7,7 @@ import CSS from './button.scss';
 import Icon from '../Icon';
 
 
-window.customElements.define('zen-ui-button', class Button extends Element {
+export default class Button extends Element {
     size: string = 'main';
     icon: string | false = false;
     hollow: boolean = false;
@@ -65,4 +65,7 @@ window.customElements.define('zen-ui-button', class Button extends Element {
                 // this.button.classList.toggle('hollow', Boolean(newV));
         }
     }
-});
+}
+
+
+window.customElements.define('zen-ui-button', Button);

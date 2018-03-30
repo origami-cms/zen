@@ -79,4 +79,5 @@ export default class Icon extends Element {
         }
     }
 }
+
 window.customElements.define('zen-ui-icon', Icon);
