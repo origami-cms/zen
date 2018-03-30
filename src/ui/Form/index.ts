@@ -72,23 +72,25 @@ export default class Form extends Element {
     //     }
     // }
 
-    async propertyChangedCallback(prop: string, oldV: string, newV: string): Promise<void> {
+    async propertyChangedCallback(prop: keyof Form, oldV: string, newV: string): Promise<void> {
         await this.ready();
         switch (prop) {
             case 'error':
                 this.updateError();
                 break;
 
-            default:
-                console.log(prop);
+            case 'values':
+                this.trigger('change', this.values);
+                break;
 
+            default:
                 break;
         }
     }
 
     updateError() {
-        const err = this._root.querySelector('.error');
-        if (err) err.classList.toggle('hide', !this.error);
+        const err = this._root.querySelector('.error') as HTMLSpanElement;
+        if (err) err.style.display = !this.error ? 'none' : '';
     }
 
 
@@ -230,8 +232,6 @@ export default class Form extends Element {
                 break;
 
             case 'checkbox':
-                console.log('shiet');
-
                 field = document.createElement('zen-ui-checkbox') as Checkbox;
                 break;
 
