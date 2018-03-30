@@ -1,17 +1,29 @@
 import Element from '../../lib/Element';
 import HTML from './form.html';
 import CSS from './form.scss';
-import * as _ from 'lodash';
+import {isEqual} from 'lodash';
 
 
 import Icon from '../Icon';
 import Checkbox from './Checkbox';
+import {ValidatorRules} from './Validator/rules';
+import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validtor';
 
 
 export {default as Checkbox} from './Checkbox';
 
 
-export type FieldType = 'text' | 'submit' | 'textarea' | 'input' | 'password' | 'email' | 'select' | 'date' | 'checkbox' | 'number';
+export type FieldType =
+    'text' |
+    'submit' |
+    'textarea' |
+    'input' |
+    'password' |
+    'email' |
+    'select' |
+    'date' |
+    'checkbox' |
+    'number';
 
 
 export interface Field {
@@ -26,14 +38,26 @@ export interface Field {
         [key: string]: string
     };
     required?: boolean;
+    disabled?: boolean;
+    validate: ValidatorRules;
+}
+
+export interface Fieldsets {
+    [key: string]: Field[];
+}
+
+export interface FormValues {
+    [key: string]: any;
 }
 
 
 export default class Form extends Element {
     form: HTMLFormElement;
     error: string | null = null;
-    values: {[key: string]: any} = {};
+    values: FormValues = {};
     fields: Field[] = [];
+
+    private _fieldErrors: ValidateFieldErrors | undefined = undefined;
 
     constructor() {
         super(HTML, CSS.toString(), 'Form');
@@ -47,7 +71,7 @@ export default class Form extends Element {
     }
 
     static get boundProps() {
-        return ['fields', 'values', 'error'];
+        return ['fields', 'values', 'error', '_fieldErrors'];
     }
 
     static get observedAttributes() {
@@ -115,7 +139,7 @@ export default class Form extends Element {
             const order = this._fieldOrder;
 
             // If the order and the existing field order don't match, reorder
-            if (!_.isEqual(order, children.map(el => el.getAttribute('data-name')))) {
+            if (!isEqual(order, children.map(el => el.getAttribute('data-name')))) {
                 children
                     .map((el): [number, HTMLElement] => [
                         order.indexOf(el.getAttribute('data-name') || ''),
@@ -134,6 +158,9 @@ export default class Form extends Element {
     }
 
     private _updateExistingRow(f: Field, v: any): boolean {
+        let errors: false | ValidationErrors = false;
+        if (this._fieldErrors) errors = this._fieldErrors[f.name];
+
         // Attempt to find an existing element...
         let existing = this._root.querySelector(`*[name='${f.name}'`) as HTMLInputElement;
 
@@ -146,6 +173,7 @@ export default class Form extends Element {
         if (existing) {
             existing.value = v;
             if (f.type === 'submit') existing.value = f.value || 'Submit';
+            existing.classList.toggle('error', Boolean(errors));
 
             return true;
         }
@@ -256,6 +284,18 @@ export default class Form extends Element {
         this.dispatchEvent(event);
 
         return false;
+    }
+
+
+    validate() {
+        const v = new Validator({
+            fields: this.fields
+        });
+        const {valid, fields} = v.validate(this.values);
+
+        this._fieldErrors = fields;
+
+        return valid;
     }
 }
 
