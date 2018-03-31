@@ -1,8 +1,13 @@
 <template id="form-row">
     <div class="form-row">
         <zen-ui-icon ></zen-ui-icon>
-        <!-- <span class="error">{{error}}</span> -->
+        <span class="error"></span>
     </div>
+</template>
+
+<template id="error">
+    <zen-ui-icon type="error" color="error"></zen-ui-icon>
+    <span>{{error}}</span>
 </template>
 
 <slot name="before"></slot>

@@ -6,7 +6,8 @@
 
 span.error {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: var(--size-small);
+    zen-ui-icon, zen-ui-icon + span { vertical-align: middle; }
 
     &:empty { display: none; }
 }

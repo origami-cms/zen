@@ -9,6 +9,10 @@
         vertical-align: middle;
     }
 
+    & + span {
+        vertical-align: middle;
+    }
+
     svg {
         display: inline-block;
         vertical-align: top;

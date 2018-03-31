@@ -58,6 +58,8 @@ export default class Form extends Element {
     fields: Field[] = [];
 
     private _fieldErrors: ValidateFieldErrors | undefined = undefined;
+    private _validateOnChange: boolean = false;
+    private _showErrors: boolean = false;
 
     constructor() {
         super(HTML, CSS.toString(), 'Form');
@@ -104,7 +106,8 @@ export default class Form extends Element {
                 break;
 
             case 'values':
-                this.trigger('change', this.values);
+                if (this._validateOnChange) this.validate(this._showErrors);
+                this.trigger('change', this.values, true);
                 break;
 
             default:
@@ -173,7 +176,22 @@ export default class Form extends Element {
         if (existing) {
             existing.value = v;
             if (f.type === 'submit') existing.value = f.value || 'Submit';
-            existing.classList.toggle('error', Boolean(errors));
+            if (this._showErrors) existing.classList.toggle('error', Boolean(errors));
+
+            const existingRow = this._root.querySelector(
+                `.form-row[data-name='${f.name}'`
+            ) as HTMLDivElement;
+
+            if (this._showErrors) {
+                const errorSpan = existingRow.querySelector('span.error') as HTMLSpanElement;
+                errorSpan.style.display = errors ? '' : 'none';
+                if (errors) {
+                    errorSpan.innerHTML = '';
+                    errorSpan.appendChild(this._renderTemplate('error', {
+                        error: errors[Object.keys(errors)[0]]
+                    }));
+                }
+            }
 
             return true;
         }
@@ -250,6 +268,17 @@ export default class Form extends Element {
             case 'select':
                 field = document.createElement('select');
                 field.name = f.name;
+                field.addEventListener('change', change);
+
+                if (f.placeholder) {
+                    const opt = document.createElement('option');
+                    opt.selected = true;
+                    opt.disabled = true;
+                    opt.value = '';
+                    opt.innerHTML = f.placeholder;
+                    field.appendChild(opt);
+                }
+
                 if (f.options) {
                     Object.entries(f.options).forEach(([o, v]) => {
                         const opt = document.createElement('option');
@@ -266,6 +295,7 @@ export default class Form extends Element {
                 break;
 
 
+            // TODO: Custom web component fields
             default:
                 this._warn(`Field type '${f.type}' is not supported`);
 
@@ -279,21 +309,32 @@ export default class Form extends Element {
     submit(e: Event) {
         e.preventDefault();
         e.stopPropagation();
-        const event = document.createEvent('CustomEvent');
-        event.initCustomEvent('submit', false, false, {});
-        this.dispatchEvent(event);
+        if (!this.validate()) return false;
+
+        const active = this._root.querySelector('*:focus') as HTMLElement;
+        if (active.blur) active.blur();
+
+        this.trigger('submit');
 
         return false;
     }
 
 
-    validate() {
+    validate(showErrors: boolean = true) {
+        this._validateOnChange = true;
+
+        this._showErrors = showErrors;
+
         const v = new Validator({
             fields: this.fields
         });
         const {valid, fields} = v.validate(this.values);
 
         this._fieldErrors = fields;
+
+        this.trigger('validated', {
+            valid
+        });
 
         return valid;
     }
