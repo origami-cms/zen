@@ -13,6 +13,7 @@ export default class Button extends Element {
     'icon-position': boolean = false;
     hollow: boolean = false;
     color: string = 'main';
+    disabled: boolean = false;
     private _icon: Icon;
 
     constructor() {
@@ -21,11 +22,11 @@ export default class Button extends Element {
     }
 
     static get boundProps() {
-        return ['type', 'color', 'size', 'icon', 'hollow', 'icon-position'];
+        return ['type', 'color', 'size', 'icon', 'hollow', 'icon-position', 'disabled'];
     }
 
     static get observedAttributes() {
-        return ['type', 'color', 'size', 'hollow', 'icon-position'];
+        return ['type', 'color', 'size', 'hollow', 'icon-position', 'disabled'];
     }
 
     attributeChangedCallback(attr: keyof Button, oldV: string, newV: string): void {
@@ -37,6 +38,8 @@ export default class Button extends Element {
             case 'icon-position':
                 this[attr] = newV;
                 break;
+            case 'disabled':
+                this.disabled = Boolean(newV);
         }
     }
 
@@ -80,8 +83,15 @@ export default class Button extends Element {
                 if (this._icon) this._icon.size = newV;
                 break;
 
-            case 'hollow':
+            // case 'hollow':
                 // this.button.classList.toggle('hollow', Boolean(newV));
+                // break;
+            case 'disabled':
+                if (newV) {
+                    if (this.getAttribute('disabled') !== newV) this.setAttribute('disabled', newV);
+                }
+                if (this.getAttribute('disabled') && !newV) this.removeAttribute('disabled');
+                break;
         }
     }
 }
