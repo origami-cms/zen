@@ -39,7 +39,7 @@ export interface Field {
     };
     required?: boolean;
     disabled?: boolean;
-    validate: ValidatorRules;
+    validate?: ValidatorRules;
 }
 
 export interface Fieldsets {
