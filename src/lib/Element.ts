@@ -209,7 +209,7 @@ export default class Element extends HTMLElement {
             let replace = template;
             words.forEach(w => {
                 let replacement: any = query(data, w);
-                if (replacement === undefined) replacement = '';
+                if (replacement === undefined || replacement === null) replacement = '';
                 const r = new RegExp(`{{${w}}}`, 'g');
                 replace = replace.replace(r, replacement);
             });
