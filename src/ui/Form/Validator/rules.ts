@@ -60,13 +60,13 @@ const rules: ValidatorFunctions = {
         if (val.length < minSize) return `This field has a minimum size of ${minSize}`;
     },
 
-    number(val: any): string | void {
-        if (!(/^[0-9]+$/).test(val)) return 'This field should be a number';
+    number(val: any, required: boolean): string | void {
+        if (!(/^[0-9]+$/).test(val) && required) return 'This field should be a number';
     },
 
-    tel(val: any): string | void {
+    tel(val: any, required: boolean): string | void {
         // TODO: Phone number checking
-        return 'NO';
+        if (required) return 'NO';
         // if (!isValidNumber (val)) return 'This field should be a telephone number';
     }
 };
