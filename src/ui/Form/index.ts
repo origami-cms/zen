@@ -13,34 +13,9 @@ import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Vali
 export {default as Checkbox} from './Checkbox';
 
 
-export type FieldType =
-    'text' |
-    'submit' |
-    'textarea' |
-    'input' |
-    'password' |
-    'email' |
-    'select' |
-    'date' |
-    'checkbox' |
-    'number';
+import {Field, FieldMixinIcon} from './FieldTypes';
+export {Field} from './FieldTypes';
 
-
-export interface Field {
-    name: string;
-    type: FieldType;
-    value?: any;
-    icon?: string;
-    iconColor?: string;
-    placeholder?: string;
-    color?: string;
-    options?: {
-        [key: string]: string
-    };
-    required?: boolean;
-    disabled?: boolean;
-    validate?: ValidatorRules;
-}
 
 export interface Fieldsets {
     [key: string]: Field[];
@@ -56,6 +31,7 @@ export default class Form extends Element {
     error: string | null = null;
     values: FormValues = {};
     fields: Field[] = [];
+    loading: boolean = false;
 
     private _fieldErrors: ValidateFieldErrors | undefined = undefined;
     private _validateOnChange: boolean = false;
@@ -73,7 +49,7 @@ export default class Form extends Element {
     }
 
     static get boundProps() {
-        return ['fields', 'values', 'error', '_fieldErrors'];
+        return ['fields', 'values', 'error', '_fieldErrors', 'loading'];
     }
 
     static get observedAttributes() {
@@ -110,13 +86,17 @@ export default class Form extends Element {
                 this.trigger('change', this.values, true);
                 break;
 
+            case 'loading':
+                const submit = this._root.querySelector('input[type=submit]');
+                if (submit) (submit as HTMLInputElement).disabled = Boolean(newV);
+
             default:
                 break;
         }
     }
 
     updateError() {
-        const err = this._root.querySelector('.error') as HTMLSpanElement;
+        const err = this._root.querySelector('.main-error') as HTMLSpanElement;
         if (err) err.style.display = !this.error ? 'none' : '';
     }
 
@@ -180,10 +160,10 @@ export default class Form extends Element {
 
             const existingRow = this._root.querySelector(
                 `.form-row[data-name='${f.name}'`
-            ) as HTMLDivElement;
+            );
 
-            if (this._showErrors) {
-                const errorSpan = existingRow.querySelector('span.error') as HTMLSpanElement;
+            if (this._showErrors && existingRow) {
+                const errorSpan = (existingRow as HTMLElement).querySelector('span.error') as HTMLSpanElement;
                 errorSpan.style.display = errors ? '' : 'none';
                 if (errors) {
                     errorSpan.innerHTML = '';
@@ -212,9 +192,10 @@ export default class Form extends Element {
         if (!field) return false;
 
         const icon = row.querySelector('zen-ui-icon') as Icon;
-        if (f.icon) {
-            icon.type = f.icon;
-            icon.color = f.iconColor || 'shade-5';
+        const _f = f as FieldMixinIcon;
+        if (_f.icon) {
+            icon.type = _f.icon;
+            icon.color = _f.iconColor || 'shade-5';
         } else icon.remove();
 
         row.appendChild(field);
@@ -228,11 +209,17 @@ export default class Form extends Element {
         let field: any = document.createElement('input');
 
         const change = () => {
+            let v: any = field.value;
+
+            if (f.type === 'checkbox') v = field.checked;
+
             this.values = {
                 ...this.values,
-                ...{[f.name]: field.value}
+                ...{[f.name]: v}
             };
         };
+
+        const {type} = f;
 
         switch (f.type) {
             case 'textarea':
@@ -292,12 +279,13 @@ export default class Form extends Element {
             case 'checkbox':
                 field = document.createElement('zen-ui-checkbox') as Checkbox;
                 if (f.name) field.setAttribute('name', f.name);
+                (field.shadowRoot).addEventListener('change', change);
                 break;
 
 
             // TODO: Custom web component fields
             default:
-                this._warn(`Field type '${f.type}' is not supported`);
+                this._warn(`Field type '${type}' is not supported`);
 
                 return false;
         }

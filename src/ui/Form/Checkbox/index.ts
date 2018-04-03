@@ -16,7 +16,7 @@ export default class Checkbox extends Element {
 
     connectedCallback() {
         this.input = this._root.querySelector('input') as HTMLInputElement;
-        this.input.addEventListener('change', () => this.trigger('change'));
+        this.input.addEventListener('change', this._handleChange.bind(this));
     }
 
     get checked(): boolean | null {
@@ -51,6 +51,11 @@ export default class Checkbox extends Element {
             default:
                 break;
         }
+    }
+
+    private _handleChange(e: Event) {
+        e.stopPropagation();
+        this.trigger('change');
     }
 }
 

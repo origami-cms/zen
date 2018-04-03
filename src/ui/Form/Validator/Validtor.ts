@@ -1,4 +1,4 @@
-import Rules, {ValidatorRules, ValidatorRuleNames} from './rules';
+import Rules, {ValidatorRules, ValidatorFunctions} from './rules';
 import {Field, Fieldsets, FormValues} from '..';
 
 /** Options for constructing the validator */
@@ -126,16 +126,17 @@ export default class Validator {
         // If field is disabled or submit button, skip validation
         if (field.disabled || field.type === 'submit') return true;
 
-        const rules = {...this._defaultRules, ...field.validate};
+        const rules: ValidatorRules = {...this._defaultRules, ...field.validate};
         const errors: ValidationErrors = {};
 
         // Loop over each of the rules
         for (const [rule, v] of Object.entries(rules)) {
             if (v !== false) {
-                const validateFn = Rules[rule as ValidatorRuleNames];
+                const validateFn: Function = (Rules as any)[rule as keyof ValidatorFunctions];
                 if (!validateFn) throw new Error(`Zen.UI.Validator: Invalid rule ${rule}`);
 
                 const err = validateFn(val, v);
+
                 if (err) errors[rule] = err;
             }
         }
