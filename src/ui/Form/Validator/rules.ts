@@ -1,3 +1,4 @@
+import * as EmailValidator from 'email-validator';
 // import {isValidNumber} from 'libphonenumber-js';
 
 // export type ValidatorRuleNames =
@@ -47,27 +48,33 @@ export type ValidatorFunctions = {
     [key in keyof ValidatorRules]: Function
 };
 
+type ValidatorReturn = string | void;
+
 const rules: ValidatorFunctions = {
-    required(val: any, required: boolean): string | void {
+    required(val: any, required: boolean): ValidatorReturn {
         if (!Boolean(val) && required) return 'This field is required';
     },
 
-    maxlen(val: any, maxSize: number): string | void {
+    maxlen(val: any, maxSize: number): ValidatorReturn {
         if (val.length > maxSize) return `This field has a maximum size of ${maxSize}`;
     },
 
-    minlen(val: any, minSize: number): string | void {
+    minlen(val: any, minSize: number): ValidatorReturn {
         if (val.length < minSize) return `This field has a minimum size of ${minSize}`;
     },
 
-    number(val: any, required: boolean): string | void {
+    number(val: any, required: boolean): ValidatorReturn {
         if (!(/^[0-9]+$/).test(val) && required) return 'This field should be a number';
     },
 
-    tel(val: any, required: boolean): string | void {
+    tel(val: any, required: boolean): ValidatorReturn {
         // TODO: Phone number checking
         if (required) return 'NO';
         // if (!isValidNumber (val)) return 'This field should be a telephone number';
+    },
+
+    email(val: string, required: boolean): ValidatorReturn {
+        if (!EmailValidator.validate(val)) return 'Invalid email';
     }
 };
 

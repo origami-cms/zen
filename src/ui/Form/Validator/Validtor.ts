@@ -128,17 +128,30 @@ export default class Validator {
 
         const rules: ValidatorRules = {...this._defaultRules, ...field.validate};
         const errors: ValidationErrors = {};
+        const _R = Rules as {[key: string]: Function};
 
         // Loop over each of the rules
         for (const [rule, v] of Object.entries(rules)) {
             if (v !== false) {
-                const validateFn: Function = (Rules as any)[rule as keyof ValidatorFunctions];
+                const validateFn = _R[rule as keyof ValidatorFunctions];
                 if (!validateFn) throw new Error(`Zen.UI.Validator: Invalid rule ${rule}`);
 
                 const err = validateFn(val, v);
 
                 if (err) errors[rule] = err;
             }
+        }
+
+        // Default validation for certain field types
+        switch (field.type) {
+            case 'email':
+                const e = _R['email'](val, true);
+                if (e) errors['email'] = e;
+
+                break;
+
+            default:
+                break;
         }
 
         return Object.entries(errors).length ? {field: field.name, errors} : true;
