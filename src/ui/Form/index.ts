@@ -238,13 +238,26 @@ export default class Form extends Element {
                 }, 10);
                 break;
 
+            // HACK: To get the placeholder working
+            case 'date':
+                field.value = v;
+                field.name = f.name;
+                field.type = 'text';
+                field.addEventListener('keyup', change);
+                if (f.placeholder) field.placeholder = f.placeholder;
+                field.addEventListener('focus', () => field.type = 'date');
+                field.addEventListener('blur', () => {
+                    if (!field.value) field.type = 'text';
+                });
+
+                break;
+
 
             case 'text':
             case 'input':
             case 'password':
             case 'email':
             case 'number':
-            case 'date':
                 field.value = v;
                 field.name = f.name;
                 field.type = f.type;
