@@ -72,20 +72,14 @@ export default class Button extends Element {
                 }
 
 
-            case 'color':
-                // this.button.classList.toggle(oldV, false);
-                // this.button.classList.toggle(newV, true);
-                break;
-
             case 'size':
-                // this.button.classList.toggle(`size-${oldV}`, false);
-                // this.button.classList.toggle(`size-${newV}`, true);
                 if (this._icon) this._icon.size = newV;
                 break;
 
-            // case 'hollow':
-                // this.button.classList.toggle('hollow', Boolean(newV));
-                // break;
+            case 'hollow':
+                if (newV && this.icon) this._icon.color = this.color;
+                break;
+
             case 'disabled':
                 if (newV) {
                     if (this.getAttribute('disabled') !== newV) this.setAttribute('disabled', newV);
