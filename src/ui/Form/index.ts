@@ -6,12 +6,14 @@ import {isEqual} from 'lodash';
 
 import Icon from '../Icon';
 import Checkbox from './Checkbox';
-import {ValidatorRules} from './Validator/rules';
-import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validtor';
-
+import RadioIcons from './RadioIcons';
 
 export {default as Checkbox} from './Checkbox';
+export {default as RadioIcons} from './RadioIcons';
 
+
+import {ValidatorRules} from './Validator/rules';
+import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validtor';
 
 import {Field, FieldMixinIcon} from './FieldTypes';
 export {Field} from './FieldTypes';
@@ -198,14 +200,16 @@ export default class Form extends Element {
             icon.color = _f.iconColor || 'shade-5';
         } else icon.remove();
 
-        row.appendChild(field);
+        if (field instanceof Array) {
+            field.forEach(f => row.appendChild(f));
+        } else row.appendChild(field);
         this.form.appendChild(row);
 
         return row;
     }
 
 
-    private _createField(f: Field, v: any): HTMLElement | false {
+    private _createField(f: Field, v: any): HTMLElement | HTMLElement[] | false {
         let field: any = document.createElement('input');
 
         const change = () => {
@@ -221,6 +225,7 @@ export default class Form extends Element {
 
         const {type} = f;
 
+
         switch (f.type) {
             case 'textarea':
                 field = document.createElement('wc-wysiwyg');
@@ -232,6 +237,7 @@ export default class Form extends Element {
                     field.value = v;
                 }, 10);
                 break;
+
 
             case 'text':
             case 'input':
@@ -246,11 +252,13 @@ export default class Form extends Element {
                 if (f.placeholder) field.placeholder = f.placeholder;
                 break;
 
+
             case 'submit':
                 field.type = f.type;
                 field.value = f.value || 'Submit';
                 if (f.color) field.classList.add(f.color);
                 break;
+
 
             case 'select':
                 field = document.createElement('select');
@@ -276,8 +284,23 @@ export default class Form extends Element {
                 }
                 break;
 
+
             case 'checkbox':
                 field = document.createElement('zen-ui-checkbox') as Checkbox;
+                if (f.name) field.setAttribute('name', f.name);
+                (field.shadowRoot).addEventListener('change', change);
+
+                if (f.label) {
+                    const label = document.createElement('span');
+                    label.innerHTML = f.label;
+                    return [field, label];
+                }
+                break;
+
+
+            case 'radio-icons':
+                field = document.createElement('zen-ui-radio-icons') as RadioIcons;
+                field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
                 (field.shadowRoot).addEventListener('change', change);
                 break;

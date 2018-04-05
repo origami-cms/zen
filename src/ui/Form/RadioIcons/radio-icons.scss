@@ -1,0 +1,50 @@
+@import '~zen-css/import';
+ul.options {
+    @extend %reset;
+    list-style: none;
+    display: flex;
+
+
+    li.option {
+        position: relative;
+        flex: 1;
+        text-align: center;
+        cursor: pointer;
+        border: var(--border-200);
+        border-radius: var(--border-radius);
+        padding: var(--size-main) 0;
+        transition: all default('transition-time');
+
+         &:before {
+            @extend %cover;
+            content: '';
+            background-color: var(--color-main);
+            opacity: 0;
+            transition: all default('transition-time');
+        }
+
+        &.active {
+            border: var(--border-main);
+            &:before {
+                opacity: 0.2;
+            }
+        }
+
+        margin-right: var(--size-main);
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .img {
+            position: relative;
+            &, img, & > * {
+                max-height: calc(var(--size-super) * 1.5);
+            }
+        }
+        strong {
+            display: inline-block;
+            margin-top: var(--size-main);
+            font-weight: 700;
+        }
+    }
+}
