@@ -22,7 +22,7 @@ export default class RadioIcons extends Element {
     }
 
 
-    _replace() {
+    private _replace() {
         super.render();
         const g = this._grid;
         if (!g || !this.options) return;
@@ -85,7 +85,7 @@ export default class RadioIcons extends Element {
                     if (option) option.classList.add('active');
                 }
 
-                if (newV !== oldV) this.trigger('change');
+                if (newV !== oldV) this.trigger('change', {value: newV});
         }
     }
 }
