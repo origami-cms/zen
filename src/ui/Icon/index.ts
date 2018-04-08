@@ -59,7 +59,7 @@ export default class Icon extends Element {
                 const symbol = existing.cloneNode(true);
                 this.svg.appendChild(symbol);
                 // Update the ref on the use
-                this.use.setAttribute('xlink:href', this._prefix + newV);
+                this.use.setAttribute('href', this._prefix + newV);
                 break;
 
             case 'color':
