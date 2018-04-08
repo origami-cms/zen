@@ -12,7 +12,7 @@ ul.options {
         cursor: pointer;
         border: var(--border-200);
         border-radius: var(--border-radius);
-        padding: var(--size-main) 0;
+        padding: var(--size-tiny) 0;
         transition: all default('transition-time');
 
          &:before {
