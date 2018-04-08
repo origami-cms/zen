@@ -1,0 +1,9 @@
+@import '~zen-css/import';
+
+:host {
+    &, select { @extend %reset; }
+    select {
+        @extend %comp-form-input-general;
+        @extend %comp-form-input-select;
+    }
+}

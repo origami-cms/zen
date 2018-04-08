@@ -80,8 +80,7 @@ export default class RadioIcons extends Element {
                     .forEach(li => li.classList.remove('active'));
                 // Add active class to current option
                 if (newV) {
-                    const option = this._root.querySelector(`li[data-value=${newV.toString()}]`);
-                    console.log(option);
+                    const option = this._root.querySelector(`li[data-value="${newV.toString()}"]`);
                     if (option) option.classList.add('active');
                 }
 

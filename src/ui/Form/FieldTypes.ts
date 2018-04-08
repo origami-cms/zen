@@ -9,9 +9,11 @@ export interface FieldBase {
     name: string;
     value?: any;
     color?: string;
+    default?: any;
 
     required?: boolean;
     disabled?: boolean;
+    hidden?: boolean;
     validate?: ValidateBase;
 }
 
@@ -35,7 +37,7 @@ export interface FieldDefault extends FieldBase, FieldMixinPlaceholder, FieldMix
 }
 
 
-export interface FieldSelect extends FieldBase, FieldMixinPlaceholder {
+export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'select';
     options?: {
         [key: string]: string

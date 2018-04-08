@@ -1,5 +1,4 @@
 import 'whatwg-fetch';
-import {SERVER_API} from 'const';
 import * as CODES from 'http-status-codes';
 
 

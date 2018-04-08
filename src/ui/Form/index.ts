@@ -7,13 +7,15 @@ import {isEqual} from 'lodash';
 import Icon from '../Icon';
 import Checkbox from './Checkbox';
 import RadioIcons from './RadioIcons';
+import Select from './Select';
 
 export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
+export {default as Select} from './Select';
 
 
 import {ValidatorRules} from './Validator/rules';
-import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validtor';
+import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
 
 import {Field, FieldMixinIcon} from './FieldTypes';
 export {Field} from './FieldTypes';
@@ -69,12 +71,6 @@ export default class Form extends Element {
         });
     }
 
-    // attributeChangedCallback(attr: keyof ZenForm, oldV: string, newV: string): void {
-    //     switch (attr) {
-    //         case 'fields':
-    //             this[attr] = newV;
-    //     }
-    // }
 
     async propertyChangedCallback(prop: keyof Form, oldV: string, newV: string): Promise<void> {
         await this.ready();
@@ -146,8 +142,9 @@ export default class Form extends Element {
         let errors: false | ValidationErrors = false;
         if (this._fieldErrors) errors = this._fieldErrors[f.name];
 
+
         // Attempt to find an existing element...
-        let existing = this._root.querySelector(`*[name='${f.name}'`) as HTMLInputElement;
+        let existing = this._root.querySelector(`*[name='${f.name}']`) as HTMLInputElement;
 
         if (!existing && f.type === 'submit') {
             existing = this._root.querySelector('*[type="submit"]') as HTMLInputElement;
@@ -158,11 +155,13 @@ export default class Form extends Element {
         if (existing) {
             existing.value = v;
             if (f.type === 'submit') existing.value = f.value || 'Submit';
+            // @ts-ignore
+            if (f.type === 'select') existing.options = f.options;
             if (this._showErrors) existing.classList.toggle('error', Boolean(errors));
 
             const existingRow = this._root.querySelector(
-                `.form-row[data-name='${f.name}'`
-            );
+                `.form-row[data-name='${f.name}']`
+            ) as HTMLElement | null;
 
             if (this._showErrors && existingRow) {
                 const errorSpan = (existingRow as HTMLElement).querySelector('span.error') as HTMLSpanElement;
@@ -175,6 +174,8 @@ export default class Form extends Element {
                 }
             }
 
+            if (existingRow) existingRow.style.display = f.hidden ? 'none' : '';
+
             return true;
         }
 
@@ -183,6 +184,9 @@ export default class Form extends Element {
 
 
     private _createRow(f: Field, v: any): HTMLElement | false {
+        if (f.hidden) return false;
+
+
         // Create a new form row from the template
         const row = document.importNode(
             this.templates['form-row'],
@@ -274,27 +278,12 @@ export default class Form extends Element {
 
 
             case 'select':
-                field = document.createElement('select');
-                field.name = f.name;
-                field.addEventListener('change', change);
+                field = document.createElement('zen-ui-select') as Select;
+                if (f.name) field.setAttribute('name', f.name);
+                field.shadowRoot.addEventListener('change', change);
+                if (f.placeholder) field.placeholder = f.placeholder;
+                if (f.options) field.options = f.options;
 
-                if (f.placeholder) {
-                    const opt = document.createElement('option');
-                    opt.selected = true;
-                    opt.disabled = true;
-                    opt.value = '';
-                    opt.innerHTML = f.placeholder;
-                    field.appendChild(opt);
-                }
-
-                if (f.options) {
-                    Object.entries(f.options).forEach(([o, v]) => {
-                        const opt = document.createElement('option');
-                        opt.value = o;
-                        opt.innerHTML = v;
-                        field.appendChild(opt);
-                    });
-                }
                 break;
 
 
@@ -336,7 +325,7 @@ export default class Form extends Element {
         if (!this.validate()) return false;
 
         const active = this._root.querySelector('*:focus') as HTMLElement;
-        if (active.blur) active.blur();
+        if (active && active.blur) active.blur();
 
         this.trigger('submit');
 
