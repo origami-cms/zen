@@ -17,6 +17,9 @@ export default class Element extends HTMLElement {
         [key: string]: DocumentFragment
     } = {};
 
+    // Provided by polyfil
+    isConnected?: boolean;
+
     private readonly _readyPromise: Promise<void>;
     private _textNodeMap: TemplateMap = new Map();
     private _html: string;
@@ -29,7 +32,7 @@ export default class Element extends HTMLElement {
     attributeChangedCallback(attr: string, oldV: string, newV: string): void {}
 
 
-    constructor(html: string, css: string | false, name: string, useShadowRoot: boolean = true) {
+    constructor(html: string, css: string | false, name?: string, useShadowRoot: boolean = true) {
         super();
 
         const c = (this.constructor as typeof Element);
@@ -54,7 +57,7 @@ export default class Element extends HTMLElement {
             });
         });
 
-        this._name = name;
+        this._name = name || 'ZenElement';
         this._useShadowRoot = useShadowRoot;
 
         this._html = html;
