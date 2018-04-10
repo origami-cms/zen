@@ -148,7 +148,7 @@ export default class Element extends HTMLElement {
     }
 
 
-    trigger(event: string, detail?: object, bubbles = true) {
+    trigger(event: string, detail?: object | string, bubbles = true) {
         this._root.dispatchEvent(new CustomEvent(event, {
             bubbles,
             detail
