@@ -1,5 +1,5 @@
 import {Reducer, AnyAction} from 'redux';
-import immutable, {ImmutableObject, ImmutableArray} from 'seamless-immutable';
+import immutable, {ImmutableObject, ImmutableArray, ImmutableObjectMixin} from 'seamless-immutable';
 
 export interface ResourceState {
     loadedInitial: boolean;
@@ -18,15 +18,15 @@ export interface Resource {
     [key: string]: any;
 }
 
-export default (resource: string, func: Function, key: string = 'id') => {
+export type ResourceStateMixin<S> = S & ResourceState;
+
+export default (resource: string, func?: Function | null, key: string = 'id') => {
     const up = resource.toUpperCase();
     const singular = resource.slice(0, -1);
 
-    const s = Symbol(resource);
 
-
-    const initialState: State = immutable({
-        [resource]: [],
+    const initialState = immutable({
+        [resource]: immutable([]) as ImmutableArray<any>,
         loadedInitial: false,
         loading: {
             all: false,
@@ -37,9 +37,9 @@ export default (resource: string, func: Function, key: string = 'id') => {
         }
     });
 
-
-    return (state: State = initialState, action: AnyAction) => {
-        const resourceList = (state[resource] as ImmutableArray<any>).asMutable();
+    return (state = initialState, action: AnyAction) => {
+        const res = state[resource] as ImmutableArray<any>;
+        const resourceList = res.asMutable();
 
         const findIndexByKey = (res: Resource) =>
             resourceList.findIndex(r => r[key] === res[key]);
@@ -71,7 +71,7 @@ export default (resource: string, func: Function, key: string = 'id') => {
                     // then update it
                     if (existing >= 0) {
                         updated = updated.setIn([resource, existing.toString()], {
-                            ...state[resource][existing],
+                            ...res[existing],
                             ...res
                         });
 
@@ -79,7 +79,7 @@ export default (resource: string, func: Function, key: string = 'id') => {
                     } else {
                         updated = updated.merge({
                             [resource]: [
-                                ...updated[resource],
+                                ...updated[resource] as ImmutableArray<any>,
                                 res
                             ],
                             loadedInitial: true
@@ -109,7 +109,7 @@ export default (resource: string, func: Function, key: string = 'id') => {
                 const s = state.setIn(
                     [resource, index.toString()],
                     {
-                        ...state[resource][index],
+                        ...res[index],
                         ...action[singular]
                     }
                 );
