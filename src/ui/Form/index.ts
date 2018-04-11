@@ -18,6 +18,7 @@ import {ValidatorRules} from './Validator/rules';
 import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
 
 import {Field, FieldMixinIcon} from './FieldTypes';
+import {Button} from '..';
 export {Field} from './FieldTypes';
 
 
@@ -85,8 +86,8 @@ export default class Form extends Element {
                 break;
 
             case 'loading':
-                const submit = this._root.querySelector('input[type=submit]');
-                if (submit) (submit as HTMLInputElement).disabled = Boolean(newV);
+                const submit = this._root.querySelector('.submit-button');
+                if (submit) (submit as Button).disabled = Boolean(newV);
 
             default:
                 break;
@@ -147,7 +148,7 @@ export default class Form extends Element {
         let existing = this._root.querySelector(`*[name='${f.name}']`) as HTMLInputElement;
 
         if (!existing && f.type === 'submit') {
-            existing = this._root.querySelector('*[type="submit"]') as HTMLInputElement;
+            existing = this._root.querySelector('.submit-button') as HTMLInputElement;
         }
 
         // If there is an existing element, update it's value, then continue
@@ -201,7 +202,7 @@ export default class Form extends Element {
         const _f = f as FieldMixinIcon;
         if (_f.icon) {
             icon.type = _f.icon;
-            icon.color = _f.iconColor || 'shade-5';
+            icon.color = _f.iconColor || 'grey-300';
         } else icon.remove();
 
         if (field instanceof Array) {
@@ -271,9 +272,11 @@ export default class Form extends Element {
 
 
             case 'submit':
-                field.type = f.type;
-                field.value = f.value || 'Submit';
-                if (f.color) field.classList.add(f.color);
+                field = document.createElement('zen-ui-button') as Button;
+                field.classList.add('submit-button');
+                field.innerHTML = f.value || 'Submit';
+                field.addEventListener('click', this.submit.bind(this));
+                if (f.color) field.color = f.color;
                 break;
 
 

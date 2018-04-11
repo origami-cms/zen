@@ -14,7 +14,10 @@ export default class Button extends Element {
     hollow: boolean = false;
     color: string = 'main';
     disabled: boolean = false;
+    loading: boolean = false;
     private _icon: Icon;
+    private _contents?: HTMLSpanElement;
+    private _loader?: HTMLSpanElement;
 
     constructor() {
         super(HTML, CSS.toString(), 'Button');
@@ -22,7 +25,7 @@ export default class Button extends Element {
     }
 
     static get boundProps() {
-        return ['type', 'color', 'size', 'icon', 'hollow', 'icon-position', 'disabled'];
+        return ['type', 'color', 'size', 'icon', 'hollow', 'icon-position', 'disabled', 'loading'];
     }
 
     static get observedAttributes() {
@@ -47,6 +50,8 @@ export default class Button extends Element {
         super.connectedCallback();
 
         this.icon = this.getAttribute('icon') || false;
+        this._contents = this._root.querySelector('span.content') as HTMLSpanElement;
+        this._loader = this._root.querySelector('span.loading') as HTMLSpanElement;
     }
 
     async propertyChangedCallback(prop: keyof Button, oldV: string, newV: string): Promise<void> {
@@ -86,6 +91,13 @@ export default class Button extends Element {
                 }
                 if (this.getAttribute('disabled') && !newV) this.removeAttribute('disabled');
                 break;
+
+            case 'loading':
+                if (this._contents && this._loader) {
+                    this._contents.style.display = newV ? 'none' : '';
+                    this._loader.style.display = newV ? '' : 'none';
+                }
+                this.disabled = Boolean(newV);
         }
     }
 }

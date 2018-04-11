@@ -5,6 +5,14 @@
     zen-ui-icon {
         margin-right: var(--size--tiny);
     }
+
+    .loading {
+        --loading-color: var(--color-white);
+        --loading-size: 1.5rem;
+        margin: auto;
+        transform: translateY(1rem);
+        @extend %comp-loading;
+    }
 }
 
 :host([disabled]) {
