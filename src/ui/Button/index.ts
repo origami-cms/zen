@@ -94,8 +94,9 @@ export default class Button extends Element {
 
             case 'loading':
                 if (this._contents && this._loader) {
-                    this._contents.style.display = newV ? 'none' : '';
-                    this._loader.style.display = newV ? '' : 'none';
+                    this._icon.style.opacity = newV ? '0' : '1';
+                    this._contents.style.opacity = newV ? '0' : '1';
+                    this._loader.style.opacity = newV ? '1' : '0';
                 }
                 this.disabled = Boolean(newV);
         }
