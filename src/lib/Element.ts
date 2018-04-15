@@ -233,4 +233,15 @@ export default class Element extends HTMLElement {
 
         return tn;
     }
+
+    protected _renderTemplateString(template: string, data: object = this): string | null {
+        const doc = new DocumentFragment();
+        const tn = document.createTextNode(template);
+        doc.appendChild(tn);
+
+        const nodeMap: TemplateMap = this._getTemplateMap(doc);
+        this._updateTemplateNodes(nodeMap, data);
+
+        return tn.nodeValue;
+    }
 }
