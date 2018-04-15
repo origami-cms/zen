@@ -13,7 +13,7 @@ export default class Button extends Element {
     'icon-position': boolean = false;
     hollow: boolean = false;
     color: string = 'main';
-    disabled: boolean = false;
+    disabled?: boolean;
     loading: boolean = false;
     private _icon: Icon;
     private _contents?: HTMLSpanElement;
@@ -41,8 +41,10 @@ export default class Button extends Element {
             case 'icon-position':
                 this[attr] = newV;
                 break;
+
             case 'disabled':
-                this.disabled = Boolean(newV);
+                if (Boolean(this.disabled) !== Boolean(newV)) this.disabled = Boolean(newV);
+                break;
         }
     }
 
@@ -86,10 +88,12 @@ export default class Button extends Element {
                 break;
 
             case 'disabled':
-                if (newV) {
-                    if (this.getAttribute('disabled') !== newV) this.setAttribute('disabled', newV);
+                await this.ready();
+
+                if (newV) this.setAttribute('disabled', 'true');
+                else if (this.getAttribute('disabled')) {
+                    this.removeAttribute('disabled');
                 }
-                if (this.getAttribute('disabled') && !newV) this.removeAttribute('disabled');
                 break;
 
             case 'loading':
@@ -98,7 +102,10 @@ export default class Button extends Element {
                     this._contents.style.opacity = newV ? '0' : '1';
                     this._loader.style.opacity = newV ? '1' : '0';
                 }
-                this.disabled = Boolean(newV);
+
+                if (Boolean(newV) !== Boolean(oldV)) {
+                    this.disabled = Boolean(newV);
+                }
         }
     }
 }

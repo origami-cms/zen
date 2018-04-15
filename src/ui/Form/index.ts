@@ -1,24 +1,21 @@
-import Element from '../../lib/Element';
-import HTML from './form.html';
-import CSS from './form.scss';
 import {isEqual} from 'lodash';
-
-
+import {Button} from '..';
+import Element from '../../lib/Element';
 import Icon from '../Icon';
+import Autocomplete from './Autocomplete';
 import Checkbox from './Checkbox';
+import {Field, FieldMixinIcon} from './FieldTypes';
 import RadioIcons from './RadioIcons';
 import Select from './Select';
+import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
+import HTML from './form.html';
+import CSS from './form.scss';
+
 
 export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
-
-
-import {ValidatorRules} from './Validator/rules';
-import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
-
-import {Field, FieldMixinIcon} from './FieldTypes';
-import {Button} from '..';
+export {default as Autocomplete} from './Autocomplete';
 export {Field} from './FieldTypes';
 
 
@@ -308,6 +305,17 @@ export default class Form extends Element {
                 field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
                 (field.shadowRoot).addEventListener('change', change);
+                break;
+
+
+            case 'autocomplete':
+                field = document.createElement('zen-ui-autocomplete') as Autocomplete;
+                field.value = v;
+                field.setAttribute('name', f.name);
+                field.type = f.type;
+                (field.shadowRoot as ShadowRoot).addEventListener('change', change);
+
+                if (f.placeholder) field.placeholder = f.placeholder;
                 break;
 
 
