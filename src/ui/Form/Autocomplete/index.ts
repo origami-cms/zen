@@ -227,7 +227,7 @@ export default class Autocomplete extends Element {
         }
     }
 
-    private _select(r: object) {
+    private _select(r?: object) {
         if (this._index == null || !this._input) return;
 
         this.value = r || this._results[this._index];
