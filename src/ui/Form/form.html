@@ -1,19 +1,17 @@
-<template id="form-row">
-    <div class="form-row">
-        <span class="error"></span>
-        <zen-ui-icon ></zen-ui-icon>
-    </div>
-</template>
-
 <template id="error">
     <zen-ui-icon type="error" color="error"></zen-ui-icon>
     <span>{{error}}</span>
 </template>
 
 <slot name="before"></slot>
+
 <span class="main-error error">
     <zen-ui-icon type="error" color="error"></zen-ui-icon>
     {{error}}
 </span>
+
+
 <form novalidate></form>
+
+
 <slot name="after"></slot>

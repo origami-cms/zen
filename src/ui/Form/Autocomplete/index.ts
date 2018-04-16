@@ -7,7 +7,7 @@ import fuse from 'fuse.js';
 const DEFAULT_KEY = 'value';
 
 export default class Autocomplete extends Element {
-    value: null | any  = null;
+    value?: null | any =  null;
     results?: object[] | Function;
     name?: string;
     placeholder?: string;
@@ -81,7 +81,14 @@ export default class Autocomplete extends Element {
                 break;
 
             case 'value':
-                if (newV !== oldV) this.trigger('change', newV);
+                let v = newV;
+                if (!newV) v = null;
+
+                if (v !== oldV && oldV !== undefined) this.trigger('change', newV);
+                if (this._input && this._input.value !== newV) {
+                    if (typeof newV === 'string') this._input.value = newV;
+                    else if (newV) this._input.value = this._renderItem(newV);
+                }
                 break;
 
             case 'disabled':

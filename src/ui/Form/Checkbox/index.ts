@@ -12,11 +12,17 @@ export default class Checkbox extends Element {
 
     constructor() {
         super(HTML, CSS, 'Checkbox');
+        this._handleChange = this._handleChange.bind(this);
     }
 
     connectedCallback() {
+        super.connectedCallback();
         this.input = this._root.querySelector('input') as HTMLInputElement;
-        this.input.addEventListener('change', this._handleChange.bind(this));
+        this.input.addEventListener('change', this._handleChange);
+    }
+
+    disconnectedCallback() {
+        (this.input as HTMLInputElement).addEventListener('change', this._handleChange);
     }
 
     get checked(): boolean | null {

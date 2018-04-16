@@ -1,0 +1,20 @@
+@import '~zen-css/import';
+
+:host {
+    @extend %comp-form-row;
+
+     &, * {
+        @extend %reset;
+    }
+    input, select, textarea, input[type="file"] + span.input {
+        @extend %comp-form-input-general;
+    }
+
+    textarea {
+        @extend %comp-form-input-textarea;
+    }
+
+    select {
+        @extend %comp-form-input-select;
+    }
+}

@@ -2,16 +2,14 @@ import {isEqual} from 'lodash';
 import {Button} from '..';
 import Element from '../../lib/Element';
 import Icon from '../Icon';
-import Autocomplete from './Autocomplete';
-import Checkbox from './Checkbox';
 import {Field, FieldMixinIcon} from './FieldTypes';
-import RadioIcons from './RadioIcons';
-import Radio from './Select';
+import FormRow from './FormRow';
 import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
 import HTML from './form.html';
 import CSS from './form.scss';
 
 
+export {default as FormRow} from './FormRow';
 export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
@@ -92,6 +90,7 @@ export default class Form extends Element {
         }
     }
 
+
     updateError() {
         const err = this._root.querySelector('.main-error') as HTMLSpanElement;
         if (err) err.style.display = !this.error ? 'none' : '';
@@ -119,18 +118,18 @@ export default class Form extends Element {
             const order = this._fieldOrder;
 
             // If the order and the existing field order don't match, reorder
-            if (!isEqual(order, children.map(el => el.getAttribute('data-name')))) {
+            if (!isEqual(order, children.map(el => el.getAttribute('name')))) {
                 children
-                    .map((el): [number, HTMLElement] => [
-                        order.indexOf(el.getAttribute('data-name') || ''),
-                        this.form.removeChild(el) as HTMLElement
+                    .map((el): [number, FormRow] => [
+                        order.indexOf(el.getAttribute('name') || ''),
+                        this.form.removeChild(el) as FormRow
                     ])
                     .sort((prev, next) => {
                         if (prev[0] < next[0]) return -1;
                         if (prev[0] > next[0]) return 1;
                         return 0;
                     })
-                    .forEach(el => this.form.appendChild(el[1]));
+                    .forEach(el => this.form.appendChild(el[1] as HTMLElement));
             }
         }
 
@@ -142,40 +141,29 @@ export default class Form extends Element {
         if (this._fieldErrors) errors = this._fieldErrors[f.name];
 
 
-        // Attempt to find an existing element...
-        let existing = this._root.querySelector(`*[name='${f.name}']`) as HTMLInputElement;
+        // Attempt to find an existing row...
+        const existing = this._root.querySelector(`zen-ui-form-row[name='${f.name}']`) as FormRow;
+
 
         if (!existing && f.type === 'submit') {
-            existing = this._root.querySelector('.submit-button') as HTMLInputElement;
+            (this._root.querySelector('.submit-button') as HTMLInputElement)
+                .value = f.value || 'Submit';
+            return false;
         }
 
-        // If there is an existing element, update it's value, then continue
+        // If there is an existing row, update it's value, then continue
         // to next field
         if (existing) {
-            existing.value = v;
-            if (f.type === 'submit') existing.value = f.value || 'Submit';
+            if (existing.value !== v) existing.value = v;
+
             // @ts-ignore
-            if (f.type === 'select') existing.options = f.options;
-            if (this._showErrors) existing.classList.toggle('error', Boolean(errors));
+            if (f.type === 'select') existing.field.options = f.options;
 
-            const existingRow = this._root.querySelector(
-                `.form-row[data-name='${f.name}']`
-            ) as HTMLElement | null;
-
-            if (this._showErrors && existingRow) {
-                const errorSpan = (existingRow as HTMLElement)
-                    .querySelector('span.error') as HTMLSpanElement;
-
-                errorSpan.style.display = errors ? '' : 'none';
-                if (errors) {
-                    errorSpan.innerHTML = '';
-                    errorSpan.appendChild(this._renderTemplate('error', {
-                        error: errors[Object.keys(errors)[0]]
-                    }));
-                }
+            if (this._showErrors && errors) {
+                existing.error = errors[Object.keys(errors)[0]];
             }
 
-            if (existingRow) existingRow.style.display = f.hidden ? 'none' : '';
+            existing.hidden = Boolean(f.hidden);
 
             return true;
         }
@@ -184,160 +172,24 @@ export default class Form extends Element {
     }
 
 
-    private _createRow(f: Field, v: any): HTMLElement | false {
+    private _createRow(f: Field, v: any): FormRow | false {
         if (f.hidden) return false;
 
+        const row = document.createElement('zen-ui-form-row') as FormRow;
+        row.setAttribute('name', f.type === 'submit' ? 'submit' : f.name);
 
-        // Create a new form row from the template
-        const row = document.importNode(
-            this.templates['form-row'],
-            true
-        ).querySelector('div') as HTMLDivElement;
-        row.setAttribute('data-name', f.type === 'submit' ? 'submit' : f.name);
+        row.field = f;
 
-        const field = this._createField(f, v);
-        if (!field) return false;
-
-        const icon = row.querySelector('zen-ui-icon') as Icon;
-        const _f = f as FieldMixinIcon;
-        if (_f.icon) {
-            icon.type = _f.icon;
-            icon.color = _f.iconColor || 'grey-300';
-        } else icon.remove();
-
-        if (field instanceof Array) {
-            field.forEach(f => row.appendChild(f));
-        } else row.appendChild(field);
-        this.form.appendChild(row);
-
-        return row;
-    }
-
-
-    private _createField(f: Field, v: any): HTMLElement | HTMLElement[] | false {
-        let field: any = document.createElement('input');
-
-        const change = () => {
-            let v: any = field.value;
-
-            if (f.type === 'checkbox') v = field.checked;
+        (row.shadowRoot as ShadowRoot).addEventListener('change', (e: CustomEventInit) => {
 
             this.values = {
                 ...this.values,
-                ...{[f.name]: v}
+                ...{[f.name]: e.detail}
             };
-        };
-
-        const {type} = f;
-
-
-        switch (f.type) {
-            case 'textarea':
-                field = document.createElement('wc-wysiwyg');
-                field.name = f.name;
-                field.addEventListener('keyup', change);
-
-                // TODO: Wait for ready
-                setTimeout(() => {
-                    field.value = v;
-                }, 10);
-                break;
-
-            // HACK: To get the placeholder working
-            case 'date':
-                field.value = v;
-                field.name = f.name;
-                field.type = 'text';
-                field.addEventListener('keyup', change);
-                if (f.placeholder) field.placeholder = f.placeholder;
-                field.addEventListener('focus', () => field.type = 'date');
-                field.addEventListener('blur', () => {
-                    if (!field.value) field.type = 'text';
-                });
-
-                break;
-
-
-            case 'text':
-            case 'input':
-            case 'password':
-            case 'email':
-            case 'number':
-                field.value = v;
-                field.name = f.name;
-                field.type = f.type;
-                field.addEventListener('keyup', change);
-                if (f.placeholder) field.placeholder = f.placeholder;
-                break;
-
-
-            case 'submit':
-                field = document.createElement('zen-ui-button') as Button;
-                field.classList.add('submit-button');
-                field.innerHTML = f.value || 'Submit';
-                field.addEventListener('click', this.submit.bind(this));
-                if (f.color) field.color = f.color;
-                break;
-
-
-            case 'select':
-                field = document.createElement('zen-ui-select') as Radio;
-                if (f.name) field.setAttribute('name', f.name);
-                field.shadowRoot.addEventListener('change', change);
-                if (f.placeholder) field.placeholder = f.placeholder;
-                if (f.options) field.options = f.options;
-
-                break;
-
-
-            case 'checkbox':
-                field = document.createElement('zen-ui-checkbox') as Checkbox;
-                if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
-
-                if (f.label) {
-                    const label = document.createElement('span');
-                    label.innerHTML = f.label;
-                    return [field, label];
-                }
-                break;
-
-
-            case 'radio':
-                field = document.createElement('zen-ui-radio-select') as RadioIcons;
-                field.options = f.options;
-                if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
-                break;
-
-            case 'radio-icons':
-                field = document.createElement('zen-ui-radio-icons') as RadioIcons;
-                field.options = f.options;
-                if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
-                break;
-
-
-            case 'autocomplete':
-                field = document.createElement('zen-ui-autocomplete') as Autocomplete;
-                field.value = v;
-                field.setAttribute('name', f.name);
-                field.type = f.type;
-                field.results = f.results;
-                (field.shadowRoot as ShadowRoot).addEventListener('change', change);
-
-                if (f.placeholder) field.placeholder = f.placeholder;
-                break;
-
-
-            // TODO: Custom web component fields
-            default:
-                this._warn(`Field type '${type}' is not supported`);
-
-                return false;
-        }
-
-        return field;
+        });
+        this.form.appendChild(row as HTMLElement);
+        row.value = v;
+        return row;
     }
 
 
