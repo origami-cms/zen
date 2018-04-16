@@ -26,7 +26,11 @@ export default class Autocomplete extends Element {
         super.connectedCallback();
         this._input = this._root.querySelector('input') as HTMLInputElement;
         this._input.addEventListener('keyup', this._getResults.bind(this));
-        this._input.addEventListener('blur', () => this._showResults = false);
+        this._input.addEventListener('blur', () =>
+            // Timeout is so that it doesn't close immediately, and the click
+            // event is fired on the item
+            setTimeout(() => this._showResults = false, 100)
+        );
         this._input.addEventListener('focus', () => this._showResults = Boolean(this._results.length));
         this._input.addEventListener('keydown', this._handleKey.bind(this));
         this._input.addEventListener('change', this._handleChange.bind(this));
@@ -163,6 +167,7 @@ export default class Autocomplete extends Element {
         (this._results || []).forEach(r => {
             const li = document.createElement('li');
             li.innerHTML = this._renderItem(r);
+            li.addEventListener('click', () => this._select(r));
             rl.appendChild(li);
         });
 
@@ -222,10 +227,11 @@ export default class Autocomplete extends Element {
         }
     }
 
-    private _select() {
+    private _select(r: object) {
         if (this._index == null || !this._input) return;
 
-        this.value = this._results[this._index];
+        this.value = r || this._results[this._index];
+
         this._showResults = false;
 
         this._input.value = this._renderItem(this.value);
