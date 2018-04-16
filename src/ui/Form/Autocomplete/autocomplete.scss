@@ -34,6 +34,8 @@
             line-height: var(--size-main);
             border-bottom: var(--border-100);
             padding: 0 var(--size-small);
+            overflow: hidden;
+            text-overflow: ellipsis;
 
             &:hover, &.active {
                 background-color: var(--color-hover);

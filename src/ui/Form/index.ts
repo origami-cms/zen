@@ -16,7 +16,7 @@ export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
 export {default as Autocomplete} from './Autocomplete';
-export {Field} from './FieldTypes';
+export * from './FieldTypes';
 
 
 export interface Fieldsets {
@@ -162,7 +162,9 @@ export default class Form extends Element {
             ) as HTMLElement | null;
 
             if (this._showErrors && existingRow) {
-                const errorSpan = (existingRow as HTMLElement).querySelector('span.error') as HTMLSpanElement;
+                const errorSpan = (existingRow as HTMLElement)
+                    .querySelector('span.error') as HTMLSpanElement;
+
                 errorSpan.style.display = errors ? '' : 'none';
                 if (errors) {
                     errorSpan.innerHTML = '';
@@ -313,6 +315,7 @@ export default class Form extends Element {
                 field.value = v;
                 field.setAttribute('name', f.name);
                 field.type = f.type;
+                field.results = f.results;
                 (field.shadowRoot as ShadowRoot).addEventListener('change', change);
 
                 if (f.placeholder) field.placeholder = f.placeholder;

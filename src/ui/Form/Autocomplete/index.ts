@@ -4,13 +4,16 @@ import CSS from './autocomplete.scss';
 
 import fuse from 'fuse.js';
 
+const DEFAULT_KEY = 'value';
+
 export default class Autocomplete extends Element {
     value: null | any  = null;
-    results?: object[];
+    results?: object[] | Function;
     name?: string;
     placeholder?: string;
     template?: string;
     disabled?: boolean;
+    keys: string[] = [DEFAULT_KEY];
 
     private _input?: HTMLInputElement;
     private _resultsList?: HTMLUListElement;
@@ -31,7 +34,9 @@ export default class Autocomplete extends Element {
             // event is fired on the item
             setTimeout(() => this._showResults = false, 100)
         );
-        this._input.addEventListener('focus', () => this._showResults = Boolean(this._results.length));
+        this._input.addEventListener('focus',
+            () => this._showResults = Boolean(this._results.length)
+        );
         this._input.addEventListener('keydown', this._handleKey.bind(this));
         this._input.addEventListener('change', this._handleChange.bind(this));
 
@@ -40,7 +45,9 @@ export default class Autocomplete extends Element {
 
 
     static observedAttributes = ['name', 'placeholder', 'disabled'];
-    static boundProps = ['name', 'placeholder', 'value', 'disabled', '_results', '_showResults', '_index'];
+    static boundProps = [
+        'name', 'placeholder', 'value', 'disabled', '_results', '_showResults', '_index'
+    ];
 
 
     attributeChangedCallback(attr: keyof Autocomplete, oldV: string, newV: string): void {
@@ -127,7 +134,7 @@ export default class Autocomplete extends Element {
 
 
     // Lookup the results based on the input
-    private _getResults(): object[] | false {
+    private async _getResults(): Promise<object[] | false> {
         if (!this._input) {
             this._error('Not connected');
             return false;
@@ -135,20 +142,18 @@ export default class Autocomplete extends Element {
         const v = this._input.value;
 
         if (!v) return this._results = [];
-
-        let r: object[] = [];
-        if (this.results) {
-            r = this.results;
-        } else {
-            r = [
-                {location: '123 Fake st'},
-                {location: '124 bob rd'},
-                {location: '456 pretend av'}
-            ];
-        }
+        let r = [];
+        if (typeof this.results === 'function') {
+            r = await this.results(v);
+        } else if (this.results) r = this.results;
 
 
-        const f = new fuse(r, {keys: ['location']});
+        // If results is an array of strings, convert to default {[DEFAULT_KEY]: ...} format
+        // for Fuse
+        r = r.map((i: string | object) => typeof i === 'string' ? {[DEFAULT_KEY]: i} : i);
+
+
+        const f = new fuse(r, {keys: this.keys});
         const s = f.search(v);
 
 
@@ -157,6 +162,7 @@ export default class Autocomplete extends Element {
 
         return s;
     }
+
 
     private _renderRows() {
         const rl = this._resultsList;
@@ -219,7 +225,6 @@ export default class Autocomplete extends Element {
     }
 
     private _handleChange(e?: Event) {
-        console.log('ok', typeof this.value);
         if (typeof this.value !== 'object') return;
 
         if ((this._input as HTMLInputElement).value !== this._renderItem(this.value)) {
