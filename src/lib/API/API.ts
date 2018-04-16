@@ -97,7 +97,12 @@ export default class API {
     }
 
 
-    private _fetch(method: HTTPMethod, url: string, data: object | null, cache: boolean): Promise<APIResponse> {
+    private _fetch(
+        method: HTTPMethod,
+        url: string,
+        data: object | null,
+        cache: boolean
+    ): Promise<APIResponse> {
         if (cache && this._cache[method][url]) {
             return Promise.resolve(this._cache[method][url]);
         }
@@ -143,7 +148,12 @@ export default class API {
             });
     }
 
-    // private _xhr(method: HTTPMethod, url: string, data: object, cache: boolean): Promise<APIResponse> {
+    // private _xhr(
+    //     method: HTTPMethod,
+    //     url: string,
+    //     data: object,
+    //     cache: boolean
+    // ): Promise<APIResponse> {
     //     const READYSTATE_OK = 4;
     //     const HTTP_OK = 200;
 

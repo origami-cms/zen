@@ -1,7 +1,13 @@
 import {ValidatorRules, ValidateBase, ValidateString, ValidateEqual} from './Validator/rules';
 
 
-export type Field = FieldDefault | FieldSelect | FieldCheckbox | FieldSubmit | FieldRadioIcons | FieldAutocomplete;
+export type Field =
+    FieldDefault |
+    FieldSelect |
+    FieldCheckbox |
+    FieldSubmit |
+    FieldRadioIcons |
+    FieldAutocomplete;
 
 
 // ------------------------------------------------------------------------ Base
@@ -69,5 +75,5 @@ export interface FieldRadioIcons extends FieldBase {
 
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'autocomplete';
-    results?: string[];
+    results?: string[] | Function;
 }

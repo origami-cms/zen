@@ -73,7 +73,7 @@ export default class Icon extends Element {
 
     render() {
         super.render();
-        const {svg} = this;
+        const svg = this.svg;
         if (svg) {
             svg.classList.toggle(this.color, true);
         }

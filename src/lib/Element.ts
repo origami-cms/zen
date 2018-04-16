@@ -172,7 +172,9 @@ export default class Element extends HTMLElement {
 
     // Recursively get a map of nodes that contain {{variable}} so they can be
     // updated later
-    protected _getTemplateMap(root: ShadowRoot | HTMLElement | DocumentFragment | this = this._root): TemplateMap {
+    protected _getTemplateMap(
+        root: ShadowRoot | HTMLElement | DocumentFragment | this = this._root
+    ): TemplateMap {
         // TODO: Move this to a Mutation Observer
         const textNodeMap: TemplateMap = new Map();
         const filter: NodeFilter = <NodeFilter><any>NodeFilter.SHOW_TEXT;

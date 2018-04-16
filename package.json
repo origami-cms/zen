@@ -11,7 +11,7 @@
     "clean": "rm -rf _bundles lib lib-esm",
     "build": "yarn clean && tsc && tsc -m es6 --outDir lib-esm && webpack-cli --mode production",
     "watch": "webpack-cli --watch --mode development",
-    "lint": "tslint -s node_modules/custom-tslint-formatters/formatters -t grouped src/**/*.ts --fix"
+    "lint": "tslint -p . --fix"
   },
   "devDependencies": {
     "@types/http-status-codes": "^1.2.0",
