@@ -154,7 +154,7 @@ export default class API {
     //     data: object,
     //     cache: boolean
     // ): Promise<APIResponse> {
-    //     const READYSTATE_OK = 4;
+//     const READYSTATE_OK = 4;
     //     const HTTP_OK = 200;
 
     //     interface PromiseWithTriggers extends Promise<APIResponse> {

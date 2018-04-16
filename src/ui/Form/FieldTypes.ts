@@ -6,6 +6,7 @@ export type Field =
     FieldSelect |
     FieldCheckbox |
     FieldSubmit |
+    FieldRadio |
     FieldRadioIcons |
     FieldAutocomplete;
 
@@ -60,6 +61,16 @@ export interface FieldCheckbox extends FieldBase {
 export interface FieldSubmit extends FieldBase, FieldMixinIcon {
     type: 'submit';
 }
+
+export interface FieldRadioOption {
+    value: number | string;
+    label?: number | string;
+}
+export interface FieldRadio extends FieldBase {
+    type: 'radio';
+    options?: FieldRadioOption[];
+}
+
 
 export interface FieldRadioIconsOption {
     value: number | string;

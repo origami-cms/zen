@@ -1,0 +1,8 @@
+@import '~zen-css/import';
+
+:host {
+    & { @extend %reset; }
+    .option {
+        text-align: left;
+    }
+}

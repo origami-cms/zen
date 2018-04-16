@@ -6,7 +6,7 @@ import Autocomplete from './Autocomplete';
 import Checkbox from './Checkbox';
 import {Field, FieldMixinIcon} from './FieldTypes';
 import RadioIcons from './RadioIcons';
-import Select from './Select';
+import Radio from './Select';
 import Validator, {ValidateFieldErrors, ValidationErrors} from './Validator/Validator';
 import HTML from './form.html';
 import CSS from './form.scss';
@@ -15,6 +15,7 @@ import CSS from './form.scss';
 export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
+export {default as Radio} from './Radio';
 export {default as Autocomplete} from './Autocomplete';
 export * from './FieldTypes';
 
@@ -280,7 +281,7 @@ export default class Form extends Element {
 
 
             case 'select':
-                field = document.createElement('zen-ui-select') as Select;
+                field = document.createElement('zen-ui-select') as Radio;
                 if (f.name) field.setAttribute('name', f.name);
                 field.shadowRoot.addEventListener('change', change);
                 if (f.placeholder) field.placeholder = f.placeholder;
@@ -301,6 +302,13 @@ export default class Form extends Element {
                 }
                 break;
 
+
+            case 'radio':
+                field = document.createElement('zen-ui-radio-select') as RadioIcons;
+                field.options = f.options;
+                if (f.name) field.setAttribute('name', f.name);
+                (field.shadowRoot).addEventListener('change', change);
+                break;
 
             case 'radio-icons':
                 field = document.createElement('zen-ui-radio-icons') as RadioIcons;
