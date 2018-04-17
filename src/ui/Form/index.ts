@@ -187,7 +187,7 @@ export default class Form extends Element {
 
         row.field = f;
 
-        (row.shadowRoot as ShadowRoot).addEventListener('change', (e: CustomEventInit) => {
+        row.addEventListener('change', (e: CustomEventInit) => {
 
             this.values = {
                 ...this.values,
@@ -198,7 +198,7 @@ export default class Form extends Element {
         row.value = v;
         row.setAttribute('type', f.type);
 
-        (row.shadowRoot as ShadowRoot).addEventListener('submit', this.submit.bind(this));
+        row.addEventListener('submit', this.submit.bind(this));
         return row;
     }
 
@@ -206,6 +206,8 @@ export default class Form extends Element {
     submit(e: Event) {
         e.preventDefault();
         e.stopPropagation();
+        console.log('submitting');
+
         if (!this.validate()) return false;
 
         const active = this._root.querySelector('*:focus') as HTMLElement;

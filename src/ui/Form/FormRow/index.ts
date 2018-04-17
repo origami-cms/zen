@@ -155,7 +155,7 @@ export default class FormRow extends Element {
             case 'select':
                 field = document.createElement('zen-ui-select') as Radio;
                 if (f.name) field.setAttribute('name', f.name);
-                field.shadowRoot.addEventListener('change', change);
+                field.addEventListener('change', change);
                 if (f.placeholder) field.placeholder = f.placeholder;
                 if (f.options) field.options = f.options;
 
@@ -166,13 +166,7 @@ export default class FormRow extends Element {
 
                 field = document.createElement('zen-ui-checkbox') as Checkbox;
                 if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
-                if (field.shadowRoot) {
-                    field.shadowRoot.addEventListener(
-                        'change',
-                        (e: Event) => e.stopPropagation()
-                    );
-                }
+                field.addEventListener('change', change);
 
                 if (f.label) {
                     const label = document.createElement('span');
@@ -186,14 +180,14 @@ export default class FormRow extends Element {
                 field = document.createElement('zen-ui-radio-select') as Radio;
                 field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
+                field.addEventListener('change', change);
                 break;
 
             case 'radio-icons':
                 field = document.createElement('zen-ui-radio-icons') as RadioIcons;
                 field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
-                (field.shadowRoot).addEventListener('change', change);
+                field.addEventListener('change', change);
                 break;
 
 
@@ -202,7 +196,7 @@ export default class FormRow extends Element {
                 field.setAttribute('name', f.name);
                 field.type = f.type;
                 field.results = f.results;
-                (field.shadowRoot as ShadowRoot).addEventListener('change', change);
+                field.addEventListener('change', change);
                 field.value = v;
 
                 if (f.placeholder) field.placeholder = f.placeholder;
@@ -211,7 +205,7 @@ export default class FormRow extends Element {
             case 'slider':
                 field = document.createElement('zen-ui-slider') as Slider;
                 field.setAttribute('name', f.name);
-                (field.shadowRoot as ShadowRoot).addEventListener('change', change);
+                field.addEventListener('change', change);
                 field.value = v;
                 if (f.min) field.min = f.min;
                 if (f.max) field.max = f.max;
@@ -234,12 +228,6 @@ export default class FormRow extends Element {
             field.forEach(f => this._root.appendChild(f));
         } else {
             field.addEventListener('change', (e: Event) => e.stopPropagation());
-            if (field.shadowRoot) {
-                field.shadowRoot.addEventListener(
-                    'change',
-                    (e: Event) => e.stopPropagation()
-                );
-            }
             this._root.appendChild(field);
         }
         return field;

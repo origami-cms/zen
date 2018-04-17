@@ -1,6 +1,8 @@
-import '../imports';
-import {query} from 'jsonpath';
+import detect from 'browser-detect';
+import {BrowserDetectInfo} from 'browser-detect/dist/types/browser-detect.interface';
 import deepequal from 'deepequal';
+import {query} from 'jsonpath';
+import '../imports';
 
 export interface TextNodeMapValue {
     words: string[];
@@ -18,7 +20,8 @@ export default class Element extends HTMLElement {
     } = {};
 
     // Provided by polyfil
-    isConnected?: boolean;
+    // isConnected?: boolean;
+    protected readonly _browser: BrowserDetectInfo;
 
     private readonly _readyPromise: Promise<void>;
     private _textNodeMap: TemplateMap = new Map();
@@ -34,6 +37,10 @@ export default class Element extends HTMLElement {
 
     constructor(html: string, css: string | false, name?: string, useShadowRoot: boolean = true) {
         super();
+
+
+        this._browser = detect();
+
 
         const c = (this.constructor as typeof Element);
 
@@ -72,6 +79,10 @@ export default class Element extends HTMLElement {
         return this._useShadowRoot
             ? this.shadowRoot as ShadowRoot
             : this;
+    }
+
+    private get _needsPolyfill(): boolean {
+        return ['firefox'].includes(this._browser.name || '');
     }
 
     private _initShadow() {
@@ -149,7 +160,7 @@ export default class Element extends HTMLElement {
 
 
     trigger(event: string, detail?: object | string, bubbles = true) {
-        this._root.dispatchEvent(new CustomEvent(event, {
+        this.dispatchEvent(new CustomEvent(event, {
             bubbles,
             detail
         }));
@@ -179,7 +190,8 @@ export default class Element extends HTMLElement {
         const textNodeMap: TemplateMap = new Map();
         const filter: NodeFilter = <NodeFilter><any>NodeFilter.SHOW_TEXT;
 
-        const nodes = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, filter);
+        const n = this._needsPolyfill ? this : root;
+        const nodes = document.createTreeWalker(n, NodeFilter.SHOW_TEXT);
         let node = nodes.nextNode();
 
         while (node) {

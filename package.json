@@ -19,6 +19,7 @@
     "@types/jsonpath": "^0.2.0",
     "@types/lodash": "^4.14.105",
     "bitbar-webpack-progress-plugin": "^1.0.0",
+    "browser-detect": "^0.2.26",
     "css-loader": "^0.28.11",
     "custom-tslint-formatters": "^2.3.0",
     "deepequal": "^0.0.1",
