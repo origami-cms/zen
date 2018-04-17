@@ -10,12 +10,13 @@ export default class FormRow extends Element {
     field?: Field;
     name?: string;
     value?: any;
-    error?: string;
+    error: string | null = null;
     hidden: boolean = false;
     icon?: string;
 
     private _field?: any;
     private _icon?: Icon;
+    private _errorSpan?: HTMLElement;
 
 
     static observedAttributes = ['name', 'hidden'];
@@ -29,7 +30,8 @@ export default class FormRow extends Element {
     connectedCallback() {
         super.connectedCallback();
 
-        this._icon = this._root.querySelector('zen-ui-icon') as Icon;
+        this._icon = this._root.querySelector('zen-ui-icon.icon') as Icon;
+        this._errorSpan = this._root.querySelector('span.error') as HTMLElement;
     }
 
     async propertyChangedCallback(prop: keyof FormRow, oldV: any, newV: any) {
@@ -72,6 +74,12 @@ export default class FormRow extends Element {
 
             case 'hidden':
                 this.style.display = Boolean(newV) ? 'none' : '';
+                break;
+
+            case 'error':
+                await this.ready();
+                (this._errorSpan as HTMLElement).style.display = Boolean(newV) ? '' : 'none';
+
         }
     }
 

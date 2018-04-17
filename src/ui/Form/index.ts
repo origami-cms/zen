@@ -167,7 +167,7 @@ export default class Form extends Element {
 
             if (this._showErrors && errors) {
                 existing.error = errors[Object.keys(errors)[0]];
-            }
+            } else existing.error = null;
 
             existing.hidden = Boolean(f.hidden);
 
@@ -198,7 +198,7 @@ export default class Form extends Element {
         row.value = v;
         row.setAttribute('type', f.type);
 
-        (row.shadowRoot as ShadowRoot).addEventListener('submit', () => this.trigger('submit'));
+        (row.shadowRoot as ShadowRoot).addEventListener('submit', this.submit.bind(this));
         return row;
     }
 
