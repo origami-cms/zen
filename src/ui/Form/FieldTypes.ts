@@ -63,13 +63,11 @@ export interface FieldSubmit extends FieldBase, FieldMixinIcon {
     type: 'submit';
 }
 
-export interface FieldRadioOption {
-    value: number | string;
-    label?: number | string;
-}
 export interface FieldRadio extends FieldBase {
     type: 'radio';
-    options?: FieldRadioOption[];
+    options?: {
+        [key: string]: string
+    };
 }
 
 
