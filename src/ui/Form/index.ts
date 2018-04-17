@@ -15,6 +15,7 @@ export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
 export {default as Radio} from './Radio';
 export {default as Autocomplete} from './Autocomplete';
+export {default as Slider} from './Slider';
 export * from './FieldTypes';
 
 
@@ -117,6 +118,7 @@ export default class Form extends Element {
             const children = Array.from(this.form.children);
             const order = this._fieldOrder;
 
+
             // If the order and the existing field order don't match, reorder
             if (!isEqual(order, children.map(el => el.getAttribute('name')))) {
                 children
@@ -146,8 +148,12 @@ export default class Form extends Element {
 
 
         if (!existing && f.type === 'submit') {
-            (this._root.querySelector('.submit-button') as HTMLInputElement)
-                .value = f.value || 'Submit';
+            const s = this._root.querySelector('zen-ui-form-row[type="submit"]') as FormRow;
+            if (s) {
+                s.value = f.value || 'Submit';
+                return true;
+            }
+
             return false;
         }
 
@@ -173,6 +179,7 @@ export default class Form extends Element {
 
 
     private _createRow(f: Field, v: any): FormRow | false {
+
         if (f.hidden) return false;
 
         const row = document.createElement('zen-ui-form-row') as FormRow;
@@ -189,6 +196,9 @@ export default class Form extends Element {
         });
         this.form.appendChild(row as HTMLElement);
         row.value = v;
+        row.setAttribute('type', f.type);
+
+        (row.shadowRoot as ShadowRoot).addEventListener('submit', () => this.trigger('submit'));
         return row;
     }
 

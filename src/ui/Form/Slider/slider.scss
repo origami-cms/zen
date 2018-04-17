@@ -1,0 +1,48 @@
+@import '~zen-css/import';
+
+:host {
+    display: block;
+    height: var(--size-huge);
+
+    .bar {
+        position: absolute;
+        bottom: 1.25rem;
+        display: block;
+        width: calc(100% - var(--slider-slide-size, var(--size-main)));
+        height: var(--slider-height, var(--size-small));
+        border-radius: calc(var(--slider-height, var(--size-small)) / 2);
+        background: var(--slider-bg, linear-gradient(to right, var(--color-alt), var(--color-main)));
+        margin: 0 calc(var(--slider-slide-size, var(--size-main)) / 2);
+    }
+
+    .handle {
+        position: absolute;
+        bottom: 0;
+        width: var(--slider-slide-size, var(--size-main));
+        height: var(--slider-slide-size, var(--size-main));
+        border-radius: 50%;
+        background-color: var(--color-white);
+        border: 2px solid var(--color-main);
+        transition: all var(--transition-time);
+
+        &.drag {
+            transform: translateY(-50%) scale(0.9);
+        }
+    }
+
+    span.label {
+        // position: absolute;
+        // left: 0;
+        // width: 100%;
+        // top: -2rem;
+    }
+    // &:after {
+    //     content: '';
+    //     position: absolute;
+    //     background-color: red;
+    //     height: 100%;
+    //     left: calc(var(--slider-slide-size, var(--size-main)) / 2);
+    //     right: calc(var(--slider-slide-size, var(--size-main)) / 2);
+    //     opacity: 0.5;
+    // }
+}

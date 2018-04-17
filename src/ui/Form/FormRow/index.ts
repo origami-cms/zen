@@ -1,8 +1,9 @@
-import {Autocomplete, Checkbox, Field, Radio, RadioIcons} from '..';
+import {Autocomplete, Checkbox, Field, Radio, RadioIcons, Slider} from '..';
 import {Button, Icon} from '../..';
 import Element from '../../../lib/Element';
 import HTML from './form-row.html';
 import CSS from './form-row.scss';
+import {HTTP_VERSION_NOT_SUPPORTED} from 'http-status-codes';
 
 
 export default class FormRow extends Element {
@@ -18,7 +19,7 @@ export default class FormRow extends Element {
 
 
     static observedAttributes = ['name', 'hidden'];
-    static boundProps = ['field', 'name', 'value', 'error'];
+    static boundProps = ['field', 'name', 'value', 'error', 'hidden'];
 
 
     constructor() {
@@ -51,6 +52,14 @@ export default class FormRow extends Element {
                     i.type = newV.icon;
                 }
                 if (newV.iconColor) i.color = newV.iconColor;
+
+                // Update type attribute
+                if (newV.type) {
+                    if (this.getAttribute('type') !== newV.type) {
+                        this.setAttribute('type', newV.type);
+                    }
+                } else this.removeAttribute('type');
+
                 break;
 
             case 'value':
@@ -60,6 +69,9 @@ export default class FormRow extends Element {
                     this.trigger('change', newV);
                 }
                 break;
+
+            case 'hidden':
+                this.style.display = Boolean(newV) ? 'none' : '';
         }
     }
 
@@ -71,7 +83,9 @@ export default class FormRow extends Element {
             e.stopPropagation();
             let value: any = field.value;
 
-            if (f.type === 'checkbox') value = field.checked;
+            if (f.type === 'checkbox') {
+                value = field[0].checked;
+            }
 
             this.value = value;
         };
@@ -123,7 +137,9 @@ export default class FormRow extends Element {
                 field = document.createElement('zen-ui-button') as Button;
                 field.classList.add('submit-button');
                 field.innerHTML = f.value || 'Submit';
-                field.addEventListener('click', () => this.trigger('submit'));
+                field.addEventListener('click', () => {
+                    this.trigger('submit');
+                });
                 if (f.color) field.color = f.color;
                 break;
 
@@ -182,6 +198,17 @@ export default class FormRow extends Element {
                 field.value = v;
 
                 if (f.placeholder) field.placeholder = f.placeholder;
+                break;
+
+            case 'slider':
+                field = document.createElement('zen-ui-slider') as Slider;
+                field.setAttribute('name', f.name);
+                (field.shadowRoot as ShadowRoot).addEventListener('change', change);
+                field.value = v;
+                if (f.min) field.min = f.min;
+                if (f.max) field.max = f.max;
+                if (f.steps) field.steps = f.steps;
+                if (f.label) field.label = f.label;
                 break;
 
 

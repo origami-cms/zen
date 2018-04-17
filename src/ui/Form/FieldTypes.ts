@@ -8,7 +8,8 @@ export type Field =
     FieldSubmit |
     FieldRadio |
     FieldRadioIcons |
-    FieldAutocomplete;
+    FieldAutocomplete |
+    FieldSlider;
 
 
 // ------------------------------------------------------------------------ Base
@@ -87,4 +88,12 @@ export interface FieldRadioIcons extends FieldBase {
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'autocomplete';
     results?: string[] | Function;
+}
+
+export interface FieldSlider extends FieldBase {
+    type: 'slider';
+    min?: number;
+    max?: number;
+    steps?: number;
+    label?: string;
 }

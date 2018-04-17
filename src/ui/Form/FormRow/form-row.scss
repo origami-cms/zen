@@ -17,4 +17,9 @@
     select {
         @extend %comp-form-input-select;
     }
+
+    input[type="submit"], zen-ui-button {
+        @extend %comp-button;
+        width: 100%;
+    }
 }

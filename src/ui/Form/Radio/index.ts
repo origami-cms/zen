@@ -12,8 +12,8 @@ export default class Radio extends Element {
         super(HTML, CSS, 'Radio');
     }
 
-    static observerAttributes = ['name'];
-    static boundProps = ['options', 'name'];
+    static observedAttributes = ['name'];
+    static boundProps = ['options', 'name', 'value'];
 
 
     get value() {
@@ -21,17 +21,7 @@ export default class Radio extends Element {
         return checked ? checked.getAttribute('data-value') as string : null;
     }
 
-    set value(v) {
-        const opts = this._options;
-
-        opts.forEach(o => {
-            const c = (o.getAttribute('data-value') === v);
-            o.classList.toggle('checked', c);
-            const i = o.querySelector('zen-ui-icon') as Icon;
-            i.type = c ? 'radio-checked' : 'radio-unchecked';
-            i.color = c ? 'main' : 'grey-300';
-        });
-    }
+    set value(v) {}
 
     private get _options() {
         return Array.from(this._root.querySelectorAll('.option'));
@@ -47,13 +37,23 @@ export default class Radio extends Element {
     async propertyChangedCallback(prop: keyof Radio, oldV: string, newV: string): Promise<void> {
         switch (prop) {
             case 'value':
+                await this.ready();
+
                 if (newV !== oldV) {
+                    const opts = this._options;
+
+                    opts.forEach(o => {
+                        const c = (o.getAttribute('data-value') === newV);
+                        o.classList.toggle('checked', c);
+                        const i = o.querySelector('zen-ui-icon') as Icon;
+                        i.type = c ? 'radio-checked' : 'radio-unchecked';
+                        i.color = c ? 'main' : 'grey-300';
+                    });
                     this.trigger('change');
                 }
                 break;
 
             case 'options':
-                await this.ready();
                 this._updateOptions();
                 break;
 
@@ -72,6 +72,7 @@ export default class Radio extends Element {
 
         super.render();
         const o = this._root.querySelector('.options') as HTMLElement;
+
 
         o.innerHTML = '';
 
