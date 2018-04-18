@@ -27,8 +27,8 @@ export default class Resource {
 
 
     create() {
-        return (dispatch: Function) =>
-            (data: object) => {
+        return (data: object) =>
+            (dispatch: Function) => {
                 dispatch({type: `${this.upper}_CREATING_START`});
 
                 return this._API.post(`/${this.lower}`, data)
@@ -54,8 +54,8 @@ export default class Resource {
             items?: number;
         }
 
-        return (dispatch: Function) =>
-            (id: string, cache: boolean, pagination = {}, qs: object) => {
+        return (id: string, cache: boolean, pagination = {}, qs: object) =>
+            (dispatch: Function) => {
                 const loading = `${this.upper}_LOADING_${id ? 'SINGLE' : 'ALL'}_`;
                 dispatch({type: `${loading}START`});
 
@@ -86,8 +86,8 @@ export default class Resource {
     }
 
     update() {
-        return (dispatch: Function) =>
-            (id: string, data: object) =>
+        return (id: string, data: object) =>
+            (dispatch: Function) => {
                 this._API.put(`/${this.lower}/${id}`, data)
                     .then(json => {
                         dispatch({type: `${this.upper}_UPDATED`, [this.singular]: json.data, id});
@@ -97,11 +97,12 @@ export default class Resource {
                     .catch(error => {
                         dispatch({type: `${this.upper}_UPDATE_ERROR`, error});
                     });
+            };
     }
 
     remove() {
-        return (dispatch: Function) =>
-            (idOrArray: string | string[]) => {
+        return (idOrArray: string | string[]) =>
+            (dispatch: Function) => {
                 const run = (_id: string) => {
                     this._API.delete(`/${this.lower}/${_id}`)
                         .then(() => {

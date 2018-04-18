@@ -19,8 +19,9 @@ export default class Element extends HTMLElement {
         [key: string]: DocumentFragment
     } = {};
 
-    // Provided by polyfil
-    // isConnected?: boolean;
+
+    // @ts-ignore Set automatically
+    isConnected: boolean;
     protected readonly _browser: BrowserDetectInfo;
 
     private readonly _readyPromise: Promise<void>;
