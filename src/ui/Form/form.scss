@@ -2,6 +2,11 @@
 :host {
     display: block;
     @extend %comp-form;
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
 
 span.error {

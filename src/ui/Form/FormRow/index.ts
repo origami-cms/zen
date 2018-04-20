@@ -19,7 +19,7 @@ export default class FormRow extends Element {
     private _errorSpan?: HTMLElement;
 
 
-    static observedAttributes = ['name', 'hidden'];
+    static observedAttributes = ['name', 'hidden', 'width'];
     static boundProps = ['field', 'name', 'value', 'error', 'hidden'];
 
 
@@ -61,6 +61,8 @@ export default class FormRow extends Element {
                         this.setAttribute('type', newV.type);
                     }
                 } else this.removeAttribute('type');
+
+                this.setAttribute('row-width', newV.width);
 
                 break;
 

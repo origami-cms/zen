@@ -22,6 +22,7 @@ export interface FieldBase {
     required?: boolean;
     disabled?: boolean;
     hidden?: boolean;
+    width?: 'half' | 'full';
     validate?: ValidateBase;
 }
 
