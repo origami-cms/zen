@@ -6,3 +6,10 @@
     }
 }
 
+:host([align=right]) {
+    zen-ui-button {
+        margin-right: 0;
+        margin-left: var(--size-small);
+    }
+}
+

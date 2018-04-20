@@ -64,7 +64,7 @@ export default class Button extends Element {
 
                 if (newV) {
                     this._icon.type = newV;
-                    this._icon.size = this.size;
+                    if (this.size) this._icon.size = this.size;
                 }
                 break;
 
@@ -88,7 +88,7 @@ export default class Button extends Element {
                 break;
 
             case 'hollow':
-                if (newV && this.icon) this._icon.color = this.color;
+                if (newV && this.icon && this.color) this._icon.color = this.color;
                 break;
 
             case 'disabled':

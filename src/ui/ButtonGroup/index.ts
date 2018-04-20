@@ -4,36 +4,51 @@ import CSS from './button-group.scss';
 
 
 export default class ZenButtonGroup extends Element {
-    group: HTMLElement;
+    align?: 'right' | 'left';
     buttons: object[] = [];
+
+    static observeredAttributes = ['align'];
+    static boundProps = ['buttons', 'align'];
+
+    private _group?: HTMLElement;
+
 
     constructor() {
         super(HTML, CSS.toString(), 'ButtonGroup');
-        this.group = this._root.querySelector('.button-group') as HTMLElement;
-    }
-
-
-    static get defaultProps() {
-        return {
-            buttons: []
-        };
-    }
-
-
-    static get boundProps() {
-        return ['buttons'];
     }
 
 
     render() {
         super.render();
-        this.updateButtons();
+        this._group = this._root.querySelector('.button-group') as HTMLElement;
+        this._updateButtons();
     }
 
-    async updateButtons() {
+    attributeChangedCallback(attr: keyof ZenButtonGroup, oldV: any, newV: any) {
+        switch (attr) {
+            case 'align':
+                this[attr] = newV;
+                break;
+        }
+    }
+
+    propertyChangedCallback(prop: keyof ZenButtonGroup, oldV: any, newV: any) {
+        switch (prop) {
+            case 'align':
+                if (newV) {
+                    if (this.getAttribute('align') !== newV) this.setAttribute('align', newV);
+                }
+                if (this.getAttribute('align') && !newV) this.setAttribute('align', '');
+                break;
+        }
+    }
+
+    private async _updateButtons() {
         await this.ready();
+        const g = this._group as HTMLElement;
+
         this.buttons.forEach((btn, i) => {
-            let ele = this.group.children[i];
+            let ele = g.children[i];
             let add = false;
             if (!ele) {
                 add = true;
@@ -41,12 +56,12 @@ export default class ZenButtonGroup extends Element {
             }
 
             Object.assign(ele, btn);
-            if (add) this.group.appendChild(ele);
+            if (add) g.appendChild(ele);
         });
 
 
         // Remove buttons over the supplied button length (old ones)
-        Array.from(this.group.children)
+        Array.from(g.children)
             .slice(this.buttons.length)
             .forEach(e => e.remove());
     }
