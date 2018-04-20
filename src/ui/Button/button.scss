@@ -18,6 +18,25 @@
     }
 }
 
+
+@each $size in $sizes {
+    :host([size=#{$size}]) {
+        width: auto;
+        height: default('size-#{$size}');
+        line-height: default('size-#{$size}');
+        font-size: calc((1.6/4) * #{default('size-#{$size}')});
+        padding: 0 calc(#{default('size-#{$size}')} / 2);
+
+        &.icon-right {
+            padding-right: default('size-#{$size}');
+        }
+    }
+}
+
+:host([hollow]) {
+    @extend %comp-button-hollow;
+}
+
 :host([disabled]) {
     opacity: 0.5;
     pointer-events: none;
