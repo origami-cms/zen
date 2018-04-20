@@ -144,6 +144,7 @@ export default class FormRow extends Element {
             case 'submit':
                 field = document.createElement('zen-ui-button') as Button;
                 field.classList.add('submit-button');
+                field.size = 'large';
                 field.innerHTML = f.value || 'Submit';
                 field.addEventListener('click', () => {
                     this.trigger('submit');

@@ -8,11 +8,11 @@ import Icon from '../Icon';
 
 
 export default class Button extends Element {
-    size: string = 'main';
+    size?: string;
     icon: string | false = false;
     'icon-position': boolean = false;
     hollow: boolean = false;
-    color: string = 'main';
+    color?: string;
     disabled?: boolean;
     loading: boolean = false;
     private _icon: Icon;
@@ -39,7 +39,7 @@ export default class Button extends Element {
             case 'size':
             case 'hollow':
             case 'icon-position':
-                this[attr] = newV;
+                if (this[attr] !== newV) this[attr] = newV;
                 break;
 
             case 'disabled':
@@ -81,6 +81,10 @@ export default class Button extends Element {
 
             case 'size':
                 if (this._icon) this._icon.size = newV;
+                if (newV) {
+                    if (this.getAttribute('size') !== newV) this.setAttribute('size', newV);
+                }
+                if (this.getAttribute('size') && !newV) this.setAttribute('size', '');
                 break;
 
             case 'hollow':
@@ -106,6 +110,13 @@ export default class Button extends Element {
                 if (Boolean(newV) !== Boolean(oldV)) {
                     this.disabled = Boolean(newV);
                 }
+
+            case 'color':
+                if (newV) {
+                    if (this.getAttribute('color') !== newV) this.setAttribute('color', newV);
+                }
+                if (this.getAttribute('color') && !newV) this.setAttribute('color', '');
+                break;
         }
     }
 }

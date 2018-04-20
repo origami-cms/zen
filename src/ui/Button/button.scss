@@ -33,6 +33,12 @@
     }
 }
 
+@each $name, $grad in $gradients {
+    :host([color="#{$name}"]) {
+        background: gradient($name);
+    }
+}
+
 :host([hollow]) {
     @extend %comp-button-hollow;
 }
