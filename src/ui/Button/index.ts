@@ -32,7 +32,7 @@ export default class Button extends Element {
         return ['type', 'color', 'size', 'hollow', 'icon-position', 'disabled'];
     }
 
-    attributeChangedCallback(attr: keyof Button, oldV: string, newV: string): void {
+    async attributeChangedCallback(attr: keyof Button, oldV: string, newV: string) {
         switch (attr) {
             case 'icon':
             case 'color':
@@ -77,6 +77,7 @@ export default class Button extends Element {
                     this._root.insertBefore(this._icon, this._root.firstChild);
                     this.classList.remove('icon-right');
                 }
+                break;
 
 
             case 'size':
@@ -84,7 +85,7 @@ export default class Button extends Element {
                 if (newV) {
                     if (this.getAttribute('size') !== newV) this.setAttribute('size', newV);
                 }
-                if (this.getAttribute('size') && !newV) this.setAttribute('size', '');
+                else if (this.getAttribute('size') && !newV) this.removeAttribute('size');
                 break;
 
             case 'hollow':
@@ -110,12 +111,15 @@ export default class Button extends Element {
                 if (Boolean(newV) !== Boolean(oldV)) {
                     this.disabled = Boolean(newV);
                 }
+                break;
 
             case 'color':
-                if (newV) {
+                if (!newV) console.trace();
+
+                if (newV && this.color !== newV) {
                     if (this.getAttribute('color') !== newV) this.setAttribute('color', newV);
                 }
-                if (this.getAttribute('color') && !newV) this.setAttribute('color', '');
+                if (this.getAttribute('color') && !newV) this.removeAttribute('color');
                 break;
         }
     }
