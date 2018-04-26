@@ -22,4 +22,18 @@
         @extend %comp-button;
         width: 100%;
     }
+
+    .label {
+        display: block;
+        margin: var(--size-small) 0;
+        color: var(--color-grey-600);
+    }
+
+    .hide-empty:empty {
+        display: none;
+    }
+
+    .hide {
+        display: none;
+    }
 }

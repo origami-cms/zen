@@ -8,13 +8,14 @@ export default class RadioIcons extends Element {
     options: FieldRadioIconsOption[] = [];
     value: FieldRadioIconsOption['value'] | null = null;
     name: string | undefined = undefined;
+    columns?: number;
 
 
     constructor() {
         super(HTML, CSS, 'radio-icons');
     }
 
-    static boundProps = ['options', 'value', 'name'];
+    static boundProps = ['options', 'value', 'name', 'columns'];
     static observedAttributes = ['name'];
 
     private get _grid(): HTMLDivElement | null {
@@ -85,6 +86,10 @@ export default class RadioIcons extends Element {
                 }
 
                 if (newV !== oldV) this.trigger('change', {value: newV});
+                break;
+
+            case 'columns':
+                this.style.setProperty('--radio-icons-columns', newV);
         }
     }
 }

@@ -2,12 +2,13 @@
 ul.options {
     @extend %reset;
     list-style: none;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(var(--radio-icons-columns, 3), 1fr);
+    grid-gap: 2rem;
 
 
     li.option {
         position: relative;
-        flex: 1;
         text-align: center;
         cursor: pointer;
         border: var(--border-200);
@@ -30,11 +31,6 @@ ul.options {
             }
         }
 
-        margin-right: var(--size-main);
-        &:last-child {
-            margin-right: 0;
-        }
-
         .img {
             position: relative;
             &, img, & > * {
@@ -45,6 +41,7 @@ ul.options {
             display: inline-block;
             margin-top: var(--size-main);
             font-weight: 700;
+            white-space: normal;
         }
     }
 }

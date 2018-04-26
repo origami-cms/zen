@@ -22,6 +22,7 @@ export interface FieldBase {
     required?: boolean;
     disabled?: boolean;
     hidden?: boolean;
+    label?: string;
     width?: 'half' | 'full';
     validate?: ValidateBase;
 }
@@ -82,6 +83,7 @@ export interface FieldRadioIconsOption {
 export interface FieldRadioIcons extends FieldBase {
     type: 'radio-icons';
     options?: FieldRadioIconsOption[];
+    columns?: number;
 }
 
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {

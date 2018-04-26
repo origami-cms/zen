@@ -6,6 +6,8 @@ import CSS from './form-row.scss';
 import {HTTP_VERSION_NOT_SUPPORTED} from 'http-status-codes';
 
 
+const HIDE_LABEL_TYPES = ['checkbox'];
+
 export default class FormRow extends Element {
     field?: Field;
     name?: string;
@@ -17,6 +19,7 @@ export default class FormRow extends Element {
     private _field?: any;
     private _icon?: Icon;
     private _errorSpan?: HTMLElement;
+    private _label?: HTMLElement;
 
 
     static observedAttributes = ['name', 'hidden', 'width'];
@@ -32,6 +35,7 @@ export default class FormRow extends Element {
 
         this._icon = this._root.querySelector('zen-ui-icon.icon') as Icon;
         this._errorSpan = this._root.querySelector('span.error') as HTMLElement;
+        this._label = this._root.querySelector('span.label') as HTMLElement;
     }
 
     async propertyChangedCallback(prop: keyof FormRow, oldV: any, newV: any) {
@@ -46,14 +50,14 @@ export default class FormRow extends Element {
                 }
                 this._createField(newV);
 
+                // Update icon
                 const i = this._icon as Icon;
                 i.style.display = Boolean(newV.icon) ? '' : 'none';
                 i.classList.toggle('hide', !Boolean(newV.icon));
 
-                if (newV.icon) {
-                    i.type = newV.icon;
-                }
+                if (newV.icon) i.type = newV.icon;
                 if (newV.iconColor) i.color = newV.iconColor;
+
 
                 // Update type attribute
                 if (newV.type) {
@@ -62,7 +66,16 @@ export default class FormRow extends Element {
                     }
                 } else this.removeAttribute('type');
 
+
+                // Set width
                 this.setAttribute('row-width', newV.width);
+
+
+                // Hide label if checkbox, etc
+                (this._label as HTMLElement).classList.toggle(
+                    'hide',
+                    HIDE_LABEL_TYPES.indexOf(newV.type) !== -1
+                );
 
                 break;
 
@@ -190,6 +203,7 @@ export default class FormRow extends Element {
                 field = document.createElement('zen-ui-radio-icons') as RadioIcons;
                 field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
+                if (f.columns !== undefined) field.columns = f.columns;
                 field.addEventListener('change', change);
                 break;
 
