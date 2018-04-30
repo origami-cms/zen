@@ -206,7 +206,6 @@ export default class Form extends Element {
     submit(e: Event) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('submitting');
 
         if (!this.validate()) return false;
 

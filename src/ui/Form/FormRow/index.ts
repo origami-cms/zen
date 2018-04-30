@@ -18,8 +18,6 @@ export default class FormRow extends Element {
 
     private _field?: any;
     private _icon?: Icon;
-    private _errorSpan?: HTMLElement;
-    private _label?: HTMLElement;
 
 
     static observedAttributes = ['name', 'hidden', 'width'];
@@ -34,8 +32,6 @@ export default class FormRow extends Element {
         super.connectedCallback();
 
         this._icon = this._root.querySelector('zen-ui-icon.icon') as Icon;
-        this._errorSpan = this._root.querySelector('span.error') as HTMLElement;
-        this._label = this._root.querySelector('span.label') as HTMLElement;
     }
 
     async propertyChangedCallback(prop: keyof FormRow, oldV: any, newV: any) {
@@ -52,11 +48,13 @@ export default class FormRow extends Element {
 
                 // Update icon
                 const i = this._icon as Icon;
-                i.style.display = Boolean(newV.icon) ? '' : 'none';
-                i.classList.toggle('hide', !Boolean(newV.icon));
+                if (i) {
+                    i.style.display = Boolean(newV.icon) ? '' : 'none';
+                    i.classList.toggle('hide', !Boolean(newV.icon));
 
-                if (newV.icon) i.type = newV.icon;
-                if (newV.iconColor) i.color = newV.iconColor;
+                    if (newV.icon) i.type = newV.icon;
+                    if (newV.iconColor) i.color = newV.iconColor;
+                }
 
 
                 // Update type attribute
@@ -72,7 +70,7 @@ export default class FormRow extends Element {
 
 
                 // Hide label if checkbox, etc
-                (this._label as HTMLElement).classList.toggle(
+                (this._root.querySelector('span.label') as HTMLElement).classList.toggle(
                     'hide',
                     HIDE_LABEL_TYPES.indexOf(newV.type) !== -1
                 );
@@ -93,7 +91,8 @@ export default class FormRow extends Element {
 
             case 'error':
                 await this.ready();
-                (this._errorSpan as HTMLElement).style.display = Boolean(newV) ? '' : 'none';
+                (this._root.querySelector('span.error') as HTMLElement)
+                    .style.display = Boolean(newV) ? '' : 'none';
 
         }
     }
