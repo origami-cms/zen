@@ -12,17 +12,12 @@ export default class Select extends Element {
         super(HTML, CSS, 'Select');
     }
 
-    static observerAttributes = ['name'];
-    static boundProps = ['options', 'name'];
+    static observeredAttributes = ['name'];
+    static boundProps = ['options', 'name', 'value'];
 
 
     get value() {
         return this._select ? this._select.value : null;
-    }
-
-    set value(v: string | null) {
-        if (!this._select) return;
-        this._select.value = v || '';
     }
 
 
@@ -45,7 +40,11 @@ export default class Select extends Element {
     async propertyChangedCallback(prop: keyof Select, oldV: string, newV: string): Promise<void> {
         switch (prop) {
             case 'value':
+                await this.ready();
+                console.log('value is', newV);
                 if (newV !== oldV) this.trigger('change');
+                if (this._select) this._select.value = newV || '';
+
                 break;
             case 'options':
                 await this.ready();

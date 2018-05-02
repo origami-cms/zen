@@ -234,6 +234,8 @@ export default class Form extends Element {
             valid
         });
 
+        if (showErrors) this.render();
+
         return valid;
     }
 }

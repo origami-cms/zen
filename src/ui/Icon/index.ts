@@ -3,7 +3,7 @@ import HTML from './icon.html';
 import CSS from './icon.scss';
 
 export default class Icon extends Element {
-    size: string = 'main';
+    size?: string;
     type: string = '';
     color: string = 'main';
     readonly html: string = HTML;
@@ -21,12 +21,6 @@ export default class Icon extends Element {
         return this.svg.querySelector('use') as SVGUseElement;
     }
 
-    static get defaultProps() {
-        return {
-            color: 'main',
-            size: 'main'
-        };
-    }
     static get boundProps() {
         return ['type', 'color', 'size'];
     }
@@ -60,6 +54,15 @@ export default class Icon extends Element {
                 this.svg.appendChild(symbol);
                 // Update the ref on the use
                 this.use.setAttribute('href', this._prefix + newV);
+                break;
+
+            case 'size':
+                await this.ready();
+
+                if (newV) {
+                    if (this.getAttribute('size') !== newV) this.setAttribute('size', newV);
+                }
+                else if (this.getAttribute('size') && !newV) this.removeAttribute('size');
                 break;
 
             case 'color':

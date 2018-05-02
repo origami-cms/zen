@@ -90,6 +90,10 @@ export default class Button extends Element {
 
             case 'hollow':
                 if (newV && this.icon && this.color) this._icon.color = this.color;
+                if (newV) {
+                    if (this.getAttribute('hollow') !== newV) this.setAttribute('hollow', newV);
+                }
+                else if (this.getAttribute('hollow') && !newV) this.removeAttribute('hollow');
                 break;
 
             case 'disabled':

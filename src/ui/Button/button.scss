@@ -47,3 +47,7 @@
     opacity: 0.5;
     pointer-events: none;
 }
+:host(:not([color]):not([hollow])) {
+    background-color: default('btn-bg');
+    background: default('btn-bg');
+}

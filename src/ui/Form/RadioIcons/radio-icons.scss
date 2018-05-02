@@ -15,6 +15,8 @@ ul.options {
         border-radius: var(--border-radius);
         padding: var(--size-tiny) 0;
         transition: all default('transition-time');
+        background-color: var(--radio-icons-bg);
+        box-shadow: var(--radio-icons-shadow);
 
          &:before {
             @extend %cover;
@@ -33,14 +35,13 @@ ul.options {
 
         .img {
             position: relative;
-            &, img, & > * {
+            &, img, & * {
                 max-height: calc(var(--size-super) * 1.5);
             }
         }
-        strong {
+        & > span {
             display: inline-block;
-            margin-top: var(--size-main);
-            font-weight: 700;
+            margin-top: var(--size-small);
             white-space: normal;
         }
     }

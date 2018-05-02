@@ -6,7 +6,7 @@ import CSS from './form-row.scss';
 import {HTTP_VERSION_NOT_SUPPORTED} from 'http-status-codes';
 
 
-const HIDE_LABEL_TYPES = ['checkbox'];
+const HIDE_LABEL_TYPES = ['checkbox', 'slider'];
 
 export default class FormRow extends Element {
     field?: Field;
@@ -169,10 +169,12 @@ export default class FormRow extends Element {
 
             case 'select':
                 field = document.createElement('zen-ui-select') as Radio;
+
                 if (f.name) field.setAttribute('name', f.name);
                 field.addEventListener('change', change);
                 if (f.placeholder) field.placeholder = f.placeholder;
                 if (f.options) field.options = f.options;
+                field.value = v;
 
                 break;
 
@@ -201,6 +203,7 @@ export default class FormRow extends Element {
             case 'radio-icons':
                 field = document.createElement('zen-ui-radio-icons') as RadioIcons;
                 field.options = f.options;
+                field.value = v;
                 if (f.name) field.setAttribute('name', f.name);
                 if (f.columns !== undefined) field.columns = f.columns;
                 field.addEventListener('change', change);
