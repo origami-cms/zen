@@ -6,6 +6,7 @@ import fuse from 'fuse.js';
 
 const DEFAULT_KEY = 'value';
 
+
 export default class Autocomplete extends Element {
     value?: null | any =  null;
     results?: object[] | Function;
@@ -20,6 +21,7 @@ export default class Autocomplete extends Element {
     private _results: object[] = [];
     private _showResults: boolean = false;
     private _index: number | null = null;
+    private _delayTime = 200;
 
     constructor() {
         super(HTML, CSS, 'autocomplete');
@@ -32,7 +34,9 @@ export default class Autocomplete extends Element {
         this._input.addEventListener('blur', () =>
             // Timeout is so that it doesn't close immediately, and the click
             // event is fired on the item
-            setTimeout(() => this._showResults = false, 100)
+            setTimeout(() => {
+                this._showResults = false;
+            }, this._delayTime)
         );
         this._input.addEventListener('focus',
             () => this._showResults = Boolean(this._results.length)
