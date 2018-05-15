@@ -1,6 +1,6 @@
 {
   "name": "origami-zen",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Collection of reusable web components. Built for Origami CMS.",
   "main": "_bundles/zen.js",
   "repository": "https://github.com/origami-cms/zen",
