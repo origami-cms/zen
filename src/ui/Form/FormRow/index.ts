@@ -1,4 +1,4 @@
-import {Autocomplete, Checkbox, Field, Radio, RadioIcons, Slider} from '..';
+import {Autocomplete, Checkbox, Field, Radio, RadioTabs, RadioIcons, Slider} from '..';
 import {Button, Icon} from '../..';
 import Element from '../../../lib/Element';
 import HTML from './form-row.html';
@@ -194,7 +194,10 @@ export default class FormRow extends Element {
 
 
             case 'radio':
-                field = document.createElement('zen-ui-radio-select') as Radio;
+            case 'radio-tabs':
+                let type = 'radio-select';
+                if (f.type === 'radio-tabs') type = 'radio-tabs';
+                field = document.createElement(`zen-ui-${type}`) as Radio;
                 field.options = f.options;
                 if (f.name) field.setAttribute('name', f.name);
                 field.addEventListener('change', change);
@@ -221,6 +224,7 @@ export default class FormRow extends Element {
                 if (f.placeholder) field.placeholder = f.placeholder;
                 break;
 
+
             case 'slider':
                 field = document.createElement('zen-ui-slider') as Slider;
                 field.setAttribute('name', f.name);
@@ -235,7 +239,8 @@ export default class FormRow extends Element {
 
             // TODO: Custom web component fields
             default:
-                this._warn(`Field type '${type}' is not supported`);
+                // @ts-ignore Catching
+                this._warn(`Field type '${f.type}' is not supported`);
 
                 return false;
         }

@@ -44,6 +44,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "dependencies": {
-    "@types/seamless-immutable": "^7.1.1"
+    "@types/seamless-immutable": "^7.1.1",
+    "zen-css": "^1.1.4"
   }
 }

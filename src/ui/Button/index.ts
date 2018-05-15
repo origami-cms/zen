@@ -118,8 +118,6 @@ export default class Button extends Element {
                 break;
 
             case 'color':
-                if (!newV) console.trace();
-
                 if (newV && this.color !== newV) {
                     if (this.getAttribute('color') !== newV) this.setAttribute('color', newV);
                 }

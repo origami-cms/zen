@@ -14,6 +14,7 @@ export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
 export {default as Radio} from './Radio';
+export {default as RadioTabs} from './RadioTabs';
 export {default as Autocomplete} from './Autocomplete';
 export {default as Slider} from './Slider';
 export * from './FieldTypes';

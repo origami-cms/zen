@@ -89,7 +89,10 @@ export default class RadioIcons extends Element {
                 break;
 
             case 'columns':
-                this.style.setProperty('--radio-icons-columns', `var(--radio-icons-columns-override, ${newV}`);
+                this.style.setProperty(
+                    '--radio-icons-columns',
+                    `var(--radio-icons-columns-override, ${newV}`
+                );
         }
     }
 }

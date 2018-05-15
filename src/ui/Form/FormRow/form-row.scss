@@ -3,7 +3,7 @@
 :host {
     @extend %comp-form-row;
 
-     &, * {
+     &, *:not(zen-ui-radio-tabs) {
         @extend %reset;
     }
     input, select, textarea, input[type="file"] + span.input {

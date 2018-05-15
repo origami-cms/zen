@@ -1,0 +1,16 @@
+@import '~zen-css/import';
+
+:host {
+    // & {
+    //     @extend %comp-tabs;
+    // }
+    .option {
+        text-align: left;
+    }
+}
+
+:host,
+:host-context(zen-ui-form-row) {
+    @extend %comp-tabs;
+    border-width: 2px;
+}

@@ -41,7 +41,6 @@ export default class Select extends Element {
         switch (prop) {
             case 'value':
                 await this.ready();
-                console.log('value is', newV);
                 if (newV !== oldV) this.trigger('change');
                 if (this._select) this._select.value = newV || '';
 
