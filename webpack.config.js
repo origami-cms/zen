@@ -6,8 +6,7 @@ const BitBarPlugin = require('bitbar-webpack-progress-plugin');
 
 module.exports = {
     entry: {
-        "zen": path.join(PATH_SRC, 'index.ts'),
-        // "Element": path.join(PATH_SRC, 'lib/Element.ts'),
+        "zen": path.join(PATH_SRC, 'index.ts')
     },
     module: {
         rules: [

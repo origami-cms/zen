@@ -4,7 +4,7 @@ export {default as Form} from './Form';
 export * from './Form';
 export {default as Button} from './Button';
 export {default as ButtonGroup} from './ButtonGroup';
-export {default as ToolTip} from './ToolTip';
+export {default as Tooltip} from './Tooltip';
 
 
 

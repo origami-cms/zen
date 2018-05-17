@@ -5,10 +5,11 @@ import CSS from './checkbox.scss';
 export default class Checkbox extends Element {
     input: HTMLInputElement | null = null;
     name: string | undefined = undefined;
+    size?: string;
 
-    static boundProps = ['name'];
+    static boundProps = ['name', 'size'];
 
-    static observedAttributes = ['checked', 'name'];
+    static observedAttributes = ['checked', 'name', 'size'];
 
     constructor() {
         super(HTML, CSS, 'Checkbox');
@@ -34,13 +35,16 @@ export default class Checkbox extends Element {
         if (this.input) this.input.checked = Boolean(v);
     }
 
-    attributeChangedCallback(attr: keyof Checkbox, oldV: string, newV: string): void {
+    async attributeChangedCallback(attr: keyof Checkbox, oldV: string, newV: string) {
         switch (attr) {
             case 'checked':
                 this.checked = Boolean(newV);
                 break;
+
             case 'name':
-                if (this.name !== newV) this.name = newV;
+            case 'size':
+                await this.ready();
+                if (this[attr] !== newV) this[attr] = newV;
         }
     }
 
@@ -53,6 +57,13 @@ export default class Checkbox extends Element {
                 }
                 if (this.getAttribute('name') && !newV) this.setAttribute('name', '');
                 break;
+
+            case 'size':
+                await this.ready();
+                if (newV) {
+                    if (this.getAttribute('size') !== newV) this.setAttribute('size', newV);
+                }
+                else if (this.getAttribute('size')) this.setAttribute('size', '');
 
             default:
                 break;
