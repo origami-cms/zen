@@ -34,6 +34,14 @@ export default class FormRow extends Element {
         this._icon = this._root.querySelector('zen-ui-icon.icon') as Icon;
     }
 
+    attributeChangedCallback(attr: keyof FormRow, oldV: any, newV: any) {
+        switch (attr) {
+            case 'name':
+                if (this[attr] !== newV) this[attr] = newV;
+                break;
+        }
+    }
+
     async propertyChangedCallback(prop: keyof FormRow, oldV: any, newV: any) {
         switch (prop) {
             case 'field':
