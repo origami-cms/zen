@@ -43,17 +43,25 @@ export default class Icon extends Element {
         switch (prop) {
             case 'type':
                 if (!newV) return;
-                // Remove all old symbols and replace with new one
-                Array.from(this.svg.querySelectorAll('symbol')).forEach(s => s.remove());
 
-                // Clone the new symbol from the icon set
                 const existing = document.querySelector(this._prefix + newV);
                 if (!existing) return this._error(`No icons found for '${newV}'`);
 
-                const symbol = existing.cloneNode(true);
-                this.svg.appendChild(symbol);
-                // Update the ref on the use
-                this.use.setAttribute('href', this._prefix + newV);
+                switch (this._browser.name) {
+                    case 'safari':
+                        this.svg.innerHTML = existing.innerHTML;
+                        break;
+                    default:
+                        // Remove all old symbols and replace with new one
+                        Array.from(this.svg.querySelectorAll('symbol')).forEach(s => s.remove());
+
+                        // Clone the new symbol from the icon set
+                        const symbol = existing.cloneNode(true);
+                        this.svg.appendChild(symbol);
+                        // Update the ref on the use
+                        this.use.setAttribute('href', this._prefix + newV);
+                }
+
                 break;
 
             case 'size':

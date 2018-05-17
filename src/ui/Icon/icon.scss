@@ -20,7 +20,7 @@
         height: 100%;
 
         @each $name in $colors {
-            &.#{$name} use {
+            &.#{$name} * {
                 fill: var(--color-#{$name});
             }
         }
