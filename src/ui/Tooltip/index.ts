@@ -18,24 +18,32 @@ export type TooltipPosition =
     'left-top';
 
 export default class Tooltip extends Element {
-    position: TooltipPosition = 'bottom';
+    position?: TooltipPosition;
     for?: HTMLElement | null = null;
+    removeable?: boolean;
 
-    static observedAttributes = ['position'];
-    static boundProps = ['position', 'for'];
+    static observedAttributes = ['position', 'removeable'];
+    static boundProps = ['position', 'for', 'removeable'];
 
     constructor() {
         super('<slot>', CSS, 'tooltip');
+        this._remove = this._remove.bind(this);
     }
 
     connectedCallback() {
+        super.connectedCallback();
+
         this._update();
+        if (this.removeable) {
+            window.addEventListener('mouseup', this._remove);
+            window.addEventListener('keydown', this._remove);
+        }
     }
 
     async attributeChangedCallback(attr: keyof Tooltip, oldV: any, newV: any) {
         switch (attr) {
-
             case 'position':
+            case 'removeable':
                 await this.ready();
                 if (this[attr] !== newV) this[attr] = newV;
                 break;
@@ -44,9 +52,9 @@ export default class Tooltip extends Element {
 
     async propertyChangedCallback(prop: keyof Tooltip, oldV: any, newV: any) {
         switch (prop) {
-
             // Hide the tooltip if there is no for element
             case 'for':
+                await this.ready();
                 this.style.display = Boolean(newV) ? '' : 'none';
                 this._update();
                 break;
@@ -57,9 +65,10 @@ export default class Tooltip extends Element {
         }
     }
 
+
     private _update() {
         // TODO: Clear up ts ignore
-        if (!this.for) return;
+        if (!this.for || !this.position) return;
         const {x, y, width, height} = this.for.getBoundingClientRect() as DOMRect;
 
 
@@ -84,6 +93,16 @@ export default class Tooltip extends Element {
             // @ts-ignore
             this.style.top = `${parseInt(y + height / 2, 10)}px`;
         }
+    }
+
+    private _remove(e: KeyboardEvent | MouseEvent) {
+        if (e instanceof KeyboardEvent) {
+            if (e.key !== 'Escape') return;
+        }
+
+        window.removeEventListener('keydown', this._remove);
+        window.removeEventListener('click', this._remove);
+        this.remove();
     }
 }
 

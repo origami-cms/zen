@@ -1,0 +1,15 @@
+@import '~zen-css/import';
+
+:host {
+    display: block;
+    @extend %comp-menu;
+}
+
+:host-context(zen-ui-vertical-menu) {
+    margin: calc(-1 * var(--size-tiny));
+
+    .item {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}

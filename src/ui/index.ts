@@ -5,6 +5,7 @@ export * from './Form';
 export {default as Button} from './Button';
 export {default as ButtonGroup} from './ButtonGroup';
 export {default as Tooltip} from './Tooltip';
+export {default as VerticalMenu} from './VerticalMenu';
 
 
 

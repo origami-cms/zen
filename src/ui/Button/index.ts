@@ -65,6 +65,7 @@ export default class Button extends Element {
                 if (newV) {
                     this._icon.type = newV;
                     if (this.size) this._icon.size = this.size;
+                    if (this.hollow && this.color) this._icon.color = this.color;
                 }
                 break;
 
@@ -122,6 +123,7 @@ export default class Button extends Element {
                     if (this.getAttribute('color') !== newV) this.setAttribute('color', newV);
                 }
                 if (this.getAttribute('color') && !newV) this.removeAttribute('color');
+                if (this.hollow && this.icon) this._icon.color = newV;
                 break;
         }
     }
