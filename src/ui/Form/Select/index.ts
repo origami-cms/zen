@@ -19,6 +19,7 @@ export default class Select extends Element {
     get value() {
         return this._select ? this._select.value : null;
     }
+    set value(v) {}
 
 
     private get _select(): HTMLSelectElement | null {
@@ -27,7 +28,7 @@ export default class Select extends Element {
 
     connectedCallback() {
         const s = this._select as HTMLSelectElement;
-        // s.addEventListener('change', () => this.value = s.value);
+        s.addEventListener('change', () => this.value = s.value);
     }
 
     attributeChangedCallback(attr: keyof Select, oldV: string, newV: string): void {
