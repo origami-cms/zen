@@ -6134,6 +6134,6 @@ yeoman-generator@^2.0.3:
     through2 "^2.0.0"
     yeoman-environment "^2.0.5"
 
-zen-css@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.4.tgz#bd169eb61fcc3ff894c5954390e84a37ce61c976"
+zen-css@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.5.tgz#b63ba010598ea7c00172c7bb2203c67926425bf1"
