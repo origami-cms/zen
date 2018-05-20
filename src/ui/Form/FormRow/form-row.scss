@@ -3,8 +3,9 @@
 :host {
     @extend %comp-form-row;
 
-     &, *:not(zen-ui-radio-tabs) {
+    &, *:not(zen-ui-radio-tabs) {
         @extend %reset;
+        vertical-align: middle;
     }
     input, select, textarea, input[type="file"] + span.input {
         @extend %comp-form-input-general;
