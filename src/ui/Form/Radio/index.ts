@@ -9,7 +9,7 @@ export default class Radio extends Element {
     name?: string;
 
     constructor() {
-        super(HTML, CSS, 'Radio');
+        super(HTML, CSS);
     }
 
     static observedAttributes = ['name'];

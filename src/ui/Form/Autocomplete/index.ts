@@ -24,11 +24,12 @@ export default class Autocomplete extends Element {
     private _delayTime = 200;
 
     constructor() {
-        super(HTML, CSS, 'autocomplete');
+        super(HTML, CSS);
     }
 
     connectedCallback() {
         super.connectedCallback();
+
         this._input = this._root.querySelector('input') as HTMLInputElement;
         this._input.addEventListener('keyup', this._getResults.bind(this));
         this._input.addEventListener('blur', () =>
@@ -105,23 +106,28 @@ export default class Autocomplete extends Element {
                         this.removeAttribute('disabled');
                     }
                 }
+                break;
 
             // @ts-ignore Valid to access this
             case '_results':
+                await this.ready();
                 this._renderRows();
                 break;
 
             // @ts-ignore Valid to access this
             case '_showResults':
                 await this.ready();
-                (this._resultsList as HTMLUListElement).style.display = newV ? '' : 'none';
-                if (newV && newV !== oldV) this._index = 0;
-                else if (!newV) this._index = null;
+                if (this._resultsList) {
+                    (this._resultsList as HTMLUListElement).style.display = newV ? '' : 'none';
+                    if (newV && newV !== oldV) this._index = 0;
+                    else if (!newV) this._index = null;
+                }
                 break;
 
 
             // @ts-ignore Valid to access this
             case '_index':
+                await this.ready();
                 const i = parseInt(newV, 10);
                 if (i >= this._results.length) {
                     this._index = 0;
@@ -132,10 +138,12 @@ export default class Autocomplete extends Element {
                     return;
                 }
 
-
-                Array.from((this._resultsList as HTMLUListElement).children).forEach((e, i) => {
-                    e.classList.toggle('active', parseInt(newV, 10) === i);
-                });
+                if (this._resultsList) {
+                    Array.from((this._resultsList as HTMLUListElement).children).forEach((e, i) => {
+                        e.classList.toggle('active', parseInt(newV, 10) === i);
+                    });
+                }
+                break;
 
 
             default:
@@ -177,7 +185,7 @@ export default class Autocomplete extends Element {
 
     private _renderRows() {
         const rl = this._resultsList;
-        if (!rl) return this._error('Not connected');
+        if (!rl) return;
 
         rl.innerHTML = '';
 

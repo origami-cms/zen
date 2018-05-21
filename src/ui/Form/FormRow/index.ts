@@ -25,7 +25,7 @@ export default class FormRow extends Element {
 
 
     constructor() {
-        super(HTML, CSS, 'form-row');
+        super(HTML, CSS);
     }
 
     connectedCallback() {

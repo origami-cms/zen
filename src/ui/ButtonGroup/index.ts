@@ -14,7 +14,7 @@ export default class ZenButtonGroup extends Element {
 
 
     constructor() {
-        super(HTML, CSS.toString(), 'ButtonGroup');
+        super(HTML, CSS.toString());
     }
 
 

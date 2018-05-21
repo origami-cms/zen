@@ -11,7 +11,7 @@ export default class Icon extends Element {
     private _prefix = '#zen-icon-';
 
     constructor() {
-        super(HTML, CSS.toString(), 'Icon');
+        super(HTML, CSS.toString());
     }
 
     get svg(): SVGElement {
@@ -49,6 +49,7 @@ export default class Icon extends Element {
 
                 switch (this._browser.name) {
                     case 'safari':
+                    case 'firefox':
                         this.svg.innerHTML = existing.innerHTML;
                         break;
                     default:

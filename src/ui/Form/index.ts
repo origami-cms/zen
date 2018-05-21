@@ -46,12 +46,13 @@ export default class Form extends Element {
 
 
     constructor() {
-        super(HTML, CSS.toString(), 'Form');
+        super(HTML, CSS.toString());
     }
 
 
     connectedCallback() {
         super.connectedCallback();
+
         this.form = this._root.querySelector('form') as HTMLFormElement;
         this.form.addEventListener('submit', this.submit.bind(this));
     }
@@ -71,9 +72,11 @@ export default class Form extends Element {
             case 'loading':
                 const submit = this._root.querySelector('.submit-button');
                 if (submit) (submit as Button).disabled = Boolean(newV);
+                break;
 
             case 'fields':
                 this._renderRows();
+                break;
 
             default:
                 break;
@@ -229,11 +232,13 @@ export default class Form extends Element {
         row.field = f;
 
         row.addEventListener('change', (e: CustomEventInit) => {
-
-            this.values = {
-                ...this.values,
-                ...{[f.name]: e.detail}
-            };
+            // tslint:disable-next-line
+            if (e.detail && e.detail != this.values[f.name]) {
+                this.values = {
+                    ...this.values,
+                    ...{[f.name]: e.detail}
+                };
+            }
         });
         this.form.appendChild(row as HTMLElement);
         row.setAttribute('type', f.type);

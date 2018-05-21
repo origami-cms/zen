@@ -5,7 +5,7 @@ import CSS from './modal.scss';
 
 export default class Modal extends Element {
     constructor() {
-        super(HTML, CSS, 'modal');
+        super(HTML, CSS);
         this.close = this.close.bind(this);
     }
 

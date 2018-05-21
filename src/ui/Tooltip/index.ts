@@ -26,7 +26,7 @@ export default class Tooltip extends Element {
     static boundProps = ['position', 'for', 'removeable'];
 
     constructor() {
-        super('<slot>', CSS, 'tooltip');
+        super('<slot>', CSS);
         this._remove = this._remove.bind(this);
     }
 

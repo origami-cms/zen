@@ -12,7 +12,7 @@ export default class RadioIcons extends Element {
 
 
     constructor() {
-        super(HTML, CSS, 'radio-icons');
+        super(HTML, CSS);
     }
 
     static boundProps = ['options', 'value', 'name', 'columns'];

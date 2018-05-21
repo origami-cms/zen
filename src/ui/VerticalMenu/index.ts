@@ -17,7 +17,7 @@ export default class VerticalMenu extends Element {
     static boundProps = ['items'];
 
     constructor() {
-        super(HTML, CSS.toString(), 'vertical-menu');
+        super(HTML, CSS.toString());
     }
 
 

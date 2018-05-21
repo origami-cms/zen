@@ -16,7 +16,7 @@ export default class Slider extends Element {
 
 
     constructor() {
-        super(HTML, CSS, 'slider');
+        super(HTML, CSS);
 
         this._handleDragStart = this._handleDragStart.bind(this);
         this._handleDrag = this._handleDrag.bind(this);

@@ -8,7 +8,7 @@ export default class RadioTabs extends Element {
     name?: string;
 
     constructor() {
-        super(HTML, CSS, 'RadioTabs');
+        super(HTML, CSS);
     }
 
     static observedAttributes = ['name'];

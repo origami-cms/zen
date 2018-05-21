@@ -9,7 +9,7 @@ export default class Select extends Element {
     name?: string;
 
     constructor() {
-        super(HTML, CSS, 'Select');
+        super(HTML, CSS);
     }
 
     static observeredAttributes = ['name'];

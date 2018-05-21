@@ -20,7 +20,7 @@ export default class Button extends Element {
     private _loader?: HTMLSpanElement;
 
     constructor() {
-        super(HTML, CSS.toString(), 'Button');
+        super(HTML, CSS.toString());
         this._icon = this._root.querySelector('zen-ui-icon') as HTMLElement as Icon;
     }
 

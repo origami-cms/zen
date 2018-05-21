@@ -12,7 +12,7 @@ export default class Checkbox extends Element {
     static observedAttributes = ['checked', 'name', 'size'];
 
     constructor() {
-        super(HTML, CSS, 'Checkbox');
+        super(HTML, CSS);
         this._handleChange = this._handleChange.bind(this);
     }
 

@@ -26,10 +26,13 @@
         }
     }
 }
+zen-ui-icon {
+    overflow: hidden;
+}
 
 
 @each $size in $sizes {
-    :host-context([size="#{$size}"]) {
+    zen-ui-icon[size="#{$size}"] {
         width: var(--size-#{$size});
         height: var(--size-#{$size});
     }

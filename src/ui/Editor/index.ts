@@ -8,7 +8,7 @@ window.customElements.define('zen-ui-editor', class Editor extends Element {
     private _editor: HTMLElement;
     editor: any;
     constructor() {
-        super(HTML, CSS.toString(), 'Editor');
+        super(HTML, CSS.toString());
 
         this._editor = this._root.querySelector('#editor') as HTMLElement;
     }

@@ -29,14 +29,13 @@ export default class Element extends HTMLElement {
     private _html: string;
     private _css: string | null;
     private _cssStyleTag: HTMLStyleElement | null = null;
-    private readonly _name: string;
     private readonly _useShadowRoot: boolean;
 
 
     attributeChangedCallback(attr: string, oldV: string, newV: string): void {}
 
 
-    constructor(html: string, css: string | false, name?: string, useShadowRoot: boolean = true) {
+    constructor(html: string, css: string | false, useShadowRoot: boolean = true) {
         super();
 
 
@@ -65,7 +64,6 @@ export default class Element extends HTMLElement {
             });
         });
 
-        this._name = name || 'ZenElement';
         this._useShadowRoot = useShadowRoot;
 
         this._html = html;
@@ -174,12 +172,12 @@ export default class Element extends HTMLElement {
 
     // Throw a named error
     protected _error(msg: string) {
-        throw new Error(`Zen.UI.${this._name}: ${msg}`);
+        throw new Error(`Zen.UI.${this.tagName}: ${msg}`);
     }
 
     // Show named console warning
     protected _warn(msg: string) {
-        console.warn(`Zen.UI.${this._name}: ${msg}`);
+        console.warn(`Zen.UI.${this.tagName}: ${msg}`);
     }
 
     // Recursively get a map of nodes that contain {{variable}} so they can be
