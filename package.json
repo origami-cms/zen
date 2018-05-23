@@ -45,6 +45,6 @@
   },
   "dependencies": {
     "@types/seamless-immutable": "^7.1.1",
-    "zen-css": "^1.1.5"
+    "zen-css": "^1.1.6"
   }
 }
