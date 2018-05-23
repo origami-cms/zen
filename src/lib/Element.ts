@@ -24,7 +24,7 @@ export default class Element extends HTMLElement {
     isConnected: boolean;
     protected readonly _browser: BrowserDetectInfo;
 
-    private readonly _readyPromise: Promise<void>;
+    private _readyPromise: Promise<void>;
     private _textNodeMap: TemplateMap = new Map();
     private _html: string;
     private _css: string | null;
@@ -69,9 +69,10 @@ export default class Element extends HTMLElement {
         this._html = html;
         this._css = css || null;
 
+        // @ts-ignore
         this._readyPromise = this._useShadowRoot
-            ? new Promise(this._initShadow())
-            : Promise.resolve();
+            ? this._initShadow()
+            : this._deferReady();
     }
 
     protected get _root(): ShadowRoot | this {
@@ -85,13 +86,14 @@ export default class Element extends HTMLElement {
     }
 
     private _initShadow() {
-        return (res: Function) => {
+        return new Promise((res: Function) => {
+            // @ts-ignore
+            if (ShadyCSS) ShadyCSS.styleElement(this);
             if (this._useShadowRoot) this.attachShadow({mode: 'open'});
 
             this._setupDOM();
-
-            res();
-        };
+            res(true);
+        });
     }
 
     private _setupDOM() {
@@ -104,13 +106,9 @@ export default class Element extends HTMLElement {
         this._updateTemplates();
     }
 
-    set html(v: string) {
-        this._root.innerHTML = v;
 
-        this.css = this._css;
-        this._updateTemplates();
-        this._textNodeMap = this._getTemplateMap();
-        this.render();
+    set html(v: string | HTMLTemplateElement) {
+        this._updateHTML(v);
     }
 
     set css(v: string | null) {
@@ -148,9 +146,24 @@ export default class Element extends HTMLElement {
 
     connectedCallback() {
         if (!this._useShadowRoot) this._setupDOM();
-        // if (!this._cssLibLoaded) this.style.display = 'none';
-
+        if (this._needsPolyfill) {
+            this.classList.add(this.tagName.toLowerCase());
+        }
         this.render();
+        this.trigger('connected');
+    }
+
+    disconnectedCallback() {
+        // @ts-ignore
+        this._readyPromise = this._deferReady();
+    }
+
+    private _deferReady() {
+        return new Promise(res => {
+            this.addEventListener('connected', () => {
+                res(true);
+            });
+        });
     }
 
     render() {
@@ -172,12 +185,12 @@ export default class Element extends HTMLElement {
 
     // Throw a named error
     protected _error(msg: string) {
-        throw new Error(`Zen.UI.${this.tagName}: ${msg}`);
+        throw new Error(`Zen.UI.${this.tagName.toLowerCase()}: ${msg}`);
     }
 
     // Show named console warning
     protected _warn(msg: string) {
-        console.warn(`Zen.UI.${this.tagName}: ${msg}`);
+        console.warn(`Zen.UI.${this.tagName.toLowerCase()}: ${msg}`);
     }
 
     // Recursively get a map of nodes that contain {{variable}} so they can be
@@ -265,5 +278,69 @@ export default class Element extends HTMLElement {
         this._updateTemplateNodes(nodeMap, data);
 
         return tn.nodeValue;
+    }
+
+
+    private _updateHTML(html: string | HTMLTemplateElement) {
+        // @ts-ignore
+        if (ShadyCSS) ShadyCSS.styleElement(this);
+        let t;
+        if (html instanceof HTMLTemplateElement) {
+            t = html;
+        } else {
+            t = document.createElement('template');
+            t.innerHTML = html;
+        }
+        if (this._css) {
+            const s = document.createElement('style');
+            s.innerHTML = this._css;
+            t.content.appendChild(s);
+        }
+
+
+        // @ts-ignore
+        if (ShadyCSS) ShadyCSS.prepareTemplate(t, this.tagName.toLowerCase());
+        this._root.innerHTML = '';
+        this._root.appendChild(document.importNode(t.content, true));
+        this._html = this._root.innerHTML;
+
+        // @ts-ignore
+        if (ShadyCSS) {
+            // @ts-ignore
+            ShadyCSS.styleElement(this);
+            // @ts-ignore
+            ShadyCSS.styleSubtree(this);
+        }
+
+        // this.css = this._css;
+        this._updateTemplates();
+        this._textNodeMap = this._getTemplateMap();
+        this.render();
+    }
+
+    // Polyfill fix to update all the nested elements with classes
+    private _refresh() {
+        if (!this._needsPolyfill) return;
+        const tag = this.tagName.toLowerCase();
+        const style = document.querySelector(`style[scope=${tag}`) as HTMLStyleElement;
+        if (!style) return;
+
+        const sheet = style.sheet as CSSStyleSheet;
+        (Array.from(sheet.cssRules) as CSSStyleRule[]).forEach((r: CSSStyleRule) => {
+            const reg = new RegExp(`\.${tag}`, 'g');
+            if (!r.selectorText) return;
+
+            const sel = r.selectorText.replace(reg, '');
+            try {
+                Array.from(document.querySelectorAll(sel)).forEach(e => {
+                    e.classList.add(tag);
+                });
+            } catch (e) {
+                // console.log(e);
+
+            }
+
+
+        });
     }
 }

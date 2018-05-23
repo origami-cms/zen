@@ -125,15 +125,22 @@ export default class FormRow extends Element {
 
         switch (f.type) {
             case 'textarea':
-                field = document.createElement('wc-wysiwyg');
+                field = document.createElement('textarea');
+                field.value = v;
                 field.name = f.name;
                 field.addEventListener('keyup', change);
-
-                // TODO: Wait for ready
-                setTimeout(() => {
-                    field.value = v;
-                }, 10);
+                if (f.placeholder) field.placeholder = f.placeholder;
                 break;
+            // case 'textarea':
+            //     field = document.createElement('wc-wysiwyg');
+            //     field.name = f.name;
+            //     field.addEventListener('keyup', change);
+
+            //     // TODO: Wait for ready
+            //     setTimeout(() => {
+            //         field.value = v;
+            //     }, 10);
+            //     break;
 
             // HACK: To get the placeholder working
             case 'date':

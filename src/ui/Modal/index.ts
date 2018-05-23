@@ -13,7 +13,9 @@ export default class Modal extends Element {
         super.connectedCallback();
         if (this.parentElement !== document.body) document.body.appendChild(this);
 
-        (this._root.querySelector('zen-ui-icon[type=cross]') as HTMLElement).addEventListener('click', this.close);
+        (this._root.querySelector('zen-ui-icon[type=cross]') as HTMLElement)
+            .addEventListener('click', this.close);
+
         (this._root.querySelector('.overlay') as HTMLElement).addEventListener('click', this.close);
         window.addEventListener('keyup', e => {
             if (e.key === 'Escape') this.close();

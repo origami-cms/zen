@@ -28,6 +28,7 @@ export default class Tooltip extends Element {
     constructor() {
         super('<slot>', CSS);
         this._remove = this._remove.bind(this);
+        this._update = this._update.bind(this);
     }
 
     connectedCallback() {
@@ -38,6 +39,11 @@ export default class Tooltip extends Element {
             window.addEventListener('mouseup', this._remove);
             window.addEventListener('keydown', this._remove);
         }
+        window.addEventListener('scroll', this._update);
+    }
+
+    disconnectedCallback() {
+        window.removeEventListener('scroll', this._update);
     }
 
     async attributeChangedCallback(attr: keyof Tooltip, oldV: any, newV: any) {
