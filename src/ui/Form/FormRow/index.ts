@@ -4,6 +4,7 @@ import Element from '../../../lib/Element';
 import HTML from './form-row.html';
 import CSS from './form-row.scss';
 import {HTTP_VERSION_NOT_SUPPORTED} from 'http-status-codes';
+import {FieldMixinIcon} from '../FieldTypes';
 
 
 const HIDE_LABEL_TYPES = ['checkbox', 'slider'];
@@ -44,45 +45,9 @@ export default class FormRow extends Element {
 
     async propertyChangedCallback(prop: keyof FormRow, oldV: any, newV: any) {
         switch (prop) {
+
             case 'field':
-                await this.ready();
-
-                // Remove the old field
-                if (this._field) {
-                    if (this._field instanceof Array) this._field.forEach(f => f.remove());
-                    else this._field.remove();
-                }
-                this._createField(newV);
-
-                // Update icon
-                const i = this._icon as Icon;
-                if (i) {
-                    i.style.display = Boolean(newV.icon) ? '' : 'none';
-                    i.classList.toggle('hide', !Boolean(newV.icon));
-
-                    if (newV.icon) i.type = newV.icon;
-                    if (newV.iconColor) i.color = newV.iconColor;
-                }
-
-
-                // Update type attribute
-                if (newV.type) {
-                    if (this.getAttribute('type') !== newV.type) {
-                        this.setAttribute('type', newV.type);
-                    }
-                } else this.removeAttribute('type');
-
-
-                // Set width
-                this.setAttribute('row-width', newV.width);
-
-
-                // Hide label if checkbox, etc
-                (this._root.querySelector('span.label') as HTMLElement).classList.toggle(
-                    'hide',
-                    HIDE_LABEL_TYPES.indexOf(newV.type) !== -1
-                );
-
+                this.update();
                 break;
 
             case 'value':
@@ -103,6 +68,52 @@ export default class FormRow extends Element {
                     .style.display = Boolean(newV) ? '' : 'none';
 
         }
+    }
+
+    async update() {
+        const f = this.field;
+        if (!f) return;
+
+        await this.ready();
+
+        // Remove the old field
+        if (this._field) {
+            if (this._field instanceof Array) this._field.forEach(f => f.remove());
+            else this._field.remove();
+        }
+        this._createField(f);
+
+        // Update icon
+        const i = this._icon as Icon;
+
+        // @ts-ignore
+        if (i && f.icon) {
+            const fi = f as FieldMixinIcon;
+            i.style.display = Boolean(fi.icon) ? '' : 'none';
+            i.classList.toggle('hide', !Boolean(fi.icon));
+
+            if (fi.icon) i.type = fi.icon;
+            if (fi.iconColor) i.color = fi.iconColor;
+        }
+
+
+        // Update type attribute
+        if (f.type) {
+            if (this.getAttribute('type') !== f.type) {
+                this.setAttribute('type', f.type);
+            }
+        } else this.removeAttribute('type');
+
+
+        // Set width
+        if (f.width) this.setAttribute('row-width', f.width);
+
+
+        // Hide label if checkbox, etc
+        (this._root.querySelector('span.label') as HTMLElement).classList.toggle(
+            'hide',
+            HIDE_LABEL_TYPES.indexOf(f.type) !== -1
+        );
     }
 
     private _createField(f: Field): HTMLElement | HTMLElement[] | false {

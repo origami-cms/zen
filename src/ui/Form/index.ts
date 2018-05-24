@@ -205,8 +205,10 @@ export default class Form extends Element {
         // If there is an existing row, update it's value, then continue
         // to next field
         if (existing) {
-            // @ts-ignore
-            if (f.type === 'select') existing.field.options = f.options;
+            if (['radio-icons', 'select'].includes(f.type)) {
+                existing.field = f;
+                existing.update();
+            }
 
             if (this._showErrors && errors) {
                 existing.error = errors[Object.keys(errors)[0]];
