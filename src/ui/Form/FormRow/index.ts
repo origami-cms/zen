@@ -113,9 +113,7 @@ export default class FormRow extends Element {
             e.stopPropagation();
             let value: any = field.value;
 
-            if (f.type === 'checkbox') {
-                value = field[0].checked;
-            }
+            if (f.type === 'checkbox') value = field[0].checked;
 
             this.value = value;
         };
