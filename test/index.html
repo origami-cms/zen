@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TEST</title>
+</head>
+<body>
+    <zen-ui-form></zen-ui-form>
+    <nav>
+        <wc-link to="/one">One</wc-link>
+        <wc-link to="/two">Two</wc-link>
+    </nav>
+
+    <wc-router>
+        <wc-switch>
+            <wc-route path="/one" element="test-one"></wc-route>
+            <wc-route path="/two" element="test-two"></wc-route>
+        </wc-switch>
+    </wc-router>
+
+    <zen-ui-icon-set></zen-ui-icon-set>
+    <script src="/dist/main.js"></script>
+</body>
+</html>

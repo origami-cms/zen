@@ -5,7 +5,7 @@
 }
 @each $size in $sizes {
     :host([size=#{$size}]) {
-        width: var(--size-#{$size});
-        height: var(--size-#{$size});
+        width: default('size-#{$size}');
+        height: default('size-#{$size}');
     }
 }

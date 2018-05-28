@@ -94,7 +94,7 @@ export default class FormRow extends Element {
 
             if (fi.icon) i.type = fi.icon;
             if (fi.iconColor) i.color = fi.iconColor;
-        }
+        } else if (i) i.classList.add('hide');
 
 
         // Update type attribute

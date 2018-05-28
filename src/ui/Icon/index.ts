@@ -72,6 +72,7 @@ export default class Icon extends Element {
                     if (this.getAttribute('size') !== newV) this.setAttribute('size', newV);
                 }
                 else if (this.getAttribute('size') && !newV) this.removeAttribute('size');
+
                 break;
 
             case 'color':
@@ -88,6 +89,11 @@ export default class Icon extends Element {
         const svg = this.svg;
         if (svg) {
             svg.classList.toggle(this.color, true);
+        }
+
+        const {height, width} = window.getComputedStyle(this);
+        if (width && height) {
+            this.svg.setAttribute('width', parseInt(width as string, 10).toString());
         }
     }
 }
