@@ -15,6 +15,7 @@ export default class Autocomplete extends Element {
     template?: string;
     disabled?: boolean;
     keys: string[] = [DEFAULT_KEY];
+    minlength: number = 4;
 
     private _input?: HTMLInputElement;
     private _resultsList?: HTMLUListElement;
@@ -49,9 +50,9 @@ export default class Autocomplete extends Element {
     }
 
 
-    static observedAttributes = ['name', 'placeholder', 'disabled'];
+    static observedAttributes = ['name', 'placeholder', 'disabled', 'minlength'];
     static boundProps = [
-        'name', 'placeholder', 'value', 'disabled', '_results', '_showResults', '_index'
+        'name', 'placeholder', 'value', 'disabled', 'minlength', '_results', '_showResults', '_index'
     ];
 
 
@@ -63,6 +64,8 @@ export default class Autocomplete extends Element {
                 break;
             case 'disabled':
                 if (Boolean(this.disabled) !== Boolean(newV)) this.disabled = Boolean(newV);
+            case 'minlength':
+                this.minlength = Number(newV);
         }
     }
 
@@ -160,7 +163,8 @@ export default class Autocomplete extends Element {
         }
         const v = this._input.value;
 
-        if (!v) return this._results = [];
+        if (!v || v.length < this.minlength) return this._results = [];
+
         let r = [];
         if (typeof this.results === 'function') {
             r = await this.results(v);

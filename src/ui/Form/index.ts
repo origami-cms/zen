@@ -10,6 +10,7 @@ import CSS from './form.scss';
 
 
 export {default as FormRow} from './FormRow';
+export {default as Input} from './Input';
 export {default as Checkbox} from './Checkbox';
 export {default as RadioIcons} from './RadioIcons';
 export {default as Select} from './Select';
@@ -106,6 +107,7 @@ export default class Form extends Element {
         const v = new Validator({
             fields: this.fields
         });
+
         const {valid, fields} = v.validate(this.values);
 
         this._fieldErrors = fields;

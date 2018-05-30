@@ -37,4 +37,8 @@
     .hide {
         display: none;
     }
+
+    zen-ui-icon:not(.hide) + zen-ui-input {
+        --input-padding-left: var(--input-height);
+    }
 }

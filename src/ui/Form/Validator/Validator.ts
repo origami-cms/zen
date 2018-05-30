@@ -134,6 +134,7 @@ export default class Validator {
         for (const [rule, v] of Object.entries(rules)) {
             if (v !== false) {
                 const validateFn = _R[rule as keyof ValidatorFunctions];
+
                 if (!validateFn) throw new Error(`Zen.UI.Validator: Invalid rule ${rule}`);
 
                 const err = validateFn(val, v);

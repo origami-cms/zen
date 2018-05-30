@@ -1,9 +1,8 @@
-import {Autocomplete, Checkbox, Field, Radio, RadioTabs, RadioIcons, Slider} from '..';
+import {Autocomplete, Checkbox, Field, Radio, RadioTabs, RadioIcons, Slider, Input} from '..';
 import {Button, Icon} from '../..';
 import Element from '../../../lib/Element';
 import HTML from './form-row.html';
 import CSS from './form-row.scss';
-import {HTTP_VERSION_NOT_SUPPORTED} from 'http-status-codes';
 import {FieldMixinIcon} from '../FieldTypes';
 
 
@@ -166,11 +165,14 @@ export default class FormRow extends Element {
                 break;
 
 
+            case 'number':
+                field = document.createElement('zen-ui-input');
+                field.addEventListener('change', change);
+
             case 'text':
             case 'input':
             case 'password':
             case 'email':
-            case 'number':
                 field.value = v;
                 field.name = f.name;
                 field.type = f.type;
@@ -246,6 +248,7 @@ export default class FormRow extends Element {
                 field.value = v;
 
                 if (f.placeholder) field.placeholder = f.placeholder;
+                if (f.minlength) field.minlength = f.minlength;
                 break;
 
 

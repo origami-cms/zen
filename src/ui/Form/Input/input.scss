@@ -1,0 +1,9 @@
+@import '~zen-css/import';
+:host {
+    display: block;
+    input {
+        @extend %comp-form-input-general;
+        box-sizing: border-box;
+        padding-left: var(--input-padding-left);
+    }
+}

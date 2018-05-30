@@ -97,6 +97,7 @@ export interface FieldRadioIcons extends FieldBase {
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'autocomplete';
     results?: string[] | Function;
+    minlength: number;
 }
 
 export interface FieldSlider extends FieldBase {

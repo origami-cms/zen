@@ -1,22 +1,6 @@
 import * as EmailValidator from 'email-validator';
 // import {isValidNumber} from 'libphonenumber-js';
 
-// export type ValidatorRuleNames =
-//     'required' |
-//     'maxlen' |
-//     'minlen' |
-//     'number' |
-//     'tel';
-
-// export type ValidatorRulesValid = { [key in ValidatorRuleNames]: any };
-
-// export interface ValidatorRules {
-//     required?: boolean;
-//     maxlen?: number;
-//     minlen?: number;
-//     number?: boolean;
-//     tel?: boolean;
-// }
 export type ValidatorRules = ValidateBase | ValidateNumber | ValidateString | ValidateEqual;
 
 // ------------------------------------------------------------------ Validators
@@ -37,6 +21,8 @@ export interface ValidateString {
     date?: boolean;
     number?: boolean;
     tel?: boolean;
+    min?: boolean;
+    max?: boolean;
 }
 
 export interface ValidateEqual {
@@ -65,6 +51,14 @@ const rules: ValidatorFunctions = {
 
     number(val: any, required: boolean): ValidatorReturn {
         if (!(/^[0-9]+$/).test(val) && required) return 'This field should be a number';
+    },
+
+    min(val: any, min: number): ValidatorReturn {
+        if (Number(val) < min) return `This field should be above ${min}`;
+    },
+
+    max(val: any, max: number): ValidatorReturn {
+        if (Number(val) < max) return `This field should be below ${max}`;
     },
 
     tel(val: any, required: boolean): ValidatorReturn {
