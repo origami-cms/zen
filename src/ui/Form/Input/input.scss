@@ -3,7 +3,8 @@
     display: block;
     input {
         @extend %comp-form-input-general;
+        outline: none;
         box-sizing: border-box;
-        padding-left: var(--input-padding-left);
+        padding-left: var(--input-padding-left, var(--input-padding));
     }
 }
