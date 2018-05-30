@@ -47,12 +47,10 @@ export interface FieldDefault extends FieldBase, FieldMixinPlaceholder, FieldMix
     validate?: FieldDefaultValidation;
 }
 
-
+export type FieldSelectOptions = {[key: string]: string} | {value: string, label: string}[];
 export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'select';
-    options?: {
-        [key: string]: string
-    };
+    options?: FieldSelectOptions;
 }
 
 

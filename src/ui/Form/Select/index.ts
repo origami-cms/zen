@@ -1,10 +1,11 @@
 import Element from '../../../lib/Element';
 import HTML from './select.html';
 import CSS from './select.scss';
+import {FieldSelectOptions} from '../FieldTypes';
 
 
 export default class Select extends Element {
-    options: {[key: string]: string} = {};
+    options: FieldSelectOptions = {};
     placeholder?: string;
     name?: string;
 
@@ -75,13 +76,21 @@ export default class Select extends Element {
             s.appendChild(placeholder);
         }
 
+        const add = (value: string, label: string) => {
+            const opt = document.createElement('option');
+            opt.value = value;
+            opt.innerHTML = label;
+            s.appendChild(opt);
+        };
+
         if (this.options) {
-            Object.entries(this.options).forEach(([o, v]) => {
-                const opt = document.createElement('option');
-                opt.value = o;
-                opt.innerHTML = v;
-                s.appendChild(opt);
-            });
+            if (this.options instanceof Array) {
+                this.options.forEach(({value, label}) => add(value, label));
+            } else {
+                Object.entries(this.options).forEach(([o, v]) => {
+                    add(o, v);
+                });
+            }
         }
     }
 }
