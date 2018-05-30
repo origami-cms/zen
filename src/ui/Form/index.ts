@@ -237,7 +237,7 @@ export default class Form extends Element {
 
         row.addEventListener('change', (e: CustomEventInit) => {
             // tslint:disable-next-line
-            if ((e.detail || e.detail === false) && e.detail != this.values[f.name]) {
+            if ((e.detail || e.detail === false || e.detail === "") && e.detail != this.values[f.name]) {
                 this.values = {
                     ...this.values,
                     ...{[f.name]: e.detail}
