@@ -1,0 +1,21 @@
+<ul class="options">
+    <dom-repeat items="{{_options}}" id="options">
+        <template>
+            <li class$="option {{_active(item)}}" data-value="{{item.value}}" on-click="_handleClick">
+                <div class="img">
+                    <template is="dom-if" if="{{item.icon}}">
+                        <zen-icon type="{{item.icon}}"></zen-icon>
+                    </template>
+                    <template is="dom-if" if="{{item.image}}">
+                        <img src="{{item.image}}" />
+                    </template>
+                    <template is="dom-if" if="{{item.html}}">
+                        <div inner-h-t-m-l="{{item.html}}">
+                    </template>
+                </div>
+                <span>{{item.label}}</span>
+            </li>
+        </template>
+    </dom-repeat>
+</ul>
+

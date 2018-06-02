@@ -1,0 +1,54 @@
+@import '~zen-css/import';
+:host {
+    @extend %comp-button;
+
+    zen-icon {
+        margin-right: default('size-tiny');
+        vertical-align: top;
+    }
+
+    .loading {
+        --loading-color: default('color-white');
+        --loading-size: 1.5rem;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin: auto;
+        transform: translate(-50%, 1.5rem);
+        @extend %comp-loading;
+    }
+}
+
+
+@each $size in $sizes {
+    :host([size=#{$size}]) {
+        width: auto;
+        height: default('size-#{$size}');
+        line-height: default('size-#{$size}');
+        font-size: calc((1.6/4) * #{default('size-#{$size}')});
+        padding: 0 calc(#{default('size-#{$size}')} / 2);
+    }
+}
+
+@each $name, $grad in $gradients {
+    :host([color="#{$name}"]) {
+        background: gradient($name);
+    }
+}
+
+:host([hollow]) {
+    @extend %comp-button-hollow;
+}
+
+:host([disabled]) {
+    opacity: 0.5;
+    pointer-events: none;
+}
+:host(:not([color]):not([hollow])) {
+    background-color: default('btn-bg');
+    background: default('btn-bg');
+}
+
+:host([iconright]) {
+    @extend %comp-button-icon-right;
+}

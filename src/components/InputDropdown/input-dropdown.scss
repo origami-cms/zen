@@ -1,0 +1,10 @@
+@import '~zen-css/import';
+:host {
+    &, * { @extend %reset; }
+    @extend %comp-input-dropdown;
+    display: none;
+}
+
+:host([open]) {
+    display: block;
+}

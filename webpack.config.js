@@ -1,51 +1,87 @@
 const path = require('path');
-const PATH_SRC = path.resolve(__dirname, 'src');
-const PATH_DIST = path.resolve(__dirname, '_bundles');
+const webpack = require('webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const HTMLPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
-const BitBarPlugin = require('bitbar-webpack-progress-plugin');
-
+const DIST = path.resolve(__dirname, 'build');
 module.exports = {
-    entry: {
-        "zen": path.join(PATH_SRC, 'index.ts')
+    entry: [
+        './src/index.ts'
+    ],
+    output: {
+        filename: 'zen.min.js',
+        path: DIST,
+        publicPath: '/'
     },
+    devServer: {
+        contentBase: DIST,
+        compress: true,
+        port: 9000,
+        publicPath: DIST,
+        inline: true,
+        hot: true,
+        watchOptions: {
+            poll: true
+        }
+    },
+    devtool: 'source-map',
     module: {
         rules: [
             {
-                test: /\.ts/,
+                test: /.ts$/,
                 loader: 'ts-loader',
-                exclude: /node_modules/,
-                query: {
-                    // declaration: false
+                options: {
+                    transpileOnly: true
                 }
             },
             {
                 test: /\.html/,
                 loader: 'raw-loader'
-            },
-            {
+            }, {
                 test: /\.scss/,
-                loader: 'css-loader!sass-loader',
-                exclude: /node_modules/
+                loaders: [
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            outputStyle: 'compressed'
+                        }
+                    }
+                ],
+                exclude: /node_modules/,
             }
         ]
     },
     resolve: {
-        extensions: ['.ts', '.js', '.json'],
+        extensions: ['.js', '.ts', '.html', '.scss'],
         alias: {
-            'icons': path.resolve(__dirname, 'node_modules/origami-icons')
+            'icons': path.resolve(__dirname, 'node_modules/origami-icons'),
+            'util': path.resolve('./src/util'),
+            'lib': path.resolve('./src/lib')
         }
     },
-    output: {
-        filename: '[name].js',
-        path: PATH_DIST,
-        libraryTarget: 'umd',
-        library: 'zen',
-        umdNamedDefine: true
-    },
-    node: {
-        fs: "empty"
+    optimization: {
+        minimizer: [
+            new UglifyPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: false
+                    }
+                }
+            })
+        ]
     },
     plugins: [
-        new BitBarPlugin()
+        new ForkTsCheckerWebpackPlugin(),
+        new HTMLPlugin({
+            template: './test/index.html'
+        }),
+        new CopyPlugin([
+            {
+                from: path.resolve(__dirname, './node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js')
+            }
+        ]),
     ]
-}
+};

@@ -1,0 +1,45 @@
+@import '~zen-css/import';
+
+:host {
+    // &, *:not(zen-radio-tabs) {
+    //     @extend %reset;
+    //     vertical-align: middle;
+    // }
+
+    @extend %comp-form-row;
+
+    input, select, textarea, input[type="file"] + span.input {
+        @extend %comp-form-input-general;
+    }
+
+    textarea {
+        @extend %comp-form-input-textarea;
+    }
+
+    select {
+        @extend %comp-form-input-select;
+    }
+
+    input[type="submit"], zen-button[size=large] {
+        @extend %comp-button;
+        width: 100%;
+    }
+
+    .label {
+        display: block;
+        margin: default('size-small') 0;
+        color: default('color-grey-600');
+    }
+
+    .hide-empty:empty {
+        display: none;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    zen-icon:not(.hide) + zen-input {
+        --input-padding-left: default('input-height');
+    }
+}

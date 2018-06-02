@@ -1,0 +1,14 @@
+<template is="dom-if" if="{{icon}}">
+    <zen-icon type="{{icon}}" color="grey-300"></zen-icon>
+</template>
+
+<input
+    value="{{value::input}}"
+    type="{{type}}"
+    placeholder="{{placeholder}}"
+    disabled="{{disabled}}"
+/>
+
+<template is="dom-if" if="{{loading}}">
+    <zen-loading></zen-loading>
+</template>

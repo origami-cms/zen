@@ -1,0 +1,31 @@
+@import '~zen-css/import';
+:host {
+    display: block;
+    position: relative;
+    input {
+        @extend %comp-form-input-general;
+        outline: none;
+        box-sizing: border-box;
+        padding-left: var(--input-padding-left, default('input-padding'));
+        padding-right: var(--input-padding-right, default('input-padding'));
+    }
+    zen-icon {
+        position: absolute;
+        left: default('size-tiny');
+        top: default('size-tiny');
+
+        & ~ input {
+            --input-padding-left: #{default('input-height')};
+        }
+    }
+
+    zen-loading {
+        position: absolute;
+        right: default('size-tiny');
+        top: default('size-tiny');
+
+        & ~ input {
+            --input-padding-right: #{default('input-height')};
+        }
+    }
+}

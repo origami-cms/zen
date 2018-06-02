@@ -1,26 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TEST</title>
+    <script src="webcomponents-loader.js"></script>
+    <title>Test</title>
+    <style>
+        html {
+            font-size: 10px;
+        }
+    </style>
 </head>
+
 <body>
-    <zen-ui-form></zen-ui-form>
-    <nav>
-        <wc-link to="/one">One</wc-link>
-        <wc-link to="/two">Two</wc-link>
-    </nav>
+    <zen-button color="orange" icon="add" id="btn">ok</zen-button>
+    <zen-icon-set></zen-icon-set>
 
-    <wc-router>
-        <wc-switch>
-            <wc-route path="/one" element="test-one"></wc-route>
-            <wc-route path="/two" element="test-two"></wc-route>
-        </wc-switch>
-    </wc-router>
+    <h2 id="h2">Icon</h2>
+    <zen-icon type="user"></zen-icon>
+    <zen-icon type="add" color="alt"></zen-icon>
+    <zen-icon type="page" color="error"></zen-icon>
+    <zen-tooltip for="btn">
+        Hey!
+    </zen-tooltip>
 
-    <zen-ui-icon-set></zen-ui-icon-set>
-    <script src="/dist/main.js"></script>
+
+    <zen-form></zen-form>
+
+
+    <script>
+        const f = document.querySelector('zen-form');
+        f.values = {
+            "text": "123",
+            "radio": "medium",
+            "checkbox": true,
+            "radio-icons": 1,
+            "radio-tabs": "small",
+            // "select": "small"
+        }
+        f.fields = [
+            {
+                name: 'text',
+                type: 'autocomplete',
+                placeholder: 'Email',
+                icon: 'mail',
+                minlength: 4
+            },
+
+            {
+                name: 'text',
+                type: 'email',
+                placeholder: 'Email',
+                icon: 'mail',
+                validate: {
+                    minlen: 4
+                }
+            },
+
+            {
+                name: 'radio',
+                type: 'radio',
+                options: {
+                    small: 'Small',
+                    medium: 'Medium',
+                    large: 'Large'
+                }
+            },
+
+            {
+                name: 'checkbox',
+                type: 'checkbox',
+                label: 'Check me'
+            },
+
+            {
+                name: 'radio-icons',
+                type: 'radio-icons',
+                options: [
+                    {
+                        value: 1,
+                        icon: 'user',
+                        label: 'Using icon'
+                    },
+                    {
+                        value: 2,
+                        html: '<zen-button>Cool</zen-button>',
+                        label: 'Using html'
+                    },
+                    {
+                        value: 3,
+                        image: 'http://placehold.it/100x100',
+                        label: 'Using img'
+                    }
+                ]
+            },
+
+            {
+                name: 'select',
+                type: 'radio-tabs',
+                options: {
+                    small: 'Small',
+                    medium: 'Medium',
+                    large: 'Large'
+                }
+            },
+
+            {
+                name: 'select',
+                type: 'select',
+                options: {
+                    small: 'Small',
+                    medium: 'Medium',
+                    large: 'Large'
+                }
+            }
+        ]
+    </script>
 </body>
+
 </html>

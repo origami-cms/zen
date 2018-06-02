@@ -1,0 +1,19 @@
+@import '~zen-css/import';
+:host {
+    display: block;
+    @extend %comp-form;
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+span.error {
+    display: block;
+    margin-bottom: var(--size-small);
+    color: var(--color-error);
+    zen-ui-icon, zen-ui-icon + span { vertical-align: middle; }
+
+    &:empty { display: none; }
+}

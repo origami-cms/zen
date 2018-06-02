@@ -1,0 +1,41 @@
+@import "~zen-css/import";
+
+:host {
+    width: default('size-main');
+    height: default('size-main');
+
+    & {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    & + span {
+        vertical-align: middle;
+    }
+
+    svg {
+        display: inline-block;
+        vertical-align: top;
+        width: 100%;
+        height: 100%;
+
+        @each $name in $colors {
+            &.#{$name} * {
+                fill: default('color-#{$name}');
+            }
+        }
+
+        g {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+
+@each $size in $sizes {
+    :host([size="#{$size}"]) {
+        width: default('size-#{$size}');
+        height: default('size-#{$size}');
+    }
+}

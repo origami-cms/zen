@@ -1,0 +1,7 @@
+<div class="value" on-click="_toggleOpen">{{value}}</div>
+
+<zen-input-dropdown
+    options="{{options}}"
+    value="{{value::change}}"
+    open="{{_open::toggle}}"
+></zen-input-dropdown>

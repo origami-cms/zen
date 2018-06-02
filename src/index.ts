@@ -1,7 +1,2 @@
-export * from './ui';
-
-import Element from './lib/Element';
-export {default as Element} from './lib/Element';
-export default {Element};
-
-export * from './lib/API';
+import '@webcomponents/webcomponentsjs/webcomponents-bundle';
+export * from './components';

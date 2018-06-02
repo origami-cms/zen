@@ -1,0 +1,9 @@
+<template is="dom-if" if="{{open}}">
+        <dom-repeat items="{{_options}}">
+            <template>
+                <div class="option" data-value="{{item.value}}" on-click="_handleClick">
+                    {{item.label}}
+                </div>
+            </template>
+        </dom-repeat>
+</template>

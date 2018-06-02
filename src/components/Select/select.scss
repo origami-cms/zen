@@ -1,0 +1,13 @@
+@import '~zen-css/import';
+
+:host {
+    display: block;
+    position: relative;
+    &, * {
+        box-sizing: border-box;
+    }
+
+    .value {
+        @extend %comp-form-input-general;
+    }
+}

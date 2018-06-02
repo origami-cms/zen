@@ -2,7 +2,5 @@
 *.log
 
 node_modules
-/lib
-/lib-esm
-/_bundles
 .vscode
+build/
