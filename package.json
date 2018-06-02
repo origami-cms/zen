@@ -15,8 +15,8 @@
   },
   "devDependencies": {
     "@polymer/polymer": "^3.0.2",
-    "@types/seamless-immutable": "^7.1.1",
     "@types/lodash": "^4.14.109",
+    "@types/seamless-immutable": "^7.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "copy-webpack-plugin": "^4.5.1",
     "css-loader": "^0.28.11",

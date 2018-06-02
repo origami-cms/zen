@@ -7188,5 +7188,5 @@ yeoman-generator@^2.0.5:
     yeoman-environment "^2.0.5"
 
 zen-css@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.7.tgz#9fbe2208c87b9f6cac7dd7ecb0bd9c80ec48e87e"
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.8.tgz#943340af24194cb32f97476c77f4acd82df9a966"
