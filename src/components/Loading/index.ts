@@ -1,15 +1,22 @@
-import {PolymerElement} from '@polymer/polymer';
-import {component, property, computed} from 'polymer3-decorators';
-import {view} from 'util/decorators';
-
+import {LitElement} from '@polymer/lit-element';
+import {html} from 'lit-html';
+import {component, property} from 'polymer3-decorators';
+import {style} from 'util/decorators';
 import CSS from './loading.scss';
 
 @component('zen-loading')
-@view('<span></span>', CSS.toString())
-export default class Loading extends PolymerElement {
-    @property({reflectToAttribute: true})
+@style(CSS.toString())
+export default class Loading extends LitElement {
+    @property
     color?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     size?: string;
+
+    static _boundAttributes = ['color', 'size'];
+
+    // tslint:disable-next-line function-name
+    _render() {
+        return html`${this._style}<span></span>`;
+    }
 }
