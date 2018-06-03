@@ -39,7 +39,7 @@ export const bindAttributes = function classDecorator<T extends { new(...args: a
 export const style = (css: string) => {
     return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
         return class WithStyle extends constructor {
-            private get _style() {
+            get _style() {
                 return html`${unsafeHTML(`<style> ${css} </style>`)}`;
             }
         };
