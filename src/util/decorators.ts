@@ -1,3 +1,6 @@
+import {html} from '@polymer/lit-element';
+import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+
 export const view = (view: string, css?: string) => {
     return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
         return class WithView extends constructor {
@@ -23,5 +26,15 @@ export const bindAttributes = function classDecorator<T extends { new(...args: a
                 else this.removeAttribute(a);
             });
         }
+    };
+};
+
+export const style = (css: string) => {
+    return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+        return class WithStyle extends constructor {
+            private get _style() {
+                return html`${unsafeHTML(`<style> ${css} </style>`)}`;
+            }
+        };
     };
 };
