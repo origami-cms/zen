@@ -1,33 +1,60 @@
-import HTML from './input.template.html';
+import {LitElement} from '@polymer/lit-element';
+import {component, observe, property} from 'polymer3-decorators/dist';
+import {bindAttributes, style} from 'util/decorators';
 import CSS from './input.scss';
-import { PolymerElement } from '@polymer/polymer';
-import { component, property, observe } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {html} from 'lit-html/lib/lit-extended';
 
 @component('zen-input')
-@view(HTML, CSS.toString())
-export default class Input extends PolymerElement {
+@style(CSS.toString())
+@bindAttributes
+export default class Input extends LitElement {
 
-    @property({reflectToAttribute: true})
+    @property
     placeholder?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     type: string = 'text';
 
-    @property({reflectToAttribute: true})
+    @property
     icon?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     loading?: boolean;
 
     @property
     value?: string;
 
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
+    @property
+    disabled?: string;
+
+    // tslint:disable-next-line function-name
+    _render({icon, loading, type, placeholder, disabled, value}: {[key in keyof Input]: any}) {
+        return html`
+            ${this._style}
+            ${icon
+                ? html`<zen-icon type="${icon}" color="grey-300"></zen-icon>`
+                : ''
+            }
+
+            <input
+                value="${value}"
+                type="${type}"
+                placeholder="${placeholder}"
+                disabled="${disabled}"
+                on-input="${this._handleInput.bind(this)}"
+            />
+
+            ${loading
+                ? html`<zen-loading></zen-loading>`
+                : ''
+            }
+        `;
+    }
+
+    private _handleInput(e: Event) {
+        this.value = (e.target as HTMLInputElement).value;
     }
 }
