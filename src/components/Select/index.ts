@@ -1,8 +1,8 @@
-import { PolymerElement } from '@polymer/polymer';
+import {PolymerElement} from '@polymer/polymer';
 import '@polymer/polymer/lib/elements/dom-repeat';
-import { FieldSelectOptions } from 'lib/FormValidator/FormFieldTypes';
-import { component, computed, property, observe } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {FieldSelectOptions} from 'lib/FormValidator/FormFieldTypes';
+import {component, computed, property, observe} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
 import HTML from './select.template.html';
 import CSS from './select.scss';
 
@@ -13,7 +13,7 @@ export default class Select extends PolymerElement {
     options: FieldSelectOptions[] = [];
     value?: string;
 
-    @property({ reflectToAttribute: true })
+    @property({reflectToAttribute: true})
     name?: string;
 
     private _open?: boolean;

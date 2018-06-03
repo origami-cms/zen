@@ -5,28 +5,17 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const HTMLPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const DIST = path.resolve(__dirname, 'build');
+const DIST = path.resolve(__dirname, '../');
 module.exports = {
-    entry: [
-        './src/index.ts'
-    ],
+    entry: {
+        'zen.min': path.resolve(__dirname, '../src/index.ts'),
+        'decorators': path.resolve(__dirname, '../src/util/decorators.ts')
+    },
     output: {
-        filename: 'zen.min.js',
+        filename: '[name].js',
         path: DIST,
         publicPath: '/'
     },
-    devServer: {
-        contentBase: DIST,
-        compress: true,
-        port: 9000,
-        publicPath: DIST,
-        inline: true,
-        hot: true,
-        watchOptions: {
-            poll: true
-        }
-    },
-    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -57,9 +46,9 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.ts', '.html', '.scss'],
         alias: {
-            'icons': path.resolve(__dirname, 'node_modules/origami-icons'),
-            'util': path.resolve('./src/util'),
-            'lib': path.resolve('./src/lib')
+            'icons': path.resolve(__dirname, '../node_modules/origami-icons'),
+            'util': path.resolve(__dirname, '../src/util'),
+            'lib': path.resolve(__dirname, '../src/lib')
         }
     },
     optimization: {
@@ -74,14 +63,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ForkTsCheckerWebpackPlugin(),
-        new HTMLPlugin({
-            template: './test/index.html'
-        }),
-        new CopyPlugin([
-            {
-                from: path.resolve(__dirname, './node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js')
-            }
-        ]),
+        new ForkTsCheckerWebpackPlugin()
     ]
 };

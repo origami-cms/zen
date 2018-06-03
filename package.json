@@ -5,11 +5,11 @@
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
-  "main": "build/zen.min.js",
+  "main": "zen.min.js",
   "scripts": {
-    "build": "webpack-cli --mode=production",
-    "watch": "webpack-cli --mode=development -w",
-    "serve": "http-server build/",
+    "build": "webpack-cli --mode=production --config build/production.js",
+    "watch": "webpack-cli --mode=development -w --config build/development.js",
+    "serve": "http-server dist/",
     "start": "yarn watch & yarn serve",
     "lint": "tslint -p ."
   },
