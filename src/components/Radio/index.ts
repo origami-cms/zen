@@ -1,43 +1,41 @@
-import { PolymerElement } from '@polymer/polymer';
-import HTML from './radio.html';
+import {LitElement} from '@polymer/lit-element';
+import {html} from 'lit-html/lib/lit-extended';
+import {component, property} from 'polymer3-decorators/dist';
+import {style} from 'util/decorators';
 import CSS from './radio.scss';
-import {Icon} from '../..';
-import { view } from 'util/decorators';
-import { property, component, computed, observe } from 'polymer3-decorators/dist';
-import '@polymer/polymer/lib/elements/dom-repeat';
 
 @component('zen-radio')
-@view(HTML, CSS.toString())
-export default class Radio extends PolymerElement {
+@style(CSS.toString())
+export default class Radio extends LitElement {
 
     @property
     options: {[key: string]: string} = {};
 
+    @property
     value?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-
-    _icon(item: {value: string}) {
-        return (item.value === this.value) ? 'radio-checked' : 'radio-unchecked';
-    }
-
-    @computed
-    private _options(options: object, value: string) {
-        return Object.entries(options).map(([v, label]) => ({
+    // tslint:disable-next-line function-name
+    _render({value, options}: {[key in keyof Radio]: any}) {
+        const opts = Object.entries(options).map(([v, label]) => ({
             value: v,
             label
         }));
-    }
 
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
-    }
-
-    private _handleClick(e: Event) {
-        // @ts-ignore Added by dom-repeat
-        this.value = e.model.item.value;
+        return html`
+            ${this._styles}
+            <div class="options">
+                ${opts.map(o => {
+                    return html`
+                        <div class="option" on-click=${() => this.value = o.value}>
+                            <zen-icon type="${value === o.value ? 'radio-checked' : 'radio-unchecked'}"></zen-icon>
+                            <span>${o.label}</span>
+                        </div>
+                    `;
+                })}
+            </div>
+        `;
     }
 }
