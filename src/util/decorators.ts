@@ -9,3 +9,19 @@ export const view = (view: string, css?: string) => {
         };
     };
 };
+
+export const bindAttributes = function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+    return class BoundAttributes extends constructor {
+        private _propertiesChanged(props: object, changedProps: object, prevProps: object) {
+            // @ts-ignore
+            super._propertiesChanged(props, changedProps, prevProps);
+            // @ts-ignore
+            (this.constructor as constructor)._boundAttributes.forEach((a: string) => {
+                // @ts-ignore
+                if (props[a]) this.setAttribute(a, props[a]);
+                // @ts-ignore
+                else this.removeAttribute(a);
+            });
+        }
+    };
+};
