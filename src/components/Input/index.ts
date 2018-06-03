@@ -30,6 +30,10 @@ export default class Input extends LitElement {
     @property
     disabled?: string;
 
+    static _boundAttributes = [
+        'placeholder', 'name', 'type', 'icon', 'loading', 'disabled'
+    ];
+
     // tslint:disable-next-line function-name
     _render({icon, loading, type, placeholder, disabled, value}: {[key in keyof Input]: any}) {
         return html`
