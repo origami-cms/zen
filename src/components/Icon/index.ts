@@ -1,46 +1,46 @@
-import {PolymerElement} from '@polymer/polymer';
-import {component, property, observe, computed} from 'polymer3-decorators';
-import {view} from 'util/decorators';
-
+import {LitElement} from '@polymer/lit-element';
+import {html, svg} from 'lit-html';
+import {component, property} from 'polymer3-decorators';
+import {style, bindAttributes} from 'util/decorators';
 import CSS from './icon.scss';
-import HTML from './icon.template.html';
 
 @component('zen-icon')
-@view(HTML, CSS.toString())
-export default class Icon extends PolymerElement {
-    @property({reflectToAttribute: true})
+@style(CSS.toString())
+@bindAttributes
+export default class Icon extends LitElement {
+    @property
     type?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     color?: string = 'main';
 
-    @property({reflectToAttribute: true})
+    @property
     size?: string = 'main';
 
-    ready() {
-        super.ready();
+    static _boundAttributes = ['type', 'color', 'size'];
+
+    // tslint:disable-next-line function-name
+    _render({color, type}: { [key in keyof Icon]: any }) {
+        const children = this._symbol || [];
+        return html`
+            ${this._style}
+            <svg
+                viewBox="0 0 40 40"
+                preserveAspectRatio="xMidYMid meet"
+                focusable="false"
+                style="pointer-events: none; display: block; width: 100%; height: 100%;" class="${color}"
+            >${children.map(c => svg`${c}`)}</svg>
+        `;
     }
 
-    private get _svg() {
-        return (this.shadowRoot as ShadowRoot).querySelector('svg') as SVGElement;
-    }
-
-    @observe('type')
-    private async _typeChanged(newV: string, oldV: string) {
-        if (!newV) return;
-        let newIcon = document.querySelector(`#zen-icon-${newV}`);
-        await this.ready();
+    private get _symbol() {
+        if (!this.type) return;
+        let newIcon = document.querySelector(`#zen-icon-${this.type}`);
 
         if (!newIcon) {
-            this.type = oldV;
-            throw new Error(`Icon ${newV} not found`);
+            throw new Error(`Icon ${this.type} not found`);
         } else newIcon = newIcon.cloneNode(true) as SVGSymbolElement;
 
-
-        this._svg.innerHTML = '';
-        Array.from(newIcon.children).forEach(c => {
-            c.classList.add('zen-icon');
-            this._svg.appendChild(c);
-        });
+        return Array.from(newIcon.children);
     }
 }
