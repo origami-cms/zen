@@ -1,16 +1,14 @@
-import { PolymerElement } from '@polymer/polymer';
-import HTML from './checkbox.html';
+import {html, LitElement} from '@polymer/lit-element';
+import {component, property} from 'polymer3-decorators/dist';
+import {style} from 'util/decorators';
 import CSS from './checkbox.scss';
-import { component, property, observe } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
-
 
 @component('zen-checkbox')
-@view(HTML, CSS.toString())
-export default class Checkbox extends PolymerElement {
+@style(CSS.toString())
+export default class Checkbox extends LitElement {
 
     @property({reflectToAttribute: true})
-    name: string | undefined = undefined;
+    name?: string;
 
     @property({reflectToAttribute: true})
     size?: string;
@@ -18,8 +16,14 @@ export default class Checkbox extends PolymerElement {
     @property
     checked?: boolean;
 
-    @observe('checked')
-    private _checkedChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
+    // tslint:disable-next-line function-name
+    _render({checked}: {[key in keyof Checkbox]: any}) {
+        return html`
+            ${this._style}
+            <label class="checkbox">
+                <input type="checkbox" checked="${checked}"/>
+                <span class="check"></span>
+            </label>
+        `;
     }
 }
