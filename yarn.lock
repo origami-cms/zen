@@ -29,7 +29,14 @@
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
 
-"@polymer/polymer@^3.0.2":
+"@polymer/lit-element@^0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@polymer/lit-element/-/lit-element-0.5.1.tgz#ab1b21391787082023852e95e65e60015dfdaa00"
+  dependencies:
+    "@polymer/polymer" "^3.0.0-pre.13"
+    lit-html "^0.10.0"
+
+"@polymer/polymer@^3.0.0-pre.13", "@polymer/polymer@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.0.2.tgz#626e6f9fae9716b0962ce0211e21df242153eab2"
   dependencies:
@@ -3926,6 +3933,10 @@ listr@^0.14.1:
     p-map "^1.1.1"
     rxjs "^6.1.0"
     strip-ansi "^3.0.1"
+
+lit-html@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/lit-html/-/lit-html-0.10.0.tgz#1c56efc7513faa8e12d0a5564dc3c67ee28fd617"
 
 load-json-file@^1.0.0:
   version "1.1.0"

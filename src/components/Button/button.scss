@@ -36,10 +36,6 @@
     }
 }
 
-:host([hollow]) {
-    @extend %comp-button-hollow;
-}
-
 :host([disabled]) {
     opacity: 0.5;
     pointer-events: none;
@@ -51,4 +47,8 @@
 
 :host([iconright]) {
     @extend %comp-button-icon-right;
+}
+
+:host([hollow]) {
+    @extend %comp-button-hollow;
 }

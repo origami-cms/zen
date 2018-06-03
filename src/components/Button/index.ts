@@ -1,44 +1,51 @@
-import {PolymerElement} from '@polymer/polymer';
-import '@polymer/polymer/lib/elements/dom-if.js';
-import {component, property, observe, computed} from 'polymer3-decorators';
-import {view} from 'util/decorators';
-import CSS from './button.scss';
-import HTML from './button.template.html';
+// tslint:disable function-name
+
+import {html, LitElement} from '@polymer/lit-element';
+import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import {component, observe, property} from 'polymer3-decorators';
 import Icon from '../Icon';
+import CSS from './button.scss';
+import {bindAttributes} from 'util/decorators';
 
 @component('zen-button')
-@view(HTML, CSS.toString())
-export default class Button extends PolymerElement {
-    @property({reflectToAttribute: true})
+@bindAttributes
+export default class Button extends LitElement {
+    @property
     size?: string;
-
-    @property({reflectToAttribute: true})
-    icon: string | false = false;
-
-    @property({reflectToAttribute: true})
-    'iconright': boolean = false;
-
-    @property({reflectToAttribute: true})
-    hollow: boolean = false;
-
-    @property({reflectToAttribute: true})
+    @property
+    icon?: string | false;
+    @property
+    'iconright': boolean;
+    @property
+    hollow?: boolean;
+    @property
     color?: string;
-
-    @property({reflectToAttribute: true})
+    @property
     disabled?: boolean;
+    @property
+    loading?: boolean;
 
-    @property({reflectToAttribute: true})
-    loading: boolean = false;
+    private static _boundAttributes = ['hollow', 'color', 'iconright'];
 
     private get _icon() {
         return this.shadowRoot.querySelector('zen-icon') as Icon;
     }
 
-    @computed
-    private _iconColor(icon: string, hollow: boolean, color: string) {
-        if (hollow && color) return color;
-        else if (hollow && !color) return 'main';
-        else return 'white';
+    _render({icon, size, hollow}: { [key in keyof Button]: any }) {
+        return html`
+            ${html`${unsafeHTML(`<style> ${CSS.toString()} </style>`)}`}
+            ${icon
+                ? html`<zen-icon type="${icon}" size="${size}" color="${this._iconColor}"></zen-icon>`
+                : ''
+            }
+            <slot>Submit</slot>
+        `;
+    }
+
+    private get _iconColor() {
+        if (this.hollow && this.color) return this.color;
+        if (this.hollow && !this.color) return 'main';
+        return 'white';
     }
 
     @observe('icon')
