@@ -20,12 +20,16 @@ export const bindAttributes = function classDecorator<T extends { new(...args: a
             super._propertiesChanged(props, changedProps, prevProps);
             // @ts-ignore
             const attrs = (this.constructor as constructor)._boundAttributes;
-            if (attrs) {
-                attrs.forEach((a: string) => {
-                    // @ts-ignore
-                    if (props[a]) this.setAttribute(a, props[a]);
-                    // @ts-ignore
-                    else this.removeAttribute(a);
+            if (attrs && changedProps) {
+                Object.keys(changedProps).forEach(k => {
+                    if (attrs.includes(k)) {
+                        // @ts-ignore
+                        const v = props[k];
+                        // @ts-ignore
+                        if (v || v === 0) this.setAttribute(k, props[k]);
+                        // @ts-ignore
+                        else this.removeAttribute(k);
+                    }
                 });
             }
         }
