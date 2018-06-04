@@ -2,10 +2,9 @@ import {LitElement} from '@polymer/lit-element';
 import {html, svg} from 'lit-html';
 import {component, property} from 'polymer3-decorators';
 import {style, bindAttributes} from 'util/decorators';
-import CSS from './icon.scss';
+import CSS from './icon-css';
 
 @component('zen-icon')
-@style(CSS.toString())
 @bindAttributes
 export default class Icon extends LitElement {
     @property
@@ -23,7 +22,7 @@ export default class Icon extends LitElement {
     _render({color, type}: { [key in keyof Icon]: any }) {
         const children = this._symbol || [];
         return html`
-            ${this._style}
+            ${CSS}
             <svg
                 viewBox="0 0 40 40"
                 preserveAspectRatio="xMidYMid meet"

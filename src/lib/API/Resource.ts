@@ -15,7 +15,6 @@ export default class Resource {
     get lower() { return this._res.toLowerCase(); }
     get upper() { return this._res.toUpperCase(); }
 
-
     default() {
         return {
             create: this.create(),
@@ -24,7 +23,6 @@ export default class Resource {
             remove: this.remove()
         };
     }
-
 
     create() {
         return (data: object) =>
@@ -47,7 +45,6 @@ export default class Resource {
                     });
             };
     }
-
 
     get() {
         interface Pagination {

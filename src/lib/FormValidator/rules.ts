@@ -29,7 +29,6 @@ export interface ValidateEqual {
     equal?: number | string;
 }
 
-
 export type ValidatorFunctions = {
     [key in keyof ValidatorRules]: Function
 };

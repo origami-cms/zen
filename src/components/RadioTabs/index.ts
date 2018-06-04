@@ -1,8 +1,8 @@
-import { PolymerElement } from '@polymer/polymer';
+import {PolymerElement} from '@polymer/polymer';
 import '@polymer/polymer/lib/elements/dom-repeat';
-import { FieldRadioOption } from 'lib/FormValidator/FormFieldTypes';
-import { component, computed, property, observe } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {FieldRadioOption} from 'lib/FormValidator/FormFieldTypes';
+import {component, computed, property, observe} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
 import HTML from './radio-tabs.html';
 import CSS from './radio-tabs.scss';
 

@@ -1,11 +1,10 @@
 import {LitElement} from '@polymer/lit-element';
 import {component, observe, property} from 'polymer3-decorators/dist';
 import {bindAttributes, style} from 'util/decorators';
-import CSS from './input.scss';
+import CSS from './input-css';
 import {html} from 'lit-html/lib/lit-extended';
 
 @component('zen-input')
-@style(CSS.toString())
 @bindAttributes
 export default class Input extends LitElement {
 
@@ -37,7 +36,7 @@ export default class Input extends LitElement {
     // tslint:disable-next-line function-name
     _render({icon, loading, type, placeholder, disabled, value}: {[key in keyof Input]: any}) {
         return html`
-            ${this._style}
+            ${CSS}
             ${icon
                 ? html`<zen-icon type="${icon}" color="grey-300"></zen-icon>`
                 : ''

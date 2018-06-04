@@ -2,10 +2,9 @@ import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html';
 import {component, property} from 'polymer3-decorators';
 import {style} from 'util/decorators';
-import CSS from './loading.scss';
+import CSS from './loading-css';
 
 @component('zen-loading')
-@style(CSS.toString())
 export default class Loading extends LitElement {
     @property
     color?: string;
@@ -17,6 +16,6 @@ export default class Loading extends LitElement {
 
     // tslint:disable-next-line function-name
     _render() {
-        return html`${this._style}<span></span>`;
+        return html`${CSS}<span></span>`;
     }
 }

@@ -1,6 +1,5 @@
 import {ValidatorRules, ValidateBase, ValidateString, ValidateEqual} from './rules';
 
-
 export type Field =
     FieldDefault |
     FieldSelect |
@@ -12,7 +11,6 @@ export type Field =
     FieldAutocomplete |
     FieldSlider;
 
-
 export interface Fieldsets {
     [key: string]: Field[];
 }
@@ -20,7 +18,6 @@ export interface Fieldsets {
 export interface FormValues {
     [key: string]: any;
 }
-
 
 // ------------------------------------------------------------------------ Base
 export interface FieldBase {
@@ -37,7 +34,6 @@ export interface FieldBase {
     validate?: ValidateBase;
 }
 
-
 // ------------------------------------------------------------- Mixins / Addons
 export interface FieldMixinIcon {
     icon?: string;
@@ -47,7 +43,6 @@ export interface FieldMixinIcon {
 export interface FieldMixinPlaceholder {
     placeholder?: string;
 }
-
 
 // ---------------------------------------------------------------------- Fields
 export interface FieldDefaultValidation extends ValidateBase, ValidateString, ValidateEqual {}
@@ -62,12 +57,10 @@ export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceh
     options?: FieldSelectOptions;
 }
 
-
 export interface FieldCheckbox extends FieldBase {
     type: 'checkbox';
     label?: 'string';
 }
-
 
 export interface FieldSubmit extends FieldBase, FieldMixinIcon {
     type: 'submit';
@@ -86,7 +79,6 @@ export interface FieldRadioTabs extends FieldBase {
 export interface FieldRadioOption {
     [key: string]: string;
 }
-
 
 export interface FieldRadioIconsOption {
     value: number | string;

@@ -1,7 +1,6 @@
 import 'whatwg-fetch';
 import * as CODES from 'http-status-codes';
 
-
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 interface CacheResult {
@@ -10,7 +9,6 @@ interface CacheResult {
 type Cache = {
     [method in HTTPMethod]: CacheResult;
 };
-
 
 export interface APIResponse {
     statusCode: number;
@@ -43,7 +41,6 @@ export default class API {
         this._authHeader = authHeader;
     }
 
-
     get(url: string, cache: boolean = true, xhr: boolean = false) {
         // return this[xhr ? '_xhr' : '_fetch']('GET', url, null, cache);
         return this._fetch('GET', url, null, cache);
@@ -72,7 +69,6 @@ export default class API {
         else localStorage.setItem('token', v);
     }
 
-
     reset() {
         this.token = null;
         this._cache = {
@@ -82,7 +78,6 @@ export default class API {
             DELETE: {}
         };
     }
-
 
     updateCache(method: HTTPMethod, url: string, value: object) {
         const m = method.toUpperCase() as HTTPMethod;
@@ -95,7 +90,6 @@ export default class API {
         }
         return false;
     }
-
 
     private _fetch(
         method: HTTPMethod,

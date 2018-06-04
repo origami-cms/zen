@@ -2,10 +2,9 @@ import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html/lib/lit-extended';
 import {component, property} from 'polymer3-decorators/dist';
 import {style} from 'util/decorators';
-import CSS from './radio.scss';
+import CSS from './radio-css';
 
 @component('zen-radio')
-@style(CSS.toString())
 export default class Radio extends LitElement {
 
     @property
@@ -25,7 +24,7 @@ export default class Radio extends LitElement {
         }));
 
         return html`
-            ${this._styles}
+            ${CSS}
             <div class="options">
                 ${opts.map(o => {
                     return html`

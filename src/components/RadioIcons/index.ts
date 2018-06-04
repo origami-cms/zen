@@ -1,11 +1,11 @@
-import { PolymerElement } from '@polymer/polymer';
+import {PolymerElement} from '@polymer/polymer';
 import HTML from './radio-icons.html';
 import CSS from './radio-icons.scss';
 import {Icon} from '../..';
-import { view } from 'util/decorators';
-import { property, component, computed, observe } from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
+import {property, component, computed, observe} from 'polymer3-decorators/dist';
 import '@polymer/polymer/lib/elements/dom-repeat';
-import { FieldRadioIconsOption } from 'lib/FormValidator/FormFieldTypes';
+import {FieldRadioIconsOption} from 'lib/FormValidator/FormFieldTypes';
 
 @component('zen-radio-icons')
 @view(HTML, CSS.toString())

@@ -2,12 +2,11 @@ import {html, LitElement} from '@polymer/lit-element';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {component, observe, property} from 'polymer3-decorators';
 import Icon from '../Icon';
-import CSS from './button.scss';
+import CSS from './button-css';
 import {bindAttributes, style} from 'util/decorators';
 
 @component('zen-button')
 @bindAttributes
-@style(CSS.toString())
 export default class Button extends LitElement {
     @property
     size?: string;
@@ -33,7 +32,7 @@ export default class Button extends LitElement {
     // tslint:disable-next-line function-name
     _render({icon, size, hollow}: { [key in keyof Button]: any }) {
         return html`
-            ${this._style}
+            ${CSS}
             ${icon
                 ? html`<zen-icon type="${icon}" size="${size}" color="${this._iconColor}"></zen-icon>`
                 : ''

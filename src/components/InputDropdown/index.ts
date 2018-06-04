@@ -1,8 +1,8 @@
 import HTML from './input-dropdown.template.html';
 import CSS from './input-dropdown.scss';
-import { PolymerElement } from '@polymer/polymer';
-import { component, property, observe, computed } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {PolymerElement} from '@polymer/polymer';
+import {component, property, observe, computed} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
 
 export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
 export interface InputDropdownOptions { [key: string]: string; }
@@ -17,7 +17,6 @@ export default class InputDropdown extends PolymerElement {
 
     @property({reflectToAttribute: true})
     open: boolean = false;
-
 
     constructor() {
         super();

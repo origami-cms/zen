@@ -1,9 +1,9 @@
-import { PolymerElement } from '@polymer/polymer';
+import {PolymerElement} from '@polymer/polymer';
 import '@polymer/polymer/lib/elements/dom-repeat';
-import { ValidationErrors } from 'lib/FormValidator';
-import { Field } from 'lib/FormValidator/FormFieldTypes';
-import { component, computed, observe, property } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {ValidationErrors} from 'lib/FormValidator';
+import {Field} from 'lib/FormValidator/FormFieldTypes';
+import {component, computed, observe, property} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
 import CSS from './form-row.scss';
 import HTML from './form-row.template.html';
 
@@ -27,7 +27,7 @@ export default class FormRow extends PolymerElement {
     }
 
     @observe('value')
-    _handleChange(newV: any) {
+    private _handleChange(newV: any) {
         this.dispatchEvent(new CustomEvent('change'));
     }
 

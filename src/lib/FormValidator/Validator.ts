@@ -35,14 +35,12 @@ export interface FieldErrors {
     errors: ValidationErrors;
 }
 
-
 export default class Validator {
     private _fields: Field[];
     private _fieldsets: Fieldsets;
     private _defaultRules: object = {
         required: true
     };
-
 
     /**
      * Validate the values
@@ -53,8 +51,6 @@ export default class Validator {
         this._fields = fields || [];
         this._fieldsets = fieldsets || {};
     }
-
-
 
     /**
      * Validates the form. Returns an object containing the validity, and the
@@ -77,7 +73,6 @@ export default class Validator {
 
         return returning;
     }
-
 
     /**
      * Validates the Validator's fieldsets with the given values
@@ -114,7 +109,6 @@ export default class Validator {
 
         return errors;
     }
-
 
     /**
      * Validate a single field based on it's rules and the value passed

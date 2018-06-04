@@ -1,10 +1,10 @@
-import { PolymerElement } from '@polymer/polymer';
-import { Field, FormValues } from 'lib/FormValidator/FormFieldTypes';
-import Validator, { ValidateFieldErrors, ValidationErrors, FieldErrors } from 'lib/FormValidator/Validator';
-import { isEqual } from 'lodash';
-import { Button, FormRow } from '..';
-import { property, component, observe, computed } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
+import {PolymerElement} from '@polymer/polymer';
+import {Field, FormValues} from 'lib/FormValidator/FormFieldTypes';
+import Validator, {ValidateFieldErrors, ValidationErrors, FieldErrors} from 'lib/FormValidator/Validator';
+import {isEqual} from 'lodash';
+import {Button, FormRow} from '..';
+import {property, component, observe, computed} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
 import HTML from './form.template.html';
 import CSS from './form.scss';
 
@@ -22,7 +22,6 @@ export default class Form extends PolymerElement {
 
     @property({reflectToAttribute: true})
     loading: boolean = false;
-
 
     private _fieldErrors?: ValidateFieldErrors;
     private _validateOnChange: boolean = false;
@@ -46,7 +45,6 @@ export default class Form extends PolymerElement {
         return false;
     }
 
-
     validate(showErrors: boolean = true) {
         this._validateOnChange = true;
         this._showErrors = showErrors;
@@ -66,7 +64,6 @@ export default class Form extends PolymerElement {
         return valid;
     }
 
-
     private _fieldValue(values: FormValues, field: Field) {
         return values[field.name];
     }
@@ -84,6 +81,6 @@ export default class Form extends PolymerElement {
 
     private _handleChange(e: Event) {
         // @ts-ignore
-        this.values = { ...this.values, ...{ [e.target.name]: e.target.value } };
+        this.values = {...this.values, ...{[e.target.name]: e.target.value}};
     }
 }
