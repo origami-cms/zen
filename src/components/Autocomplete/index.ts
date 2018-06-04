@@ -1,9 +1,9 @@
 import HTML from './autocomplete.template.html';
 import CSS from './autocomplete.scss';
-import { PolymerElement } from '@polymer/polymer';
-import { component, property, observe } from 'polymer3-decorators/dist';
-import { view } from 'util/decorators';
-import { InputDropdownResults } from '../InputDropdown';
+import {PolymerElement} from '@polymer/polymer';
+import {component, property, observe} from 'polymer3-decorators/dist';
+import {view} from 'util/decorators';
+import {InputDropdownResults} from '../InputDropdown';
 
 @component('zen-autocomplete')
 @view(HTML, CSS.toString())
@@ -53,7 +53,7 @@ export default class Autocomplete extends PolymerElement {
         return fetch(encodeURI(`http://localhost:9999/api/v1/address`), {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ address: this.query })
+            body: JSON.stringify({address: this.query})
         })
             .then(r => r.json())
             // @ts-ignore This is actually an object array
