@@ -37,9 +37,8 @@ export default class Icon extends LitElement {
         if (!this.type) return;
         let newIcon = document.querySelector(`#zen-icon-${this.type}`);
 
-        if (!newIcon) {
-            throw new Error(`Icon ${this.type} not found`);
-        } else newIcon = newIcon.cloneNode(true) as SVGSymbolElement;
+        if (!newIcon) return console.error(`Icon ${this.type} not found`);
+        newIcon = newIcon.cloneNode(true) as SVGSymbolElement;
 
         return Array.from(newIcon.children);
     }
