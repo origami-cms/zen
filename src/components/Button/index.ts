@@ -23,7 +23,7 @@ export default class Button extends LitElement {
     @property
     loading?: boolean;
 
-    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon'];
+    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon', 'disabled'];
 
     private get _icon() {
         return this.shadowRoot.querySelector('zen-icon') as Icon;
