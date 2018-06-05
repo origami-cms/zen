@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import * as CODES from 'http-status-codes';
 // Wraps API calls, sets the JWT in headers, basename etc
 export default class API {

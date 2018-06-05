@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 export declare type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export interface APIResponse {
     statusCode: number;
