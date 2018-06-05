@@ -9,7 +9,12 @@ const DIST = path.resolve(__dirname, '../');
 module.exports = {
     entry: {
         'zen.min': path.resolve(__dirname, '../src/index.ts'),
-        'decorators': path.resolve(__dirname, '../src/util/decorators.ts')
+        'decorators': path.resolve(__dirname, '../src/util/decorators.ts'),
+        'API/Actions': path.resolve(__dirname, '../src/lib/API/Actions.ts'),
+        'API/API': path.resolve(__dirname, '../src/lib/API/API.ts'),
+        'API/index': path.resolve(__dirname, '../src/lib/API/index.ts'),
+        'API/Reducer': path.resolve(__dirname, '../src/lib/API/Reducer.ts'),
+        'API/Resource': path.resolve(__dirname, '../src/lib/API/Resource.ts')
     },
     output: {
         filename: '[name].js',

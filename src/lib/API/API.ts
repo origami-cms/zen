@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import * as CODES from 'http-status-codes';
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';

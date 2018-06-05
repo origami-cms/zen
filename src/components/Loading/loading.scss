@@ -5,7 +5,7 @@
     height: default('loading-size');
     display: flex;
     align-items: center;
-    align-content: center;
+    justify-content: center;
 
     span {
         display: inline-block;

@@ -11,7 +11,8 @@
     "watch": "webpack-cli --mode=development -w --config build/development.js",
     "serve": "http-server dist/",
     "start": "yarn watch & yarn serve",
-    "lint": "tslint -p . --fix"
+    "lint": "tslint -p . --fix",
+    "build:api": "tsc src/lib/API/index.ts --outDir ./API -d --target es2016"
   },
   "devDependencies": {
     "@polymer/lit-element": "^0.5.1",
