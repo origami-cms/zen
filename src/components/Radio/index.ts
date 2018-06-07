@@ -1,10 +1,11 @@
 import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html/lib/lit-extended';
 import {component, property} from 'polymer3-decorators/dist';
-import {style} from 'util/decorators';
+import {style, dispatchChange} from 'util/decorators';
 import CSS from './radio-css';
 
 @component('zen-radio')
+@dispatchChange()
 export default class Radio extends LitElement {
 
     @property

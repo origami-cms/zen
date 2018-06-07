@@ -3,6 +3,7 @@
 :host {
     width: default('size-main');
     height: default('size-main');
+    vertical-align: middle;
 
     & {
         display: inline-block;

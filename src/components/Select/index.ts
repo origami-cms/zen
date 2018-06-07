@@ -1,29 +1,53 @@
-import {PolymerElement} from '@polymer/polymer';
-import '@polymer/polymer/lib/elements/dom-repeat';
+import {LitElement} from '@polymer/lit-element';
 import {FieldSelectOptions} from 'lib/FormValidator/FormFieldTypes';
-import {component, computed, property, observe} from 'polymer3-decorators/dist';
-import {view} from 'util/decorators';
-import HTML from './select.template.html';
-import CSS from './select.scss';
+import {html} from 'lit-html/lib/lit-extended';
+import {component, property} from 'polymer3-decorators/dist';
+import {dispatchChange} from 'util/decorators';
+import CSS from './select-css';
 
 @component('zen-select')
-@view(HTML, CSS.toString())
-export default class Select extends PolymerElement {
+@dispatchChange()
+export default class Select extends LitElement {
 
+    @property
     options: FieldSelectOptions[] = [];
+
+    @property
     value?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
+    @property
+    placeholder?: string;
+
+    @property
     private _open?: boolean;
 
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
-    }
+    _render({value, placeholder, options, _open}) {
+        let v;
+        if (value) {
+            v = options[value];
+            if (!v && typeof options.find === 'function') {
+                v = options.find(({value: v}) => v === value);
+                if (v) v = v.label;
+            }
+        }
+        return html`
+            ${CSS}
+            <div class="value" on-click=${() => this._open = !this._open}>${
+                v || html`<span class="placeholder">${placeholder}</span>`
+            }</div>
 
-    private _toggleOpen() {
-        this._open = !this._open;
+            <zen-icon type="arrow-down" color="grey-200"></zen-icon>
+
+            <zen-input-dropdown
+                options=${options}
+                value=${value}
+                on-change=${e => this.value = e.target.value}
+                open=${_open}
+                on-toggle=${e => this._open = e.target.open}
+            ></zen-input-dropdown>
+        `;
     }
 }

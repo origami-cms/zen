@@ -1,56 +1,51 @@
-import HTML from './autocomplete.template.html';
-import CSS from './autocomplete.scss';
-import {PolymerElement} from '@polymer/polymer';
-import {component, property, observe} from 'polymer3-decorators/dist';
-import {view} from 'util/decorators';
+import {LitElement} from '@polymer/lit-element';
+import {html} from 'lit-html/lib/lit-extended';
+import {component, observe, property} from 'polymer3-decorators/dist';
 import {InputDropdownResults} from '../InputDropdown';
+import CSS from './autocomplete-css';
+import {dispatchChange} from 'util/decorators';
 
 @component('zen-autocomplete')
-@view(HTML, CSS.toString())
-export default class Autocomplete extends PolymerElement {
+@dispatchChange()
+export default class Autocomplete extends LitElement {
 
-    @property({reflectToAttribute: true})
+    @property
     placeholder?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @property({reflectToAttribute: true})
-    type: string = 'text';
-
-    @property({reflectToAttribute: true})
+    @property
     icon?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     loading?: boolean;
 
     @property
     value?: string;
 
+    @property
     query?: string;
 
+    @property
     minlength?: number;
 
+    @property
     private _options: InputDropdownResults = {};
+    @property
     private _open: boolean = false;
 
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
+    constructor() {
+        super();
+        this._handleChange = this._handleChange.bind(this);
     }
 
-    @observe('query')
-    private async _queryChanged(newV: string) {
-        if (this.minlength && newV.length < this.minlength) return;
-        this._options = await this._results;
-        if (this._options instanceof Array && this._options.length > 0) this._open = true;
-        else if (this._options) this._open = true;
-        else this._open = false;
-    }
+    private async _getResults() {
+        if (!this.query) return;
+        if (this.minlength && this.query.length < this.minlength) return [];
 
-    private get _results() {
         this.loading = true;
-        return fetch(encodeURI(`http://localhost:9999/api/v1/address`), {
+        this._options = await fetch(encodeURI(`http://localhost:9999/api/v1/address`), {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({address: this.query})
@@ -62,5 +57,45 @@ export default class Autocomplete extends PolymerElement {
                 this.loading = false;
                 return r;
             });
+
+        if (this._options instanceof Array && this._options.length > 0) this._open = true;
+        else if (this._options) this._open = true;
+        else this._open = false;
+    }
+
+    _render({icon, placeholder, loading, _options, _open, query, value}) {
+        return html`
+            ${CSS}
+            <zen-input
+                value=${query}
+                on-input=${e => this.query = e.target.value}
+                type="text"
+                placeholder=${placeholder}
+                icon=${icon}
+                loading=${loading}
+            ></zen-input>
+
+            <zen-input-dropdown
+                options=${_options}
+                value=${value}
+                on-change=${this._handleChange}
+                open$=${_open}
+                on-toggle=${this._handleToggle}
+            ></zen-input-dropdown>
+
+        `;
+    }
+
+    _handleChange(e) {
+        this.value = this.query = e.target.value;
+    }
+
+    async _propertiesChanged(p, c, o) {
+        super._propertiesChanged(p, c, o);
+
+        if (c.query) {
+            if (p.minlength && p.query.length < p.minlength) return;
+            this._getResults();
+        }
     }
 }

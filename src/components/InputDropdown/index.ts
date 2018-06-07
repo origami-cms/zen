@@ -1,22 +1,29 @@
-import HTML from './input-dropdown.template.html';
-import CSS from './input-dropdown.scss';
-import {PolymerElement} from '@polymer/polymer';
-import {component, property, observe, computed} from 'polymer3-decorators/dist';
-import {view} from 'util/decorators';
+import {LitElement} from '@polymer/lit-element';
+import {html} from 'lit-html/lib/lit-extended';
+import {component, observe, property} from 'polymer3-decorators/dist';
+import {dispatchChange, bindAttributes} from 'util/decorators';
 
 export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
 export interface InputDropdownOptions { [key: string]: string; }
 export type InputDropdownList = string[];
 
+import CSS from './input-dropdown-css';
+
 @component('zen-input-dropdown')
-@view(HTML, CSS.toString())
-export default class InputDropdown extends PolymerElement {
+@dispatchChange()
+@dispatchChange('open', 'toggle')
+@bindAttributes
+export default class InputDropdown extends LitElement {
     @property
     value?: string;
+
+    @property
     options: InputDropdownResults[] = [];
 
-    @property({reflectToAttribute: true})
+    @property
     open: boolean = false;
+
+    private static _boundAttributes = ['open'];
 
     constructor() {
         super();
@@ -35,10 +42,26 @@ export default class InputDropdown extends PolymerElement {
         document.removeEventListener('mouseup', this._handleClick);
     }
 
-    @computed
+    _render({options, value, open}) {
+        const opt = this._options(options, value);
+        return html`
+            ${CSS}
+            ${opt.map(o => html`
+                <div class="option" on-click=${() => this.value = o.value}>
+                    ${o.label}
+                </div>
+            `)}
+        `;
+    }
+
     private _options(options: InputDropdownOptions, value: string) {
 
-        if (options instanceof Array) return options.map(v => ({value: v, label: v}));
+        if (options instanceof Array) {
+            return options.map(v => {
+                if (typeof v === 'string') return {value: v, label: v};
+                return v;
+            });
+        }
         return Object.entries(options).map(([v, label]) => ({
             label,
             value: v
@@ -55,17 +78,11 @@ export default class InputDropdown extends PolymerElement {
         this.open = false;
     }
 
-    private _toggleOpen() {
-        this.open = !this.open;
-    }
+    async _propertiesChanged(p, c, o) {
+        super._propertiesChanged(p, c, o);
+        if (c.open !== undefined) {
+            console.log('OK', p.open);
 
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
-    }
-
-    @observe('open')
-    private _openChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('toggle'));
+        }
     }
 }

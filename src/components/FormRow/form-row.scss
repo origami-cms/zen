@@ -1,4 +1,4 @@
-@import '~zen-css/import';
+@import 'zen-css/import';
 
 :host {
     // &, *:not(zen-radio-tabs) {
@@ -41,5 +41,14 @@
 
     zen-icon:not(.hide) + zen-input {
         --input-padding-left: default('input-height');
+    }
+}
+
+
+:host-context([rowwidth=half]) {
+    flex: 1;
+    margin-right: default('size-small');
+    &:nth-of-type(2n) {
+        margin-right: 0;
     }
 }

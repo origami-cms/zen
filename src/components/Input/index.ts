@@ -1,11 +1,12 @@
 import {LitElement} from '@polymer/lit-element';
 import {component, observe, property} from 'polymer3-decorators/dist';
-import {bindAttributes, style} from 'util/decorators';
+import {bindAttributes, style, dispatchChange} from 'util/decorators';
 import CSS from './input-css';
 import {html} from 'lit-html/lib/lit-extended';
 
 @component('zen-input')
 @bindAttributes
+@dispatchChange()
 export default class Input extends LitElement {
 
     @property

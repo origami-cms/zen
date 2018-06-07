@@ -1,39 +1,141 @@
-import {PolymerElement} from '@polymer/polymer';
-import '@polymer/polymer/lib/elements/dom-repeat';
+// tslint:disable function-name
+import {LitElement} from '@polymer/lit-element';
 import {ValidationErrors} from 'lib/FormValidator';
 import {Field} from 'lib/FormValidator/FormFieldTypes';
-import {component, computed, observe, property} from 'polymer3-decorators/dist';
-import {view} from 'util/decorators';
-import CSS from './form-row.scss';
-import HTML from './form-row.template.html';
+import {html} from 'lit-html/lib/lit-extended';
+import {component, property} from 'polymer3-decorators/dist';
+import {dispatchChange, bindAttributes} from 'util/decorators';
+import CSS from './form-row-css';
 
 @component('zen-form-row')
-@view(HTML, CSS.toString())
-export default class FormRow extends PolymerElement {
+@dispatchChange()
+@bindAttributes
+export default class FormRow extends LitElement {
+    @property
     field?: Field;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @property({})
+    @property
     value?: any;
-    type?: string;
-    error: string | null = null;
+
+    @property
+    error?: ValidationErrors;
+
+    @property
+    rowwidth?: 'half';
+
     hidden: boolean = false;
 
-    // Compare the field types
-    private _is(type: string, ...types: string[]) {
-        return types.includes(type);
+    static _boundAttributes = ['rowwidth'];
+
+    constructor() {
+        super();
+        this._handleChange = this._handleChange.bind(this);
     }
 
-    @observe('value')
-    private _handleChange(newV: any) {
-        this.dispatchEvent(new CustomEvent('change'));
+    _render({error, field, value}) {
+        let e;
+        if (error) e = Object.values(error)[0];
+
+        if (!field) return html``;
+        const f = this._renderField(field, value);
+
+        return html`
+            ${CSS}
+            ${e
+                ? html`<span class="error">
+                    <zen-icon type="error" color="error"></zen-icon>
+                    ${e}
+                </span>`
+                : ''
+            }
+            ${field.label
+                ? html`<span class="label">${field.label}</span>`
+                : ''
+            }
+            ${f}
+        `;
     }
 
-    @computed
-    private _error(error: ValidationErrors) {
-        if (!error) return false;
-        return Object.values(error)[0];
+    private _handleChange(e: Event) {
+        const t = e.target as HTMLElement;
+        if (t.tagName === 'ZEN-CHECKBOX') return this.value = t.checked;
+
+        this.value = t.value;
+    }
+
+    _renderField(f: Field, value: any) {
+        const v = value;
+        const c = this._handleChange;
+        switch (f.type) {
+            case 'text':
+            case 'number':
+            case 'password':
+            case 'email':
+                return html`<zen-input
+                    type=${f.type}
+                    icon=${f.icon}
+                    value=${v}
+                    on-change=${c}
+                    placeholder=${f.placeholder}
+                ></zen-input>`;
+
+            case 'textarea':
+                return html`<textarea
+                    value=${v}
+                    on-change=${c}
+                    placeholder=${f.placeholder}
+                ></textarea>`;
+
+            case 'submit':
+                return html`<zen-button>Submit
+                </zen-button>`;
+
+            case 'select':
+                return html`<zen-select
+                    value=${v}
+                    on-change=${c}
+                    options=${f.options}
+                    placeholder=${f.placeholder}
+                ></zen-select>`;
+
+            case 'checkbox':
+                return html`<zen-checkbox
+                    checked=${v}
+                    on-change=${c}
+                ></zen-checkbox>`;
+
+            case 'radio':
+                return html`<zen-radio
+                    value=${v}
+                    on-change=${c}
+                    options=${f.options}
+                ></zen-radio>`;
+
+            case 'radio-tabs':
+                return html`<zen-radio-tabs
+                    value=${v}
+                    on-change=${c}
+                    options=${f.options}
+                ></zen-radio-tabs>`;
+
+            case 'radio-icons':
+                return html`<zen-radio-icons
+                    value=${v}
+                    on-change=${c}
+                    options=${f.options}
+                ></zen-radio-icons>`;
+
+            case 'autocomplete':
+                return html`<zen-autocomplete
+                    icon=${f.icon}
+                    value=${v}
+                    on-change=${c}
+                    minlength=${f.minlength}
+                    placeholder=${f.placeholder}
+                ></<zen-autocomplete>`;
+        }
     }
 }

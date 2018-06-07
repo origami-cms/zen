@@ -1,53 +1,55 @@
-import {PolymerElement} from '@polymer/polymer';
-import HTML from './radio-icons.html';
-import CSS from './radio-icons.scss';
-import {Icon} from '../..';
-import {view} from 'util/decorators';
-import {property, component, computed, observe} from 'polymer3-decorators/dist';
-import '@polymer/polymer/lib/elements/dom-repeat';
+import {LitElement} from '@polymer/lit-element';
 import {FieldRadioIconsOption} from 'lib/FormValidator/FormFieldTypes';
+import {html} from 'lit-html/lib/lit-extended';
+import {unsafeHTML} from 'lit-html/lib/unsafe-html';
+import {component, property} from 'polymer3-decorators/dist';
+import {dispatchChange} from 'util/decorators';
+import CSS from './radio-icons-css';
 
 @component('zen-radio-icons')
-@view(HTML, CSS.toString())
-export default class RadioIcons extends PolymerElement {
-
+@dispatchChange()
+export default class RadioIcons extends LitElement {
+    @property
     options: FieldRadioIconsOption[] = [];
+
+    @property
     value?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     columns?: number;
 
-    @computed
-    private _options(options: FieldRadioIconsOption, value: string) {
-        return this.options.map(o => ({
-            ...o,
-            checked: o.value === this.value
-        }));
+    _propertiesChanged(p, c, o) {
+        super._propertiesChanged(p, c, o);
+        if (c.columns) {
+            this.style.setProperty(
+                '--radio-icons-columns',
+                `var(--radio-icons-columns-override, ${p.columns})`
+            );
+        }
     }
 
-    private _active(item: {checked: boolean}) {
-        return item.checked ? 'active' : '';
-    }
+    _render({value, options}) {
 
-    @observe('columns')
-    private _columnsChanged(newV: number) {
-        this.style.setProperty(
-            '--radio-icons-columns',
-            `var(--radio-icons-columns-override, ${newV})`
-        );
-    }
-
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
-    }
-
-    private _handleClick(e: Event) {
-        // @ts-ignore Added by dom-repeat
-        this.value = e.model.item.value;
-        this.$.options.modelForElement(e.target).set('item.checked', true);
+        return html`
+            ${CSS}
+            <ul class="options">
+                ${options.map(o => html`
+                    <li
+                        class$="option ${o.value === value ? 'active' : ''}"
+                        on-click=${() => this.value = o.value}
+                    >
+                        <div class="img">
+                            ${o.icon ? html`<zen-icon type=${o.icon}></zen-icon>` : '' }
+                            ${o.image ? html`<img src=${o.image} />` : '' }
+                            ${o.html ? html`${unsafeHTML(o.html)}` : '' }
+                        </div>
+                        <span>${o.label}</span>
+                    </li>
+                `)}
+            </ul>
+        `;
     }
 }

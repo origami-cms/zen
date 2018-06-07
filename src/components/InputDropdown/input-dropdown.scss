@@ -1,8 +1,11 @@
-@import '~zen-css/import';
+@import 'zen-css/import';
 :host {
     &, * { @extend %reset; }
     @extend %comp-input-dropdown;
     display: none;
+    max-height: default('size-hero');
+    overflow-y: auto;
+    z-index: 1000;
 }
 
 :host([open]) {

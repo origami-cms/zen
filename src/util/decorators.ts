@@ -45,3 +45,15 @@ export const style = (css: string) => {
         };
     };
 };
+
+export const dispatchChange = (prop: string = 'value', event: string = 'change') =>
+    function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+        return class DispatchChange extends constructor {
+            _propertiesChanged(props: object, changedProps: object, prevProps: object) {
+                // @ts-ignore
+                super._propertiesChanged(props, changedProps, prevProps);
+                // @ts-ignore
+                if (changedProps && changedProps[prop] !== undefined) this.dispatchEvent(new CustomEvent(event));
+            }
+        };
+    };
