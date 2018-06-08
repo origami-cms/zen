@@ -1,16 +1,25 @@
 import {LitElement} from '@polymer/lit-element';
-import {FieldSelectOptions} from 'lib/FormValidator/FormFieldTypes';
+import {FieldOptions} from 'lib/FormValidator/FormFieldTypes';
 import {html} from 'lit-html/lib/lit-extended';
 import {component, property} from 'polymer3-decorators/dist';
 import {dispatchChange} from 'util/decorators';
+import Tooltip from '../Tooltip';
 import CSS from './select-css';
+
+interface props {
+    options: FieldOptions;
+    value?: string;
+    name?: string;
+    placeholder?: string;
+    _open?: boolean;
+}
 
 @component('zen-select')
 @dispatchChange()
-export default class Select extends LitElement {
+export default class Select extends LitElement implements props {
 
     @property
-    options: FieldSelectOptions[] = [];
+    options: FieldOptions = [];
 
     @property
     value?: string;
@@ -22,16 +31,15 @@ export default class Select extends LitElement {
     placeholder?: string;
 
     @property
-    private _open?: boolean;
+    _open?: boolean;
 
-    _render({value, placeholder, options, _open}) {
+    _render({value, placeholder, options, _open}: props) {
         let v;
         if (value) {
-            v = options[value];
-            if (!v && typeof options.find === 'function') {
+            if (options instanceof Array) {
                 v = options.find(({value: v}) => v === value);
                 if (v) v = v.label;
-            }
+            } else v = options[value];
         }
         return html`
             ${CSS}
@@ -44,9 +52,9 @@ export default class Select extends LitElement {
             <zen-input-dropdown
                 options=${options}
                 value=${value}
-                on-change=${e => this.value = e.target.value}
+                on-change=${(e: {target: Tooltip}) => this.value = e.target.value}
                 open=${_open}
-                on-toggle=${e => this._open = e.target.open}
+                on-toggle=${(e: {target: Tooltip}) => this._open = e.target.open}
             ></zen-input-dropdown>
         `;
     }

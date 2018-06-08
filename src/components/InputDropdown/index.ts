@@ -4,21 +4,28 @@ import {component, observe, property} from 'polymer3-decorators/dist';
 import {dispatchChange, bindAttributes} from 'util/decorators';
 
 export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
-export interface InputDropdownOptions { [key: string]: string; }
+export interface InputDropdownOptions { [key: string]: string | number; }
 export type InputDropdownList = string[];
 
 import CSS from './input-dropdown-css';
+import {FieldOption} from 'lib/FormValidator/FormFieldTypes';
+
+interface props {
+    value?: string;
+    options: InputDropdownResults;
+    open: boolean;
+}
 
 @component('zen-input-dropdown')
 @dispatchChange()
 @dispatchChange('open', 'toggle')
 @bindAttributes
-export default class InputDropdown extends LitElement {
+export default class InputDropdown extends LitElement implements props {
     @property
     value?: string;
 
     @property
-    options: InputDropdownResults[] = [];
+    options: InputDropdownResults = [];
 
     @property
     open: boolean = false;
@@ -42,8 +49,12 @@ export default class InputDropdown extends LitElement {
         document.removeEventListener('mouseup', this._handleClick);
     }
 
-    _render({options, value, open}) {
-        const opt = this._options(options, value);
+    _render({options, value, open}: props) {
+        let opt;
+        if (value) opt = this._options(options, value);
+
+        if (!opt) return html``;
+
         return html`
             ${CSS}
             ${opt.map(o => html`
@@ -54,8 +65,7 @@ export default class InputDropdown extends LitElement {
         `;
     }
 
-    private _options(options: InputDropdownOptions, value: string) {
-
+    private _options(options: InputDropdownResults, value: string) {
         if (options instanceof Array) {
             return options.map(v => {
                 if (typeof v === 'string') return {value: v, label: v};
@@ -78,11 +88,10 @@ export default class InputDropdown extends LitElement {
         this.open = false;
     }
 
-    async _propertiesChanged(p, c, o) {
+    async _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
         if (c.open !== undefined) {
             console.log('OK', p.open);
-
         }
     }
 }

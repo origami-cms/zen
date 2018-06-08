@@ -1,27 +1,33 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {component, property} from 'polymer3-decorators/dist';
-import {style, dispatchChange} from 'util/decorators';
+import {dispatchChange} from 'util/decorators';
 import CSS from './checkbox-css';
 
+interface props {
+    name?: string;
+    size?: string;
+    checked?: boolean;
+}
 @component('zen-checkbox')
 @dispatchChange('checked')
-export default class Checkbox extends LitElement {
+export default class Checkbox extends LitElement implements props {
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     size?: string;
 
     @property
     checked?: boolean;
 
-    // tslint:disable-next-line function-name
-    _render({checked}: {[key in keyof Checkbox]: any}) {
+    _render({checked}: props) {
         return html`
             ${CSS}
             <label class="checkbox">
-                <input type="checkbox" checked="${checked}" on-change=${e => this.checked = e.target.checked}/>
+                <input type="checkbox" checked="${checked}" on-change=${
+                    (e: {target: HTMLInputElement}) => this.checked = e.target.checked
+                }/>
                 <span class="check"></span>
             </label>
         `;

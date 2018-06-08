@@ -1,26 +1,30 @@
-import {LitElement, html} from '@polymer/lit-element';
-import '@polymer/polymer/lib/elements/dom-repeat';
-import {FieldRadioOption} from 'lib/FormValidator/FormFieldTypes';
-import {component, computed, observe, property} from 'polymer3-decorators/dist';
-import {view, dispatchChange} from 'util/decorators';
-import HTML from './radio-tabs.html';
+import {html, LitElement} from '@polymer/lit-element';
+import {FieldOptions} from 'lib/FormValidator/FormFieldTypes';
+import {component, property} from 'polymer3-decorators/dist';
+import {dispatchChange} from 'util/decorators';
 import CSS from './radio-tabs-css';
+
+interface props {
+    options: FieldOptions;
+    value?: string | number;
+    name?: string;
+}
 
 @component('zen-radio-tabs')
 @dispatchChange()
-export default class RadioTabs extends LitElement {
+export default class RadioTabs extends LitElement implements props {
 
     @property
-    options: FieldRadioOption[] = [];
+    options: FieldOptions = [];
 
     @property
-    value?: string;
+    value?: string | number;
 
     @property
     name?: string;
 
-    _render({options, value}) {
-        let opts = [];
+    _render({options, value}: props) {
+        let opts: FieldOptions = [];
         if (options) {
             if (options instanceof Array) {
                 opts = options;

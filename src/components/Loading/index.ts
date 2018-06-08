@@ -4,8 +4,13 @@ import {component, property} from 'polymer3-decorators';
 import {style} from 'util/decorators';
 import CSS from './loading-css';
 
+interface props {
+    color?: string;
+    size?: string;
+}
+
 @component('zen-loading')
-export default class Loading extends LitElement {
+export default class Loading extends LitElement implements props {
     @property
     color?: string;
 
@@ -14,7 +19,7 @@ export default class Loading extends LitElement {
 
     static _boundAttributes = ['color', 'size'];
 
-    // tslint:disable-next-line function-name
+
     _render() {
         return html`${CSS}<span></span>`;
     }

@@ -1,13 +1,26 @@
 import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html/lib/lit-extended';
-import {component, observe, property} from 'polymer3-decorators/dist';
-import {InputDropdownResults} from '../InputDropdown';
-import CSS from './autocomplete-css';
+import {component, property} from 'polymer3-decorators/dist';
 import {dispatchChange} from 'util/decorators';
+import Input from '../Input';
+import InputDropdown, {InputDropdownResults} from '../InputDropdown';
+import CSS from './autocomplete-css';
+
+interface props {
+    placeholder?: string;
+    name?: string;
+    icon?: string;
+    loading?: boolean;
+    value?: string;
+    query?: string;
+    minlength?: number;
+    _options: InputDropdownResults;
+    _open: boolean;
+}
 
 @component('zen-autocomplete')
 @dispatchChange()
-export default class Autocomplete extends LitElement {
+export default class Autocomplete extends LitElement implements props {
 
     @property
     placeholder?: string;
@@ -31,9 +44,10 @@ export default class Autocomplete extends LitElement {
     minlength?: number;
 
     @property
-    private _options: InputDropdownResults = {};
+    _options: InputDropdownResults = {};
+
     @property
-    private _open: boolean = false;
+    _open: boolean = false;
 
     constructor() {
         super();
@@ -63,12 +77,12 @@ export default class Autocomplete extends LitElement {
         else this._open = false;
     }
 
-    _render({icon, placeholder, loading, _options, _open, query, value}) {
+    _render({icon, placeholder, loading, _options, _open, query, value}: props) {
         return html`
             ${CSS}
             <zen-input
                 value=${query}
-                on-input=${e => this.query = e.target.value}
+                on-input=${(e: {target: Input}) => this.query = e.target.value}
                 type="text"
                 placeholder=${placeholder}
                 icon=${icon}
@@ -86,14 +100,14 @@ export default class Autocomplete extends LitElement {
         `;
     }
 
-    _handleChange(e) {
+    _handleChange(e: {target: InputDropdown}) {
         this.value = this.query = e.target.value;
     }
 
-    async _propertiesChanged(p, c, o) {
+    async _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
 
-        if (c.query) {
+        if (c.query && p.query) {
             if (p.minlength && p.query.length < p.minlength) return;
             this._getResults();
         }

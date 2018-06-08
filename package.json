@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@polymer/lit-element": "^0.5.1",
-    "@polymer/polymer": "^3.0.2",
     "@types/lodash": "^4.14.109",
     "@types/seamless-immutable": "^7.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
@@ -38,13 +37,12 @@
     "svg-inline-loader": "^0.8.0",
     "ts-loader": "^4.3.0",
     "tslint": "^5.10.0",
-    "tslint-config-origami": "^1.0.1",
+    "tslint-config-origami": "^1.0.3",
     "typescript": "^2.8.4",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4",
-    "yargs": "1.2.6",
     "zen-css": "^1.1.10"
   }
 }

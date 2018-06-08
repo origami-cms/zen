@@ -1,13 +1,22 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import {component, observe, property} from 'polymer3-decorators';
+import {bindAttributes} from 'util/decorators';
 import Icon from '../Icon';
 import CSS from './button-css';
-import {bindAttributes, style} from 'util/decorators';
+
+interface props {
+    size?: string;
+    icon?: string | false;
+    'iconright': boolean;
+    hollow?: boolean;
+    color?: string;
+    disabled?: boolean;
+    loading?: boolean;
+}
 
 @component('zen-button')
 @bindAttributes
-export default class Button extends LitElement {
+export default class Button extends LitElement implements props {
     @property
     size?: string;
     @property
@@ -29,8 +38,8 @@ export default class Button extends LitElement {
         return this.shadowRoot.querySelector('zen-icon') as Icon;
     }
 
-    // tslint:disable-next-line function-name
-    _render({icon, size, hollow}: { [key in keyof Button]: any }) {
+
+    _render({icon, size, hollow}: props) {
         return html`
             ${CSS}
             ${icon

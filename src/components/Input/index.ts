@@ -1,13 +1,23 @@
 import {LitElement} from '@polymer/lit-element';
-import {component, observe, property} from 'polymer3-decorators/dist';
-import {bindAttributes, style, dispatchChange} from 'util/decorators';
-import CSS from './input-css';
 import {html} from 'lit-html/lib/lit-extended';
+import {component, property} from 'polymer3-decorators/dist';
+import {bindAttributes, dispatchChange} from 'util/decorators';
+import CSS from './input-css';
+
+interface props {
+    placeholder?: string;
+    name?: string;
+    type: string;
+    icon?: string;
+    loading?: boolean;
+    value?: string;
+    disabled?: string;
+}
 
 @component('zen-input')
 @bindAttributes
 @dispatchChange()
-export default class Input extends LitElement {
+export default class Input extends LitElement implements props {
 
     @property
     placeholder?: string;
@@ -34,8 +44,8 @@ export default class Input extends LitElement {
         'placeholder', 'name', 'type', 'icon', 'loading', 'disabled'
     ];
 
-    // tslint:disable-next-line function-name
-    _render({icon, loading, type, placeholder, disabled, value}: {[key in keyof Input]: any}) {
+
+    _render({icon, loading, type, placeholder, disabled, value}: props) {
         return html`
             ${CSS}
             ${icon

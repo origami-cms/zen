@@ -1,3 +1,6 @@
 {
-    "extends": "tslint-config-origami"
+    "extends": "tslint-config-origami",
+    "rules": {
+        "function-name": false
+    }
 }

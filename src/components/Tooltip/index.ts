@@ -1,8 +1,8 @@
 import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html';
-import {component, observe, property} from 'polymer3-decorators';
-import CSS from './tooltip-css';
+import {component, property} from 'polymer3-decorators';
 import {bindAttributes} from 'util/decorators';
+import CSS from './tooltip-css';
 
 export type TooltipPosition =
     'top-left' |
@@ -19,9 +19,14 @@ export type TooltipPosition =
     'left' |
     'left-top';
 
+interface props {
+    position?: TooltipPosition;
+    for: HTMLElement | null;
+}
+
 @component('zen-tooltip')
 @bindAttributes
-export default class Tooltip extends LitElement {
+export default class Tooltip extends LitElement implements props {
 
     @property
     position?: TooltipPosition = 'bottom';
@@ -67,12 +72,12 @@ export default class Tooltip extends LitElement {
         this.style.display = Boolean(show) ? 'none' : '';
     }
 
-    // tslint:disable-next-line function-name
+
     _render() {
         return html`${CSS}<slot></slot>`;
     }
 
-    // tslint:disable-next-line function-name
+
     _didRender() {
         this._update();
     }

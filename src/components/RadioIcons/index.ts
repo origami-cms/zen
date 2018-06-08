@@ -6,14 +6,21 @@ import {component, property} from 'polymer3-decorators/dist';
 import {dispatchChange} from 'util/decorators';
 import CSS from './radio-icons-css';
 
+interface props {
+    options: FieldRadioIconsOption[];
+    value?: string | number;
+    name?: string;
+    columns?: number;
+}
+
 @component('zen-radio-icons')
 @dispatchChange()
-export default class RadioIcons extends LitElement {
+export default class RadioIcons extends LitElement implements props {
     @property
     options: FieldRadioIconsOption[] = [];
 
     @property
-    value?: string;
+    value?: string | number;
 
     @property
     name?: string;
@@ -21,7 +28,7 @@ export default class RadioIcons extends LitElement {
     @property
     columns?: number;
 
-    _propertiesChanged(p, c, o) {
+    _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
         if (c.columns) {
             this.style.setProperty(
@@ -31,7 +38,7 @@ export default class RadioIcons extends LitElement {
         }
     }
 
-    _render({value, options}) {
+    _render({value, options}: props) {
 
         return html`
             ${CSS}

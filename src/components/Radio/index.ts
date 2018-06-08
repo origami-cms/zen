@@ -1,15 +1,21 @@
 import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html/lib/lit-extended';
 import {component, property} from 'polymer3-decorators/dist';
-import {style, dispatchChange} from 'util/decorators';
+import {dispatchChange} from 'util/decorators';
 import CSS from './radio-css';
+
+interface props {
+    options: { [key: string]: string };
+    value?: string;
+    name?: string;
+}
 
 @component('zen-radio')
 @dispatchChange()
-export default class Radio extends LitElement {
+export default class Radio extends LitElement implements props {
 
     @property
-    options: {[key: string]: string} = {};
+    options = {};
 
     @property
     value?: string;
@@ -17,8 +23,8 @@ export default class Radio extends LitElement {
     @property
     name?: string;
 
-    // tslint:disable-next-line function-name
-    _render({value, options}: {[key in keyof Radio]: any}) {
+
+    _render({value, options}: props) {
         const opts = Object.entries(options).map(([v, label]) => ({
             value: v,
             label

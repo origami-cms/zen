@@ -6,8 +6,18 @@ import Validator, {ValidateFieldErrors} from 'lib/FormValidator/Validator';
 import {component, property} from 'polymer3-decorators/dist';
 import CSS from './form-css';
 
+interface props {
+    values: FormValues;
+    error?: string;
+    fields: Field[];
+    loading: boolean;
+    _fieldErrors: ValidateFieldErrors;
+    _validateOnChange: boolean;
+    _showErrors: boolean;
+}
+
 @component('zen-form')
-export default class Form extends LitElement {
+export default class Form extends LitElement implements props {
     @property
     values: FormValues = {};
 
@@ -21,9 +31,10 @@ export default class Form extends LitElement {
     loading: boolean = false;
 
     @property
-    private _fieldErrors: ValidateFieldErrors = {};
-    private _validateOnChange: boolean = false;
-    private _showErrors: boolean = false;
+    _fieldErrors: ValidateFieldErrors = {};
+
+    _validateOnChange: boolean = false;
+    _showErrors: boolean = false;
 
     constructor() {
         super();
@@ -31,7 +42,7 @@ export default class Form extends LitElement {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({error, fields, values, _fieldErrors}: {[key in keyof Form]: any}) {
+    _render({error, fields, values, _fieldErrors}: props) {
         const errors = _fieldErrors || {};
 
         return html`
@@ -79,7 +90,7 @@ export default class Form extends LitElement {
 
         const {valid, fields} = v.validate(this.values);
 
-        this._fieldErrors = fields;
+        if (fields) this._fieldErrors = fields;
 
         this.dispatchEvent(new CustomEvent('validated', {
             detail: {valid}
@@ -88,7 +99,7 @@ export default class Form extends LitElement {
         return valid;
     }
 
-    _propertiesChanged(p, c, o) {
+    _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c , o);
         if (c && c.values) {
             if (this._showErrors) this.validate();

@@ -4,13 +4,22 @@ import {ValidationErrors} from 'lib/FormValidator';
 import {Field} from 'lib/FormValidator/FormFieldTypes';
 import {html} from 'lit-html/lib/lit-extended';
 import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange, bindAttributes} from 'util/decorators';
+import {bindAttributes, dispatchChange} from 'util/decorators';
 import CSS from './form-row-css';
+
+interface props {
+    field?: Field;
+    name?: string;
+    value?: any;
+    error?: ValidationErrors;
+    rowwidth?: 'half';
+    hidden: boolean;
+}
 
 @component('zen-form-row')
 @dispatchChange()
 @bindAttributes
-export default class FormRow extends LitElement {
+export default class FormRow extends LitElement implements props {
     @property
     field?: Field;
 
@@ -35,7 +44,7 @@ export default class FormRow extends LitElement {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({error, field, value}) {
+    _render({error, field, value}: props) {
         let e;
         if (error) e = Object.values(error)[0];
 
@@ -60,7 +69,7 @@ export default class FormRow extends LitElement {
     }
 
     private _handleChange(e: Event) {
-        const t = e.target as HTMLElement;
+        const t = e.target as HTMLInputElement;
         if (t.tagName === 'ZEN-CHECKBOX') return this.value = t.checked;
 
         this.value = t.value;

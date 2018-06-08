@@ -44,6 +44,20 @@ export interface FieldMixinPlaceholder {
     placeholder?: string;
 }
 
+export interface FieldOption {
+    value: number | string;
+    label: number | string;
+}
+
+export type FieldOptions =
+    {[key: string]: string} |
+    FieldOption[];
+
+export interface FieldMixinOptions {
+    options?: FieldOptions;
+
+}
+
 // ---------------------------------------------------------------------- Fields
 export interface FieldDefaultValidation extends ValidateBase, ValidateString, ValidateEqual {}
 export interface FieldDefault extends FieldBase, FieldMixinPlaceholder, FieldMixinIcon {
@@ -51,10 +65,8 @@ export interface FieldDefault extends FieldBase, FieldMixinPlaceholder, FieldMix
     validate?: FieldDefaultValidation;
 }
 
-export type FieldSelectOptions = {[key: string]: string} | {value: string, label: string}[];
-export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
+export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder, FieldMixinOptions {
     type: 'select';
-    options?: FieldSelectOptions;
 }
 
 export interface FieldCheckbox extends FieldBase {
@@ -66,26 +78,20 @@ export interface FieldSubmit extends FieldBase, FieldMixinIcon {
     type: 'submit';
 }
 
-export interface FieldRadio extends FieldBase {
+export interface FieldRadio extends FieldBase, FieldMixinOptions{
     type: 'radio';
-    options?: FieldRadioOption[];
 }
 
-export interface FieldRadioTabs extends FieldBase {
+export interface FieldRadioTabs extends FieldBase, FieldMixinOptions{
     type: 'radio-tabs';
-    options?: FieldRadioOption[];
-}
-
-export interface FieldRadioOption {
-    [key: string]: string;
 }
 
 export interface FieldRadioIconsOption {
-    value: number | string;
-    label?: number | string;
     icon?: string;
     image?: string;
     html?: string;
+    value: number | string;
+    label: number | string;
 }
 export interface FieldRadioIcons extends FieldBase {
     type: 'radio-icons';
