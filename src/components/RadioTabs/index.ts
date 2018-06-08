@@ -1,42 +1,44 @@
-import {PolymerElement} from '@polymer/polymer';
+import {LitElement, html} from '@polymer/lit-element';
 import '@polymer/polymer/lib/elements/dom-repeat';
 import {FieldRadioOption} from 'lib/FormValidator/FormFieldTypes';
-import {component, computed, property, observe} from 'polymer3-decorators/dist';
-import {view} from 'util/decorators';
+import {component, computed, observe, property} from 'polymer3-decorators/dist';
+import {view, dispatchChange} from 'util/decorators';
 import HTML from './radio-tabs.html';
-import CSS from './radio-tabs.scss';
+import CSS from './radio-tabs-css';
 
 @component('zen-radio-tabs')
-@view(HTML, CSS.toString())
-export default class RadioTabs extends PolymerElement {
+@dispatchChange()
+export default class RadioTabs extends LitElement {
 
+    @property
     options: FieldRadioOption[] = [];
+
+    @property
     value?: string;
 
-    @property({reflectToAttribute: true})
+    @property
     name?: string;
 
-    @computed
-    private _options(options: FieldRadioOption, value: string) {
-        return Object.entries(options).map(([v, label]) => ({
-            label,
-            value: v,
-            checked: v === this.value
-        }));
-    }
+    _render({options, value}) {
+        let opts = [];
+        if (options) {
+            if (options instanceof Array) {
+                opts = options;
+            } else {
+                opts = Object.entries(options).map(([v, label]) => ({
+                    value: v,
+                    label
+                }));
+            }
+        }
 
-    private _active(item: {checked: boolean}) {
-        return item.checked ? 'active' : '';
-    }
-
-    private _handleClick(e: Event) {
-        // @ts-ignore Added by dom-repeat
-        this.value = e.model.item.value;
-        this.$.options.modelForElement(e.target).set('item.checked', true);
-    }
-
-    @observe('value')
-    private _valueChanged(newV: string) {
-        this.dispatchEvent(new CustomEvent('change'));
+        return html`
+            ${CSS}
+            ${opts.map(o => html`
+                <div class$="tab ${value === o.value ? 'active' : ''}" on-click=${() => this.value = o.value}>
+                    <span>${o.label}</span>
+                </div>
+            `)}
+        `;
     }
 }

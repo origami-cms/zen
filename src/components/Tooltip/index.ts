@@ -1,6 +1,6 @@
 import {PolymerElement} from '@polymer/polymer';
 import {component, property, observe, computed} from 'polymer3-decorators';
-import CSS from './tooltip-css';
+import CSS from './tooltip.scss';
 import {view} from 'util/decorators';
 
 export type TooltipPosition =

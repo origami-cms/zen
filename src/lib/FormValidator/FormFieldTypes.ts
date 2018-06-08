@@ -47,7 +47,7 @@ export interface FieldMixinPlaceholder {
 // ---------------------------------------------------------------------- Fields
 export interface FieldDefaultValidation extends ValidateBase, ValidateString, ValidateEqual {}
 export interface FieldDefault extends FieldBase, FieldMixinPlaceholder, FieldMixinIcon {
-    type: 'text' | 'textarea' | 'input' | 'password' | 'email' | 'date' | 'number';
+    type: 'text' | 'textarea' | 'input' | 'password' | 'email' | 'date' | 'number' | 'tel';
     validate?: FieldDefaultValidation;
 }
 

@@ -74,6 +74,8 @@ export default class FormRow extends LitElement {
             case 'number':
             case 'password':
             case 'email':
+            case 'date':
+            case 'tel':
                 return html`<zen-input
                     type=${f.type}
                     icon=${f.icon}
@@ -126,6 +128,7 @@ export default class FormRow extends LitElement {
                     value=${v}
                     on-change=${c}
                     options=${f.options}
+                    columns=${f.columns}
                 ></zen-radio-icons>`;
 
             case 'autocomplete':
