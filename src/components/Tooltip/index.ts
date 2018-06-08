@@ -1,7 +1,8 @@
-import {PolymerElement} from '@polymer/polymer';
-import {component, property, observe, computed} from 'polymer3-decorators';
-import CSS from './tooltip.scss';
-import {view} from 'util/decorators';
+import {LitElement} from '@polymer/lit-element';
+import {html} from 'lit-html';
+import {component, observe, property} from 'polymer3-decorators';
+import CSS from './tooltip-css';
+import {bindAttributes} from 'util/decorators';
 
 export type TooltipPosition =
     'top-left' |
@@ -19,17 +20,16 @@ export type TooltipPosition =
     'left-top';
 
 @component('zen-tooltip')
-@view('<slot></slot>', CSS.toString())
-export default class Tooltip extends PolymerElement {
+@bindAttributes
+export default class Tooltip extends LitElement {
 
-    @property({reflectToAttribute: true})
+    @property
     position?: TooltipPosition = 'bottom';
 
-    @property({reflectToAttribute: true})
+    @property
     for: HTMLElement | null = null;
 
-    @property({reflectToAttribute: true})
-    removeable?: boolean;
+    static _boundAttributes = ['position', 'for'];
 
     constructor() {
         super();
@@ -45,7 +45,7 @@ export default class Tooltip extends PolymerElement {
     connectedCallback() {
         super.connectedCallback();
         this._update();
-        if (this.removeable) {
+        if (this.removable) {
             window.addEventListener('mouseup', this._remove);
             window.addEventListener('keydown', this._remove);
         }
@@ -67,8 +67,16 @@ export default class Tooltip extends PolymerElement {
         this.style.display = Boolean(show) ? 'none' : '';
     }
 
-    @observe('for')
-    @observe('position')
+    // tslint:disable-next-line function-name
+    _render() {
+        return html`${CSS}<slot></slot>`;
+    }
+
+    // tslint:disable-next-line function-name
+    _didRender() {
+        this._update();
+    }
+
     private _update() {
         if (!this.target || !this.position) {
             this.hide();
