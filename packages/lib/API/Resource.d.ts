@@ -8,13 +8,13 @@ export default class Resource {
     readonly lower: string;
     readonly upper: string;
     default(): {
-        create: (data: object) => (dispatch: Function) => Promise<void | object>;
-        get: (id: string, cache: boolean, pagination: {}, qs: object) => (dispatch: Function) => Promise<void | object>;
+        create: (data: object) => (dispatch: Function) => Promise<void | object | undefined>;
+        get: (id: string, cache: boolean, pagination: {} | undefined, qs: object) => (dispatch: Function) => Promise<void | object | undefined>;
         update: (id: string, data: object) => (dispatch: Function) => void;
         remove: (idOrArray: string | string[]) => (dispatch: Function) => void;
     };
-    create(): (data: object) => (dispatch: Function) => Promise<void | object>;
-    get(): (id: string, cache: boolean, pagination: {}, qs: object) => (dispatch: Function) => Promise<void | object>;
+    create(): (data: object) => (dispatch: Function) => Promise<void | object | undefined>;
+    get(): (id: string, cache: boolean, pagination: {} | undefined, qs: object) => (dispatch: Function) => Promise<void | object | undefined>;
     update(): (id: string, data: object) => (dispatch: Function) => void;
     remove(): (idOrArray: string | string[]) => (dispatch: Function) => void;
     private _qs(...rest);

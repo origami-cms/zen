@@ -1,5 +1,5 @@
 import { upperFirst } from 'lodash';
-import { APIResource } from '.';
+import { default as APIResource } from './Resource';
 export default (name, API) => {
     const r = new APIResource(name, API).default();
     const funcs = {};

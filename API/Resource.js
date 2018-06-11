@@ -27,7 +27,7 @@ export default class Resource {
                 dispatch({ type: `${this.upper}_CREATING_END` });
                 return json.data;
             })
-                .catch(error => {
+                .catch((error) => {
                 dispatch({ type: `${this.upper}_CREATE_ERROR`, error });
                 dispatch({ type: `${this.upper}_CREATING_END` });
             });

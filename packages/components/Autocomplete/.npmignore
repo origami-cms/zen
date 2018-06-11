@@ -1,0 +1,5 @@
+src
+*.scss
+*.ts
+!.d.ts
+*-css.d.ts
