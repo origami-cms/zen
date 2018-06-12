@@ -11,6 +11,7 @@ const components = [
     'IconSet',
     'Input',
     'InputDropdown',
+    'Link',
     'Loading',
     'Radio',
     'RadioIcons',

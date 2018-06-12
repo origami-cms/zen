@@ -5368,6 +5368,10 @@ punycode@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
 
+pwa-helpers@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/pwa-helpers/-/pwa-helpers-0.8.2.tgz#0418af795337723752a3559484ef6e609b139026"
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"

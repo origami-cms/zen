@@ -13,3 +13,4 @@ export {default as Select} from './Select/Select';
 export {default as FormRow} from './FormRow/FormRow';
 export {default as Form} from './Form/Form';
 export {default as Loading} from './Loading/Loading';
+export {default as Link} from './Link/Link';
