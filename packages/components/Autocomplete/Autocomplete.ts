@@ -71,7 +71,7 @@ export default class Autocomplete extends LitElement implements props {
         if (this.minlength && this.query.length < this.minlength) return [];
 
         this.loading = true;
-        this._options = await fetch(encodeURI(`http://localhost:9999/api/v1/address`), {
+        this._options = await fetch(encodeURI(`/api/v1/address`), {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({address: this.query})
