@@ -21,7 +21,7 @@ export default class Form extends LitElement implements props {
     _showErrors: boolean;
     constructor();
     _render({error, fields, values, _fieldErrors}: props): TemplateResult;
-    submit(e: Event): boolean;
+    submit(e?: Event): boolean;
     validate(showErrors?: boolean): boolean;
     _propertiesChanged(p: props, c: props, o: props): void;
     private _handleChange(e);

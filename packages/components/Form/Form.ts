@@ -16,7 +16,6 @@ export interface props {
     _validateOnChange: boolean;
     _showErrors: boolean;
 }
-
 @component('zen-form')
 export default class Form extends LitElement implements props {
     @property
@@ -49,7 +48,7 @@ export default class Form extends LitElement implements props {
         return html`
             ${CSS}
             ${error
-                ? html`<div><zen-icon type="error" color="error"></zen-icon><span>${error}</span>`
+                ? html`<div class="error"><zen-icon type="error" color="error"></zen-icon><span>${error}</span>`
                 : ''
             }
             <form novalidate on-submit="${this.submit}">
@@ -58,6 +57,7 @@ export default class Form extends LitElement implements props {
                         field=${f}
                         value=${values[f.name]}
                         on-change=${this._handleChange}
+                        on-submit=${this.submit}
                         name=${f.name}
                         error=${errors[f.name]}
                         rowwidth=${f.width}
@@ -67,9 +67,11 @@ export default class Form extends LitElement implements props {
         `;
     }
 
-    submit(e: Event) {
-        e.preventDefault();
-        e.stopPropagation();
+    submit(e?: Event) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
 
         if (!this.validate()) return false;
 
@@ -84,6 +86,8 @@ export default class Form extends LitElement implements props {
     validate(showErrors: boolean = true) {
         this._validateOnChange = true;
         this._showErrors = showErrors;
+
+        this._fieldErrors = {};
 
         const v = new Validator({
             fields: this.fields

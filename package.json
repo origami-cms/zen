@@ -8,7 +8,7 @@
   "main": "zen.js",
   "typings": "packages/zen.d.ts",
   "scripts": {
-    "build": "webpack-cli --mode=production & yarn build:api & yarn:build:util",
+    "build": "webpack-cli --mode=production && yarn build:api & yarn build:util",
     "watch:sass": "sass-render packages/**/*.scss --suffix=-css.ts -w",
     "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",

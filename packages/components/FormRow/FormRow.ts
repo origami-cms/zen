@@ -43,6 +43,7 @@ export default class FormRow extends LitElement implements props {
     constructor() {
         super();
         this._handleChange = this._handleChange.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     _render({error, field, value}: props): TemplateResult {
@@ -62,7 +63,7 @@ export default class FormRow extends LitElement implements props {
                 : ''
             }
             ${field.label
-                ? html`<span class="label">${field.label}</span>`
+                ? html`<span class="label">${field.label}s</span>`
                 : ''
             }
             ${f}
@@ -74,6 +75,10 @@ export default class FormRow extends LitElement implements props {
         if (t.tagName === 'ZEN-CHECKBOX') return this.value = t.checked;
 
         this.value = t.value;
+    }
+
+    private submit() {
+        this.dispatchEvent(new CustomEvent('submit'));
     }
 
     _renderField(f: Field, value: any) {
@@ -102,8 +107,10 @@ export default class FormRow extends LitElement implements props {
                 ></textarea>`;
 
             case 'submit':
-                return html`<zen-button>Submit
-                </zen-button>`;
+                return html`<zen-button
+                    icon=${f.icon}
+                    on-click=${this.submit}
+                >${f.value}</zen-button>`;
 
             case 'select':
                 return html`<zen-select

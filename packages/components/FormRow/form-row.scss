@@ -42,6 +42,13 @@
     zen-icon:not(.hide) + zen-input {
         --input-padding-left: default('input-height');
     }
+
+    zen-button {
+        width: 100%;
+        box-sizing: border-box;
+        height: default('input-height');
+        line-height: default('input-height');
+    }
 }
 
 

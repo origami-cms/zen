@@ -9,10 +9,13 @@
     }
 }
 
+.error {
+    color: default('color-error');
+}
+
 span.error {
     display: block;
-    margin-bottom: var(--size-small);
-    color: var(--color-error);
+    margin-bottom: default('size-small');
     zen-ui-icon, zen-ui-icon + span { vertical-align: middle; }
 
     &:empty { display: none; }
