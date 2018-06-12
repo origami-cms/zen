@@ -30,7 +30,7 @@ export default class InputDropdown extends LitElement implements props {
     @property
     open: boolean = false;
 
-    private static _boundAttributes = ['open'];
+    // private static _boundAttributes = ['open'];
 
     constructor() {
         super();
@@ -51,7 +51,8 @@ export default class InputDropdown extends LitElement implements props {
 
     _render({options, value, open}: props): TemplateResult {
         let opt;
-        if (value) opt = this._options(options, value);
+        if (options) opt = this._options(options);
+
 
         if (!opt) return html``;
 
@@ -65,7 +66,12 @@ export default class InputDropdown extends LitElement implements props {
         `;
     }
 
-    private _options(options: InputDropdownResults, value: string) {
+    _didRender() {
+        if (!this.open) this.removeAttribute('open');
+        else this.setAttribute('open', 'true');
+    }
+
+    private _options(options: InputDropdownResults) {
         if (options instanceof Array) {
             return options.map(v => {
                 if (typeof v === 'string') return {value: v, label: v};
@@ -86,11 +92,5 @@ export default class InputDropdown extends LitElement implements props {
         // @ts-ignore Added by dom-repeat
         if (e.model) this.value = e.model.item.value;
         this.open = false;
-    }
-
-    async _propertiesChanged(p: props, c: props, o: props) {
-        super._propertiesChanged(p, c, o);
-        if (c.open !== undefined) {
-        }
     }
 }

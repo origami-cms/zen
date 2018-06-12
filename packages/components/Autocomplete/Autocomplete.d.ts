@@ -13,7 +13,6 @@ export interface props {
     _open: boolean;
 }
 /**
- * Ok
  * @class Zen Autocomplete
  * @example <zen-autocomplete>
  */
@@ -40,5 +39,6 @@ export default class Autocomplete extends LitElement implements props {
     _handleChange(e: {
         target: InputDropdown;
     }): void;
+    _didRender(): void;
     _propertiesChanged(p: props, c: props, o: props): Promise<void>;
 }

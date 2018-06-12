@@ -105,7 +105,7 @@ export default class Autocomplete extends LitElement implements props {
                 options=${_options}
                 value=${value}
                 on-change=${this._handleChange}
-                open$=${_open}
+                open=${_open}
                 on-toggle=${this._handleToggle}
             ></zen-input-dropdown>
 
@@ -114,6 +114,12 @@ export default class Autocomplete extends LitElement implements props {
 
     _handleChange(e: {target: InputDropdown}) {
         this.value = this.query = e.target.value;
+    }
+
+    _didRender() {
+        const dd = this.shadowRoot.querySelector('zen-input-dropdown') as InputDropdown;
+        if (!this._open) dd.removeAttribute('open');
+        else dd.setAttribute('open', 'true');
     }
 
     async _propertiesChanged(p: props, c: props, o: props) {

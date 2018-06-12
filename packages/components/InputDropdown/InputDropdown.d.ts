@@ -14,13 +14,12 @@ export default class InputDropdown extends LitElement implements props {
     value?: string;
     options: InputDropdownResults;
     open: boolean;
-    private static _boundAttributes;
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;
     _render({options, value, open}: props): TemplateResult;
-    private _options(options, value);
+    _didRender(): void;
+    private _options(options);
     private _handleEscape(e);
     private _handleClick(e);
-    _propertiesChanged(p: props, c: props, o: props): Promise<void>;
 }

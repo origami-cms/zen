@@ -9,7 +9,8 @@
   "typings": "packages/zen.d.ts",
   "scripts": {
     "build": "webpack-cli --mode=production",
-    "watch": "webpack-cli --mode=development -w",
+    "watch:sass": "sass-render packages/**/*.scss --suffix=-css.ts -w",
+    "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",
     "start": "yarn watch & yarn serve",
     "lint": "tslint -p . --fix",
