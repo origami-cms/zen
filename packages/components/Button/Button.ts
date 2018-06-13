@@ -5,7 +5,7 @@ import Icon from '../Icon/Icon';
 import CSS from './button-css';
 import { TemplateResult } from 'lit-html';
 
-export interface props {
+export interface ButtonProps {
     size?: string;
     icon?: string | false;
     'iconright': boolean;
@@ -17,7 +17,7 @@ export interface props {
 
 @component('zen-button')
 @bindAttributes
-export default class Button extends LitElement implements props {
+export default class Button extends LitElement implements ButtonProps {
     @property
     size?: string;
     @property
@@ -40,7 +40,7 @@ export default class Button extends LitElement implements props {
     }
 
 
-    _render({icon, size, hollow}: props): TemplateResult {
+    _render({icon, size, hollow}: ButtonProps): TemplateResult {
         return html`
             ${CSS}
             ${icon

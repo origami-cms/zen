@@ -15,9 +15,15 @@
         }
     }
 
+
     zen-icon {
         position: absolute;
         top: default('size-tiny');
         right: default('size-tiny');
+        transition: all default('transition-time');
+
+        &.rotate {
+            transform: rotate(180deg);
+        }
     }
 }

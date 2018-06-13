@@ -1,4 +1,5 @@
 import Button from './Button/Button';
+import ButtonGroup from './ButtonGroup/ButtonGroup';
 import IconSet from './IconSet/IconSet';
 import Icon from './Icon/Icon';
 import Tooltip from './Tooltip/Tooltip';
@@ -17,6 +18,7 @@ import Link from './Link/Link';
 
 export const Components = {
     Button,
+    ButtonGroup,
     IconSet,
     Icon,
     Tooltip,

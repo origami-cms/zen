@@ -1,0 +1,17 @@
+@import 'zen-css/import';
+
+:host {
+    display: block;
+    text-align: right;
+    font-size: 0;
+    --button-group-spacing: #{default('size-tiny')};
+
+    zen-button {
+        display: inline-block;
+        margin-left: var(--button-group-spacing);
+
+        &:first-of-type {
+            margin-left: 0;
+        }
+    }
+}

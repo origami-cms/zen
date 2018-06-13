@@ -1,6 +1,6 @@
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-export interface props {
+export interface ButtonProps {
     size?: string;
     icon?: string | false;
     'iconright': boolean;
@@ -9,7 +9,7 @@ export interface props {
     disabled?: boolean;
     loading?: boolean;
 }
-export default class Button extends LitElement implements props {
+export default class Button extends LitElement implements ButtonProps {
     size?: string;
     icon?: string | false;
     'iconright': boolean;
@@ -19,7 +19,7 @@ export default class Button extends LitElement implements props {
     loading?: boolean;
     private static _boundAttributes;
     private readonly _icon;
-    _render({icon, size, hollow}: props): TemplateResult;
+    _render({icon, size, hollow}: ButtonProps): TemplateResult;
     private readonly _iconColor;
     private _iconChanged(newV);
 }

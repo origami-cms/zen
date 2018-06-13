@@ -48,7 +48,7 @@ export default class Select extends LitElement implements props {
                 v || html`<span class="placeholder">${placeholder}</span>`
             }</div>
 
-            <zen-icon type="arrow-down" color="grey-200"></zen-icon>
+            <zen-icon type="arrow-down" color="grey-200" class$="${_open ? 'rotate' : ''}"></zen-icon>
 
             <zen-input-dropdown
                 options=${options}

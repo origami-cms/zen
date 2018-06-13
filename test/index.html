@@ -15,10 +15,19 @@
 </head>
 
 <body>
-    <zen-button color="orange" icon="add" id="btn">ok</zen-button>
     <zen-icon-set></zen-icon-set>
 
-    <h2 id="h2">Icon</h2>
+
+    <h1>Zen</h1>
+
+    <h2>Button</h2>
+    <zen-button color="orange" icon="add" id="btn">ok</zen-button>
+
+    <h2>Button Group</h2>
+    <zen-button-group></zen-button-group>
+
+
+    <h2 id="h2">Icons</h2>
     <zen-icon type="user"></zen-icon>
     <zen-icon type="add" color="alt"></zen-icon>
     <zen-icon type="page" color="error"></zen-icon>
@@ -27,7 +36,9 @@
     </zen-tooltip>
 
 
+    <h2>Forms</h2>
     <zen-form></zen-form>
+
 
 
 
@@ -118,6 +129,13 @@
                 }
             }
         ]
+
+        const bg = document.querySelector('zen-button-group');
+        bg.buttons = [
+            {text: 'Standard'},
+            {text: 'Icon', icon: 'add', color: 'green'},
+            {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
+        ];
     </script>
     <script src="../zen.js"></script>
 </body>

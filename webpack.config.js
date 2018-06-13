@@ -4,6 +4,7 @@ const UglifyPlugin = require('uglifyjs-webpack-plugin');
 const components = [
     'Autocomplete',
     'Button',
+    'ButtonGroup',
     'Checkbox',
     'Form',
     'FormRow',

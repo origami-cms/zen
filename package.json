@@ -8,12 +8,13 @@
   "main": "zen.js",
   "typings": "packages/zen.d.ts",
   "scripts": {
-    "build": "webpack-cli --mode=production; yarn build:api & yarn build:util",
-    "watch:sass": "sass-render packages/**/*.scss --suffix=-css.ts -w",
+    "start": "yarn watch & yarn serve",
+    "watch:sass": "yarn build:sass -- -w",
     "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",
-    "start": "yarn watch & yarn serve",
     "lint": "tslint -p . --fix",
+    "build": "yarn build:sass; webpack-cli --mode=production; yarn build:api & yarn build:util",
+    "build:sass": "sass-render packages/**/*.scss --suffix=-css.ts",
     "build:api": "tsc packages/lib/API/index.ts --outDir ./API -d --target es2016",
     "build:util": "tsc packages/util/index.ts --outDir ./util -d --target es2016"
   },
