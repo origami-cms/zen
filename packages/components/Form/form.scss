@@ -20,3 +20,8 @@ span.error {
 
     &:empty { display: none; }
 }
+
+
+zen-form-row[rowwidth=half] + zen-form-row[rowwidth=half] {
+    margin-right: 0;
+}

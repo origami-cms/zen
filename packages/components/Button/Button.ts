@@ -8,7 +8,7 @@ import { TemplateResult } from 'lit-html';
 export interface ButtonProps {
     size?: string;
     icon?: string | false;
-    'iconright': boolean;
+    iconright?: boolean;
     hollow?: boolean;
     color?: string;
     disabled?: boolean;
@@ -23,7 +23,7 @@ export default class Button extends LitElement implements ButtonProps {
     @property
     icon?: string | false;
     @property
-    'iconright': boolean;
+    iconright?: boolean;
     @property
     hollow?: boolean;
     @property
@@ -33,7 +33,7 @@ export default class Button extends LitElement implements ButtonProps {
     @property
     loading?: boolean;
 
-    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon', 'disabled'];
+    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon', 'disabled', 'size'];
 
     private get _icon() {
         return this.shadowRoot.querySelector('zen-icon') as Icon;

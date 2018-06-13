@@ -3,7 +3,7 @@ import { TemplateResult } from 'lit-html';
 export interface ButtonProps {
     size?: string;
     icon?: string | false;
-    'iconright': boolean;
+    iconright?: boolean;
     hollow?: boolean;
     color?: string;
     disabled?: boolean;
@@ -12,7 +12,7 @@ export interface ButtonProps {
 export default class Button extends LitElement implements ButtonProps {
     size?: string;
     icon?: string | false;
-    'iconright': boolean;
+    iconright?: boolean;
     hollow?: boolean;
     color?: string;
     disabled?: boolean;

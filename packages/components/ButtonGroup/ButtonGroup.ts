@@ -5,7 +5,7 @@ import { ButtonProps } from '../Button/Button';
 import CSS from './button-group-css';
 
 export interface ButtonOptions extends ButtonProps {
-    text: string;
+    text?: string;
     onclick?: Function;
 }
 
