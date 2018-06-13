@@ -5,7 +5,7 @@
                     <zen-icon type="error" color="error"></zen-icon>
                     ${n}
                 </span>`:""}
-            ${e.label?a.html`<span class="label">${e.label}s</span>`:""}
+            ${e.label?a.html`<span class="label">${e.label}</span>`:""}
             ${i}
         `}_handleChange(t){const e=t.target;if("ZEN-CHECKBOX"===e.tagName)return this.value=e.checked;this.value=e.value}submit(){this.dispatchEvent(new CustomEvent("submit"))}_renderField(t,e){const r=e,n=this._handleChange;switch(t.type){case"text":case"number":case"password":case"email":case"date":case"tel":return a.html`<zen-input
                     type=${t.type}
@@ -20,6 +20,7 @@
                 ></textarea>`;case"submit":return a.html`<zen-button
                     icon=${t.icon}
                     on-click=${this.submit}
+                    color=${t.color}
                 >${t.value}</zen-button>`;case"select":return a.html`<zen-select
                     value=${r}
                     on-change=${n}

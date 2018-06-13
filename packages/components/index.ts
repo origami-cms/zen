@@ -1,16 +1,35 @@
-export {default as Button} from './Button/Button';
-export {default as IconSet} from './IconSet/IconSet';
-export {default as Icon} from './Icon/Icon';
-export {default as Tooltip} from './Tooltip/Tooltip';
-export {default as Input} from './Input/Input';
-export {default as Autocomplete} from './Autocomplete/Autocomplete';
-export {default as Checkbox} from './Checkbox/Checkbox';
-export {default as Radio} from './Radio/Radio';
-export {default as RadioIcons} from './RadioIcons/RadioIcons';
-export {default as RadioTabs} from './RadioTabs/RadioTabs';
-export {default as InputDropdown} from './InputDropdown/InputDropdown';
-export {default as Select} from './Select/Select';
-export {default as FormRow} from './FormRow/FormRow';
-export {default as Form} from './Form/Form';
-export {default as Loading} from './Loading/Loading';
-export {default as Link} from './Link/Link';
+import Button from './Button/Button';
+import IconSet from './IconSet/IconSet';
+import Icon from './Icon/Icon';
+import Tooltip from './Tooltip/Tooltip';
+import Input from './Input/Input';
+import Autocomplete from './Autocomplete/Autocomplete';
+import Checkbox from './Checkbox/Checkbox';
+import Radio from './Radio/Radio';
+import RadioIcons from './RadioIcons/RadioIcons';
+import RadioTabs from './RadioTabs/RadioTabs';
+import InputDropdown from './InputDropdown/InputDropdown';
+import Select from './Select/Select';
+import FormRow from './FormRow/FormRow';
+import Form from './Form/Form';
+import Loading from './Loading/Loading';
+import Link from './Link/Link';
+
+export const Components = {
+    Button,
+    IconSet,
+    Icon,
+    Tooltip,
+    Input,
+    Autocomplete,
+    Checkbox,
+    Radio,
+    RadioIcons,
+    RadioTabs,
+    InputDropdown,
+    Select,
+    FormRow,
+    Form,
+    Loading,
+    Link,
+};

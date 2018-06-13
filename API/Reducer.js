@@ -5,11 +5,11 @@ export default (resource, func, key = 'id') => {
     const initialState = immutable({
         [resource]: immutable([]),
         loadedInitial: false,
-        loading: {
+        _loading: {
             all: false,
             single: false
         },
-        errors: {
+        _errors: {
             get: false
         }
     });
@@ -19,13 +19,17 @@ export default (resource, func, key = 'id') => {
         const findIndexByKey = (res) => resourceList.findIndex(r => r[key] === res[key]);
         switch (action.type) {
             case `${up}_LOADING_SINGLE_START`:
-                return state.setIn(['loading', 'single'], true);
+                return state.setIn(['_loading', 'single'], true);
             case `${up}_LOADING_SINGLE_END`:
-                return state.setIn(['loading', 'single'], false);
+                return state.setIn(['_loading', 'single'], false);
+            case `${up}_CREATING_START`:
+                return state.setIn(['_loading', 'post'], true);
+            case `${up}_CREATING_END`:
+                return state.setIn(['_loading', 'post'], false);
             case `${up}_LOADING_ALL_START`:
-                return state.setIn(['loading', 'all'], true);
+                return state.setIn(['_loading', 'all'], true);
             case `${up}_LOADING_ALL_END`:
-                return state.setIn(['loading', 'all'], false);
+                return state.setIn(['_loading', 'all'], false);
             case `${up}_SET`:
                 // If there is no resource, return state
                 if (!action[resource])
@@ -60,7 +64,7 @@ export default (resource, func, key = 'id') => {
                 const s = state.setIn([resource, index.toString()], Object.assign({}, res[index], action[singular]));
                 return s;
             case `${up}_GET_ERROR`:
-                return state.setIn(['errors', 'get'], action.error);
+                return state.setIn(['_errors', 'get'], action.error);
             default:
                 if (func)
                     return func(state, action);

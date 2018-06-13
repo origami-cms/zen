@@ -3,12 +3,14 @@ import { AnyAction } from 'redux';
 import immutable, { ImmutableObject } from 'seamless-immutable';
 export interface ResourceState {
     loadedInitial: boolean;
-    loading: {
+    _loading: {
         all: boolean;
         single: boolean;
+        post: boolean;
     };
-    errors: {
+    _errors: {
         get: boolean | string;
+        post: boolean | string;
     };
 }
 export interface State extends ImmutableObject<ResourceState> {
@@ -29,11 +31,11 @@ declare const _default: (resource: string, func?: Function | null | undefined, k
         single?: undefined;
     };
     loadedInitial: boolean;
-    loading: {
+    _loading: {
         all: boolean;
         single: boolean;
     };
-    errors: {
+    _errors: {
         get: boolean;
     };
 }> | undefined, action: AnyAction) => any;

@@ -3,12 +3,14 @@ import immutable, {ImmutableObject, ImmutableArray, ImmutableObjectMixin} from '
 
 export interface ResourceState {
     loadedInitial: boolean;
-    loading: {
-        all: boolean,
+    _loading: {
+        all: boolean
         single: boolean
+        post: boolean
     };
-    errors: {
+    _errors: {
         get: boolean | string
+        post: boolean | string
     };
 }
 export interface State extends ImmutableObject<ResourceState> {
@@ -27,11 +29,11 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
     const initialState = immutable({
         [resource]: immutable([]) as ImmutableArray<any>,
         loadedInitial: false,
-        loading: {
+        _loading: {
             all: false,
             single: false
         },
-        errors: {
+        _errors: {
             get: false
         }
     });
@@ -45,14 +47,19 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
 
         switch (action.type) {
             case `${up}_LOADING_SINGLE_START`:
-                return state.setIn(['loading', 'single'], true);
+                return state.setIn(['_loading', 'single'], true);
             case `${up}_LOADING_SINGLE_END`:
-                return state.setIn(['loading', 'single'], false);
+                return state.setIn(['_loading', 'single'], false);
+
+            case `${up}_CREATING_START`:
+                return state.setIn(['_loading', 'post'], true);
+            case `${up}_CREATING_END`:
+                return state.setIn(['_loading', 'post'], false);
 
             case `${up}_LOADING_ALL_START`:
-                return state.setIn(['loading', 'all'], true);
+                return state.setIn(['_loading', 'all'], true);
             case `${up}_LOADING_ALL_END`:
-                return state.setIn(['loading', 'all'], false);
+                return state.setIn(['_loading', 'all'], false);
 
             case `${up}_SET`:
                 // If there is no resource, return state
@@ -110,7 +117,7 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
                 return s;
 
             case `${up}_GET_ERROR`:
-                return state.setIn(['errors', 'get'], action.error);
+                return state.setIn(['_errors', 'get'], action.error);
 
             default:
                 if (func) return func(state, action);

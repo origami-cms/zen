@@ -63,7 +63,7 @@ export default class FormRow extends LitElement implements props {
                 : ''
             }
             ${field.label
-                ? html`<span class="label">${field.label}s</span>`
+                ? html`<span class="label">${field.label}</span>`
                 : ''
             }
             ${f}
@@ -110,6 +110,7 @@ export default class FormRow extends LitElement implements props {
                 return html`<zen-button
                     icon=${f.icon}
                     on-click=${this.submit}
+                    color=${f.color}
                 >${f.value}</zen-button>`;
 
             case 'select':

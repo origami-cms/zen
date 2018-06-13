@@ -2,12 +2,14 @@
 import { ImmutableObject } from 'seamless-immutable';
 export interface ResourceState {
     loadedInitial: boolean;
-    loading: {
+    _loading: {
         all: boolean;
         single: boolean;
+        post: boolean;
     };
-    errors: {
+    _errors: {
         get: boolean | string;
+        post: boolean | string;
     };
 }
 export interface State extends ImmutableObject<ResourceState> {
