@@ -6,10 +6,13 @@ export interface ResourceState {
         all: boolean;
         single: boolean;
         post: boolean;
+        edit: boolean;
     };
     _errors: {
         get: boolean | string;
         post: boolean | string;
+        edit: boolean | string;
+        delete: boolean | string;
     };
 }
 export interface State extends ImmutableObject<ResourceState> {

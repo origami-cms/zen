@@ -7,6 +7,10 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+    & > .error {
+        margin-bottom: default('size-small');
+    }
 }
 
 .error {

@@ -7,10 +7,15 @@ export default (resource, func, key = 'id') => {
         loadedInitial: false,
         _loading: {
             all: false,
-            single: false
+            single: false,
+            post: false,
+            edit: false,
         },
         _errors: {
-            get: false
+            get: false,
+            post: false,
+            edit: false,
+            delete: false
         }
     });
     return (state = initialState, action) => {
@@ -26,6 +31,10 @@ export default (resource, func, key = 'id') => {
                 return state.setIn(['_loading', 'post'], true);
             case `${up}_CREATING_END`:
                 return state.setIn(['_loading', 'post'], false);
+            case `${up}_UPDATING_START`:
+                return state.setIn(['_loading', 'edit'], true);
+            case `${up}_UPDATING_END`:
+                return state.setIn(['_loading', 'edit'], false);
             case `${up}_LOADING_ALL_START`:
                 return state.setIn(['_loading', 'all'], true);
             case `${up}_LOADING_ALL_END`:
@@ -63,8 +72,14 @@ export default (resource, func, key = 'id') => {
                 const index = findIndexByKey(action[singular]);
                 const s = state.setIn([resource, index.toString()], Object.assign({}, res[index], action[singular]));
                 return s;
+            case `${up}_CREATE_ERROR`:
+                return state.setIn(['_errors', 'post'], action.error);
             case `${up}_GET_ERROR`:
                 return state.setIn(['_errors', 'get'], action.error);
+            case `${up}_UPDATE_ERROR`:
+                return state.setIn(['_errors', 'edit'], action.error);
+            case `${up}_REMOVED_ERROR`:
+                return state.setIn(['_errors', 'delete'], action.error);
             default:
                 if (func)
                     return func(state, action);

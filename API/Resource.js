@@ -63,13 +63,16 @@ export default class Resource {
     }
     update() {
         return (id, data) => (dispatch) => {
+            dispatch({ type: `${this.upper}_UPDATING_START` });
             this._API.put(`/${this.lower}/${id}`, data)
                 .then(json => {
                 dispatch({ type: `${this.upper}_UPDATED`, [this.singular]: json.data, id });
+                dispatch({ type: `${this.upper}_UPDATING_END` });
                 return json.data;
             })
                 .catch(error => {
                 dispatch({ type: `${this.upper}_UPDATE_ERROR`, error });
+                dispatch({ type: `${this.upper}_UPDATING_END` });
             });
         };
     }
