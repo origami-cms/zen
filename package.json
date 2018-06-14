@@ -6,15 +6,16 @@
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
   "main": "zen.js",
-  "typings": "packages/zen.d.ts",
+  "typings": "zen.d.ts",
   "scripts": {
     "start": "yarn watch & yarn serve",
     "watch:sass": "yarn build:sass -- -w",
     "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",
     "lint": "tslint -p . --fix",
-    "build": "yarn build:sass; webpack-cli --mode=production; yarn build:api & yarn build:util",
+    "build": "yarn build:sass; webpack-cli --mode=production; yarn build:definition; yarn build:api & yarn build:util",
     "build:sass": "sass-render packages/**/*.scss --suffix=-css.ts",
+    "build:definition": "cp packages/zen.d.ts ./zen.d.ts",
     "build:api": "tsc packages/lib/API/index.ts --outDir ./API -d --target es2016",
     "build:util": "tsc packages/util/index.ts --outDir ./util -d --target es2016"
   },
