@@ -1,6 +1,7 @@
-/// <reference types="seamless-immutable" />
 import { AnyAction } from 'redux';
-import immutable, { ImmutableObject } from 'seamless-immutable';
+import immutable, { ImmutableArray, ImmutableObject } from 'seamless-immutable';
+export declare type ArrAny = ImmutableArray<any>;
+export declare type ImmutableResourceState = ImmutableObject<ResourceState>;
 export interface ResourceState {
     loadedInitial: boolean;
     _loading: {
@@ -16,7 +17,7 @@ export interface ResourceState {
         delete: boolean | string;
     };
 }
-export interface State extends ImmutableObject<ResourceState> {
+export interface State extends ImmutableResourceState {
     [resource: string]: any;
 }
 export interface Resource {

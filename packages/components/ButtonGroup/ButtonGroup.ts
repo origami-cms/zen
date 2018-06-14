@@ -3,6 +3,7 @@ import {repeat} from 'lit-html/lib/repeat';
 import { component, property } from 'polymer3-decorators';
 import { ButtonProps } from '../Button/Button';
 import CSS from './button-group-css';
+import { TemplateResult } from 'lit-html';
 
 export interface ButtonOptions extends ButtonProps {
     text?: string;
@@ -18,7 +19,7 @@ export default class Button extends LitElement implements props {
     @property
     buttons: ButtonOptions[] = [];
 
-    _render({buttons}: props) {
+    _render({buttons}: props): TemplateResult {
         return html`
             ${CSS}
             ${repeat(buttons, () => {}, b => html`

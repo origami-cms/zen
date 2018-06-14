@@ -1,10 +1,8 @@
-import {LitElement} from '@polymer/lit-element';
-import {html, TemplateResult} from 'lit-html';
-import {component, property} from 'polymer3-decorators';
+import { LitElement } from '@polymer/lit-element';
+import { html, TemplateResult } from 'lit-html';
+import { component, property } from 'polymer3-decorators';
 // @ts-ignore
-import {installRouter} from 'pwa-helpers/router';
-import {style} from '../../util/decorators';
-import { bindAttributes } from 'util';
+import { installRouter } from 'pwa-helpers/router';
 
 export interface props {
     href?: string;
@@ -38,7 +36,7 @@ export default class Link extends LitElement implements props {
         installRouter(this._updateClass.bind(this));
     }
 
-    _render() {
+    _render(): TemplateResult {
         return html`
             <style>
                 :host{

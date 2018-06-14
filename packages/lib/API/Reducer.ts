@@ -1,5 +1,8 @@
-import {Reducer, AnyAction} from 'redux';
-import immutable, {ImmutableObject, ImmutableArray, ImmutableObjectMixin} from 'seamless-immutable';
+import { AnyAction } from 'redux';
+import immutable, { ImmutableArray, ImmutableObject } from 'seamless-immutable';
+
+export type ArrAny = ImmutableArray<any>;
+export type ImmutableResourceState = ImmutableObject<ResourceState>;
 
 export interface ResourceState {
     loadedInitial: boolean;
@@ -16,7 +19,7 @@ export interface ResourceState {
         delete: boolean | string
     };
 }
-export interface State extends ImmutableObject<ResourceState> {
+export interface State extends ImmutableResourceState {
     [resource: string]: any;
 }
 export interface Resource {
@@ -30,7 +33,7 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
     const singular = resource.slice(0, -1);
 
     const initialState = immutable({
-        [resource]: immutable([]) as ImmutableArray<any>,
+        [resource]: immutable([]) as ArrAny,
         loadedInitial: false,
         _loading: {
             all: false,
@@ -47,7 +50,7 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
     });
 
     return (state = initialState, action: AnyAction) => {
-        const res = state[resource] as ImmutableArray<any>;
+        const res = state[resource] as ArrAny;
         const resourceList = res.asMutable();
 
         const findIndexByKey = (res: Resource) =>
@@ -95,7 +98,7 @@ export default (resource: string, func?: Function | null, key: string = 'id') =>
                     } else {
                         updated = updated.merge({
                             [resource]: [
-                                ...updated[resource] as ImmutableArray<any>,
+                                ...updated[resource] as ArrAny,
                                 res
                             ],
                             loadedInitial: true
