@@ -1,7 +1,7 @@
 import {LitElement} from '@polymer/lit-element';
 import {html, TemplateResult} from 'lit-html';
 import {component, property} from 'polymer3-decorators';
-import {bindAttributes} from '../../util/decorators';
+import { bindAttributes } from '../../util/decorators';
 import CSS from './tooltip-css';
 
 export type TooltipPosition =
@@ -21,30 +21,33 @@ export type TooltipPosition =
 
 export interface props {
     position?: TooltipPosition;
+    show: boolean;
+    __show: boolean;
     for: HTMLElement | null;
+    _for?: HTMLElement | string;
+    on?: boolean | 'hover';
+    _on?: boolean | 'hover';
 }
 
 @component('zen-tooltip')
 @bindAttributes
 export default class Tooltip extends LitElement implements props {
-
     @property
     position?: TooltipPosition = 'bottom';
 
-    @property
-    for: HTMLElement | null = null;
-
-    static _boundAttributes = ['position', 'for'];
+    private static _boundAttributes = ['position', 'on'];
 
     constructor() {
         super();
         this._update = this._update.bind(this);
         this._remove = this._remove.bind(this);
+        this._show = this._show.bind(this);
+        this._hide = this._hide.bind(this);
     }
 
     ready() {
         super.ready();
-        if (!this.for) this.hide();
+        this.show = false;
     }
 
     connectedCallback() {
@@ -64,13 +67,46 @@ export default class Tooltip extends LitElement implements props {
         window.removeEventListener('resize', this._update);
     }
 
-    get target() {
-        return document.querySelector(`#${this.for}`);
+    @property
+    get show() {
+        return this.__show;
     }
+    set show(v) {
+        if (v) this.setAttribute('show', 'true');
+        else this.removeAttribute('show');
 
-    hide(show = true) {
-        this.style.display = Boolean(show) ? 'none' : '';
+        this.__show = v;
     }
+    __show: boolean = false;
+
+
+    @property
+    get for(): HTMLElement | null {
+        if (typeof this._for === 'string') return document.querySelector(`#${this._for}`);
+        else return this._for || null;
+    }
+    set for(v) {
+
+        if (v && this._for !== v) {
+            this._updateHandlers('remove');
+            this._for = v;
+            this._updateHandlers('add');
+            this._update();
+        }
+    }
+    _for?: string | HTMLElement;
+
+
+    @property
+    get on() {
+        return this._on;
+    }
+    set on(v) {
+        this._updateHandlers('remove');
+        this._on = v;
+        this._updateHandlers('add');
+    }
+    _on?: boolean | 'hover';
 
 
     _render(): TemplateResult {
@@ -82,13 +118,18 @@ export default class Tooltip extends LitElement implements props {
         this._update();
     }
 
-    private _update() {
-        if (!this.target || !this.position) {
-            this.hide();
-            return;
-        } this.hide(false);
 
-        const {x, y, width, height} = this.target.getBoundingClientRect() as DOMRect;
+    private _show() { this.show = true; }
+    private _hide() { this.show = false; }
+
+
+    private _update() {
+        if (!this.for || !this.position) {
+            this.show = false;
+            return;
+        }
+
+        const {x, y, width, height} = this.for.getBoundingClientRect() as DOMRect;
 
         if (/^left$/.test(this.position)) {
             this.style.left = `${parseInt(x.toString(), 10)}px`;
@@ -107,6 +148,7 @@ export default class Tooltip extends LitElement implements props {
         }
     }
 
+
     private _remove(e: KeyboardEvent | MouseEvent) {
         if (e instanceof KeyboardEvent) {
             if (e.key !== 'Escape') return;
@@ -115,5 +157,20 @@ export default class Tooltip extends LitElement implements props {
         window.removeEventListener('keydown', this._remove);
         window.removeEventListener('click', this._remove);
         this.remove();
+    }
+
+
+    private _updateHandlers(type: 'add' | 'remove') {
+        const f = this.for;
+        if (!f || typeof this.on === 'boolean') return;
+
+        const fun = type === 'add' ? f.addEventListener.bind(f) : f.removeEventListener.bind(f);
+
+        switch (this.on) {
+            case 'hover':
+                fun('mouseenter', this._show);
+                fun('mouseleave', this._hide);
+                break;
+        }
     }
 }

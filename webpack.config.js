@@ -28,7 +28,7 @@ const components = [
 module.exports = (env, {mode}) => ({
     entry: {
         ...components,
-        'zen.js': './packages/zen.ts',
+        'zen.js': './zen.ts',
         'API/index.js': './packages/lib/API'
     },
     context: path.resolve('./'),

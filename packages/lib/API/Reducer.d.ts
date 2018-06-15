@@ -1,3 +1,4 @@
+/// <reference types="seamless-immutable" />
 import { AnyAction } from 'redux';
 import immutable, { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 export declare type ArrAny = ImmutableArray<any>;
