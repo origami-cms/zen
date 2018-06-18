@@ -88,29 +88,30 @@ export interface FieldRadioTabs extends FieldBase, FieldMixinOptions {
 }
 
 export interface FieldRadioIconsOption {
-                                                                                            icon?: string;
-                                                                                            image?: string;
-                                                                                            html?: string;
-                                                                                            value: number | string;
-                                                                                            label: number | string;
+                                            icon?: string;
+                                            image?: string;
+                                            html?: string;
+                                            value: number | string;
+                                            label: number | string;
 }
 export interface FieldRadioIcons extends FieldBase {
-                                                                                            type: 'radio-icons';
-                                                                                            options?: FieldRadioIconsOption[];
-                                                                                            columns?: number;
+                                            type: 'radio-icons';
+                                            options?: FieldRadioIconsOption[];
+                                            columns?: number;
 }
 
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
-                                                                                            type: 'autocomplete';
-                                                                                            results?: string[] | Function;
-                                                                                            minlength: number;
-                                                                                            options: Function | InputDropdownResults;
+                                            type: 'autocomplete';
+                                            results?: string[] | Function;
+                                            minlength: number;
+                                            options: Function | InputDropdownResults;
+                                            query?: string;
 }
 
 export interface FieldSlider extends FieldBase {
-                                                                                            type: 'slider';
-                                                                                            min?: number;
-                                                                                            max?: number;
-                                                                                            steps?: number;
-                                                                                            label?: string;
+                                            type: 'slider';
+                                            min?: number;
+                                            max?: number;
+                                            steps?: number;
+                                            label?: string;
 }

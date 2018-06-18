@@ -70,13 +70,13 @@ export default class Autocomplete extends LitElement implements props {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    private async _getResults() {
-        if (!this.query) return;
-        if (this.minlength && this.query.length < this.minlength) return [];
+    private async _getResults(q = this.query) {
+        if (!q) return;
+        if (this.minlength && q.length < this.minlength) return [];
 
         this.loading = true;
         if (typeof this.options === 'function') {
-            this._options = await this.options(this.query);
+            this._options = await this.options(q);
         } else this._options = this.options;
         this.loading = false;
 
@@ -86,6 +86,7 @@ export default class Autocomplete extends LitElement implements props {
     }
 
     _render({icon, placeholder, loading, _options, _open, query, value}: props): TemplateResult {
+
         return html`
             ${CSS}
             <zen-input
@@ -111,6 +112,10 @@ export default class Autocomplete extends LitElement implements props {
     _handleChange(e: {target: InputDropdown}) {
         this.value = e.target.value;
         this._open = false;
+        this._updateQuery();
+    }
+
+    private _updateQuery() {
         if (!this.value) this.query = '';
         else {
             if (this._options instanceof Array) {
@@ -138,7 +143,16 @@ export default class Autocomplete extends LitElement implements props {
     async _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
 
-        if (c.query && p.query) {
+
+        // If there is a default value, look it up in the options
+        if (c && c.value && !p.query) {
+            await this._getResults(this.value);
+            this._open = false;
+            this._updateQuery();
+        }
+
+        // If the query was changed...
+        if (c && c.query && p.query) {
             if (p.minlength && p.query.length < p.minlength) return;
             if (!c.value) this._getResults();
         }

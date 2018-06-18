@@ -170,6 +170,7 @@ export default class FormRow extends LitElement implements props {
                     placeholder=${f.placeholder}
                     options=${f.options}
                     disabled=${f.disabled}
+                    query=${f.query}
                 ></<zen-autocomplete>`;
         }
     }

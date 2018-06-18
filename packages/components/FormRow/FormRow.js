@@ -58,4 +58,5 @@
                     placeholder=${t.placeholder}
                     options=${t.options}
                     disabled=${t.disabled}
+                    query=${t.query}
                 ></<zen-autocomplete>`}}};c._boundAttributes=["rowwidth","disabled"],n([l.property,i("design:type",Object)],c.prototype,"field",void 0),n([l.property,i("design:type",String)],c.prototype,"name",void 0),n([l.property,i("design:type",Object)],c.prototype,"value",void 0),n([l.property,i("design:type",Object)],c.prototype,"error",void 0),n([l.property,i("design:type",String)],c.prototype,"rowwidth",void 0),n([l.property,i("design:type",Boolean)],c.prototype,"disabled",void 0),c=n([l.component("zen-form-row"),u.dispatchChange(),u.bindAttributes,i("design:paramtypes",[])],c),e.default=c}]);

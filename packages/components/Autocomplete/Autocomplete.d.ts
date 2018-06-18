@@ -36,11 +36,12 @@ export default class Autocomplete extends LitElement implements props {
     _options: InputDropdownResults;
     _open: boolean;
     constructor();
-    private _getResults();
+    private _getResults(q?);
     _render({icon, placeholder, loading, _options, _open, query, value}: props): TemplateResult;
     _handleChange(e: {
         target: InputDropdown;
     }): void;
+    private _updateQuery();
     _didRender(): void;
     _propertiesChanged(p: props, c: props, o: props): Promise<void>;
 }
