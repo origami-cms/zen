@@ -48,4 +48,5 @@
                     on-change=${n}
                     minlength=${t.minlength}
                     placeholder=${t.placeholder}
+                    options=${t.options}
                 ></<zen-autocomplete>`}}};c._boundAttributes=["rowwidth"],n([l.property,i("design:type",Object)],c.prototype,"field",void 0),n([l.property,i("design:type",String)],c.prototype,"name",void 0),n([l.property,i("design:type",Object)],c.prototype,"value",void 0),n([l.property,i("design:type",Object)],c.prototype,"error",void 0),n([l.property,i("design:type",String)],c.prototype,"rowwidth",void 0),c=n([l.component("zen-form-row"),u.dispatchChange(),u.bindAttributes,i("design:paramtypes",[])],c),e.default=c}]);

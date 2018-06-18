@@ -15,6 +15,7 @@ export interface props {
     value?: string;
     query?: string;
     minlength?: number;
+    options: Function | InputDropdownResults;
     _options: InputDropdownResults;
     _open: boolean;
 }
@@ -56,6 +57,9 @@ export default class Autocomplete extends LitElement implements props {
     minlength?: number;
 
     @property
+    options: Function | InputDropdownResults = {};
+
+    @property
     _options: InputDropdownResults = {};
 
     @property
@@ -71,18 +75,10 @@ export default class Autocomplete extends LitElement implements props {
         if (this.minlength && this.query.length < this.minlength) return [];
 
         this.loading = true;
-        this._options = await fetch(encodeURI(`/api/v1/address`), {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({address: this.query})
-        })
-            .then(r => r.json())
-            // @ts-ignore This is actually an object array
-            .then((r: object[]) => r.CompacAddressList.map(a => a.Address))
-            .then(r => {
-                this.loading = false;
-                return r;
-            });
+        if (typeof this.options === 'function') {
+            this._options = await this.options(this.query);
+        } else this._options = this.options;
+        this.loading = false;
 
         if (this._options instanceof Array && this._options.length > 0) this._open = true;
         else if (this._options) this._open = true;
@@ -113,7 +109,24 @@ export default class Autocomplete extends LitElement implements props {
     }
 
     _handleChange(e: {target: InputDropdown}) {
-        this.value = this.query = e.target.value;
+        this.value = e.target.value;
+        this._open = false;
+        if (!this.value) this.query = '';
+        else {
+            if (this._options instanceof Array) {
+
+                if (this._options.includes(this.value)) this.query = this.value;
+                else {
+                    // @ts-ignore
+                    const opt = this._options.find(o => o.value === this.value);
+                    // @ts-ignore
+                    if (opt) this.query = opt.label;
+                }
+            } else if (this._options instanceof Object) {
+                // @ts-ignore
+                this.query = this._options[this.value];
+            }
+        }
     }
 
     _didRender() {
@@ -127,7 +140,7 @@ export default class Autocomplete extends LitElement implements props {
 
         if (c.query && p.query) {
             if (p.minlength && p.query.length < p.minlength) return;
-            this._getResults();
+            if (!c.value) this._getResults();
         }
     }
 }

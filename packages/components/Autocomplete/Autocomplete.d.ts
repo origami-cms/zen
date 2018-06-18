@@ -9,6 +9,7 @@ export interface props {
     value?: string;
     query?: string;
     minlength?: number;
+    options: Function | InputDropdownResults;
     _options: InputDropdownResults;
     _open: boolean;
 }
@@ -31,6 +32,7 @@ export default class Autocomplete extends LitElement implements props {
     query?: string;
     /** Minimum number of characters to enter before searching */
     minlength?: number;
+    options: Function | InputDropdownResults;
     _options: InputDropdownResults;
     _open: boolean;
     constructor();

@@ -1,4 +1,5 @@
 import { ValidateBase, ValidateString, ValidateEqual } from './rules';
+import { InputDropdownResults } from '../../components/InputDropdown/InputDropdown';
 export declare type Field = FieldDefault | FieldSelect | FieldCheckbox | FieldSubmit | FieldRadio | FieldRadioTabs | FieldRadioIcons | FieldAutocomplete | FieldSlider;
 export interface Fieldsets {
     [key: string]: Field[];
@@ -73,6 +74,7 @@ export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixin
     type: 'autocomplete';
     results?: string[] | Function;
     minlength: number;
+    options: Function | InputDropdownResults;
 }
 export interface FieldSlider extends FieldBase {
     type: 'slider';

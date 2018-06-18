@@ -156,6 +156,7 @@ export default class FormRow extends LitElement implements props {
                     on-change=${c}
                     minlength=${f.minlength}
                     placeholder=${f.placeholder}
+                    options=${f.options}
                 ></<zen-autocomplete>`;
         }
     }
