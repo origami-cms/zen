@@ -61,6 +61,7 @@ export default class Form extends LitElement implements props {
                         name=${f.name}
                         error=${errors[f.name]}
                         rowwidth=${f.width}
+                        disabled=${f.disabled}
                     ></zen-form-row>
                 `)}
             </form>

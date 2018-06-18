@@ -12,6 +12,7 @@
                         name=${t.name}
                         error=${o[t.name]}
                         rowwidth=${t.width}
+                        disabled=${t.disabled}
                     ></zen-form-row>
                 `)}
             </form>

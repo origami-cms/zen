@@ -9,6 +9,7 @@ export interface props {
     error?: ValidationErrors;
     rowwidth?: 'half';
     hidden: boolean;
+    disabled: boolean;
 }
 export default class FormRow extends LitElement implements props {
     field?: Field;
@@ -17,6 +18,7 @@ export default class FormRow extends LitElement implements props {
     error?: ValidationErrors;
     rowwidth?: 'half';
     hidden: boolean;
+    disabled: boolean;
     static _boundAttributes: string[];
     constructor();
     _render({error, field, value}: props): TemplateResult;

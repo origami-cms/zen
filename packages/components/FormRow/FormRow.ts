@@ -15,6 +15,7 @@ export interface props {
     error?: ValidationErrors;
     rowwidth?: 'half';
     hidden: boolean;
+    disabled: boolean;
 }
 
 @component('zen-form-row')
@@ -38,7 +39,10 @@ export default class FormRow extends LitElement implements props {
 
     hidden: boolean = false;
 
-    static _boundAttributes = ['rowwidth'];
+    @property
+    disabled: boolean = false;
+
+    static _boundAttributes = ['rowwidth', 'disabled'];
 
     constructor() {
         super();
@@ -97,6 +101,7 @@ export default class FormRow extends LitElement implements props {
                     value=${v}
                     on-change=${c}
                     placeholder=${f.placeholder}
+                    disabled=${f.disabled}
                 ></zen-input>`;
 
             case 'textarea':
@@ -104,6 +109,7 @@ export default class FormRow extends LitElement implements props {
                     value=${v}
                     on-change=${c}
                     placeholder=${f.placeholder}
+                    disabled=${f.disabled}
                 ></textarea>`;
 
             case 'submit':
@@ -111,6 +117,7 @@ export default class FormRow extends LitElement implements props {
                     icon=${f.icon}
                     on-click=${this.submit}
                     color=${f.color}
+                    disabled=${f.disabled}
                 >${f.value}</zen-button>`;
 
             case 'select':
@@ -119,12 +126,14 @@ export default class FormRow extends LitElement implements props {
                     on-change=${c}
                     options=${f.options}
                     placeholder=${f.placeholder}
+                    disabled=${f.disabled}
                 ></zen-select>`;
 
             case 'checkbox':
                 return html`<zen-checkbox
                     checked=${v}
                     on-change=${c}
+                    disabled=${f.disabled}
                 ></zen-checkbox>`;
 
             case 'radio':
@@ -132,6 +141,7 @@ export default class FormRow extends LitElement implements props {
                     value=${v}
                     on-change=${c}
                     options=${f.options}
+                    disabled=${f.disabled}
                 ></zen-radio>`;
 
             case 'radio-tabs':
@@ -139,6 +149,7 @@ export default class FormRow extends LitElement implements props {
                     value=${v}
                     on-change=${c}
                     options=${f.options}
+                    disabled=${f.disabled}
                 ></zen-radio-tabs>`;
 
             case 'radio-icons':
@@ -147,6 +158,7 @@ export default class FormRow extends LitElement implements props {
                     on-change=${c}
                     options=${f.options}
                     columns=${f.columns}
+                    disabled=${f.disabled}
                 ></zen-radio-icons>`;
 
             case 'autocomplete':
@@ -157,6 +169,7 @@ export default class FormRow extends LitElement implements props {
                     minlength=${f.minlength}
                     placeholder=${f.placeholder}
                     options=${f.options}
+                    disabled=${f.disabled}
                 ></<zen-autocomplete>`;
         }
     }
