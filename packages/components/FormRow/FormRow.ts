@@ -48,6 +48,8 @@ export default class FormRow extends LitElement implements props {
         super();
         this._handleChange = this._handleChange.bind(this);
         this.submit = this.submit.bind(this);
+
+        this.addEventListener('keyup', this._handleKeyUp.bind(this));
     }
 
     _render({error, field, value}: props): TemplateResult {
@@ -172,6 +174,15 @@ export default class FormRow extends LitElement implements props {
                     disabled=${f.disabled}
                     query=${f.query}
                 ></<zen-autocomplete>`;
+        }
+    }
+
+
+    private _handleKeyUp(e: KeyboardEvent) {
+        switch (e.key) {
+            case 'Enter':
+                this.dispatchEvent(new CustomEvent('submit'));
+                break;
         }
     }
 }

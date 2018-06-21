@@ -25,4 +25,5 @@ export default class FormRow extends LitElement implements props {
     private _handleChange(e);
     private submit();
     _renderField(f: Field, value: any): TemplateResult | undefined;
+    private _handleKeyUp(e);
 }
