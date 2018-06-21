@@ -14,6 +14,7 @@ export interface props {
     value?: string;
     options: InputDropdownResults;
     open: boolean;
+    _active?: number;
 }
 
 @component('zen-input-dropdown')
@@ -30,26 +31,26 @@ export default class InputDropdown extends LitElement implements props {
     @property
     open: boolean = false;
 
+    @property
+    _active?: number;
+
     // private static _boundAttributes = ['open'];
 
     constructor() {
         super();
-        this._handleEscape = this._handleEscape.bind(this);
-        this._handleClick = this._handleClick.bind(this);
+        this._handleKeyDown = this._handleKeyDown.bind(this);
     }
 
     connectedCallback() {
         super.connectedCallback();
-        document.addEventListener('keydown', this._handleEscape);
-        document.addEventListener('mouseup', this._handleClick);
+        document.addEventListener('keydown', this._handleKeyDown);
     }
     disconnectedCallback() {
         super.disconnectedCallback();
-        document.removeEventListener('keydown', this._handleEscape);
-        document.removeEventListener('mouseup', this._handleClick);
+        document.removeEventListener('keydown', this._handleKeyDown);
     }
 
-    _render({options, value, open}: props): TemplateResult {
+    _render({options, value, open, _active}: props): TemplateResult {
         let opt;
         if (options) opt = this._options(options);
 
@@ -58,10 +59,12 @@ export default class InputDropdown extends LitElement implements props {
 
         return html`
             ${CSS}
-            ${opt.map(o => html`
-                <div class="option" on-click=${() => this.value = o.value}>
-                    ${o.label}
-                </div>
+            ${opt.map((o, i) => html`
+                <div
+                    class$="option ${_active === i ? 'active' : ''}"
+                    on-click=${() => this.value = o.value}
+                    on-mouseenter=${() => this._active = i}
+                > ${o.label} </div>
             `)}
         `;
     }
@@ -84,13 +87,43 @@ export default class InputDropdown extends LitElement implements props {
         }));
     }
 
-    private _handleEscape(e: KeyboardEvent) {
-        if (e.key === 'Escape') this.open = false;
-    }
+    private _handleKeyDown(e: KeyboardEvent) {
+        let opt: {value: string, label: string | number}[] = [];
+        if (this.options) opt = this._options(this.options);
 
-    private _handleClick(e: Event) {
-        // @ts-ignore Added by dom-repeat
-        if (e.model) this.value = e.model.item.value;
-        this.open = false;
+        if (!this._active) this._active = 0;
+
+        switch (e.key) {
+            case 'Escape':
+                this.open = false;
+                break;
+
+            case 'ArrowDown':
+                e.preventDefault();
+                e.stopPropagation();
+                this._active += 1;
+                break;
+
+            case 'ArrowUp':
+                e.preventDefault();
+                e.stopPropagation();
+                this._active -= 1;
+                break;
+
+            case 'Enter':
+                if (this.open) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.value = opt[this._active].value;
+                }
+
+                break;
+
+            default:
+                break;
+        }
+
+        if (this._active === opt.length || !this._active) this._active = 0;
+        if (this._active < 0) this._active = opt.length - 1;
     }
 }
