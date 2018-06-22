@@ -39,15 +39,18 @@ export default class InputDropdown extends LitElement implements props {
     constructor() {
         super();
         this._handleKeyDown = this._handleKeyDown.bind(this);
+        this._handleClick = this._handleClick.bind(this);
     }
 
     connectedCallback() {
         super.connectedCallback();
         document.addEventListener('keydown', this._handleKeyDown);
+        document.addEventListener('mouseup', this._handleClick);
     }
     disconnectedCallback() {
         super.disconnectedCallback();
         document.removeEventListener('keydown', this._handleKeyDown);
+        document.removeEventListener('mouseup', this._handleClick);
     }
 
     _render({options, value, open, _active}: props): TemplateResult {
@@ -125,5 +128,11 @@ export default class InputDropdown extends LitElement implements props {
 
         if (this._active === opt.length || !this._active) this._active = 0;
         if (this._active < 0) this._active = opt.length - 1;
+    }
+
+    private _handleClick(e: Event) {
+        // @ts-ignore Added by dom-repeat
+        if (e.model) this.value = e.model.item.value;
+        this.open = false;
     }
 }

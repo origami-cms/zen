@@ -23,4 +23,5 @@ export default class InputDropdown extends LitElement implements props {
     _didRender(): void;
     private _options(options);
     private _handleKeyDown(e);
+    private _handleClick(e);
 }
