@@ -27,11 +27,11 @@ const rules = {
     },
     min(val, min) {
         if (Number(val) < min)
-            return `This field should be above ${min}`;
+            return `This field should be ${min} or above`;
     },
     max(val, max) {
         if (Number(val) < max)
-            return `This field should be below ${max}`;
+            return `This field should be ${max} or below`;
     },
     tel(val, required) {
         // TODO: Phone number checking

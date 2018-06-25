@@ -23,6 +23,7 @@
   "devDependencies": {
     "@polymer/lit-element": "^0.5.1",
     "@types/lodash": "^4.14.109",
+    "@types/path-to-regexp": "^1.7.0",
     "@types/redux": "^3.6.0",
     "@types/seamless-immutable": "^7.1.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
@@ -38,6 +39,7 @@
     "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
     "origami-icons": "^0.0.12",
+    "path-to-regexp": "^2.2.1",
     "polymer3-decorators": "https://github.com/tristanMatthias/polymer-decorators.git",
     "pwa-helpers": "^0.8.2",
     "raw-loader": "^0.5.1",

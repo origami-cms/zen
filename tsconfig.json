@@ -65,9 +65,6 @@
     "paths": {
       "util/decorators": ["./packages/util/decorators"],
       "lib/*": ["./packages/lib/*"]
-    },
-    "typeRoots": [
-      "packages/typings"
-    ]
+    }
   }
 }

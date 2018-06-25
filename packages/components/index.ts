@@ -1,37 +1,39 @@
+import Autocomplete from './Autocomplete/Autocomplete';
 import Button from './Button/Button';
 import ButtonGroup from './ButtonGroup/ButtonGroup';
-import IconSet from './IconSet/IconSet';
-import Icon from './Icon/Icon';
-import Tooltip from './Tooltip/Tooltip';
-import Input from './Input/Input';
-import Autocomplete from './Autocomplete/Autocomplete';
 import Checkbox from './Checkbox/Checkbox';
+import Form from './Form/Form';
+import FormRow from './FormRow/FormRow';
+import Icon from './Icon/Icon';
+import IconSet from './IconSet/IconSet';
+import Input from './Input/Input';
+import InputDropdown from './InputDropdown/InputDropdown';
+import Link from './Link/Link';
+import Loading from './Loading/Loading';
 import Radio from './Radio/Radio';
 import RadioIcons from './RadioIcons/RadioIcons';
 import RadioTabs from './RadioTabs/RadioTabs';
-import InputDropdown from './InputDropdown/InputDropdown';
+import Router from './Router/Router';
 import Select from './Select/Select';
-import FormRow from './FormRow/FormRow';
-import Form from './Form/Form';
-import Loading from './Loading/Loading';
-import Link from './Link/Link';
+import Tooltip from './Tooltip/Tooltip';
 
 export const Components = {
+    Autocomplete,
     Button,
     ButtonGroup,
-    IconSet,
-    Icon,
-    Tooltip,
-    Input,
-    Autocomplete,
     Checkbox,
+    Form,
+    FormRow,
+    Icon,
+    IconSet,
+    Input,
+    InputDropdown,
+    Link,
+    Loading,
     Radio,
     RadioIcons,
     RadioTabs,
-    InputDropdown,
+    Router,
     Select,
-    FormRow,
-    Form,
-    Loading,
-    Link,
+    Tooltip,
 };

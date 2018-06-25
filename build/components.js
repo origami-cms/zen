@@ -17,6 +17,7 @@ const components = [
     'Radio',
     'RadioIcons',
     'RadioTabs',
+    'Router',
     'Select',
     'Tooltip'
 ].reduce((obj, cur) => {
