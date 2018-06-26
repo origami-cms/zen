@@ -7,7 +7,7 @@
                 </span>`:""}
             ${e.label?a.html`<span class="label">${e.label}</span>`:""}
             ${i}
-        `}_handleChange(t){const e=t.target;if("ZEN-CHECKBOX"===e.tagName)return this.value=e.checked;this.value=e.value}submit(){this.dispatchEvent(new CustomEvent("submit"))}_renderField(t,e){const r=e,n=this._handleChange;switch(t.type){case"text":case"number":case"password":case"email":case"date":case"tel":return a.html`<zen-input
+        `}focus(){this.field&&["text","number","password","email","date","tel"].includes(this.field.type)&&this.shadowRoot.querySelector("zen-input").focus()}_handleChange(t){const e=t.target;if("ZEN-CHECKBOX"===e.tagName)return this.value=e.checked;this.value=e.value}submit(){this.dispatchEvent(new CustomEvent("submit"))}_renderField(t,e){const r=e,n=this._handleChange;switch(t.type){case"text":case"number":case"password":case"email":case"date":case"tel":return a.html`<zen-input
                     type=${t.type}
                     icon=${t.icon}
                     value=${r}

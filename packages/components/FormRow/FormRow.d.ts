@@ -22,6 +22,7 @@ export default class FormRow extends LitElement implements props {
     static _boundAttributes: string[];
     constructor();
     _render({error, field, value}: props): TemplateResult;
+    focus(): void;
     private _handleChange(e);
     private submit();
     _renderField(f: Field, value: any): TemplateResult | undefined;

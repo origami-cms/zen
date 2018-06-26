@@ -7,6 +7,7 @@ import {component, property} from 'polymer3-decorators/dist';
 import {bindAttributes, dispatchChange} from '../../util/decorators';
 import CSS from './form-row-css';
 import { TemplateResult } from 'lit-html';
+import Input from '../Input/Input';
 
 export interface props {
     field?: Field;
@@ -76,6 +77,13 @@ export default class FormRow extends LitElement implements props {
         `;
     }
 
+    focus() {
+        if (!this.field) return;
+        if (['text', 'number', 'password', 'email', 'date', 'tel'].includes(this.field.type)) {
+            (this.shadowRoot.querySelector('zen-input') as Input).focus();
+        }
+    }
+
     private _handleChange(e: Event) {
         const t = e.target as HTMLInputElement;
         if (t.tagName === 'ZEN-CHECKBOX') return this.value = t.checked;
@@ -86,6 +94,7 @@ export default class FormRow extends LitElement implements props {
     private submit() {
         this.dispatchEvent(new CustomEvent('submit'));
     }
+
 
     _renderField(f: Field, value: any) {
         const v = value;

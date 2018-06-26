@@ -1,18 +1,19 @@
 // tslint:disable function-name
 
-import {html, LitElement} from '@polymer/lit-element';
-import {Field, FormValues} from '../../lib/FormValidator/FormFieldTypes';
-import Validator, {ValidateFieldErrors} from '../../lib/FormValidator/Validator';
-import {component, property} from 'polymer3-decorators/dist';
-import CSS from './form-css';
+import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import FormRow from '../FormRow/FormRow';
+import { component, property } from 'polymer3-decorators/dist';
+import { Field, FormValues } from '../../lib/FormValidator/FormFieldTypes';
+import Validator, { ValidateFieldErrors } from '../../lib/FormValidator/Validator';
+import CSS from './form-css';
 
 export interface props {
     values: FormValues;
     error?: string;
     fields: Field[];
     loading: boolean;
-    _fieldErrors: ValidateFieldErrors;
+    fieldErrors: ValidateFieldErrors;
     _validateOnChange: boolean;
     _showErrors: boolean;
 }
@@ -31,7 +32,7 @@ export default class Form extends LitElement implements props {
     loading: boolean = false;
 
     @property
-    _fieldErrors: ValidateFieldErrors = {};
+    fieldErrors: ValidateFieldErrors = {};
 
     _validateOnChange: boolean = false;
     _showErrors: boolean = false;
@@ -42,8 +43,8 @@ export default class Form extends LitElement implements props {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({error, fields, values, _fieldErrors}: props): TemplateResult {
-        const errors = _fieldErrors || {};
+    _render({error, fields, values, fieldErrors}: props): TemplateResult {
+        const errors = fieldErrors || {};
 
         return html`
             ${CSS}
@@ -68,6 +69,16 @@ export default class Form extends LitElement implements props {
         `;
     }
 
+    scrollToError() {
+        if (!this.fieldErrors) return;
+        const row = (Array.from(this.shadowRoot.querySelectorAll('zen-form-row')) as FormRow[])
+            .find(r => r.name === Object.keys(this.fieldErrors)[0]);
+        if (!row) return;
+        row.scrollIntoView();
+
+        return row;
+    }
+
     submit(e?: Event) {
         if (e) {
             e.preventDefault();
@@ -88,7 +99,7 @@ export default class Form extends LitElement implements props {
         this._validateOnChange = true;
         this._showErrors = showErrors;
 
-        this._fieldErrors = {};
+        this.fieldErrors = {};
 
         const v = new Validator({
             fields: this.fields
@@ -96,7 +107,11 @@ export default class Form extends LitElement implements props {
 
         const {valid, fields} = v.validate(this.values);
 
-        if (fields) this._fieldErrors = fields;
+        if (fields) {
+            this.fieldErrors = fields;
+            const row = this.scrollToError();
+            if (row) row.focus();
+        }
 
         this.dispatchEvent(new CustomEvent('validated', {
             detail: {valid}

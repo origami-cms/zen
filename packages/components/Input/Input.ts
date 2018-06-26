@@ -69,6 +69,12 @@ export default class Input extends LitElement implements props {
         `;
     }
 
+
+    focus() {
+        this.shadowRoot.querySelector('input').focus();
+    }
+
+
     private _handleInput(e: Event) {
         this.value = (e.target as HTMLInputElement).value;
     }

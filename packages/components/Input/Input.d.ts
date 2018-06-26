@@ -19,5 +19,6 @@ export default class Input extends LitElement implements props {
     disabled?: string;
     static _boundAttributes: string[];
     _render({icon, loading, type, placeholder, disabled, value}: props): TemplateResult;
+    focus(): void;
     private _handleInput(e);
 }
