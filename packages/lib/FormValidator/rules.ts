@@ -52,6 +52,10 @@ const rules: ValidatorFunctions = {
         if (!(/^[0-9]+$/).test(val) && required) return 'This field should be a number';
     },
 
+    alpha(val: string): ValidatorReturn {
+        if (!/^[A-z\s]+$/.test(val)) return 'This field should only contain letters and spaces';
+    },
+
     min(val: any, min: number): ValidatorReturn {
         if (Number(val) < min) return `This field should be above ${min}`;
     },

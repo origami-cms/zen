@@ -15,7 +15,6 @@
 </head>
 
 <body>
-    <zen-icon-set></zen-icon-set>
 
 
     <h1>Zen</h1>
@@ -40,102 +39,107 @@
     <zen-form></zen-form>
 
 
+    <zen-icon-set></zen-icon-set>
 
 
     <script>
-        const f = document.querySelector('zen-form');
-        f.values = {
-            "text": "123",
-            "radio": "medium",
-            "checkbox": true,
-            "radio-icons": 1,
-            "radio-tabs": "small",
-            // "select": "small"
-        }
-        f.fields = [
-            {
-                name: 'email',
-                type: 'autocomplete',
-                placeholder: 'Email',
-                icon: 'mail',
-                minlength: 4
-            },
+        (() => {
 
-            {
-                name: 'text',
-                type: 'email',
-                placeholder: 'Email',
-                icon: 'mail',
-                validate: {
-                    minlen: 4
-                }
-            },
 
-            {
-                name: 'radio',
-                type: 'radio',
-                options: {
-                    small: 'Small',
-                    medium: 'Medium',
-                    large: 'Large'
-                }
-            },
-
-            {
-                name: 'checkbox',
-                type: 'checkbox',
-                label: 'Check me'
-            },
-
-            {
-                name: 'radio-icons',
-                type: 'radio-icons',
-                options: [
-                    {
-                        value: 1,
-                        icon: 'user',
-                        label: 'Using icon'
-                    },
-                    {
-                        value: 2,
-                        html: '<zen-button>Cool</zen-button>',
-                        label: 'Using html'
-                    },
-                    {
-                        value: 3,
-                        image: 'http://placehold.it/100x100',
-                        label: 'Using img'
-                    }
-                ]
-            },
-
-            {
-                name: 'select',
-                type: 'radio-tabs',
-                options: {
-                    small: 'Small',
-                    medium: 'Medium',
-                    large: 'Large'
-                }
-            },
-
-            {
-                name: 'select',
-                type: 'select',
-                options: {
-                    small: 'Small',
-                    medium: 'Medium',
-                    large: 'Large'
-                }
+            const f = document.querySelector('zen-form');
+            f.values = {
+                "text": "123",
+                "radio": "medium",
+                "checkbox": true,
+                "radio-icons": 1,
+                "radio-tabs": "small",
+                // "select": "small"
             }
-        ]
+            f.fields = [
+                {
+                    name: 'email',
+                    type: 'autocomplete',
+                    placeholder: 'Email',
+                    icon: 'mail',
+                    minlength: 4
+                },
 
-        const bg = document.querySelector('zen-button-group');
-        bg.buttons = [
-            {text: 'Standard'},
-            {text: 'Icon', icon: 'add', color: 'green'},
-            {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
-        ];
+                {
+                    name: 'text',
+                    type: 'text',
+                    placeholder: 'Email',
+                    icon: 'mail',
+                    validate: {
+                        alpha: true
+                    }
+                },
+
+                {
+                    name: 'radio',
+                    type: 'radio',
+                    options: {
+                        small: 'Small',
+                        medium: 'Medium',
+                        large: 'Large'
+                    }
+                },
+
+                {
+                    name: 'checkbox',
+                    type: 'checkbox',
+                    label: 'Check me'
+                },
+
+                {
+                    name: 'radio-icons',
+                    type: 'radio-icons',
+                    options: [
+                        {
+                            value: 1,
+                            icon: 'user',
+                            label: 'Using icon'
+                        },
+                        {
+                            value: 2,
+                            html: '<zen-button>Cool</zen-button>',
+                            label: 'Using html'
+                        },
+                        {
+                            value: 3,
+                            image: 'http://placehold.it/100x100',
+                            label: 'Using img'
+                        }
+                    ]
+                },
+
+                {
+                    name: 'select',
+                    type: 'radio-tabs',
+                    options: {
+                        small: 'Small',
+                        medium: 'Medium',
+                        large: 'Large'
+                    }
+                },
+
+                {
+                    name: 'select',
+                    type: 'select',
+                    options: {
+                        small: 'Small',
+                        medium: 'Medium',
+                        large: 'Large'
+                    }
+                }
+            ]
+
+            const bg = document.querySelector('zen-button-group');
+            bg.buttons = [
+                {text: 'Standard'},
+                {text: 'Icon', icon: 'add', color: 'green'},
+                {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
+            ];
+        })()
     </script>
     <script src="../zen.js"></script>
 </body>
