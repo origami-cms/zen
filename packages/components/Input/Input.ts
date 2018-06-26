@@ -47,6 +47,7 @@ export default class Input extends LitElement implements props {
 
 
     _render({icon, loading, type, placeholder, disabled, value}: props): TemplateResult {
+        const v = value || '';
         return html`
             ${CSS}
             ${icon
@@ -55,7 +56,7 @@ export default class Input extends LitElement implements props {
             }
 
             <input
-                value="${value}"
+                value="${v}"
                 type="${type}"
                 placeholder="${placeholder}"
                 disabled="${disabled}"
