@@ -61,7 +61,7 @@ const rules: ValidatorFunctions = {
     },
 
     max(val: any, max: number): ValidatorReturn {
-        if (Number(val) < max) return `This field should be below ${max}`;
+        if (Number(val) > max) return `This field should be below ${max}`;
     },
 
     tel(val: any, required: boolean): ValidatorReturn {

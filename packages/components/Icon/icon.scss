@@ -22,7 +22,7 @@
 
         @each $name in $colors {
             &.#{$name} * {
-                fill: default('color-#{$name}');
+                fill: var(--icon-color, default('color-#{$name}'));
             }
         }
 
