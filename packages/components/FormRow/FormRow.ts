@@ -172,6 +172,15 @@ export default class FormRow extends LitElement implements props {
                     disabled=${f.disabled}
                 ></zen-radio-icons>`;
 
+            case 'checkbox-icons':
+                return html`<zen-checkbox-icons
+                    value=${v}
+                    on-change=${c}
+                    options=${f.options}
+                    columns=${f.columns}
+                    disabled=${f.disabled}
+                ></zen-checkbox-icons>`;
+
             case 'autocomplete':
                 return html`<zen-autocomplete
                     icon=${f.icon}

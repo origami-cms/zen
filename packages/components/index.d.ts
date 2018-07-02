@@ -11,6 +11,7 @@ import InputDropdown from './InputDropdown/InputDropdown';
 import Link from './Link/Link';
 import Loading from './Loading/Loading';
 import Radio from './Radio/Radio';
+import CheckboxIcons from './CheckboxIcons/CheckboxIcons';
 import RadioIcons from './RadioIcons/RadioIcons';
 import RadioTabs from './RadioTabs/RadioTabs';
 import Router from './Router/Router';
@@ -21,6 +22,7 @@ export declare const Components: {
     Button: typeof Button;
     ButtonGroup: typeof ButtonGroup;
     Checkbox: typeof Checkbox;
+    CheckboxIcons: typeof CheckboxIcons;
     Form: typeof Form;
     FormRow: typeof FormRow;
     Icon: typeof Icon;

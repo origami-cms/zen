@@ -6,6 +6,7 @@ const components = [
     'Button',
     'ButtonGroup',
     'Checkbox',
+    'CheckboxIcons',
     'Form',
     'FormRow',
     'Icon',

@@ -9,6 +9,7 @@ export type Field =
 	FieldRadio |
 	FieldRadioTabs |
 	FieldRadioIcons |
+	FieldCheckboxIcons |
 	FieldAutocomplete |
 	FieldSlider;
 
@@ -72,7 +73,7 @@ export interface FieldSelect extends FieldBase, FieldMixinIcon, FieldMixinPlaceh
 
 export interface FieldCheckbox extends FieldBase {
 	type: 'checkbox';
-    label?: 'string';
+	label?: 'string';
 }
 
 export interface FieldSubmit extends FieldBase, FieldMixinIcon {
@@ -88,15 +89,28 @@ export interface FieldRadioTabs extends FieldBase, FieldMixinOptions {
 }
 
 export interface FieldRadioIconsOption {
+	icon?: string;
+	image?: string;
+	html?: string;
+    value: number | string;
+    label: number | string;
+}
+export interface FieldRadioIcons extends FieldBase {
+                                            type: 'radio-icons';
+                                            options?: FieldRadioIconsOption[];
+                                            columns?: number;
+}
+
+export interface FieldCheckboxIconsOption {
                                             icon?: string;
                                             image?: string;
                                             html?: string;
                                             value: number | string;
                                             label: number | string;
 }
-export interface FieldRadioIcons extends FieldBase {
-                                            type: 'radio-icons';
-                                            options?: FieldRadioIconsOption[];
+export interface FieldCheckboxIcons extends FieldBase {
+                                            type: 'checkbox-icons';
+                                            options?: FieldCheckboxIconsOption[];
                                             columns?: number;
 }
 
