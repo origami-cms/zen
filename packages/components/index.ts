@@ -17,6 +17,7 @@ import RadioTabs from './RadioTabs/RadioTabs';
 import Router from './Router/Router';
 import Select from './Select/Select';
 import Tooltip from './Tooltip/Tooltip';
+import InputFile from './InputFile/InputFile';
 
 export const Components = {
     Autocomplete,
@@ -38,4 +39,5 @@ export const Components = {
     Router,
     Select,
     Tooltip,
+    InputFile
 };

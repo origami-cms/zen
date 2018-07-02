@@ -19,7 +19,8 @@ const components = [
     'RadioIcons',
     'RadioTabs',
     'Select',
-    'Tooltip'
+    'Tooltip',
+    'InputFile'
 ].reduce((obj, cur) => {
     obj[`./packages/components/${cur}/${cur}.js`] = `./packages/components/${cur}/${cur}.ts`;
     return obj

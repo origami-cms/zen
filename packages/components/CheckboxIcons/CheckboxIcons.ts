@@ -15,7 +15,6 @@ export interface props {
 }
 
 @component('zen-checkbox-icons')
-@dispatchChange()
 export default class CheckboxIcons extends LitElement implements props {
     @property
     options: FieldCheckboxIconsOption[] = [];
@@ -31,7 +30,7 @@ export default class CheckboxIcons extends LitElement implements props {
 
     _propertiesChanged(p: props, c: props, o: props) {
         super._propertiesChanged(p, c, o);
-        if (c.columns) {
+        if (c && c.columns) {
             this.style.setProperty(
                 '--radio-icons-columns',
                 `var(--radio-icons-columns-override, ${p.columns})`
@@ -49,7 +48,10 @@ export default class CheckboxIcons extends LitElement implements props {
                         class$="option ${value.includes(o.value) ? 'active' : ''}"
                         on-click=${() => this._toggle(o.value)}
                     >
-                        <zen-checkbox checked=${value.includes(o.value)}></zen-checkbox>
+                        <zen-checkbox
+                            checked=${value.includes(o.value)}
+                            on-click=${() => this._toggle(o.value)}
+                        ></zen-checkbox>
                         <div class="img">
                             ${o.icon ? html`<zen-icon type=${o.icon}></zen-icon>` : '' }
                             ${o.image ? html`<img src=${o.image} />` : '' }
@@ -66,5 +68,7 @@ export default class CheckboxIcons extends LitElement implements props {
         if (!this.value.includes(v)) this.value.push(v);
         else this.value = this.value.filter(_v => v !== _v);
         this._requestRender();
+        this.dispatchEvent(new CustomEvent('changed'));
+
     }
 }

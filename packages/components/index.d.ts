@@ -17,6 +17,7 @@ import RadioTabs from './RadioTabs/RadioTabs';
 import Router from './Router/Router';
 import Select from './Select/Select';
 import Tooltip from './Tooltip/Tooltip';
+import InputFile from './InputFile/InputFile';
 export declare const Components: {
     Autocomplete: typeof Autocomplete;
     Button: typeof Button;
@@ -37,4 +38,5 @@ export declare const Components: {
     Router: typeof Router;
     Select: typeof Select;
     Tooltip: typeof Tooltip;
+    InputFile: typeof InputFile;
 };
