@@ -68,7 +68,7 @@ export default class CheckboxIcons extends LitElement implements props {
         if (!this.value.includes(v)) this.value.push(v);
         else this.value = this.value.filter(_v => v !== _v);
         this._requestRender();
-        this.dispatchEvent(new CustomEvent('changed'));
+        this.dispatchEvent(new CustomEvent('change'));
 
     }
 }
