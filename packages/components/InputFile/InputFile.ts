@@ -9,6 +9,8 @@ interface props {
 
 @component('zen-input-file')
 export default class ImageUploader extends LitElement implements props {
+    files: File[] = [];
+
     private _reader = new FileReader();
     @property
     _img?: any;
@@ -39,6 +41,10 @@ export default class ImageUploader extends LitElement implements props {
     private _handleChange(e: Event) {
         const input = e.target as HTMLInputElement;
         if (input.files && input.files[0]) {
+            // @ts-ignore
+            this.files = input.files;
+            this.dispatchEvent(new CustomEvent('change'));
+
             const f = input.files[0];
             // If file is an image, read it into the preview
             if (f.type.startsWith('image/')) {

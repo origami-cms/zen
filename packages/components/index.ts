@@ -1,43 +1,22 @@
-import Autocomplete from './Autocomplete/Autocomplete';
-import Button from './Button/Button';
-import ButtonGroup from './ButtonGroup/ButtonGroup';
-import Checkbox from './Checkbox/Checkbox';
-import Form from './Form/Form';
-import FormRow from './FormRow/FormRow';
-import Icon from './Icon/Icon';
-import IconSet from './IconSet/IconSet';
-import Input from './Input/Input';
-import InputDropdown from './InputDropdown/InputDropdown';
-import Link from './Link/Link';
-import Loading from './Loading/Loading';
-import Radio from './Radio/Radio';
-import CheckboxIcons from './CheckboxIcons/CheckboxIcons';
-import RadioIcons from './RadioIcons/RadioIcons';
-import RadioTabs from './RadioTabs/RadioTabs';
-import Router from './Router/Router';
-import Select from './Select/Select';
-import Tooltip from './Tooltip/Tooltip';
-import InputFile from './InputFile/InputFile';
-
-export const Components = {
-    Autocomplete,
-    Button,
-    ButtonGroup,
-    Checkbox,
-    CheckboxIcons,
-    Form,
-    FormRow,
-    Icon,
-    IconSet,
-    Input,
-    InputDropdown,
-    Link,
-    Loading,
-    Radio,
-    RadioIcons,
-    RadioTabs,
-    Router,
-    Select,
-    Tooltip,
-    InputFile
-};
+// tslint:disable block-spacing variable-name
+export {default as Autocomplete} from './Autocomplete/Autocomplete';
+export {default as Button} from './Button/Button';
+export {default as ButtonGroup} from './ButtonGroup/ButtonGroup';
+export {default as Checkbox} from './Checkbox/Checkbox';
+export {default as Form} from './Form/Form';
+export {default as FormRow} from './FormRow/FormRow';
+export {default as Icon} from './Icon/Icon';
+export {default as IconSet} from './IconSet/IconSet';
+export {default as Input} from './Input/Input';
+export {default as InputDropdown} from './InputDropdown/InputDropdown';
+export {default as Link} from './Link/Link';
+export {default as Loading} from './Loading/Loading';
+export {default as Radio} from './Radio/Radio';
+export {default as CheckboxIcons} from './CheckboxIcons/CheckboxIcons';
+export {default as RadioIcons} from './RadioIcons/RadioIcons';
+export {default as RadioTabs} from './RadioTabs/RadioTabs';
+export {default as Router} from './Router/Router';
+export {default as Select} from './Select/Select';
+export {default as Tooltip} from './Tooltip/Tooltip';
+export {default as InputFile} from './InputFile/InputFile';
+export {default as InputColor} from './InputColor/InputColor';

@@ -1,0 +1,39 @@
+@import 'zen-css/import';
+
+:host {
+    display: block;
+    position: relative;
+    @extend %comp-form-input-general;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 0;
+    overflow: hidden;
+
+    input {
+        @extend %cover;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    span {
+        margin-left: default('size-tiny');
+        vertical-align: middle;
+    }
+
+    .color {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: default('input-height');
+        height: default('input-height');
+        zen-icon {
+            @extend %center;
+        }
+    }
+
+    img {
+        @extend %cover;
+        object-fit: contain;
+        border: none;
+    }
+}

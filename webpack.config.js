@@ -20,7 +20,8 @@ const components = [
     'RadioTabs',
     'Select',
     'Tooltip',
-    'InputFile'
+    'InputFile',
+    'InputColor'
 ].reduce((obj, cur) => {
     obj[`./packages/components/${cur}/${cur}.js`] = `./packages/components/${cur}/${cur}.ts`;
     return obj

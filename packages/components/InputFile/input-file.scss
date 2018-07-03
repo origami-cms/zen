@@ -1,11 +1,12 @@
 @import 'zen-css/import';
 
 :host {
+    display: block;
     position: relative;
     @extend %comp-form-input-general;
     text-align: center;
-    height: 20rem;
     cursor: pointer;
+    box-sizing: border-box;
 
     input {
         @extend %cover;
