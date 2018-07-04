@@ -44,11 +44,17 @@ export default class Select extends LitElement implements props {
         }
         return html`
             ${CSS}
-            <div class="value" on-click=${() => this._open = !this._open}>${
-                v || html`<span class="placeholder">${placeholder}</span>`
-            }</div>
+            <div on-click=${() => this._open = !this._open}>
+                <div class="value">${
+                    v || html`<span class="placeholder">${placeholder}</span>`
+                }</div>
 
-            <zen-icon type="arrow-down" color="grey-200" class$="${_open ? 'rotate' : ''}"></zen-icon>
+                <zen-icon
+                    type="arrow-down"
+                    color="grey-200"
+                    class$="${_open ? 'rotate' : ''}"
+                ></zen-icon>
+            </div>
 
             <zen-input-dropdown
                 options=${options}

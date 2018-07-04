@@ -20,7 +20,11 @@
     }
 
     img {
-        @extend %cover;
+        position: absolute;
+        left: default('size-tiny');
+        top: default('size-tiny');
+        width: calc(100% - #{default('size-tiny')} * 2);
+        height: calc(100% - #{default('size-tiny')} * 2);
         object-fit: contain;
         border: none;
     }
