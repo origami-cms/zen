@@ -115,6 +115,15 @@ export default class FormRow extends LitElement implements props {
                     disabled=${f.disabled}
                 ></zen-input>`;
 
+            case 'color':
+                return html`<zen-input-color
+                    type=${f.type}
+                    value=${v}
+                    on-change=${c}
+                    placeholder=${f.placeholder}
+                    disabled=${f.disabled}
+                ></zen-input-color>`;
+
             case 'textarea':
                 return html`<textarea
                     value=${v}

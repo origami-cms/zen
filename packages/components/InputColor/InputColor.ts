@@ -4,25 +4,28 @@ import {component, property} from 'polymer3-decorators';
 
 interface props {
     value: string | null;
+    placeholder: string | null;
 }
 
 @component('zen-input-color')
 export default class InputColor extends LitElement implements props {
     @property
     value: string | null = null;
+    @property
+    placeholder: string | null = null;
 
     constructor() {
         super();
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({value}: props) {
+    _render({value, placeholder}: props) {
         return html`
             ${CSS}
             <div class="color" style="background-color: ${value}">
-                <zen-icon type="eyedropper" color="white"></zen-icon>
+                <zen-icon type="eyedropper" color="${value ? 'white' : 'grey-300'}"></zen-icon>
             </div>
-            <span>${value}</span>
+            <span>${value || placeholder || ''}</span>
             <input type="color" on-change=${this._handleChange}>
         `;
     }

@@ -11,8 +11,11 @@
     }
     zen-icon {
         position: absolute;
-        left: default('size-tiny');
-        top: default('size-tiny');
+        left: 0;
+        top: 0;
+        padding: calc(var(--input-height) / 6);
+        width: calc(var(--input-height) - (var(--input-height) / 3));
+        height: calc(var(--input-height) - (var(--input-height) / 3));
 
         & ~ input {
             --input-padding-left: #{default('input-height')};
