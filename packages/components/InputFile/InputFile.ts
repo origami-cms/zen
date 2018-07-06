@@ -3,12 +3,16 @@ import CSS from './input-file-css';
 import {component, property} from 'polymer3-decorators/dist';
 
 interface props {
+    placeholder?: string;
     _img?: any;
     _icon: string;
 }
 
 @component('zen-input-file')
-export default class ImageUploader extends LitElement implements props {
+export default class InputFile extends LitElement implements props {
+    @property
+    placeholder?: string;
+
     files: File[] = [];
 
     private _reader = new FileReader();
@@ -26,11 +30,14 @@ export default class ImageUploader extends LitElement implements props {
         });
     }
 
-    _render({_img, _icon}: props) {
+    _render({placeholder, _img, _icon}: props) {
+        let img = _img;
+        if (!img && placeholder) img = placeholder;
+
         return html`
             ${CSS}
-            ${_img
-                ? html`<img src=${_img} />`
+            ${img
+                ? html`<img src=${img} />`
                 : html`<zen-icon type=${_icon} color="grey-200"></zen-icon>`
             }
 

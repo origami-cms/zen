@@ -27,8 +27,8 @@
 
     .label {
         display: block;
-        margin: default('size-small') 0;
-        color: default('color-grey-600');
+        margin: calc(var(--input-height) / 4) 0;
+        color: var(--label-color, default('color-grey-600'));
     }
 
     .hide-empty:empty {

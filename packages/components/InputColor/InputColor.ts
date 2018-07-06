@@ -33,5 +33,6 @@ export default class InputColor extends LitElement implements props {
     private _handleChange(e: Event) {
         const input = e.target as HTMLInputElement;
         this.value = input.value;
+        this.dispatchEvent(new CustomEvent('change'));
     }
 }
