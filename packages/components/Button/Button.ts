@@ -15,6 +15,11 @@ export interface ButtonProps {
     loading?: boolean;
 }
 
+/**
+ * @class Button
+ * The button element is a styled button with options of
+ * adding an icon, loading state, and size.
+ */
 @component('zen-button')
 @bindAttributes
 export default class Button extends LitElement implements ButtonProps {

@@ -1,3 +1,10 @@
+/**
+ * btn-padding: Padding for the button
+ * btn-height: Height of the button
+ * btn-border-radius: Border radius of the button
+ * btn-bg: Background color of the button
+*/
+
 @import 'zen-css/import';
 :host {
     @extend %comp-button;

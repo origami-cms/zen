@@ -27,7 +27,7 @@ export default class Link extends LitElement implements props {
                 setTimeout(() => {
                     dispatchEvent(new PopStateEvent('popstate', { state: {} }));
                 }, time);
-                window.history.pushState({}, undefined, this.href);
+                window.history.pushState({}, '', this.href);
             }
         });
     }
