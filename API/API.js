@@ -11,20 +11,16 @@ export default class API {
         this.base = base;
         this._authHeader = authHeader;
     }
-    get(url, cache = true, xhr = false) {
-        // return this[xhr ? '_xhr' : '_fetch']('GET', url, null, cache);
-        return this._fetch('GET', url, null, cache);
+    get(url, cache = true, type = 'json') {
+        return this._fetch('GET', url, null, cache, type);
     }
-    post(url, data, cache = false, xhr = false) {
-        // return this[xhr ? '_xhr' : '_fetch']('POST', url, data, cache);
+    post(url, data, cache = false) {
         return this._fetch('POST', url, data, cache);
     }
-    put(url, data, cache = false, xhr = false) {
-        // return this[xhr ? '_xhr' : '_fetch']('PUT', url, data, cache);
+    put(url, data, cache = false) {
         return this._fetch('PUT', url, data, cache);
     }
-    delete(url, data, cache = false, xhr = false) {
-        // return this[xhr ? '_xhr' : '_fetch']('DELETE', url, data, cache);
+    delete(url, data, cache = false) {
         return this._fetch('DELETE', url, data || null, cache);
     }
     get token() {
@@ -54,7 +50,7 @@ export default class API {
         }
         return false;
     }
-    _fetch(method, url, data, cache) {
+    _fetch(method, url, data, cache, type = 'json') {
         if (cache && this._cache[method][url]) {
             return Promise.resolve(this._cache[method][url]);
         }
@@ -74,18 +70,30 @@ export default class API {
             else
                 conf.body = JSON.stringify(data);
         }
-        return fetch(this.base + url, conf)
-            .then(r => r.json())
-            .then((res) => {
-            if (res.statusCode >= CODES.BAD_REQUEST) {
-                const err = new Error(res.message);
-                err.code = res.statusCode;
-                throw err;
-            }
-            if (cache || this._cache[method][url]) {
+        let request = fetch(this.base + url, conf);
+        switch (type) {
+            case 'text':
+                request = request.then(r => r.text());
+                break;
+            case 'json':
+            default:
+                request = request
+                    .then(r => r.json())
+                    .then((res) => {
+                    if (res.statusCode >= CODES.BAD_REQUEST) {
+                        const err = new Error(res.message);
+                        err.code = res.statusCode;
+                        throw err;
+                    }
+                    return res;
+                });
+        }
+        // Cache the request
+        request = request.then(res => {
+            if (cache || this._cache[method][url])
                 this._cache[method][url] = res;
-            }
             return res;
         });
+        return request;
     }
 }
