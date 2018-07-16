@@ -37,7 +37,7 @@
     "lit-html": "^0.10.0",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
-    "origami-icons": "^0.0.12",
+    "origami-icons": "^0.0.13",
     "path-to-regexp": "^2.2.1",
     "polymer3-decorators": "https://github.com/tristanMatthias/polymer-decorators.git",
     "pwa-helpers": "^0.8.2",
@@ -54,6 +54,6 @@
     "webpack": "^4.10.2",
     "webpack-cli": "^2.1.4",
     "webpack-dev-server": "^3.1.4",
-    "zen-css": "^1.1.12"
+    "zen-css": "^1.1.13"
   }
 }

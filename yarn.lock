@@ -4767,9 +4767,9 @@ ora@^0.2.3:
     cli-spinners "^0.1.2"
     object-assign "^4.0.1"
 
-origami-icons@^0.0.12:
-  version "0.0.12"
-  resolved "https://registry.yarnpkg.com/origami-icons/-/origami-icons-0.0.12.tgz#8a8df36b6dda0cac0aa6938492d87cd7b3d3557c"
+origami-icons@^0.0.13:
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/origami-icons/-/origami-icons-0.0.13.tgz#a8033363c8f87186fed3491ecca722a2548569b3"
 
 original@>=0.0.5:
   version "1.0.1"
@@ -7262,6 +7262,6 @@ yeoman-generator@^2.0.5:
     through2 "^2.0.0"
     yeoman-environment "^2.0.5"
 
-zen-css@^1.1.12:
-  version "1.1.12"
-  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.12.tgz#f1e05e02de58b09d0a0f870ad223dd706a89e156"
+zen-css@^1.1.13:
+  version "1.1.13"
+  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.13.tgz#b39f8985d0a50f1347873d67df056603afc0e54c"
