@@ -1,8 +1,9 @@
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './input-file-css';
 import {component, property} from 'polymer3-decorators/dist';
+import { TemplateResult } from 'lit-html';
 
-interface props {
+export interface props {
     placeholder?: string;
     _img?: any;
     _icon: string;
@@ -30,7 +31,7 @@ export default class InputFile extends LitElement implements props {
         });
     }
 
-    _render({placeholder, _img, _icon}: props) {
+    _render({placeholder, _img, _icon}: props): TemplateResult {
         let img = _img;
         if (!img && placeholder) img = placeholder;
 

@@ -4,6 +4,7 @@ import { property } from 'polymer3-decorators';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers/router';
 import matchPath from '../../lib/Path';
+import { TemplateResult } from 'lit-html';
 
 
 export interface Route {
@@ -51,7 +52,7 @@ export default class Router extends LitElement implements RouterProps {
             );
         }
 
-        _render({ path, routes, base }: RouterProps) {
+        _render({ path, routes, base }: RouterProps): TemplateResult {
             const pages = this._getRoutes(this.routes, base, path);
 
             if (!pages.length && this.notfound) {
@@ -94,4 +95,4 @@ export default class Router extends LitElement implements RouterProps {
             const unsafe = `<${r.element} ${attrs}></${r.element}>`;
             return html`${unsafeHTML(unsafe)}`;
         }
-    };
+    }

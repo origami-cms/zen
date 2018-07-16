@@ -1,8 +1,9 @@
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './input-color-css';
 import {component, property} from 'polymer3-decorators';
+import { TemplateResult } from 'lit-html';
 
-interface props {
+export interface props {
     value: string | null;
     placeholder: string | null;
 }
@@ -19,7 +20,7 @@ export default class InputColor extends LitElement implements props {
         this._handleChange = this._handleChange.bind(this);
     }
 
-    _render({value, placeholder}: props) {
+    _render({value, placeholder}: props): TemplateResult {
         return html`
             ${CSS}
             <div class="color" style="background-color: ${value}">
