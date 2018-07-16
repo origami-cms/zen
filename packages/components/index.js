@@ -1,41 +1,45 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const Button_1 = __importDefault(require("./Button/Button"));
-const ButtonGroup_1 = __importDefault(require("./ButtonGroup/ButtonGroup"));
-const IconSet_1 = __importDefault(require("./IconSet/IconSet"));
-const Icon_1 = __importDefault(require("./Icon/Icon"));
-const Tooltip_1 = __importDefault(require("./Tooltip/Tooltip"));
-const Input_1 = __importDefault(require("./Input/Input"));
-const Autocomplete_1 = __importDefault(require("./Autocomplete/Autocomplete"));
-const Checkbox_1 = __importDefault(require("./Checkbox/Checkbox"));
-const Radio_1 = __importDefault(require("./Radio/Radio"));
-const RadioIcons_1 = __importDefault(require("./RadioIcons/RadioIcons"));
-const RadioTabs_1 = __importDefault(require("./RadioTabs/RadioTabs"));
-const InputDropdown_1 = __importDefault(require("./InputDropdown/InputDropdown"));
-const Select_1 = __importDefault(require("./Select/Select"));
-const FormRow_1 = __importDefault(require("./FormRow/FormRow"));
-const Form_1 = __importDefault(require("./Form/Form"));
-const Loading_1 = __importDefault(require("./Loading/Loading"));
-const Link_1 = __importDefault(require("./Link/Link"));
-exports.Components = {
-    Button: Button_1.default,
-    ButtonGroup: ButtonGroup_1.default,
-    IconSet: IconSet_1.default,
-    Icon: Icon_1.default,
-    Tooltip: Tooltip_1.default,
-    Input: Input_1.default,
-    Autocomplete: Autocomplete_1.default,
-    Checkbox: Checkbox_1.default,
-    Radio: Radio_1.default,
-    RadioIcons: RadioIcons_1.default,
-    RadioTabs: RadioTabs_1.default,
-    InputDropdown: InputDropdown_1.default,
-    Select: Select_1.default,
-    FormRow: FormRow_1.default,
-    Form: Form_1.default,
-    Loading: Loading_1.default,
-    Link: Link_1.default,
-};
+// tslint:disable block-spacing variable-name
+var Autocomplete_1 = require("./Autocomplete/Autocomplete");
+exports.Autocomplete = Autocomplete_1.default;
+var Button_1 = require("./Button/Button");
+exports.Button = Button_1.default;
+var ButtonGroup_1 = require("./ButtonGroup/ButtonGroup");
+exports.ButtonGroup = ButtonGroup_1.default;
+var Checkbox_1 = require("./Checkbox/Checkbox");
+exports.Checkbox = Checkbox_1.default;
+var Form_1 = require("./Form/Form");
+exports.Form = Form_1.default;
+var FormRow_1 = require("./FormRow/FormRow");
+exports.FormRow = FormRow_1.default;
+var Icon_1 = require("./Icon/Icon");
+exports.Icon = Icon_1.default;
+var IconSet_1 = require("./IconSet/IconSet");
+exports.IconSet = IconSet_1.default;
+var Input_1 = require("./Input/Input");
+exports.Input = Input_1.default;
+var InputDropdown_1 = require("./InputDropdown/InputDropdown");
+exports.InputDropdown = InputDropdown_1.default;
+var Link_1 = require("./Link/Link");
+exports.Link = Link_1.default;
+var Loading_1 = require("./Loading/Loading");
+exports.Loading = Loading_1.default;
+var Radio_1 = require("./Radio/Radio");
+exports.Radio = Radio_1.default;
+var CheckboxIcons_1 = require("./CheckboxIcons/CheckboxIcons");
+exports.CheckboxIcons = CheckboxIcons_1.default;
+var RadioIcons_1 = require("./RadioIcons/RadioIcons");
+exports.RadioIcons = RadioIcons_1.default;
+var RadioTabs_1 = require("./RadioTabs/RadioTabs");
+exports.RadioTabs = RadioTabs_1.default;
+var Router_1 = require("./Router/Router");
+exports.Router = Router_1.default;
+var Select_1 = require("./Select/Select");
+exports.Select = Select_1.default;
+var Tooltip_1 = require("./Tooltip/Tooltip");
+exports.Tooltip = Tooltip_1.default;
+var InputFile_1 = require("./InputFile/InputFile");
+exports.InputFile = InputFile_1.default;
+var InputColor_1 = require("./InputColor/InputColor");
+exports.InputColor = InputColor_1.default;

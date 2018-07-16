@@ -16,6 +16,7 @@ const components = [
     'Link',
     'Loading',
     'Radio',
+    'Router',
     'RadioIcons',
     'RadioTabs',
     'Select',

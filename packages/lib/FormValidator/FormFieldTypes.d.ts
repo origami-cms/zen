@@ -1,6 +1,6 @@
 import { ValidateBase, ValidateString, ValidateEqual } from './rules';
 import { InputDropdownResults } from '../../components/InputDropdown/InputDropdown';
-export declare type Field = FieldDefault | FieldSelect | FieldCheckbox | FieldSubmit | FieldRadio | FieldRadioTabs | FieldRadioIcons | FieldAutocomplete | FieldSlider;
+export declare type Field = FieldDefault | FieldSelect | FieldCheckbox | FieldSubmit | FieldRadio | FieldRadioTabs | FieldRadioIcons | FieldCheckboxIcons | FieldAutocomplete | FieldSlider | FieldColor;
 export interface Fieldsets {
     [key: string]: Field[];
 }
@@ -70,11 +70,24 @@ export interface FieldRadioIcons extends FieldBase {
     options?: FieldRadioIconsOption[];
     columns?: number;
 }
+export interface FieldCheckboxIconsOption {
+    icon?: string;
+    image?: string;
+    html?: string;
+    value: number | string;
+    label: number | string;
+}
+export interface FieldCheckboxIcons extends FieldBase {
+    type: 'checkbox-icons';
+    options?: FieldCheckboxIconsOption[];
+    columns?: number;
+}
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
     type: 'autocomplete';
     results?: string[] | Function;
     minlength: number;
     options: Function | InputDropdownResults;
+    query?: string;
 }
 export interface FieldSlider extends FieldBase {
     type: 'slider';
@@ -82,4 +95,7 @@ export interface FieldSlider extends FieldBase {
     max?: number;
     steps?: number;
     label?: string;
+}
+export interface FieldColor extends FieldBase, FieldMixinPlaceholder {
+    type: 'color';
 }

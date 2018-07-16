@@ -25,13 +25,17 @@ const rules = {
         if (!(/^[0-9]+$/).test(val) && required)
             return 'This field should be a number';
     },
+    alpha(val) {
+        if (!/^[A-z\s]+$/.test(val))
+            return 'This field should only contain letters and spaces';
+    },
     min(val, min) {
         if (Number(val) < min)
-            return `This field should be ${min} or above`;
+            return `This field should be above ${min}`;
     },
     max(val, max) {
-        if (Number(val) < max)
-            return `This field should be ${max} or below`;
+        if (Number(val) > max)
+            return `This field should be below ${max}`;
     },
     tel(val, required) {
         // TODO: Phone number checking

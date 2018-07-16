@@ -81,7 +81,8 @@ class Validator {
         const _R = rules_1.default;
         // Loop over each of the rules
         for (const [rule, v] of Object.entries(rules)) {
-            if (v !== false) {
+            // @ts-ignore
+            if (v !== false && rule !== 'require') {
                 const validateFn = _R[rule];
                 if (!validateFn)
                     throw new Error(`Zen.UI.Validator: Invalid rule ${rule}`);
