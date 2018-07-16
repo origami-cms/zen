@@ -5,20 +5,21 @@
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
-  "main": "zen.js",
-  "typings": "zen.d.ts",
+  "main": "origami-zen.js",
+  "typings": "origami-zen.d.ts",
   "scripts": {
     "start": "yarn watch & yarn serve",
     "watch:sass": "yarn build:sass -- -w",
     "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",
     "lint": "tslint -p . --fix",
-    "build": "yarn build:sass; yarn build:components; yarn build:bundle; yarn build:api & yarn build:util",
+    "build": "yarn build:sass; yarn build:components; yarn build:bundle; yarn build:api & yarn build:util; yarn bundle-definition",
     "build:components": "webpack-cli --config build/components.js --mode=production",
     "build:bundle": "webpack-cli --config build/bundle.js --mode=production",
     "build:sass": "sass-render packages/**/*.scss --suffix=-css.ts -t ./css-template.ts",
     "build:api": "tsc packages/lib/API/index.ts --outDir ./API -d --target es2016",
-    "build:util": "tsc packages/util/index.ts --outDir ./util -d --target es2016"
+    "build:util": "tsc packages/util/index.ts --outDir ./util -d --target es2016",
+    "bundle-definition": "node bundle.js"
   },
   "devDependencies": {
     "@polymer/lit-element": "^0.5.1",

@@ -32,7 +32,7 @@ const components = [
 module.exports = (env, {mode}) => ({
     entry: {
         ...components,
-        'zen.js': './zen.ts',
+        'origmai-zen.js': './origami-zen.ts',
         'API/index.js': './packages/lib/API'
     },
     context: path.resolve('./'),

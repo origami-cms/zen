@@ -6,7 +6,7 @@ module.exports = (env, {
     mode
 }) => ({
     entry: {
-        'zen.js': path.resolve(__dirname, '../zen.ts')
+        'origami-zen.js': path.resolve(__dirname, '../origami-zen.ts')
     },
     context: path.resolve(__dirname, '../'),
     output: {
