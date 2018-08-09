@@ -1,8 +1,8 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
-import CSS from './checkbox-css';
+import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import { component, dispatchChange, property } from '../../util/decorators';
+import CSS from './checkbox-css';
+
 
 export interface props {
     name?: string;

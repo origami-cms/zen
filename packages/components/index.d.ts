@@ -19,3 +19,4 @@ export { default as Select } from './Select/Select';
 export { default as Tooltip } from './Tooltip/Tooltip';
 export { default as InputFile } from './InputFile/InputFile';
 export { default as InputColor } from './InputColor/InputColor';
+export { default as SideMenu } from './SideMenu/SideMenu';

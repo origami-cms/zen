@@ -2,8 +2,8 @@ import {LitElement} from '@polymer/lit-element';
 import {FieldRadioIconsOption} from '../../lib/FormValidator/FormFieldTypes';
 import {html} from 'lit-html/lib/lit-extended';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
+
+import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
 import CSS from './radio-icons-css';
 import { TemplateResult } from 'lit-html';
 

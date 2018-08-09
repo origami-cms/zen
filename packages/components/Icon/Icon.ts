@@ -1,10 +1,7 @@
-import {LitElement} from '@polymer/lit-element';
-import {html, TemplateResult} from 'lit-html';
-import {component, property} from 'polymer3-decorators';
-import {bindAttributes} from '../../util/decorators';
+import { LitElement } from '@polymer/lit-element';
+import { html, TemplateResult } from 'lit-html';
+import { bindAttributes, component, property } from '../../util/decorators';
 import CSS from './icon-css';
-
-export {TemplateResult} from 'lit-html';
 
 export interface props {
     type?: string;
@@ -25,7 +22,7 @@ export default class Icon extends LitElement implements props {
 
     static _boundAttributes = ['type', 'color', 'size'];
 
-    _render({color, type}: { [key in keyof Icon]: any }) {
+    _render({color, type}: { [key in keyof Icon]: any }): TemplateResult {
         const children = this._symbol || [];
         return html`
             ${CSS}

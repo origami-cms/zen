@@ -1,6 +1,7 @@
 import { LitElement } from '@polymer/lit-element';
-import InputDropdown, { InputDropdownResults } from '../InputDropdown/InputDropdown';
 import { TemplateResult } from 'lit-html';
+import { InputDropdownResults } from '../../lib/FormValidator/FormFieldTypes';
+import InputDropdown from '../InputDropdown/InputDropdown';
 export interface props {
     placeholder?: string;
     name?: string;

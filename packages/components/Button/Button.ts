@@ -1,13 +1,13 @@
 import {html, LitElement} from '@polymer/lit-element';
-import {component, observe, property} from 'polymer3-decorators';
-import {bindAttributes} from '../../util/decorators';
+import {property} from 'polymer3-decorators';
+import {component, bindAttributes} from '../../util/decorators';
 import Icon from '../Icon/Icon';
 import CSS from './button-css';
 import { TemplateResult } from 'lit-html';
 
 export interface ButtonProps {
     size?: string;
-    icon?: string | false;
+    icon?: string | boolean;
     iconright?: boolean;
     hollow?: boolean;
     color?: string;
@@ -26,7 +26,7 @@ export default class Button extends LitElement implements ButtonProps {
     @property
     size?: string;
     @property
-    icon?: string | false;
+    icon?: string | boolean;
     @property
     iconright?: boolean;
     @property
@@ -60,10 +60,5 @@ export default class Button extends LitElement implements ButtonProps {
         if (this.hollow && this.color) return this.color;
         if (this.hollow && !this.color) return 'main';
         return 'white';
-    }
-
-    @observe('icon')
-    private _iconChanged(newV: string) {
-        if (!newV && this.iconright) this.iconright = false;
     }
 }

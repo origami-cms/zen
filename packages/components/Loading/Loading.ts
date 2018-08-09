@@ -1,8 +1,8 @@
-import {LitElement} from '@polymer/lit-element';
-import {html, TemplateResult} from 'lit-html';
-import {component, property} from 'polymer3-decorators';
-import {style} from '../../util/decorators';
+import { LitElement } from '@polymer/lit-element';
+import { html, TemplateResult } from 'lit-html';
+import { component, property } from '../../util/decorators';
 import CSS from './loading-css';
+
 
 export interface props {
     color?: string;

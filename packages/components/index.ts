@@ -1,4 +1,3 @@
-// tslint:disable block-spacing variable-name
 export {default as Autocomplete} from './Autocomplete/Autocomplete';
 export {default as Button} from './Button/Button';
 export {default as ButtonGroup} from './ButtonGroup/ButtonGroup';
@@ -20,3 +19,4 @@ export {default as Select} from './Select/Select';
 export {default as Tooltip} from './Tooltip/Tooltip';
 export {default as InputFile} from './InputFile/InputFile';
 export {default as InputColor} from './InputColor/InputColor';
+export {default as SideMenu} from './SideMenu/SideMenu';

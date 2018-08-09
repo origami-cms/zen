@@ -1,8 +1,9 @@
 import { LitElement } from '@polymer/lit-element';
 import { html, TemplateResult } from 'lit-html';
-import { component, property } from 'polymer3-decorators';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers/router';
+import { component, property } from 'util/decorators';
+
 
 export interface props {
     href?: string;

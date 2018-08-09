@@ -1,9 +1,10 @@
 import { html, LitElement } from '@polymer/lit-element';
-import {repeat} from 'lit-html/lib/repeat';
-import { component, property } from 'polymer3-decorators/dist';
+import { TemplateResult } from 'lit-html';
+import { repeat } from 'lit-html/lib/repeat';
+import { component, property } from 'util/decorators';
 import { ButtonProps } from '../Button/Button';
 import CSS from './button-group-css';
-import { TemplateResult } from 'lit-html';
+
 
 export interface ButtonOptions extends ButtonProps {
     text?: string;

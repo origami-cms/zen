@@ -1,7 +1,7 @@
 import {html, LitElement} from '@polymer/lit-element';
 import {FieldOptions} from '../../lib/FormValidator/FormFieldTypes';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
+
+import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
 import CSS from './radio-tabs-css';
 import { TemplateResult } from 'lit-html';
 

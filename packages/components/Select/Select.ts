@@ -1,11 +1,11 @@
-import {LitElement} from '@polymer/lit-element';
-import {FieldOptions} from '../../lib/FormValidator/FormFieldTypes';
-import {html} from 'lit-html/lib/lit-extended';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
+import { LitElement } from '@polymer/lit-element';
+import { TemplateResult } from 'lit-html';
+import { html } from 'lit-html/lib/lit-extended';
+import { FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
+import { component, dispatchChange, property } from '../../util/decorators';
 import Tooltip from '../Tooltip/Tooltip';
 import CSS from './select-css';
-import { TemplateResult } from 'lit-html';
+
 
 export interface props {
     options: FieldOptions;

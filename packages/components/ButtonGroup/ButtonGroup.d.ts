@@ -1,6 +1,6 @@
 import { LitElement } from '@polymer/lit-element';
-import { ButtonProps } from '../Button/Button';
 import { TemplateResult } from 'lit-html';
+import { ButtonProps } from '../Button/Button';
 export interface ButtonOptions extends ButtonProps {
     text?: string;
     onclick?: Function;

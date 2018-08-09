@@ -13,9 +13,9 @@
         position: absolute;
         left: 0;
         top: 0;
-        padding: calc(var(--input-height) / 6);
-        width: calc(var(--input-height) - (var(--input-height) / 3));
-        height: calc(var(--input-height) - (var(--input-height) / 3));
+        padding: calc(#{default('input-height')} / 6);
+        width: calc(#{default('input-height')} - (#{default('input-height')} / 3));
+        height: calc(#{default('input-height')} - (#{default('input-height')} / 3));
 
         & ~ input {
             --input-padding-left: #{default('input-height')};

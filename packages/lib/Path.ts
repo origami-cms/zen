@@ -4,9 +4,9 @@
  * All credit goes the the React Router maintainers
  */
 
-import pathToRegexp, {Key} from 'path-to-regexp';
+import pathToRegexp, {RegExpOptions, ParseOptions, Key, Path} from 'path-to-regexp';
 
-type CompilePathOptions = (pathToRegexp.RegExpOptions & pathToRegexp.ParseOptions);
+type CompilePathOptions = (RegExpOptions & ParseOptions);
 
 
 interface PatternCache {
@@ -46,7 +46,7 @@ const cacheLimit = 10000;
 let cacheCount = 0;
 
 
-const compilePath = (pattern: pathToRegexp.Path, options: CompilePathOptions): CompiledPattern => {
+const compilePath = (pattern: Path, options: CompilePathOptions): CompiledPattern => {
     const p = pattern as string;
     const cacheKey = `${options.end}${options.strict}${options.sensitive}`;
     const cache: CompiledPattern = patternCache[cacheKey] || (patternCache[cacheKey] = {} as CompiledPattern);
@@ -91,7 +91,7 @@ const matchPath = (pathname: string, options: string | MatchPathOptions = {}): M
         path, // The path pattern used to match
         url: path === '/' && url === '' ? '/' : url, // The matched portion of the URL
         isExact, // Whether or not we matched exactly
-        params: (keys as pathToRegexp.Key[]).reduce((memo, key, index) => {
+        params: (keys as Key[]).reduce((memo, key, index) => {
             memo[key.name] = values[index];
 
             return memo;

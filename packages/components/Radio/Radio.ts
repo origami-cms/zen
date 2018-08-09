@@ -1,7 +1,7 @@
 import {LitElement} from '@polymer/lit-element';
 import {html} from 'lit-html/lib/lit-extended';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
+
+import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
 import CSS from './radio-css';
 import { TemplateResult } from 'lit-html';
 

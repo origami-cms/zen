@@ -3,10 +3,11 @@
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import FormRow from '../FormRow/FormRow';
-import { component, property } from 'polymer3-decorators/dist';
+
 import { Field, FormValues } from '../../lib/FormValidator/FormFieldTypes';
 import Validator, { ValidateFieldErrors } from '../../lib/FormValidator/Validator';
 import CSS from './form-css';
+import { component, property } from 'util/decorators';
 
 export interface props {
     values: FormValues;

@@ -1,4 +1,4 @@
-import * as CODES from 'http-status-codes';
+import CODES from 'http-status-codes';
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 

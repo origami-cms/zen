@@ -1,4 +1,4 @@
-import {upperFirst} from 'lodash';
+import lodash from 'lodash';
 import {Dispatch} from 'redux';
 import {default as API} from './API';
 import {default as APIResource} from './Resource';
@@ -9,7 +9,7 @@ export default (name: string, API: API) => {
 
     type f = 'create' | 'get' | 'update' | 'remove';
     (['create', 'get', 'update', 'remove'] as f[]).forEach(a => {
-        funcs[`${name}${upperFirst(a)}`] = r[a];
+        funcs[`${name}${lodash.upperFirst(a)}`] = r[a];
     });
 
     funcs[`${name}SetGroupId`] = (groupId: string) =>

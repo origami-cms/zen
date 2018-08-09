@@ -1,7 +1,7 @@
 import {LitElement} from '@polymer/lit-element';
 import {html, TemplateResult} from 'lit-html';
-import {component, property} from 'polymer3-decorators';
-import { bindAttributes } from '../../util/decorators';
+
+import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
 import CSS from './tooltip-css';
 
 export type TooltipPosition =

@@ -1,11 +1,12 @@
-import {LitElement} from '@polymer/lit-element';
-import {html} from 'lit-html/lib/lit-extended';
-import {component, property} from 'polymer3-decorators/dist';
-import {dispatchChange} from '../../util/decorators';
-import Input from '../Input/Input';
-import InputDropdown, {InputDropdownResults} from '../InputDropdown/InputDropdown';
-import CSS from './autocomplete-css';
+import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import { html } from 'lit-html/lib/lit-extended';
+import { InputDropdownResults } from '../../lib/FormValidator/FormFieldTypes';
+import { component, dispatchChange, property } from '../../util/decorators';
+import Input from '../Input/Input';
+import InputDropdown from '../InputDropdown/InputDropdown';
+import CSS from './autocomplete-css';
+
 
 export interface props {
     placeholder?: string;

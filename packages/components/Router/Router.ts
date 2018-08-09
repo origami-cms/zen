@@ -1,10 +1,10 @@
 import { html, LitElement } from '@polymer/lit-element';
+import { TemplateResult } from 'lit-html';
 import { unsafeHTML } from 'lit-html/lib/unsafe-html';
-import { property } from 'polymer3-decorators';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers/router';
+import { property } from 'util/decorators';
 import matchPath from '../../lib/Path';
-import { TemplateResult } from 'lit-html';
 
 
 export interface Route {

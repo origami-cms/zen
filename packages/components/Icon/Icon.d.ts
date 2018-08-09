@@ -1,6 +1,5 @@
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-export { TemplateResult } from 'lit-html';
 export interface props {
     type?: string;
     color?: string;

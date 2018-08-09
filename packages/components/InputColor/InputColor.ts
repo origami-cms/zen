@@ -1,7 +1,8 @@
-import {LitElement, html} from '@polymer/lit-element';
-import CSS from './input-color-css';
-import {component, property} from 'polymer3-decorators';
+import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import { component, property } from 'util/decorators';
+import CSS from './input-color-css';
+
 
 export interface props {
     value: string | null;

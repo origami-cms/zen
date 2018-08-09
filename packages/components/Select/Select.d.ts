@@ -1,6 +1,6 @@
 import { LitElement } from '@polymer/lit-element';
-import { FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
 import { TemplateResult } from 'lit-html';
+import { FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
 export interface props {
     options: FieldOptions;
     value?: string;

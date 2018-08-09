@@ -1,10 +1,6 @@
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-export declare type InputDropdownResults = InputDropdownOptions | InputDropdownList;
-export interface InputDropdownOptions {
-    [key: string]: string | number;
-}
-export declare type InputDropdownList = string[];
+import { InputDropdownResults } from '../../lib/FormValidator/FormFieldTypes';
 export interface props {
     value?: string;
     options: InputDropdownResults;

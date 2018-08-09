@@ -1,7 +1,8 @@
 import {LitElement, html} from '@polymer/lit-element';
 import CSS from './input-file-css';
-import {component, property} from 'polymer3-decorators/dist';
+
 import { TemplateResult } from 'lit-html';
+import { component, property } from 'util/decorators';
 
 export interface props {
     placeholder?: string;

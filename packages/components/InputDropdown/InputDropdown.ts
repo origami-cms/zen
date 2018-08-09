@@ -1,13 +1,9 @@
 import { LitElement } from '@polymer/lit-element';
-import { html } from 'lit-html/lib/lit-extended';
-import { component, property } from 'polymer3-decorators/dist';
-import { bindAttributes, dispatchChange } from '../../util/decorators';
-import CSS from './input-dropdown-css';
 import { TemplateResult } from 'lit-html';
-
-export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
-export interface InputDropdownOptions { [key: string]: string | number; }
-export type InputDropdownList = string[];
+import { html } from 'lit-html/lib/lit-extended';
+import { InputDropdownResults } from '../../lib/FormValidator/FormFieldTypes';
+import { bindAttributes, component, dispatchChange, property } from '../../util/decorators';
+import CSS from './input-dropdown-css';
 
 
 export interface props {

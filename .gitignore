@@ -1,7 +1,10 @@
 .DS_Store
 *.log
+/.*_cache
 
 node_modules
 .vscode
 dist/
-./decorators*
+/util
+/components
+/lib

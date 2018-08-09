@@ -1,5 +1,4 @@
-import { ValidatorRules, ValidateBase, ValidateString, ValidateEqual } from './rules';
-import { InputDropdownResults } from '../../components/InputDropdown/InputDropdown';
+import { ValidateBase, ValidateEqual, ValidateString } from './rules';
 
 export type Field =
 	FieldDefault |
@@ -97,41 +96,45 @@ export interface FieldRadioIconsOption {
     label: number | string;
 }
 export interface FieldRadioIcons extends FieldBase {
-                                                    type: 'radio-icons';
-                                                    options?: FieldRadioIconsOption[];
-                                                    columns?: number;
+                                    type: 'radio-icons';
+                                    options?: FieldRadioIconsOption[];
+                                    columns?: number;
 }
 
 export interface FieldCheckboxIconsOption {
-                                                    icon?: string;
-                                                    image?: string;
-                                                    html?: string;
-                                                    value: number | string;
-                                                    label: number | string;
+                                    icon?: string;
+                                    image?: string;
+                                    html?: string;
+                                    value: number | string;
+                                    label: number | string;
 }
 export interface FieldCheckboxIcons extends FieldBase {
-                                                    type: 'checkbox-icons';
-                                                    options?: FieldCheckboxIconsOption[];
-                                                    columns?: number;
+                                    type: 'checkbox-icons';
+                                    options?: FieldCheckboxIconsOption[];
+                                    columns?: number;
 }
 
 export interface FieldAutocomplete extends FieldBase, FieldMixinIcon, FieldMixinPlaceholder {
-                                                    type: 'autocomplete';
-                                                    results?: string[] | Function;
-                                                    minlength: number;
-                                                    options: Function | InputDropdownResults;
-                                                    query?: string;
+                                    type: 'autocomplete';
+                                    results?: string[] | Function;
+                                    minlength: number;
+                                    options: Function | InputDropdownResults;
+                                    query?: string;
 }
 
 export interface FieldSlider extends FieldBase {
-                                                    type: 'slider';
-                                                    min?: number;
-                                                    max?: number;
-                                                    steps?: number;
-                                                    label?: string;
+                                    type: 'slider';
+                                    min?: number;
+                                    max?: number;
+                                    steps?: number;
+                                    label?: string;
 }
 
 export interface FieldColor extends FieldBase, FieldMixinPlaceholder {
 	type: 'color';
 }
 
+
+export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
+export interface InputDropdownOptions { [key: string]: string | number; }
+export type InputDropdownList = string[];

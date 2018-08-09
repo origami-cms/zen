@@ -1,6 +1,18 @@
 import {html} from '@polymer/lit-element';
 import {unsafeHTML} from 'lit-html/lib/unsafe-html';
 import { TemplateResult } from 'lit-html';
+import 'reflect-metadata';
+
+export interface Property {
+    name?: string;
+    type?: any;
+    value?: any;
+    reflectToAttribute?: boolean;
+    readOnly?: boolean;
+    notify?: boolean;
+    computed?: string;
+    observer?: string;
+}
 
 export const view = (view: string, css?: string) => {
     return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
@@ -20,7 +32,7 @@ export const bindAttributes = function classDecorator<T extends { new(...args: a
             // @ts-ignore
             super._propertiesChanged(props, changedProps, prevProps);
             // @ts-ignore
-            const attrs = (this.constructor as constructor)._boundAttributes;
+            const attrs = this.constructor._boundAttributes;
             if (attrs && changedProps) {
                 Object.keys(changedProps).forEach(k => {
                     if (attrs.includes(k)) {
@@ -36,6 +48,41 @@ export const bindAttributes = function classDecorator<T extends { new(...args: a
         }
     };
 };
+
+export const component = (name: string): ClassDecorator => {
+    return function (klass: Function) {
+        window.customElements.define(name, klass);
+    };
+};
+
+
+export function property(args?: Property): PropertyDecorator;
+export function property(target: Object, key: string | symbol): void;
+export function property(first?: any, second?: any): any {
+    let args: { [key: string]: any };
+    let isGenerator = false;
+
+    if (second === undefined) {
+        args = first || {};
+        isGenerator = true;
+    } else {
+        args = {};
+    }
+
+    function decorate(target: any, key: string): void {
+        if (Reflect.hasMetadata('design:type', target, key)) {
+            args.type = Reflect.getMetadata('design:type', target, key);
+        }
+        target.constructor.properties = target.constructor.properties ||  {};
+        target.constructor.properties[key] = (Object as any).assign(args, target.constructor.properties[key] || {});
+    }
+
+    if (isGenerator) {
+        return decorate;
+    } else {
+        return decorate(first, second);
+    }
+}
 
 export const style = (css: string) => {
     return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
