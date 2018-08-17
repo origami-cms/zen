@@ -1,6 +1,6 @@
 {
   "name": "origami-zen",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Collection of reusable web components. Built for Origami CMS.",
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
