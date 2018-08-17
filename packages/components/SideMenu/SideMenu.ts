@@ -2,7 +2,7 @@ import { html, LitElement } from '@polymer/lit-element';
 
 import CSS from './side-menu-css';
 import { TemplateResult } from 'lit-html';
-import { component } from 'util/decorators';
+import { component, property } from '../../util/decorators';
 
 export interface Link {
     icon?: string;
@@ -17,22 +17,10 @@ export interface SettingsMenuProps {
 
 @component('zen-side-menu')
 export default class SettingsMenu extends LitElement implements SettingsMenuProps {
-    links: Link[] = [
-        {
-            icon: 'organization',
-            text: 'Organization',
-            to: '/admin/settings/organization'
-        },
-        {
-            icon: 'user',
-            text: 'My settings',
-            to: '/admin/settings/me'
-        }
-    ];
+    @property
+    links: Link[] = [];
 
     _render({links}: SettingsMenuProps): TemplateResult {
-        console.log('ok');
-
         return html`
             ${CSS}
             <ul>

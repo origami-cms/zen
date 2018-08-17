@@ -119,6 +119,8 @@ export default class Validator {
     private _validateField(val: any, field: Field): true | FieldErrors {
         // If field is disabled or submit button, skip validation
         if (field.disabled || field.type === 'submit') return true;
+        // If field is not required, and no value is passed, skip validation
+        if (field.validate && !field.validate.required && !val) return true;
 
         const rules: ValidatorRules = {...this._defaultRules, ...field.validate};
         const errors: ValidationErrors = {};

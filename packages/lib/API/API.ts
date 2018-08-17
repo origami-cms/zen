@@ -1,4 +1,4 @@
-import CODES from 'http-status-codes';
+import CODES, { NOT_FOUND } from 'http-status-codes';
 
 export type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
@@ -123,18 +123,23 @@ export default class API {
         }
 
 
-        let request: Promise<any> = fetch(this.base + url, conf);
+        const request = fetch(this.base + url, conf);
+        let response;
 
 
         switch (type) {
             case 'text':
-                request = request.then(r => r.text());
+                response = request
+                    .then(r => {
+                        if (r.status === NOT_FOUND) return;
+                        return r.text();
+                    });
                 break;
 
 
             case 'json':
             default:
-                request = request
+                response = request
                     .then(r => r.json())
                     .then((res: APIResponse) => {
                         if (res.statusCode >= CODES.BAD_REQUEST) {
@@ -151,11 +156,11 @@ export default class API {
         }
 
         // Cache the request
-        request = request.then(res => {
+        response = response.then(res => {
             if (cache || this._cache[method][url]) this._cache[method][url] = res;
             return res;
         });
 
-        return request;
+        return response;
     }
 }
