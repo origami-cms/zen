@@ -46,8 +46,8 @@ export default class API {
         return this._fetch('GET', url, null, cache, type);
     }
 
-    post(url: string, data: object, cache: boolean = false) {
-        return this._fetch('POST', url, data, cache);
+    post(url: string, data: object, cache: boolean = false, type: ResponseType = 'json') {
+        return this._fetch('POST', url, data, cache, type);
     }
 
     put(url: string, data: object, cache: boolean = false) {

@@ -56,33 +56,50 @@ export const component = (name: string): ClassDecorator => {
 };
 
 
-export function property(args?: Property): PropertyDecorator;
-export function property(target: Object, key: string | symbol): void;
-export function property(first?: any, second?: any): any {
-    let args: { [key: string]: any };
-    let isGenerator = false;
+// export function property(args?: Property): PropertyDecorator;
+// export function property(target: Object, key: string | symbol): void;
+// export function property(first?: any, second?: any): any {
+//     let args: { [key: string]: any };
+//     let isGenerator = false;
 
-    if (second === undefined) {
-        args = first || {};
-        isGenerator = true;
-    } else {
-        args = {};
-    }
+//     if (second === undefined) {
+//         args = first || {};
+//         isGenerator = true;
+//     } else {
+//         args = {};
+//     }
 
-    function decorate(target: any, key: string): void {
-        if (Reflect.hasMetadata('design:type', target, key)) {
-            args.type = Reflect.getMetadata('design:type', target, key);
+//     function decorate(target: any, key: string): void {
+//         if (Reflect.hasMetadata('design:type', target, key)) {
+//             args.type = Reflect.getMetadata('design:type', target, key);
+//         }
+//         target.constructor.properties = target.constructor.properties ||  {};
+//         target.constructor.properties[key] = (Object as any).assign(args, target.constructor.properties[key] || {});
+//     }
+
+//     if (isGenerator) {
+//         return decorate;
+//     } else {
+//         return decorate(first, second);
+//     }
+// }
+
+function getType(prototype: any, propertyName: string): any {
+    if (Reflect.hasMetadata) {
+        if (Reflect.hasMetadata('design:type', prototype, propertyName)) {
+            return Reflect.getMetadata('design:type', prototype, propertyName);
         }
-        target.constructor.properties = target.constructor.properties ||  {};
-        target.constructor.properties[key] = (Object as any).assign(args, target.constructor.properties[key] || {});
     }
-
-    if (isGenerator) {
-        return decorate;
-    } else {
-        return decorate(first, second);
-    }
+    return null;
 }
+
+export const property = (prototype: any, propertyName: string) => {
+    const constructor = prototype.constructor;
+    if (!constructor.hasOwnProperty('properties')) {
+        Object.defineProperty(constructor, 'properties', { value: {} });
+    }
+    constructor.properties[propertyName] = { type: getType(prototype, propertyName) || String };
+};
 
 export const style = (css: string) => {
     return function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {

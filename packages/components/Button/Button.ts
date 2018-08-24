@@ -38,17 +38,18 @@ export default class Button extends LitElement implements ButtonProps {
     @property
     loading?: boolean;
 
-    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon', 'disabled', 'size'];
+    private static _boundAttributes = ['hollow', 'color', 'iconright', 'icon', 'disabled', 'size', 'loading'];
 
     private get _icon() {
-        return this.shadowRoot.querySelector('zen-icon') as Icon;
+        return this.shadowRoot!.querySelector('zen-icon') as Icon;
     }
 
 
-    _render({icon, size, hollow}: ButtonProps): TemplateResult {
+    _render({icon, size, loading}: ButtonProps): TemplateResult {
         return html`
             ${CSS}
-            ${icon
+            ${loading ? html`<zen-loading></zen-loading>` : '' }
+            ${(icon && !loading)
                 ? html`<zen-icon type="${icon}" size="${size}" color="${this._iconColor}"></zen-icon>`
                 : ''
             }

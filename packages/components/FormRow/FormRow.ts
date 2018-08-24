@@ -80,7 +80,7 @@ export default class FormRow extends LitElement implements props {
     focus() {
         if (!this.field) return;
         if (['text', 'number', 'password', 'email', 'date', 'tel'].includes(this.field.type)) {
-            (this.shadowRoot.querySelector('zen-input') as Input).focus();
+            (this.shadowRoot!.querySelector('zen-input') as Input).focus();
         }
     }
 

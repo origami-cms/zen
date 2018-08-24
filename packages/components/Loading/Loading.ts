@@ -1,5 +1,5 @@
-import { LitElement } from '@polymer/lit-element';
-import { html, TemplateResult } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
+import { TemplateResult } from 'lit-html';
 import { component, property } from '../../util/decorators';
 import CSS from './loading-css';
 
@@ -20,7 +20,7 @@ export default class Loading extends LitElement implements props {
     static _boundAttributes = ['color', 'size'];
 
 
-    _render(): TemplateResult {
+    _render() {
         return html`${CSS}<span></span>`;
     }
 }

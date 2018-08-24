@@ -13,16 +13,12 @@
         margin-right: default('size-tiny');
         vertical-align: middle;
     }
-
-    .loading {
-        --loading-color: default('color-white');
-        --loading-size: 1.5rem;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        margin: auto;
-        transform: translate(-50%, 1.5rem);
-        @extend %comp-loading;
+    zen-loading {
+        display: inline-flex;
+        vertical-align: middle;
+    }
+    slot {
+        transition: all default('transition-time');
     }
 }
 
@@ -43,6 +39,7 @@
     }
 }
 
+:host([loading]),
 :host([disabled]) {
     opacity: 0.5;
     pointer-events: none;
@@ -56,6 +53,9 @@
     @extend %comp-button-icon-right;
 }
 
-:host([hollow]) {
-    @extend %comp-button-hollow;
+@each $color in $colors {
+    :host([color=#{$color}][hollow]) {
+        color: var(--color-#{$color});
+    }
 }
+

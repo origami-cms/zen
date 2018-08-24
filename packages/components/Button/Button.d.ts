@@ -24,6 +24,6 @@ export default class Button extends LitElement implements ButtonProps {
     loading?: boolean;
     private static _boundAttributes;
     private readonly _icon;
-    _render({icon, size, hollow}: ButtonProps): TemplateResult;
+    _render({icon, size, loading}: ButtonProps): TemplateResult;
     private readonly _iconColor;
 }

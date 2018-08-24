@@ -41,30 +41,45 @@ export const component = (name) => {
         window.customElements.define(name, klass);
     };
 };
-export function property(first, second) {
-    let args;
-    let isGenerator = false;
-    if (second === undefined) {
-        args = first || {};
-        isGenerator = true;
-    }
-    else {
-        args = {};
-    }
-    function decorate(target, key) {
-        if (Reflect.hasMetadata('design:type', target, key)) {
-            args.type = Reflect.getMetadata('design:type', target, key);
+// export function property(args?: Property): PropertyDecorator;
+// export function property(target: Object, key: string | symbol): void;
+// export function property(first?: any, second?: any): any {
+//     let args: { [key: string]: any };
+//     let isGenerator = false;
+//     if (second === undefined) {
+//         args = first || {};
+//         isGenerator = true;
+//     } else {
+//         args = {};
+//     }
+//     function decorate(target: any, key: string): void {
+//         if (Reflect.hasMetadata('design:type', target, key)) {
+//             args.type = Reflect.getMetadata('design:type', target, key);
+//         }
+//         target.constructor.properties = target.constructor.properties ||  {};
+//         target.constructor.properties[key] = (Object as any).assign(args, target.constructor.properties[key] || {});
+//     }
+//     if (isGenerator) {
+//         return decorate;
+//     } else {
+//         return decorate(first, second);
+//     }
+// }
+function getType(prototype, propertyName) {
+    if (Reflect.hasMetadata) {
+        if (Reflect.hasMetadata('design:type', prototype, propertyName)) {
+            return Reflect.getMetadata('design:type', prototype, propertyName);
         }
-        target.constructor.properties = target.constructor.properties || {};
-        target.constructor.properties[key] = Object.assign(args, target.constructor.properties[key] || {});
     }
-    if (isGenerator) {
-        return decorate;
-    }
-    else {
-        return decorate(first, second);
-    }
+    return null;
 }
+export const property = (prototype, propertyName) => {
+    const constructor = prototype.constructor;
+    if (!constructor.hasOwnProperty('properties')) {
+        Object.defineProperty(constructor, 'properties', { value: {} });
+    }
+    constructor.properties[propertyName] = { type: getType(prototype, propertyName) || String };
+};
 export const style = (css) => {
     return function classDecorator(constructor) {
         return class WithStyle extends constructor {

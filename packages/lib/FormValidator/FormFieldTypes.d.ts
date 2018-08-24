@@ -31,7 +31,7 @@ export interface FieldOption {
 }
 export declare type FieldOptions = {
     [key: string]: string;
-} | FieldOption[];
+} | FieldOption[] | string[];
 export interface FieldMixinOptions {
     options?: FieldOptions;
 }

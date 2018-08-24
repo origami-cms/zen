@@ -1,8 +1,8 @@
-import {LitElement} from '@polymer/lit-element';
-import {html, TemplateResult} from 'lit-html';
-
-import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
+import { html, LitElement } from '@polymer/lit-element';
+import { TemplateResult } from 'lit-html';
+import { bindAttributes, component, property } from '../../util/decorators';
 import CSS from './tooltip-css';
+
 
 export type TooltipPosition =
     'top-left' |
@@ -53,10 +53,6 @@ export default class Tooltip extends LitElement implements props {
     connectedCallback() {
         super.connectedCallback();
         this._update();
-        if (this.removable) {
-            window.addEventListener('mouseup', this._remove);
-            window.addEventListener('keydown', this._remove);
-        }
         window.addEventListener('scroll', this._update);
         window.addEventListener('resize', this._update);
     }

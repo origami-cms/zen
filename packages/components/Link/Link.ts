@@ -1,5 +1,5 @@
-import { LitElement } from '@polymer/lit-element';
-import { html, TemplateResult } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
+import { TemplateResult } from 'lit-html';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers/router';
 import { component, property } from 'util/decorators';

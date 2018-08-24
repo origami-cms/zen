@@ -18,7 +18,7 @@ export default class API {
     private _authHeader;
     constructor(base: string, authHeader?: string);
     get(url: string, cache?: boolean, type?: ResponseType): Promise<APIResponse>;
-    post(url: string, data: object, cache?: boolean): Promise<APIResponse>;
+    post(url: string, data: object, cache?: boolean, type?: ResponseType): Promise<APIResponse>;
     put(url: string, data: object, cache?: boolean): Promise<APIResponse>;
     delete(url: string, data?: object, cache?: boolean): Promise<APIResponse>;
     token: string | null;

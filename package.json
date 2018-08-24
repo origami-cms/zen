@@ -23,7 +23,7 @@
     "build:lib": "tsc packages/lib/**/*.ts --outDir ./lib -d --target es2016 --allowSyntheticDefaultImports --moduleResolution node --lib 'es2017, dom' --experimentalDecorators"
   },
   "devDependencies": {
-    "@polymer/lit-element": "^0.5.1",
+    "@polymer/lit-element": "^0.5.2",
     "@types/lodash": "^4.14.109",
     "@types/path-to-regexp": "^1.7.0",
     "@types/redux": "^3.6.0",

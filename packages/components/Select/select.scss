@@ -11,15 +11,17 @@
     .value {
         @extend %comp-form-input-general;
         .placeholder {
-            color: default('color-grey-200');
+            color: default('input-placeholder-color');
         }
     }
 
 
     zen-icon {
         position: absolute;
-        top: default('size-tiny');
-        right: default('size-tiny');
+        top: 0;
+        right: 0;
+        width: default('input-height');
+        height: default('input-height');
         transition: all default('transition-time');
 
         &.rotate {

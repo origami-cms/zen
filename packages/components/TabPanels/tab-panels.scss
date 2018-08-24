@@ -1,0 +1,92 @@
+@import 'zen-css/import';
+
+$tab-height: var(--tab-height, #{default('input-height')});
+
+:host {
+    display: block;
+    position: relative;
+    overflow: hidden;
+
+    &, * {
+        @extend %reset;
+    }
+
+    ul.tabs {
+        display: flex;
+        user-select: none;
+        border-bottom: 2px solid default('color-grey-100');
+
+        li {
+            position: relative;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            align-items: center;
+            --icon-color: #{default('color-grey-300')};
+            color: default('color-grey-300');
+            border-right: 1px solid default('color-grey-100');
+            height: $tab-height;
+            transition: all default('transition-time');
+
+            &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: -0.2rem;
+                height: 0.2rem;
+                background-color: default('color-grey-100');
+                transition: all default('transition-time');
+            }
+
+
+            &.active {
+                --icon-color: #{default('color-active')};
+                color: default('color-active');
+                background-color: default('color-active-soft');
+
+                &:after {
+                    background-color: default('color-active');
+                }
+            }
+
+            &.disabled {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+
+            * {
+                flex-basis: 100%;
+                height: 50%;
+                line-height: $tab-height;
+                transition: all default('transition-time');
+            }
+            zen-icon:only-child {
+                height: 80%;
+            }
+
+            &:last-child {
+                border-right: 0;
+            }
+        }
+    }
+}
+
+:host-context([noexpand]) {
+    ul.tabs li {
+        flex: none;
+        &:last-child {
+            border-right: 1px solid default('color-grey-100');
+        }
+    }
+}
+
+::slotted(*) {
+    position: absolute;
+    top: $tab-height;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: auto;
+}

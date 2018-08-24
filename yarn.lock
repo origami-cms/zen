@@ -23,16 +23,16 @@
     reflect-metadata "^0.1.12"
     tslib "^1.8.1"
 
-"@polymer/lit-element@^0.5.1":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@polymer/lit-element/-/lit-element-0.5.1.tgz#ab1b21391787082023852e95e65e60015dfdaa00"
+"@polymer/lit-element@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@polymer/lit-element/-/lit-element-0.5.2.tgz#8d4e2d1ada27cf0f1a38b7b0eb9fadae92eb63df"
   dependencies:
-    "@polymer/polymer" "^3.0.0-pre.13"
+    "@polymer/polymer" "^3.0.2"
     lit-html "^0.10.0"
 
-"@polymer/polymer@^3.0.0-pre.13":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.0.2.tgz#626e6f9fae9716b0962ce0211e21df242153eab2"
+"@polymer/polymer@^3.0.2":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@polymer/polymer/-/polymer-3.0.5.tgz#eaa42e70df7de818b5e1839452c82a5f83e39929"
   dependencies:
     "@webcomponents/shadycss" "^1.2.0"
 
@@ -57,8 +57,8 @@
   resolved "https://registry.yarnpkg.com/@types/seamless-immutable/-/seamless-immutable-7.1.1.tgz#44e91ea708a9b16565f8fab2f2d108bb99c41aea"
 
 "@webcomponents/shadycss@^1.2.0":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.2.1.tgz#6e4a88534657807c8398b4bc196d0ca492182d54"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@webcomponents/shadycss/-/shadycss-1.5.0.tgz#109e596027eed04bc5032414c9f094e1aeb9260e"
 
 "@webcomponents/webcomponentsjs@^2.0.0":
   version "2.0.0"

@@ -72,7 +72,7 @@ export default class Input extends LitElement implements props {
 
 
     focus() {
-        this.shadowRoot.querySelector('input').focus();
+        this.shadowRoot!.querySelector('input')!.focus();
     }
 
 

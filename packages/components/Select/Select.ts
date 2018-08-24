@@ -1,9 +1,9 @@
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import { html } from 'lit-html/lib/lit-extended';
-import { FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
+import { FieldOption, FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
 import { component, dispatchChange, property } from '../../util/decorators';
-import Tooltip from '../Tooltip/Tooltip';
+import InputDropdown from '../InputDropdown/InputDropdown';
 import CSS from './select-css';
 
 
@@ -38,8 +38,9 @@ export default class Select extends LitElement implements props {
         let v;
         if (value) {
             if (options instanceof Array) {
-                v = options.find(({value: v}) => v === value);
+                v = (options as FieldOption[]).find(({value: v}) => v === value);
                 if (v) v = v.label;
+                if (!v && (options as string[]).includes(value)) v = value;
             } else v = options[value];
         }
         return html`
@@ -59,9 +60,9 @@ export default class Select extends LitElement implements props {
             <zen-input-dropdown
                 options=${options}
                 value=${value}
-                on-change=${(e: {target: Tooltip}) => this.value = e.target.value}
+                on-change=${(e: {target: InputDropdown}) => this.value = e.target.value}
                 open=${_open}
-                on-toggle=${(e: {target: Tooltip}) => this._open = e.target.open}
+                on-toggle=${(e: {target: InputDropdown}) => this._open = e.target.open}
             ></zen-input-dropdown>
         `;
     }

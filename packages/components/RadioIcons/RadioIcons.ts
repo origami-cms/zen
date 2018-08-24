@@ -46,7 +46,7 @@ export default class RadioIcons extends LitElement implements props {
             <ul class="options">
                 ${options.map(o => html`
                     <li
-                        class$="option ${o.value === value ? 'active' : ''}"
+                        class="option ${o.value === value ? 'active' : ''}"
                         on-click=${() => this.value = o.value}
                     >
                         <div class="img">

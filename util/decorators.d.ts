@@ -20,8 +20,7 @@ export declare const bindAttributes: <T extends new (...args: any[]) => {}>(cons
     };
 } & T;
 export declare const component: (name: string) => ClassDecorator;
-export declare function property(args?: Property): PropertyDecorator;
-export declare function property(target: Object, key: string | symbol): void;
+export declare const property: (prototype: any, propertyName: string) => void;
 export declare const style: (css: string) => <T extends new (...args: any[]) => {}>(constructor: T) => {
     new (...args: any[]): {
         readonly _style: TemplateResult;

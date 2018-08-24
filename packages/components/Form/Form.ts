@@ -72,7 +72,7 @@ export default class Form extends LitElement implements props {
 
     scrollToError() {
         if (!this.fieldErrors) return;
-        const row = (Array.from(this.shadowRoot.querySelectorAll('zen-form-row')) as FormRow[])
+        const row = (Array.from(this.shadowRoot!.querySelectorAll('zen-form-row')) as FormRow[])
             .find(r => r.name === Object.keys(this.fieldErrors)[0]);
         if (!row) return;
         row.scrollIntoView();
@@ -88,7 +88,7 @@ export default class Form extends LitElement implements props {
 
         if (!this.validate()) return false;
 
-        const active = this.shadowRoot.querySelector('*:focus') as HTMLElement;
+        const active = this.shadowRoot!.querySelector('*:focus') as HTMLElement;
         if (active && active.blur) active.blur();
 
         this.dispatchEvent(new CustomEvent('submit'));
@@ -131,6 +131,8 @@ export default class Form extends LitElement implements props {
     }
 
     private _handleChange(e: Event) {
+        // @ts-ignore
+        if (this.values[e.target.name] === e.target.value) return false;
         // @ts-ignore
         this.values = {...this.values, ...{[e.target.name]: e.target.value}};
     }

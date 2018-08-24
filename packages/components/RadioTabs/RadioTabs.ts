@@ -1,9 +1,9 @@
-import {html, LitElement} from '@polymer/lit-element';
-import {FieldOptions} from '../../lib/FormValidator/FormFieldTypes';
-
-import {component, property, bindAttributes, dispatchChange} from '../../util/decorators';
-import CSS from './radio-tabs-css';
+import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import { FieldOption, FieldOptions } from '../../lib/FormValidator/FormFieldTypes';
+import { component, dispatchChange, property } from '../../util/decorators';
+import CSS from './radio-tabs-css';
+
 
 export interface props {
     options: FieldOptions;
@@ -29,9 +29,12 @@ export default class RadioTabs extends LitElement implements props {
         if (options) {
             if (options instanceof Array) {
                 opts = options;
+                if (typeof opts[0] === 'string') {
+                    opts = (opts as string[]).map((o: string) => ({value: o, label: o}));
+                }
             } else {
-                opts = Object.entries(options).map(([v, label]) => ({
-                    value: v,
+                opts = Object.entries(options).map(([value, label]) => ({
+                    value,
                     label
                 }));
             }
@@ -39,7 +42,7 @@ export default class RadioTabs extends LitElement implements props {
 
         return html`
             ${CSS}
-            ${opts.map(o => html`
+            ${(opts as FieldOption[]).map(o => html`
                 <div class$="tab ${value === o.value ? 'active' : ''}" on-click=${() => this.value = o.value}>
                     <span>${o.label}</span>
                 </div>

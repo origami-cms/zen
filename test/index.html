@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <zen-icon-set></zen-icon-set>
 
 
     <h1>Zen</h1>
@@ -41,7 +42,12 @@
     <zen-form></zen-form>
 
 
-    <zen-icon-set></zen-icon-set>
+    <zen-tabs>
+        <p>1</p>
+        <p>2</p>
+    </zen-tabs>
+
+
 
 
     <script>
@@ -141,9 +147,16 @@
                 {text: 'Icon', icon: 'add', color: 'green'},
                 {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
             ];
+
+            const tabs = document.querySelector('zen-tabs')
+            tabs.tabs = [
+                {icon: 'page', text: 'Properties'},
+                {icon: 'dashboard', text: 'Analytics'},
+                {icon: 'user', text: 'Users', disabled: true}
+            ]
         })()
     </script>
-    <script src="../origami-zen2.js"></script>
+    <script src="../origami-zen.js"></script>
 </body>
 
 </html>
