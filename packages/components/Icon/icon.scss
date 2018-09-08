@@ -4,6 +4,7 @@
     width: default('size-main');
     height: default('size-main');
     vertical-align: middle;
+    position: relative;
 
     & {
         display: inline-block;
@@ -19,6 +20,9 @@
         vertical-align: top;
         width: 100%;
         height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
 
         @each $name in $colors {
             &.#{$name} * {

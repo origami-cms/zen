@@ -8,3 +8,4 @@ dist/
 /util
 /components
 /lib
+.rpt*

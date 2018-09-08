@@ -55,6 +55,7 @@
 
 @each $color in $colors {
     :host([color=#{$color}][hollow]) {
+        background: transparent;
         color: var(--color-#{$color});
     }
 }

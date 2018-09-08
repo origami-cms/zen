@@ -45,6 +45,11 @@ export default class Input extends LitElement implements props {
         'placeholder', 'name', 'type', 'icon', 'loading', 'disabled'
     ];
 
+    constructor() {
+        super();
+        this._handleInput = this._handleInput.bind(this);
+    }
+
 
     _render({icon, loading, type, placeholder, disabled, value}: props): TemplateResult {
         const v = value || '';
@@ -60,7 +65,7 @@ export default class Input extends LitElement implements props {
                 type="${type}"
                 placeholder="${placeholder}"
                 disabled="${disabled}"
-                on-input="${this._handleInput.bind(this)}"
+                on-input="${this._handleInput}"
             />
 
             ${loading
