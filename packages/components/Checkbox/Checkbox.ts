@@ -22,15 +22,22 @@ export default class Checkbox extends LitElement implements props {
     @property
     checked?: boolean;
 
+    constructor() {
+        super();
+        this._handleChange = this._handleChange.bind(this)
+    }
+
     _render({checked}: props): TemplateResult {
         return html`
             ${CSS}
             <label class="checkbox">
-                <input type="checkbox" checked="${checked}" on-change=${
-                    (e: {target: HTMLInputElement}) => this.checked = e.target.checked
-                }/>
+                <input type="checkbox" checked="${checked}" on-change=${this._handleChange}/>
                 <span class="check"></span>
             </label>
         `;
+    }
+
+    private _handleChange(e: Event) {
+        this.checked = (e.target as HTMLInputElement).checked;
     }
 }

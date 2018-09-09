@@ -9,5 +9,7 @@ export default class Checkbox extends LitElement implements props {
     name?: string;
     size?: string;
     checked?: boolean;
+    constructor();
     _render({checked}: props): TemplateResult;
+    private _handleChange(e);
 }

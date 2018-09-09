@@ -28,6 +28,6 @@ export declare const style: (css: string) => <T extends new (...args: any[]) => 
 } & T;
 export declare const dispatchChange: (prop?: string, event?: string) => <T extends new (...args: any[]) => {}>(constructor: T) => {
     new (...args: any[]): {
-        _propertiesChanged(props: object, changedProps: object, prevProps: object): void;
+        _didRender(props: object, changedProps: object, prevProps: object): void;
     };
 } & T;
