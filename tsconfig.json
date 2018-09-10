@@ -13,6 +13,7 @@
       "es2017.object",
       "es2016.array.include"
     ],
+    "module": "es6",
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "./",

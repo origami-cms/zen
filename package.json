@@ -5,7 +5,8 @@
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
-  "main": "origami-zen.js",
+  "main": "dist/zen.js",
+  "module": "dist/zen.es.js",
   "typings": "origami-zen.d.ts",
   "scripts": {
     "start": "yarn watch & yarn serve",
