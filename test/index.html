@@ -48,6 +48,13 @@
     </zen-tabs>
 
 
+    <zen-card-image
+        src="https://source.unsplash.com/random/800x800"
+        heading="ok"
+    >
+        Inside works
+    </zen-card-image>
+
 
 
     <script>
@@ -154,9 +161,14 @@
                 {icon: 'dashboard', text: 'Analytics'},
                 {icon: 'user', text: 'Users', disabled: true}
             ]
+
+            const cardImage = document.querySelector('zen-card-image')
+            cardImage.icons = [
+                {icon: 'page', action: () => alert('Clicked!')}
+            ]
         })()
     </script>
-    <script src="../origami-zen.js"></script>
+    <script src="../dist/zen.js"></script>
 </body>
 
 </html>

@@ -10,7 +10,7 @@ export default class Icon extends LitElement implements props {
     color?: string;
     size?: string;
     static _boundAttributes: string[];
-    _render({color, type}: {
+    _render({color}: {
         [key in keyof Icon]: any;
     }): TemplateResult;
     private readonly _symbol;

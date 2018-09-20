@@ -2273,6 +2273,6 @@ yargs@^7.0.0:
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
 
-zen-css@^1.1.16-alpha.0:
-  version "1.1.16-alpha.0"
-  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.16-alpha.0.tgz#0a4e3fa85a2d36950737ae286c7911df1af43513"
+zen-css@^1.1.16:
+  version "1.1.16"
+  resolved "https://registry.yarnpkg.com/zen-css/-/zen-css-1.1.16.tgz#e8bac0c06cdd64d479b7c5ab15ceeb311f846f68"

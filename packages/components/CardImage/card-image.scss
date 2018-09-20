@@ -1,0 +1,52 @@
+/**
+ * btn-padding: Padding for the button
+ * btn-height: Height of the button
+ * btn-border-radius: Border radius of the button
+ * btn-bg: Background color of the button
+*/
+
+@import 'zen-css/import';
+:host {
+    --card-padding: #{default('size-small')};
+    @extend %comp-card;
+    display: block;
+    padding-bottom: 0;
+
+    div.img-wrapper {
+        position: relative;
+
+        img {
+            @extend %cover;
+            object-fit: cover;
+        }
+
+        &:before {
+            content: '';
+            display: block;
+            padding-bottom: calc(16/24 * 100%);
+        }
+    }
+
+    div.details {
+        height: default('size-large');
+        display: flex;
+
+        .text {
+            flex: 1;
+            font-size: default('font-size-main');
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+
+            * {
+                flex-basis: 100%;
+            }
+            slot {
+                color: default('color-grey-300');
+            }
+        }
+        .icons {
+            line-height: default('size-large');
+        }
+    }
+}

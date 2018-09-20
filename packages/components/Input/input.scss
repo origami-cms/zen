@@ -9,13 +9,14 @@
         padding-left: var(--input-padding-left, default('input-padding'));
         padding-right: var(--input-padding-right, default('input-padding'));
     }
+
     zen-icon {
         position: absolute;
-        left: 0;
-        top: 0;
-        padding: calc(#{default('input-height')} / 6);
-        width: calc(#{default('input-height')} - (#{default('input-height')} / 3));
-        height: calc(#{default('input-height')} - (#{default('input-height')} / 3));
+        // Icon is a third of the input height
+        left: calc(#{default('input-height')} / 8);
+        top: calc(#{default('input-height')} / 8);
+        width: calc(#{default('input-height')} * 0.75);
+        height: calc(#{default('input-height')} * 0.75);
 
         & ~ input {
             --input-padding-left: #{default('input-height')};

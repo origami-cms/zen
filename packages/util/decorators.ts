@@ -91,8 +91,6 @@ export const dispatchChange = (prop: string = 'value', event: string = 'change')
                 if (!changedProps) return;
                 // @ts-ignore
                 if (prevProps[prop] !== undefined && changedProps[prop] !== undefined) {
-                    console.log('DISPATCHING FROM', prop);
-
                     // @ts-ignore
                     this.dispatchEvent(new CustomEvent(event));
                 }

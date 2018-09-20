@@ -1,6 +1,7 @@
 export { default as Autocomplete } from './Autocomplete/Autocomplete';
 export { default as Button } from './Button/Button';
 export { default as ButtonGroup } from './ButtonGroup/ButtonGroup';
+export { default as CardImage } from './CardImage/CardImage';
 export { default as Checkbox } from './Checkbox/Checkbox';
 export { default as CheckboxIcons } from './CheckboxIcons/CheckboxIcons';
 export { default as Form } from './Form/Form';

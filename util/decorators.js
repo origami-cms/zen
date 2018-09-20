@@ -74,7 +74,6 @@ export const dispatchChange = (prop = 'value', event = 'change') => function cla
                 return;
             // @ts-ignore
             if (prevProps[prop] !== undefined && changedProps[prop] !== undefined) {
-                console.log('DISPATCHING FROM', prop);
                 // @ts-ignore
                 this.dispatchEvent(new CustomEvent(event));
             }

@@ -22,7 +22,7 @@ export default class Icon extends LitElement implements props {
 
     static _boundAttributes = ['type', 'color', 'size'];
 
-    _render({color, type}: { [key in keyof Icon]: any }): TemplateResult {
+    _render({color}: { [key in keyof Icon]: any }): TemplateResult {
         const children = this._symbol || [];
         return html`
             ${CSS}
@@ -32,17 +32,20 @@ export default class Icon extends LitElement implements props {
                 preserveAspectRatio="xMidYMid meet"
                 focusable="false"
                 style="pointer-events: none; display: block; width: 100%; height: 100%;" class="${color}"
-            >${children.map(c => html`${c}`)}</svg>
+            >${children}</svg>
         `;
     }
 
     private get _symbol() {
         if (!this.type) return;
-        let newIcon = document.querySelector(`#zen-icon-${this.type}`);
+        return new Promise(async res => {
+            await window.customElements.whenDefined('zen-icon-set');
+            let newIcon = document.querySelector(`#zen-icon-${this.type}`);
 
-        if (!newIcon) return console.error(`Icon ${this.type} not found`);
-        newIcon = newIcon.cloneNode(true) as SVGSymbolElement;
+            if (!newIcon) return console.error(`Icon ${this.type} not found`);
+            newIcon = newIcon.cloneNode(true) as SVGSymbolElement;
 
-        return Array.from(newIcon.children);
+            res(Array.from(newIcon.children));
+        });
     }
 }
