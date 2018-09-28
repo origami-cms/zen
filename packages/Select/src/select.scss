@@ -1,0 +1,32 @@
+@import 'zen-css/import';
+
+:host {
+    display: block;
+    position: relative;
+    text-align: left;
+    &, * {
+        box-sizing: border-box;
+    }
+
+    .value {
+        @extend %comp-form-input-general;
+        .placeholder {
+            color: default('input-placeholder-color');
+        }
+    }
+
+
+    zen-icon {
+        position: absolute;
+        // Icon is a third of the input height
+        right: calc(#{default('input-height')} / 8);
+        top: calc(#{default('input-height')} / 8);
+        width: calc(#{default('input-height')} * 0.75);
+        height: calc(#{default('input-height')} * 0.75);
+        transition: all default('transition-time');
+
+        &.rotate {
+            transform: rotate(180deg);
+        }
+    }
+}

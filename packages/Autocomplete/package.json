@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-autocomplete",
+    "version": "0.0.0",
+    "main": "lib/Autocomplete.js",
+    "module": "lib/Autocomplete.es.js",
+    "typings": "lib/Autocomplete.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/Autocomplete.js",
+        "postrollup": "rm -f lib/*-css.*",
+        "clean": "rm -rf build"
+    },
+    "devDependencies": {
+        "@origamijs/zen-input-dropdown": "^0.0.0",
+        "@origamijs/zen-lib": "^0.0.0"
+
+    }
+}

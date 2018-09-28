@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-input-file",
+    "version": "0.0.0",
+    "main": "lib/InputFile.js",
+    "module": "lib/InputFile.es.js",
+    "typings": "lib/InputFile.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/InputFile.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

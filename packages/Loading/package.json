@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-loading",
+    "version": "0.0.0",
+    "main": "lib/Loading.js",
+    "module": "lib/Loading.es.js",
+    "typings": "lib/Loading.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/Loading.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

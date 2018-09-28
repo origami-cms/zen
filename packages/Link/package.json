@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-link",
+    "version": "0.0.0",
+    "main": "lib/Link.js",
+    "module": "lib/Link.es.js",
+    "typings": "lib/Link.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/Link.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-radio-tabs",
+    "version": "0.0.0",
+    "main": "lib/RadioTabs.js",
+    "module": "lib/RadioTabs.es.js",
+    "typings": "lib/RadioTabs.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/RadioTabs.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

@@ -1,24 +1,24 @@
-import deepmerge from 'deepmerge';
-import path from 'path';
-import DEFAULT_BUILD from './base';
+import BASE from './base';
 
 
-export default deepmerge(DEFAULT_BUILD, {
-    input: path.resolve(__dirname, '../origami-zen.ts'),
+export default {
+    ...BASE,
     output: [
         // Standard export (importable by browser)
         {
-            format: 'iife',
+            file: `lib/zen.js`,
+            format: 'umd',
             name: 'zen',
             exports: 'named',
-            file: path.resolve(__dirname, '../dist/zen.js'),
+            sourcemap: 'zen.js.map'
         },
+
         // ES6 module export
         {
-            file: path.resolve(__dirname, '../dist/zen.es.js'),
+            file: `lib/zen.es.js`,
             format: 'es',
             name: 'zen',
             exports: 'named'
         }
     ]
-});
+};

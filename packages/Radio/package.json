@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-radio",
+    "version": "0.0.0",
+    "main": "lib/Radio.js",
+    "module": "lib/Radio.es.js",
+    "typings": "lib/Radio.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/Radio.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

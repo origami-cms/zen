@@ -1,0 +1,22 @@
+{
+    "name": "@origamijs/zen-form-row",
+    "version": "0.0.0",
+    "main": "lib/FormRow.js",
+    "module": "lib/FormRow.es.js",
+    "typings": "lib/FormRow.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/FormRow.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+        "@origamijs/zen-input": "^0.0.0",
+        "@origamijs/zen-lib": "^0.0.0"
+
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "name": "@origamijs/zen-checkbox-icons",
+    "version": "0.0.0",
+    "main": "lib/CheckboxIcons.js",
+    "module": "lib/CheckboxIcons.es.js",
+    "typings": "lib/CheckboxIcons.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/CheckboxIcons.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+
+    }
+}

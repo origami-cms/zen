@@ -1,0 +1,20 @@
+{
+    "name": "@origamijs/zen-card-image",
+    "version": "0.0.0",
+    "main": "lib/CardImage.js",
+    "module": "lib/CardImage.es.js",
+    "typings": "lib/CardImage.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/CardImage.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "name": "@origamijs/zen",
+    "version": "0.0.0",
+    "main": "lib/zen.js",
+    "module": "lib/zen.es.js",
+    "typings": "lib/zen.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/bundle.js src/zen.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+
+    }
+}

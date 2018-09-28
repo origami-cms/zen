@@ -1,39 +1,36 @@
 {
   "name": "origami-zen",
-  "version": "0.4.3-alpha.2",
-  "description": "Collection of reusable web components. Built for Origami CMS.",
+  "private": true,
   "repository": "https://github.com/origami-cms/zen",
   "author": "Tristan Matthias <hello@tristanmatthias.com>",
   "license": "MIT",
-  "main": "dist/zen.js",
-  "module": "dist/zen.es.js",
-  "typings": "origami-zen.d.ts",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "start": "yarn watch & yarn serve",
     "watch:sass": "yarn build:sass -- -w",
-    "watch": "webpack-cli --mode=development -w & yarn watch:sass",
     "serve": "http-server dist/",
     "lint": "tslint -p . --fix",
-    "clean": "rm -r components/; rm -r lib/; rm -r util/;",
-    "clean:components": "rm -r components/*/*-css.d.ts",
-    "build": "yarn build:sass; yarn clean; yarn build:components; yarn build:bundle; yarn build:lib & yarn build:util",
-    "build:components": "rollup --config rollup/components.js; yarn clean:components",
-    "build:bundle": "rollup --config rollup/bundle.js",
-    "build:sass": "sass-render packages/**/*.scss --suffix=-css.ts -t ./css-template.ts",
-    "build:util": "tsc packages/util/index.ts --outDir ./util -d --target es2016 --allowSyntheticDefaultImports --moduleResolution node --lib 'es2017, dom' --experimentalDecorators",
-    "build:lib": "tsc packages/lib/**/*.ts --outDir ./lib -d --target es2016 --allowSyntheticDefaultImports --moduleResolution node --lib 'es2017, dom' --experimentalDecorators"
+    "clean": "rm -rf dist/",
+    "build": "yarn build:sass; lerna run build --bail; lerna run rollup",
+    "build:sass": "sass-render 'packages/**/**.scss' --suffix=-css.ts -t ./css-template.ts",
+    "test": "lerna run test"
   },
   "devDependencies": {
-    "@polymer/lit-element": "^0.5.2",
+    "@polymer/lit-element": "^0.6.1",
+    "@skatejs/ssr": "^0.19.9",
     "@types/lodash": "^4.14.109",
     "@types/path-to-regexp": "^1.7.0",
     "@types/redux": "^3.6.0",
     "@types/seamless-immutable": "^7.1.1",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "deepmerge": "^2.1.1",
+    "@webcomponents/webcomponentsjs": "^2.1.3",
+    "babel-jest": "^23.6.0",
+    "css-color-converter": "^1.1.0",
     "email-validator": "^2.0.4",
     "http-status-codes": "^1.3.0",
-    "lit-html": "^0.10.0",
+    "lerna": "^3.4.0",
+    "lit-html": "^0.11.4",
     "lodash": "^4.17.10",
     "node-sass": "^4.9.0",
     "origami-icons": "^0.0.15",
@@ -53,6 +50,12 @@
     "seamless-immutable": "^7.1.3",
     "tslint": "^5.10.0",
     "typescript": "^2.8.4",
+    "wc-sass-render": "^1.1.0",
     "zen-css": "^1.1.16"
+  },
+  "dependencies": {
+    "jest": "^23.6.0",
+    "jest-environment-webdriver": "^0.2.0",
+    "wct-browser-legacy": "^1.0.1"
   }
 }

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <title>Test</title>
     <style>
         html {
@@ -23,6 +23,7 @@
     <zen-input-color></zen-input-color>
 
     <h2>Button</h2>
+    <zen-button color="orange" icon="add">Simple button</zen-button>
     <zen-button color="orange" icon="add" id="btn">ok</zen-button>
 
     <h2>Button Group</h2>
@@ -33,7 +34,7 @@
     <zen-icon type="user"></zen-icon>
     <zen-icon type="add" color="alt"></zen-icon>
     <zen-icon type="page" color="error"></zen-icon>
-    <zen-tooltip for="btn" on="hover">
+    <zen-tooltip element="btn" on="hover">
         Hey!
     </zen-tooltip>
 
@@ -47,7 +48,6 @@
         <p>2</p>
     </zen-tabs>
 
-
     <zen-card-image
         src="https://source.unsplash.com/random/800x800"
         heading="ok"
@@ -59,6 +59,12 @@
 
     <script>
         (() => {
+            const bg = document.querySelector('zen-button-group');
+            bg.buttons = [
+                {text: 'Standard'},
+                {text: 'Icon', icon: 'add', color: 'green'},
+                {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
+            ];
 
 
             const f = document.querySelector('zen-form');
@@ -90,7 +96,7 @@
                 },
 
                 {
-                    name: 'radio',
+                    name: 'select',
                     type: 'radio',
                     options: {
                         small: 'Small',
@@ -148,27 +154,23 @@
                 }
             ]
 
-            const bg = document.querySelector('zen-button-group');
-            bg.buttons = [
-                {text: 'Standard'},
-                {text: 'Icon', icon: 'add', color: 'green'},
-                {text: 'Click me!', icon: 'remove', color: 'red', onclick: () => alert('Told ya so!')},
-            ];
 
-            const tabs = document.querySelector('zen-tabs')
-            tabs.tabs = [
-                {icon: 'page', text: 'Properties'},
-                {icon: 'dashboard', text: 'Analytics'},
-                {icon: 'user', text: 'Users', disabled: true}
-            ]
 
-            const cardImage = document.querySelector('zen-card-image')
-            cardImage.icons = [
-                {icon: 'page', action: () => alert('Clicked!')}
-            ]
+            // const tabs = document.querySelector('zen-tabs')
+            // tabs.tabs = [
+            //     {icon: 'page', text: 'Properties'},
+            //     {icon: 'dashboard', text: 'Analytics'},
+            //     {icon: 'user', text: 'Users', disabled: true}
+            // ]
+
+            // const cardImage = document.querySelector('zen-card-image')
+            // cardImage.icons = [
+            //     {icon: 'page', action: () => alert('Clicked!')}
+            // ]
         })()
     </script>
-    <script src="../dist/zen.js"></script>
+    <script src="../packages/Zen/lib/zen.js"></script>
+    <!-- <script src="../packages/Button/lib/Button.js"></script> -->
 </body>
 
 </html>

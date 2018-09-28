@@ -1,0 +1,23 @@
+{
+    "name": "@origamijs/zen-side-menu",
+    "version": "0.0.0",
+    "main": "lib/SideMenu.js",
+    "module": "lib/SideMenu.es.js",
+    "typings": "lib/SideMenu.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/SideMenu.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "dependencies": {
+        "@origamijs/zen-lib": "^0.0.0"
+    },
+    "devDependencies": {
+
+    }
+}

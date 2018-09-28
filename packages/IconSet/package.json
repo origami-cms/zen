@@ -1,0 +1,20 @@
+{
+    "name": "@origamijs/zen-icon-set",
+    "version": "0.0.0",
+    "main": "lib/IconSet.js",
+    "module": "lib/IconSet.es.js",
+    "typings": "lib/IconSet.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/IconSet.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+        "origami-icons": "^0.0.15"
+    }
+}
