@@ -3,14 +3,14 @@ import { html, LitElement } from '@polymer/lit-element';
 import CSS from './icon-css';
 import { TemplateResult } from 'lit-html';
 
-export interface props {
+export interface IconProps {
     type?: string;
     color?: string;
     size?: string;
 }
 @component('zen-icon')
 @bindAttributes
-export default class Icon extends LitElement implements props {
+export class Icon extends LitElement implements IconProps {
     @property
     type?: string;
 

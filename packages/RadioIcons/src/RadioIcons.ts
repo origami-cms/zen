@@ -6,7 +6,7 @@ import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import CSS from './radio-icons-css';
 
 
-export interface props {
+export interface RadioIconsProps {
     options: FieldRadioIconsOption[];
     value?: string | number;
     name?: string;
@@ -15,7 +15,7 @@ export interface props {
 
 @component('zen-radio-icons')
 @dispatchChange()
-export default class RadioIcons extends LitElement implements props {
+export class RadioIcons extends LitElement implements RadioIconsProps {
     @property
     options: FieldRadioIconsOption[] = [];
 

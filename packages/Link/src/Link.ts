@@ -5,13 +5,13 @@ import { installRouter } from 'pwa-helpers/router';
 import { component, property } from '@origamijs/zen-lib/lib/decorators';
 
 
-export interface props {
+export interface LinkProps {
     href?: string;
 }
 
 @component('zen-link')
 // @bindAttributes
-export default class Link extends LitElement implements props {
+export class Link extends LitElement implements LinkProps {
     @property
     href?: string;
 

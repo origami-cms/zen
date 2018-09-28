@@ -17,6 +17,5 @@
     "devDependencies": {
         "@origamijs/zen-input-dropdown": "^0.0.0",
         "@origamijs/zen-lib": "^0.0.0"
-
     }
 }

@@ -4,13 +4,13 @@ import { component, property } from '@origamijs/zen-lib/lib/decorators';
 import CSS from './input-color-css';
 
 
-export interface props {
+export interface InputColorProps {
     value: string | null;
     placeholder: string | null;
 }
 
 @component('zen-input-color')
-export default class InputColor extends LitElement implements props {
+export class InputColor extends LitElement implements InputColorProps {
     @property
     value: string | null = null;
     @property

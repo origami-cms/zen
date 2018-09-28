@@ -22,7 +22,7 @@ export interface ButtonProps {
  */
 @component('zen-button')
 @bindAttributes
-export default class Button extends LitElement implements ButtonProps {
+export class Button extends LitElement implements ButtonProps {
 
     @property
     size?: string;

@@ -4,13 +4,13 @@ import { component, property } from '@origamijs/zen-lib/lib/decorators';
 import CSS from './loading-css';
 
 
-export interface props {
+export interface LoadingProps {
     color?: string;
     size?: string;
 }
 
 @component('zen-loading')
-export default class Loading extends LitElement implements props {
+export class Loading extends LitElement implements LoadingProps {
     @property
     color?: string;
 

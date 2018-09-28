@@ -4,7 +4,7 @@ import {component, property, bindAttributes, dispatchChange} from '@origamijs/ze
 import CSS from './input-css';
 import { TemplateResult } from 'lit-html';
 
-export interface props {
+export interface InputProps {
     placeholder?: string;
     name?: string;
     type: string;
@@ -17,7 +17,7 @@ export interface props {
 @component('zen-input')
 @bindAttributes
 @dispatchChange()
-export default class Input extends LitElement implements props {
+export class Input extends LitElement implements InputProps {
 
     @property
     placeholder?: string;

@@ -11,12 +11,12 @@ export interface ButtonOptions extends ButtonProps {
     onclick?: Function;
 }
 
-export interface props {
+export interface ButtonGroupProps {
     buttons: ButtonOptions[];
 }
 
 @component('zen-button-group')
-export default class Button extends LitElement implements props {
+export class ButtonGroup extends LitElement implements ButtonGroupProps {
     @property
     buttons: ButtonOptions[] = [];
 

@@ -3,11 +3,11 @@ import { TemplateResult } from 'lit-html';
 import { html } from '@polymer/lit-element';
 import { FieldOption, FieldOptions } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
 import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
-import InputDropdown from '@origamijs/zen-input-dropdown';
+import {InputDropdown} from '@origamijs/zen-input-dropdown';
 import CSS from './select-css';
 
 
-export interface props {
+export interface SelectProps {
     options: FieldOptions;
     value ?: string;
     name ?: string;
@@ -17,7 +17,7 @@ export interface props {
 
 @component('zen-select')
 @dispatchChange()
-export default class Select extends LitElement implements props {
+export class Select extends LitElement implements SelectProps {
 
     @property
     options: FieldOptions = [];

@@ -26,7 +26,7 @@ export interface CardImageProps {
  */
 @component('zen-card-image')
 @bindAttributes
-export default class CardImage extends LitElement implements CardImageProps {
+export class CardImage extends LitElement implements CardImageProps {
     @property src?: string;
     @property heading?: string;
     @property icons: CardImageAction[] = [];

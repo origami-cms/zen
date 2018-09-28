@@ -1,5 +1,5 @@
-import InputDropdown from '@origamijs/zen-input-dropdown';
-import Input from '@origamijs/zen-input';
+import {InputDropdown} from '@origamijs/zen-input-dropdown';
+import {Input} from '@origamijs/zen-input';
 import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
 import { InputDropdownResults } from '@origamijs/zen-lib/lib/FormValidator';
 import { LitElement, html } from '@polymer/lit-element';
@@ -7,7 +7,7 @@ import { TemplateResult } from 'lit-html';
 import CSS from './autocomplete-css';
 
 
-export interface props {
+export interface AutocompleteProps {
     placeholder?: string;
     name?: string;
     icon?: string;
@@ -26,7 +26,7 @@ export interface props {
  */
 @component('zen-autocomplete')
 @dispatchChange()
-export default class Autocomplete extends LitElement implements props {
+export class Autocomplete extends LitElement implements AutocompleteProps {
 
     /** Default text to show when there is no entered text */
     @property

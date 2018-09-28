@@ -17,9 +17,9 @@ export default {
             typescript,
             useTsconfigDeclarationDir: true
         }),
-        // minify({
-        //     comments: false
-        // }),
+        minify({
+            comments: false
+        }),
         sourcemaps(),
         progress()
     ]

@@ -5,7 +5,7 @@ import CSS from './input-dropdown-css';
 import { TemplateResult } from 'lit-html';
 
 
-export interface props {
+export interface InputDropdownProps {
     value?: string;
     options: InputDropdownResults;
     open: boolean;
@@ -16,7 +16,7 @@ export interface props {
 @dispatchChange()
 @dispatchChange('open', 'toggle')
 @bindAttributes
-export default class InputDropdown extends LitElement implements props {
+export class InputDropdown extends LitElement implements InputDropdownProps {
     @property
     value?: string;
 

@@ -1,14 +1,14 @@
 // tslint:disable function-name
-import {html, LitElement} from '@polymer/lit-element';
-import {ValidationErrors} from '@origamijs/zen-lib/lib/FormValidator';
-import {Field} from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-
-import {component, property, bindAttributes, dispatchChange} from '@origamijs/zen-lib/lib/decorators';
-import CSS from './form-row-css';
+import { bindAttributes, component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
+import { ValidationErrors } from '@origamijs/zen-lib/lib/FormValidator';
+import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-import Input from '@origamijs/zen-input';
+import CSS from './form-row-css';
+import {Input} from '@origamijs/zen-input';
 
-export interface props {
+
+export interface FormRowProps {
     field?: Field;
     name?: string;
     value?: any;
@@ -21,7 +21,7 @@ export interface props {
 @component('zen-form-row')
 @dispatchChange()
 @bindAttributes
-export default class FormRow extends LitElement implements props {
+export class FormRow extends LitElement implements FormRowProps {
     @property
     field?: Field;
 
@@ -52,7 +52,7 @@ export default class FormRow extends LitElement implements props {
         this.addEventListener('keyup', this._handleKeyUp.bind(this));
     }
 
-    render() {
+    render(): TemplateResult {
         const { error, field, value } = this;
 
         let e;

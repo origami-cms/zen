@@ -3,7 +3,7 @@ import {LitElement} from '@polymer/lit-element';
 import {component, property, bindAttributes} from '@origamijs/zen-lib/lib/decorators';
 import { TemplateResult } from 'lit-html';
 import { html } from '@polymer/lit-element';
-import CSS from './tab-panels-css';
+import CSS from './tabs-css';
 
 
 export interface Tab {
@@ -18,7 +18,7 @@ export interface TabPanelsProps {
 
 @component('zen-tabs')
 @bindAttributes
-export default class Tabs extends LitElement implements TabPanelsProps {
+export class Tabs extends LitElement implements TabPanelsProps {
     @property
     tabs: Tab[] = [];
 

@@ -4,14 +4,14 @@ import { TemplateResult } from 'lit-html';
 import CSS from './input-file-css';
 
 
-export interface props {
+export interface InputFileProps {
     placeholder?: string;
     _img?: any;
     _icon: string;
 }
 
 @component('zen-input-file')
-export default class InputFile extends LitElement implements props {
+export class InputFile extends LitElement implements InputFileProps {
     @property
     placeholder?: string;
 

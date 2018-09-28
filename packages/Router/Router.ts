@@ -21,7 +21,7 @@ export interface RouterProps {
     switch: boolean;
 }
 
-export default class Router extends LitElement implements RouterProps {
+export class Router extends LitElement implements RouterProps {
         @property
         path: string = window.location.pathname;
 

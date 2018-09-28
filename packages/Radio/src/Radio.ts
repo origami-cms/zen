@@ -5,7 +5,7 @@ import { html } from '@polymer/lit-element';
 import CSS from './radio-css';
 
 
-export interface props {
+export interface RadioProps {
     options: { [key: string]: string };
     value?: string;
     name?: string;
@@ -13,7 +13,7 @@ export interface props {
 
 @component('zen-radio')
 @dispatchChange()
-export default class Radio extends LitElement implements props {
+export class Radio extends LitElement implements RadioProps {
 
     @property
     options = {};

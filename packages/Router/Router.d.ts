@@ -14,7 +14,7 @@ export interface RouterProps {
     base: string;
     switch: boolean;
 }
-export default class Router extends LitElement implements RouterProps {
+export class Router extends LitElement implements RouterProps {
     path: string;
     routes: Route[];
     base: string;

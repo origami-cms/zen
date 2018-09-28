@@ -6,7 +6,7 @@ import CSS from './checkbox-icons-css';
 import { TemplateResult } from 'lit-html';
 
 
-export interface props {
+export interface CheckboxIconsProps {
     options: FieldCheckboxIconsOption[];
     value: (string | number)[];
     name?: string;
@@ -14,7 +14,7 @@ export interface props {
 }
 
 @component('zen-checkbox-icons')
-export default class CheckboxIcons extends LitElement implements props {
+export class CheckboxIcons extends LitElement implements CheckboxIconsProps {
     @property
     options: FieldCheckboxIconsOption[] = [];
 

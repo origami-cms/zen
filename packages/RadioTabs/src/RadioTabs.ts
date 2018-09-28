@@ -5,7 +5,7 @@ import { TemplateResult } from 'lit-html';
 import CSS from './radio-tabs-css';
 
 
-export interface props {
+export interface RadioTabsProps {
     options: FieldOptions;
     value?: string | number;
     name?: string;
@@ -13,7 +13,7 @@ export interface props {
 
 @component('zen-radio-tabs')
 @dispatchChange()
-export default class RadioTabs extends LitElement implements props {
+export class RadioTabs extends LitElement implements RadioTabsProps {
 
     @property
     options: FieldOptions = [];

@@ -19,7 +19,7 @@ export type TooltipPosition =
     'left' |
     'left-top';
 
-export interface props {
+export interface TooltipProps {
     position?: TooltipPosition;
     show: boolean;
     __show: boolean;
@@ -31,7 +31,7 @@ export interface props {
 
 @component('zen-tooltip')
 @bindAttributes
-export default class Tooltip extends LitElement implements props {
+export class Tooltip extends LitElement implements TooltipProps {
     @property
     position?: TooltipPosition = 'bottom';
 

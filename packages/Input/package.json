@@ -9,7 +9,6 @@
     },
     "scripts": {
         "build": "tsc",
-        "prebuild": "rm -rf lib",
         "rollup": "rollup -c ../../rollup/component.js build/Input.js",
         "postrollup": "rm -f lib/*-css.*"
     }

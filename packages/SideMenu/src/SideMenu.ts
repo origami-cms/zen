@@ -4,21 +4,21 @@ import CSS from './side-menu-css';
 import { TemplateResult } from 'lit-html';
 import { component, property } from '@origamijs/zen-lib/lib/decorators';
 
-export interface Link {
+export interface SideMenu {
     icon?: string;
     text?: string;
     to?: string;
 }
 
 export interface SettingsMenuProps {
-    links: Link[];
+    links: SideMenu[];
 }
 
 
 @component('zen-side-menu')
-export default class SettingsMenu extends LitElement implements SettingsMenuProps {
+export class SideMenu extends LitElement implements SettingsMenuProps {
     @property
-    links: Link[] = [];
+    links: SideMenu[] = [];
 
     render(): TemplateResult {
         return html`

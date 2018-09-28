@@ -2,14 +2,14 @@
 
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-import FormRow from '@origamijs/zen-form-row';
+import {FormRow} from '@origamijs/zen-form-row';
 
 import { Field, FormValues } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
 import Validator, { ValidateFieldErrors } from '@origamijs/zen-lib/lib/FormValidator/Validator';
 import CSS from './form-css';
 import { component, property } from '@origamijs/zen-lib/lib/decorators';
 
-export interface props {
+export interface FormProps {
     values: FormValues;
     error?: string;
     fields: Field[];
@@ -19,7 +19,7 @@ export interface props {
     _showErrors: boolean;
 }
 @component('zen-form')
-export default class Form extends LitElement implements props {
+export class Form extends LitElement implements FormProps {
     @property
     values: FormValues = {};
 

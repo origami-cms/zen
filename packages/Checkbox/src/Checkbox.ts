@@ -4,14 +4,14 @@ import CSS from './checkbox-css';
 import { TemplateResult } from 'lit-html';
 
 
-export interface props {
+export interface CheckboxProps {
     name?: string;
     size?: string;
     checked?: boolean;
 }
 @component('zen-checkbox')
 @dispatchChange('checked')
-export default class Checkbox extends LitElement implements props {
+export class Checkbox extends LitElement implements CheckboxProps {
 
     @property
     name?: string;
