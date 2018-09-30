@@ -44,8 +44,11 @@ export class Router extends LitElement implements RouterProps {
     @property()
     base = '';
 
+    @property({type: String})
+    notfound?: string;
+
     @property()
-    _path: string = window.location.pathname;
+    private _path: string = window.location.pathname;
 
 
     private _router?: UniversalRouter<{}, TemplateResult>;
@@ -67,6 +70,7 @@ export class Router extends LitElement implements RouterProps {
 
         // When the window triggers the custom event, update the path
         window.addEventListener(EVENT_NAME, this._updatePath);
+        window.addEventListener('popstate', this._updatePath);
     }
 
 
@@ -157,7 +161,7 @@ export class Router extends LitElement implements RouterProps {
                             .map(([attr, val]) => `${attr}= '${val}'`)
                             .join(' ');
                     }
-                    return html`${unsafeHTML(`<${r.element} ${attrs}></${r.element}>`)}`;
+                    return this._generateElement(r.element!, attrs);
                 }
             }
 
@@ -172,12 +176,26 @@ export class Router extends LitElement implements RouterProps {
 
         if ((p.has('routes') || !this._router) && this.routes.length) {
             this._router = new UniversalRouter(this._routes, {
+                errorHandler: this._errorHandler.bind(this),
                 baseUrl: this.base
             });
             // Reset the cache because there are new routes
             this._routesCache = {};
             this.requestUpdate();
         }
+    }
+
+
+    private _errorHandler(err: Error) {
+        if (this.notfound) {
+            return this._generateElement(this.notfound);
+        } else {
+            return html`Page not found`;
+        }
+    }
+
+    private _generateElement(element: string, attrs: string = '') {
+        return html`${unsafeHTML(`<${element} ${attrs}></${element}>`)}`;
     }
 
 
@@ -190,8 +208,12 @@ export class Router extends LitElement implements RouterProps {
     }
 
     private _updatePath() {
-        this._path = window.location.pathname;
-        this.dispatchEvent(new CustomEvent('updated'));
+        const newPath = window.location.pathname;
+
+        if (this._path !== newPath) {
+            this._path = window.location.pathname;
+            this.dispatchEvent(new CustomEvent('updated'));
+        }
     }
 }
 
