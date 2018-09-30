@@ -3,6 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import multiEntry from 'rollup-plugin-multi-entry';
 import resolve from 'rollup-plugin-node-resolve';
 import progress from 'rollup-plugin-progress';
+import replace from 'rollup-plugin-replace';
 import sourcemaps from 'rollup-plugin-sourcemaps';
 import ts from 'rollup-plugin-typescript2';
 import typescript from 'typescript';
@@ -19,6 +20,9 @@ export default {
         }),
         minify({
             comments: false
+        }),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify('production')
         }),
         sourcemaps(),
         progress()

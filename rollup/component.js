@@ -10,7 +10,8 @@ export default args => {
         ...BASE,
         output: [{
                 file: `lib/${filename}.js`,
-                format: 'cjs',
+                format: 'iife',
+                name: 'zen',
                 exports: 'named',
                 sourcemap: `${filename}.js.map`
             },

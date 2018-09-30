@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="/lib/Router.js"></script>
+</head>
+
+<body>
+    <a href="/ok/tristan">Ok</a>
+    <zen-router></zen-router>
+
+    <script>
+        const zenRouter = document.querySelector('zen-router');
+        zenRouter.routes = [{
+                path: '/test',
+                element: 'img',
+                attributes: {
+                    src: 'http://source.unsplash.com/random/400x300'
+                }
+            },
+            {
+                path: '/nested(.*)',
+                element: 'test-router-one'
+            },
+            {
+                path: '/ok/',
+                template: "It's ok"
+            },
+            {
+                path: '/ok/:name',
+                template: (ctx, {
+                    name
+                }) => `<h1>Hello ${name}</h1>`
+            }
+        ];
+    </script>
+</body>
+
+</html>
