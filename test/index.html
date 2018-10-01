@@ -56,6 +56,17 @@
     </zen-card-image>
 
 
+    <zen-table>
+        <zen-table-column heading="Name" icon="user">
+            <template>
+                {{firstName}} {{lastName}}
+            </template>
+        </zen-table-column>
+
+        <zen-table-column heading="Age" key="age"></zen-table-column>
+    </zen-table>
+
+
 
     <script>
         (() => {
@@ -166,6 +177,14 @@
             const cardImage = document.querySelector('zen-card-image')
             cardImage.icons = [
                 {icon: 'page', action: () => alert('Clicked!')}
+            ]
+
+
+            const table = document.querySelector('zen-table')
+            table.data = [
+                { fname: 'Bob', lname: 'Gander', age: 50 },
+                { fname: 'Bob', lname: 'Gander', age: 50 },
+                { fname: 'Bob', lname: 'Gander', age: 50 }
             ]
         })()
     </script>

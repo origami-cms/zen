@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table test</title>
+    <!-- <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
+    <script src="../lib/Table.js"></script>
+    <script src="../../IconSet/lib/IconSet.js"></script>
+    <script src="../../Icon/lib/Icon.js"></script>
+    <script src="../../Checkbox/lib/Checkbox.js"></script>
+    <style>
+        html {
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <zen-table selectable striped hoverable>
+        <zen-table-column heading="Name" icon="user">
+            <template>
+                {{fname}} {{lname}}
+            </template>
+        </zen-table-column>
+
+        <zen-table-column heading="Age" key="age" align="right"></zen-table-column>
+    </zen-table>
+
+    <zen-icon-set></zen-icon-set>
+
+    <script>
+        const table = document.querySelector('zen-table')
+        table.data = [
+            { fname: 'Bob', lname: 'Gander', age: 50 },
+            { fname: 'Bob', lname: 'Gander', age: 50 },
+            { fname: 'Bob', lname: 'Gander', age: 50 }
+        ]
+    </script>
+
+</body>
+</html>

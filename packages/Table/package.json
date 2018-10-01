@@ -1,0 +1,20 @@
+{
+    "name": "@origamijs/zen-table",
+    "version": "0.0.0",
+    "main": "lib/Table.js",
+    "module": "lib/Table.es.js",
+    "typings": "lib/Table.d.ts",
+    "author": {
+        "name": "Tristan Matthias",
+        "email": "hello@tristanmatthias.com"
+    },
+    "scripts": {
+        "build": "tsc",
+        "prebuild": "rm -rf lib",
+        "rollup": "rollup -c ../../rollup/component.js build/Table.js",
+        "postrollup": "rm -f lib/*-css.*"
+    },
+    "devDependencies": {
+        "@origamijs/zen-checkbox": "^0.0.0"
+    }
+}

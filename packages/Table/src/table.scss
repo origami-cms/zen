@@ -1,0 +1,64 @@
+@import 'zen-css/import';
+
+$tr-height: var(--table-row-height, default('size-main'));
+
+:host {
+    display: block;
+    position: relative;
+
+    .table {
+        display: grid;
+        grid-template-columns: repeat(var(--table-cols), auto);
+        grid-auto-rows: $tr-height;
+
+        .th {
+            background: var(--table-th-bg, default('color-grey-100'));
+            color: var(--table-th-color, default('color-text'));
+            font-weight: var(--table-th-weight, 600);
+            border-bottom: var(--table-th-color, default('border-200'));
+        }
+
+        .th, .td {
+            display: flex;
+            align-items: center;
+
+            &.left {
+                justify-content: flex-start;
+            }
+            &.center {
+                justify-content: center;
+            }
+            &.right {
+                justify-content: flex-end;
+            }
+
+            &.checkbox {
+                justify-content: center;
+            }
+        }
+
+        .td {
+            &.stripe {
+                background-color: var(--table-td-striped, default('color-grey-50'));
+            }
+        }
+    }
+}
+
+:host([selectable]) {
+    .table {
+        grid-template-columns: $tr-height repeat(var(--table-cols), auto);
+    }
+}
+
+:host([hoverable]) {
+    .td:hover:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: $tr-height;
+        background: default('color-hover');
+        z-index: -1;
+    }
+}
