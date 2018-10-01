@@ -52,8 +52,6 @@ export class Table extends LitElement implements TableProps {
 
 
     render(): TemplateResult {
-        console.log('rerendewering');
-
         const columns = this._getColumns();
         const hasHeading = Boolean(columns.find(c => Boolean(c.heading)));
 
@@ -70,6 +68,7 @@ export class Table extends LitElement implements TableProps {
     }
 
 
+    // Convert zen-table-column children to column objects
     private _getColumns(): TableColumnData[] {
         return (Array.from(this.querySelectorAll('zen-table-column')) as TableColumn[])
             .map((c, index) => ({
@@ -85,7 +84,8 @@ export class Table extends LitElement implements TableProps {
     }
 
 
-    private _renderHeader(columns: TableColumnData[]) {
+    // Render the TH cells for each column
+    private _renderHeader(columns: TableColumnData[]): TemplateResult[] {
         const cols = columns.map(col => this._renderTH(col, columns));
 
         this._addCheckbox(cols, 'th', 'all');
@@ -94,6 +94,7 @@ export class Table extends LitElement implements TableProps {
     }
 
 
+    // Render the TD cells for each column
     private _renderRow(row: TableRowData, columns: TableColumnData[], index: number) {
         const cols = columns.map((col, i) =>
             this._renderTD(row, index, col, columns)
@@ -104,6 +105,7 @@ export class Table extends LitElement implements TableProps {
     }
 
 
+    // Render TH cell
     private _renderTH(col: TableColumnData, columns: TableColumnData[]) {
         const classes = this._getCellClasses(col, columns);
         return html`<div class="th ${classes}">
@@ -116,7 +118,14 @@ export class Table extends LitElement implements TableProps {
     }
 
 
-    private _renderTD(row: TableRowData, index: number, column: TableColumnData, columns: TableColumnData[]) {
+    // Render TD cell
+    private _renderTD(
+        row: TableRowData,
+        index: number,
+        column: TableColumnData,
+        columns: TableColumnData[]
+    ): TemplateResult | null {
+
         let contents;
         // Replace the template string {{var}}'s with values from this.data
         if (column.template) {
@@ -135,6 +144,7 @@ export class Table extends LitElement implements TableProps {
     }
 
 
+    // Generate the classes for a TH or TD
     private _getCellClasses(column: TableColumnData, columns: TableColumnData[], index?: number) {
         const classes = [];
 
@@ -147,11 +157,14 @@ export class Table extends LitElement implements TableProps {
     }
 
 
-    private _addCheckbox(row: (TemplateResult | null)[], type: 'th' | 'td', select: number | 'all') {
+    // Inject the checkbox cell if this.selectable
+    private _addCheckbox(
+        row: (TemplateResult | null)[],
+        type: 'th' | 'td',
+        select: number | 'all'
+    ): (TemplateResult | null)[] {
 
-        const handler = (e: Event) => {
-            this.select(select, (e.target as Checkbox).checked!);
-        };
+        const handler = (e: Event) => this.select(select, (e.target as Checkbox).checked!);
 
         if (this.selectable) {
             let stripe = false;
@@ -173,6 +186,7 @@ export class Table extends LitElement implements TableProps {
     }
 
 
+    // (Dis)select all, none or a single row
     select(row: number | 'all', select: boolean) {
         if (row === 'all') {
             // Select all items or none
@@ -181,9 +195,9 @@ export class Table extends LitElement implements TableProps {
             // Append a new row if it's not already selected
             if (select && !this.selected.includes(row)) {
                 this.selected.push(row);
-            }
+
             // Remove row if it exists
-            else if (!select && this.selected.includes(row)) {
+            } else if (!select && this.selected.includes(row)) {
                 this.selected.splice(this.selected.indexOf(row), 1);
             }
         }
