@@ -1,7 +1,6 @@
 @import 'zen-css/import';
 :host {
     @extend %comp-checkbox;
-
 }
 @each $size in $sizes {
     :host([size=#{$size}]) {

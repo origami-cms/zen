@@ -85,12 +85,18 @@ export const style = (css: string) => {
 export const dispatchChange = (prop: string = 'value', event: string = 'change') =>
     function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
         return class DispatchChange extends constructor {
-            updated(changedProps: object) {
+            updated(changedProps: Map<string, any>) {
                 // @ts-ignore
                 super.updated(changedProps);
-                if (!changedProps) return;
+                const oldVal = changedProps.get(prop);
+
+                if (oldVal === undefined) return;
+
                 // @ts-ignore
-                this.dispatchEvent(new CustomEvent(event));
+                if (changedProps.has(prop) && this[prop] !== oldVal) {
+                    // @ts-ignore
+                    this.dispatchEvent(new CustomEvent(event));
+                }
             }
         };
     };

@@ -1,7 +1,7 @@
-import { html, LitElement } from '@polymer/lit-element';
-import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
-import CSS from './checkbox-css';
+import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import CSS from './checkbox-css';
 
 
 export interface CheckboxProps {
@@ -9,35 +9,38 @@ export interface CheckboxProps {
     size?: string;
     checked?: boolean;
 }
-@component('zen-checkbox')
+
+// @ts-ignore
+@customElement('zen-checkbox')
 @dispatchChange('checked')
 export class Checkbox extends LitElement implements CheckboxProps {
 
-    @property
+    @property()
     name?: string;
 
-    @property
+    @property()
     size?: string;
 
-    @property
+    @property()
     checked?: boolean;
 
     constructor() {
         super();
-        this._handleChange = this._handleChange.bind(this)
+        this._handleChange = this._handleChange.bind(this);
     }
 
     render(): TemplateResult {
         return html`
             ${CSS}
             <label class="checkbox">
-                <input type="checkbox" ?checked="${this.checked}" @change=${this._handleChange}/>
-                <span class="check"></span>
+                <input type="checkbox" .checked="${this.checked}" @change=${this._handleChange}/>
+                <span class="check ${this.checked ? 'checked' : ''}"></span>
             </label>
         `;
     }
 
     private _handleChange(e: Event) {
-        this.checked = (e.target as HTMLInputElement).checked;
+        const newVal = (e.target as HTMLInputElement).checked;
+        if (newVal !== this.checked) this.checked = newVal;
     }
 }
