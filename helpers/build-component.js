@@ -28,6 +28,7 @@ const run = (func, scope) => new Promise((res, rej) => {
 
     await Promise.all(tasks);
 
+    await run('build', 'zen');
     await run('rollup', 'zen');
     const time = Math.round(((performance.now() - start) / 1000) * 100) / 100;
     console.log(`Completed in ${time}s`);
