@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-table",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Table.js",
     "module": "lib/Table.es.js",
     "typings": "lib/Table.d.ts",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-checkbox": "^0.0.0",
+        "@origamijs/zen-checkbox": "^0.0.1",
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
     }

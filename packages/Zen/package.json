@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/zen.js",
     "module": "lib/zen.es.js",
     "typings": "lib/Zen/src/zen.d.ts",

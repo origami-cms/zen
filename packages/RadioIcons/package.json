@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-radio-icons",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/RadioIcons.js",
     "module": "lib/RadioIcons.es.js",
     "typings": "lib/RadioIcons.d.ts",
@@ -15,9 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-    },
-    "devDependencies": {
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

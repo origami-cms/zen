@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-radio",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Radio.js",
     "module": "lib/Radio.es.js",
     "typings": "lib/Radio.d.ts",
@@ -15,9 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-    },
-    "devDependencies": {
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

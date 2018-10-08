@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-card-image",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/CardImage.js",
     "module": "lib/CardImage.es.js",
     "typings": "lib/CardImage.d.ts",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

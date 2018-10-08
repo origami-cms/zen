@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-checkbox",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Checkbox.js",
     "module": "lib/Checkbox.es.js",
     "typings": "lib/Checkbox.d.ts",
@@ -15,7 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

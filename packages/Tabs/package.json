@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-tabs",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Tabs.js",
     "module": "lib/Tabs.es.js",
     "typings": "lib/Tabs.d.ts",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

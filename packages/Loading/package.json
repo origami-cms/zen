@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-loading",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Loading.js",
     "module": "lib/Loading.es.js",
     "typings": "lib/Loading.d.ts",
@@ -15,9 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-    },
-    "devDependencies": {
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

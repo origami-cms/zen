@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-button",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Button.js",
     "module": "lib/Button.es.js",
     "typings": "lib/Button.d.ts",
@@ -16,7 +16,7 @@
         "test": "jest"
     },
     "devDependencies": {
-        "@origamijs/zen-icon": "^0.0.0",
-        "@origamijs/zen-lib": "^0.0.0"
+        "@origamijs/zen-icon": "^0.0.1",
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

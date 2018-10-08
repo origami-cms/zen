@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-input",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/Input.js",
     "typings": "lib/Input.d.ts",
     "author": {

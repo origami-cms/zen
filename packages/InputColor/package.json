@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-input-color",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/InputColor.js",
     "module": "lib/InputColor.es.js",
     "typings": "lib/InputColor.d.ts",
@@ -15,7 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }

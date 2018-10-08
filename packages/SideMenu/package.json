@@ -1,6 +1,6 @@
 {
     "name": "@origamijs/zen-side-menu",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "main": "lib/SideMenu.js",
     "module": "lib/SideMenu.es.js",
     "typings": "lib/SideMenu.d.ts",
@@ -16,9 +16,6 @@
         "test-server": "cd ../; http-server-spa ./ SideMenu/test/index.html"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.0"
-    },
-    "devDependencies": {
-
+        "@origamijs/zen-lib": "^0.0.1"
     }
 }
