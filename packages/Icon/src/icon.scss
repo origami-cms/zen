@@ -26,7 +26,7 @@
 
         @each $name in $colors {
             &.#{$name} * {
-                fill: var(--icon-color, default('color-#{$name}'));
+                fill: default('color-#{$name}');
             }
         }
 

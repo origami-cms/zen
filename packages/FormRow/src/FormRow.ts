@@ -1,8 +1,8 @@
 // tslint:disable function-name
-import { bindAttributes, component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
+import { bindAttributes, component, dispatchChange } from '@origamijs/zen-lib/lib/decorators';
 import { ValidationErrors } from '@origamijs/zen-lib/lib/FormValidator';
 import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import { html, LitElement } from '@polymer/lit-element';
+import { html, LitElement, property, customElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import CSS from './form-row-css';
 import {Input} from '@origamijs/zen-input';
@@ -11,38 +11,36 @@ import {Input} from '@origamijs/zen-input';
 export interface FormRowProps {
     field?: Field;
     name?: string;
-    value?: any;
+    value: any | null;
     error?: ValidationErrors;
     rowwidth?: 'half';
     hidden: boolean;
     disabled: boolean;
 }
 
-@component('zen-form-row')
+// @ts-ignore
+@customElement('zen-form-row')
 @dispatchChange()
-@bindAttributes
 export class FormRow extends LitElement implements FormRowProps {
-    @property
+    @property()
     field?: Field;
 
-    @property
+    @property()
     name?: string;
 
-    @property
-    value?: any;
+    @property()
+    value: any | null = null;
 
-    @property
+    @property()
     error?: ValidationErrors;
 
-    @property
+    @property({reflect: true, type: String})
     rowwidth?: 'half';
 
     hidden: boolean = false;
 
-    @property
+    @property({reflect: true, type: Boolean})
     disabled: boolean = false;
-
-    static _boundAttributes = ['rowwidth', 'disabled'];
 
     constructor() {
         super();
@@ -113,7 +111,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .value=${v}
                     @change=${c}
                     .placeholder=${f.placeholder}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-input>`;
 
             case 'color':
@@ -122,7 +120,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .value=${v}
                     @change=${c}
                     .placeholder=${f.placeholder}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-input-color>`;
 
             case 'textarea':
@@ -130,7 +128,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .value=${v}
                     @change=${c}
                     .placeholder=${f.placeholder}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></textarea>`;
 
             case 'submit':
@@ -138,7 +136,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .icon=${f.icon}
                     @click=${this.submit}
                    .color=${f.color}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 >${f.value}</zen-button>`;
 
             case 'select':
@@ -147,14 +145,14 @@ export class FormRow extends LitElement implements FormRowProps {
                     @change=${c}
                     .options=${f.options}
                     .placeholder=${f.placeholder}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-select>`;
 
             case 'checkbox':
                 return html`<zen-checkbox
-                    ?checked=${v}
+                    .checked=${v}
                     @change=${c}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-checkbox>`;
 
             case 'radio':
@@ -162,7 +160,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .value=${v}
                     @change=${c}
                     .options=${f.options}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-radio>`;
 
             case 'radio-tabs':
@@ -170,7 +168,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .value=${v}
                     @change=${c}
                     .options=${f.options}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-radio-tabs>`;
 
             case 'radio-icons':
@@ -179,7 +177,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     @change=${c}
                     .options=${f.options}
                     .columns=${f.columns}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-radio-icons>`;
 
             case 'checkbox-icons':
@@ -188,7 +186,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     @change=${c}
                     .options=${f.options}
                     .columns=${f.columns}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                 ></zen-checkbox-icons>`;
 
             case 'autocomplete':
@@ -199,7 +197,7 @@ export class FormRow extends LitElement implements FormRowProps {
                     .minlength=${f.minlength}
                     .placeholder=${f.placeholder}
                     .options=${f.options}
-                    ?disabled=${f.disabled}
+                    .disabled=${f.disabled}
                     .query=${f.query}
                 ></<zen-autocomplete>`;
         }

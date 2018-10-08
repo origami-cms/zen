@@ -1,13 +1,20 @@
 import { Checkbox } from '@origamijs/zen-checkbox';
 import { customElement, html, LitElement, property } from '@polymer/lit-element';
+import query from 'json-query';
 import { TemplateResult } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import CSS from './table-css';
 import { TableColumn, TableColumnAlign } from './TableColumn';
 export { TableColumn } from './TableColumn';
 
+
+export const TABLE_EVENTS = {
+    tdClick: 'rowclick',
+    select: 'select'
+};
+
 export interface TableProps {
-    data: object[];
+    data: TableRowData[];
     selectable: boolean;
     selected: number[];
     hoverable: boolean;
@@ -25,18 +32,29 @@ export interface TableColumnData {
     key?: string;
     heading?: string;
     footer?: string;
-    sortable?: string;
+    sortable: boolean;
     template?: string;
     icon?: string;
     align?: TableColumnAlign;
+    width?: string;
 }
+
+export interface TableRowData {
+    index: number;
+    data: TableRowData;
+    cells: (string | null | number)[];
+}
+
+const SORT_NORMAL = 'normal';
+const SORT_REVERSE = 'reverse';
+export type SortDirection = 'normal' | 'reverse';
 
 
 // @ts-ignore
 @customElement('zen-table')
 export class Table extends LitElement implements TableProps {
     @property()
-    data: object[] = [];
+    data: TableRowData[] = [];
 
     @property({reflect: true, type: Boolean})
     selectable: boolean = false;
@@ -47,40 +65,118 @@ export class Table extends LitElement implements TableProps {
     @property({reflect: true, type: Boolean})
     hoverable: boolean = false;
 
-    @property({reflect: true, type: Boolean})
+    @property({ reflect: true, type: Boolean })
     striped: boolean = false;
+
+    /** Index of the column to sort by  */
+    @property({type: Number})
+    sortBy: number | false = false;
+
+    @property({type: String})
+    sortDirection: SortDirection = 'normal';
 
 
     render(): TemplateResult {
         const columns = this._getColumns();
         const hasHeading = Boolean(columns.find(c => Boolean(c.heading)));
+        const columnTemplate = this._getColumnTemplate(columns);
 
         return html`
             ${CSS}
-            <div class="table" style="--table-cols: ${columns.length}">
+            <div class="table" style="--table-cols: ${columns.length}; ${columnTemplate}">
                 ${hasHeading
                     ? this._renderHeader(columns)
                     : null
                 }
-                ${this.data.map((row, i) => this._renderRow(row, columns, i))}
+                ${this._getData(columns).map(row => this._renderRow(row, columns))}
             </div>
         `;
     }
 
 
+    // updated(p: any) {
+    //     if (p.has('selected')) {
+    //         this.dispatchEvent(new CustomEvent('select', {detail: this.selected}));
+    //     }
+    // }
+
+
     // Convert zen-table-column children to column objects
     private _getColumns(): TableColumnData[] {
-        return (Array.from(this.querySelectorAll('zen-table-column')) as TableColumn[])
-            .map((c, index) => ({
-                index,
-                key: c.key,
-                heading: c.heading,
-                footer: c.footer,
-                sortable: c.sortable,
-                align: c.align,
-                icon: c.icon,
-                template: c.getTemplate()
-            }));
+        // Look for direct children...
+        let cols = Array.from(this.querySelectorAll('zen-table-column'));
+        const slot = this.querySelector('slot');
+        // Look for slotted children...
+        if (!cols.length && slot) {
+            // @ts-ignore assignedElements DOES exist
+            cols = slot.assignedNodes().filter(e => e.nodeName === 'ZEN-TABLE-COLUMN');
+        }
+
+        return (cols as TableColumn[]).map((c, index) => ({
+            index,
+            key: c.key,
+            heading: c.heading || c.key,
+            footer: c.footer,
+            sortable: c.sortable,
+            align: c.align,
+            icon: c.icon,
+            width: c.width,
+            template: c.getTemplate()
+        }));
+    }
+
+
+    private _getColumnTemplate(columns: TableColumnData[]) {
+        const widths = columns.map(c => c.width || 'auto');
+        if (this.selectable) widths.unshift('var(--table-row-height)');
+        return `grid-template-columns: ${widths.join(' ')}`;
+    }
+
+
+    private _getData(columns: TableColumnData[]): TableRowData[] {
+        let data = this.data.map((data, index) => ({
+            data,
+            index,
+            cells: columns.map(c => this._getTDContents(data, c))
+        }));
+
+        if (this.sortBy !== false) {
+            const sort = this.sortBy;
+            data = data.sort((a, b) => {
+                const contentA = a.cells[sort] || '';
+                const contentB = b.cells[sort] || '';
+
+                if (typeof contentA === 'string') return contentA.localeCompare(contentB);
+                else if (typeof contentA === 'number') {
+                    if (contentA < contentB) return -1;
+                    if (contentA > contentB) return 1;
+                    if (contentA === contentB) return 0;
+                }
+                return 0;
+            });
+        }
+        if (this.sortDirection === SORT_REVERSE) data.reverse();
+        return data;
+    }
+
+
+    private _getTDContents(row: TableRowData, column: TableColumnData): string | null {
+        let contents;
+        const lookup = (q: string) => query(q, {data: row}).value;
+
+        // Replace the template string {{var}}'s with values from this.data
+        if (column.template) {
+            contents = column.template.replace(/\{\{\s*([^\{]+)\s*\}\}/g, (match, val) =>
+                query(val, {data: row}).value
+            );
+
+
+        } else if (column.key) {
+            contents = lookup(column.key);
+
+        } else return null;
+
+        return contents;
     }
 
 
@@ -95,11 +191,11 @@ export class Table extends LitElement implements TableProps {
 
 
     // Render the TD cells for each column
-    private _renderRow(row: TableRowData, columns: TableColumnData[], index: number) {
-        const cols = columns.map((col, i) =>
-            this._renderTD(row, index, col, columns)
+    private _renderRow(row: TableRowData, columns: TableColumnData[]) {
+        const cols = columns.map(col =>
+            this._renderTD(row, col, columns)
         );
-        this._addCheckbox(cols, 'td', index);
+        this._addCheckbox(cols, 'td', row.index);
 
         return cols;
     }
@@ -107,13 +203,29 @@ export class Table extends LitElement implements TableProps {
 
     // Render TH cell
     private _renderTH(col: TableColumnData, columns: TableColumnData[]) {
-        const classes = this._getCellClasses(col, columns);
-        return html`<div class="th ${classes}">
-            ${col.icon
-                ? html`<zen-icon type=${col.icon} size="small"></zen-icon>`
-                : null
+        let classes = this._getCellClasses(col, columns);
+
+        const icon = col.icon
+            ? html`<zen-icon type=${col.icon} size="medium"></zen-icon>`
+            : null;
+
+        let sort;
+        if (col.sortable) {
+            let sortIcon = 'sort';
+            let sortIconColor = 'grey-300';
+            if (this.sortBy === col.index) {
+                sortIcon = this.sortDirection === SORT_NORMAL ? 'sort-normal' : 'sort-reverse';
+                sortIconColor = 'alt';
             }
-            ${col.heading}
+
+            sort = html`<zen-icon type="${sortIcon}" color=${sortIconColor} size="medium"></zen-icon>`;
+            classes += ' sortable';
+        }
+
+        return html`<div class="th ${classes}" @click=${() => this._handleTHClick(col)}>
+            ${icon}
+            <span>${col.heading}</span>
+            ${sort}
         </div>`;
     }
 
@@ -121,26 +233,15 @@ export class Table extends LitElement implements TableProps {
     // Render TD cell
     private _renderTD(
         row: TableRowData,
-        index: number,
         column: TableColumnData,
         columns: TableColumnData[]
     ): TemplateResult | null {
 
-        let contents;
-        // Replace the template string {{var}}'s with values from this.data
-        if (column.template) {
-            contents = unsafeHTML(
-                column.template.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, val) => row[val])
-            );
+        const classes = this._getCellClasses(column, columns, row.index);
+        return html`<div class="td ${classes}" @click=${() => this._handleTDClick(row)}>
+            <div>${unsafeHTML(row.cells[column.index])}</div>
+        </div>`;
 
-        } else if (column.key) {
-            contents = row[column.key];
-
-        } else return null;
-
-
-        const classes = this._getCellClasses(column, columns, index);
-        return html`<div class="td ${classes}">${contents}</div>`;
     }
 
 
@@ -201,5 +302,30 @@ export class Table extends LitElement implements TableProps {
                 this.selected.splice(this.selected.indexOf(row), 1);
             }
         }
+        this.dispatchEvent(new CustomEvent(TABLE_EVENTS.select, {detail: this.selected}));
+    }
+
+
+    private _handleTHClick(col: TableColumnData) {
+        if (!col.sortable) return;
+
+        // If the same column is clicked, flip the sort
+        if (this.sortBy === col.index) {
+            if (this.sortDirection === SORT_NORMAL) {
+                this.sortDirection = SORT_REVERSE;
+            } else if (this.sortDirection === SORT_REVERSE) {
+                this.sortDirection = SORT_NORMAL;
+                this.sortBy = false;
+            }
+
+        } else {
+            this.sortBy = col.index;
+            // Reset the direction
+            if (this.sortDirection !== SORT_NORMAL) this.sortDirection = SORT_NORMAL;
+        }
+    }
+
+    private _handleTDClick(row: TableRowData) {
+        this.dispatchEvent(new CustomEvent(TABLE_EVENTS.tdClick, {detail: row.data}));
     }
 }

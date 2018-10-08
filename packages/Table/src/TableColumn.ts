@@ -7,9 +7,10 @@ export interface TableColumnProps {
     key?: string;
     heading?: string;
     footer?: string;
-    sortable?: string;
+    sortable: boolean;
     align?: TableColumnAlign;
     icon?: string;
+    width?: string;
 }
 
 // @ts-ignore
@@ -25,14 +26,17 @@ export class TableColumn extends LitElement implements TableColumnProps {
     @property()
     footer?: string;
 
-    @property()
-    sortable?: string;
+    @property({reflect: true, type: Boolean})
+    sortable: boolean = false;
 
     @property()
     align?: TableColumnAlign;
 
     @property()
     icon?: string;
+
+    @property()
+    width?: string;
 
 
     render(): TemplateResult {
@@ -42,6 +46,6 @@ export class TableColumn extends LitElement implements TableColumnProps {
     getTemplate() {
         const template = this.querySelector('template');
         if (!template) return;
-        return template.content.textContent || '';
+        return template.innerHTML;
     }
 }

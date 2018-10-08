@@ -7,7 +7,7 @@ import CSS from './checkbox-css';
 export interface CheckboxProps {
     name?: string;
     size?: string;
-    checked?: boolean;
+    checked: boolean;
 }
 
 // @ts-ignore
@@ -22,7 +22,7 @@ export class Checkbox extends LitElement implements CheckboxProps {
     size?: string;
 
     @property()
-    checked?: boolean;
+    checked: boolean = false;
 
     constructor() {
         super();
@@ -30,11 +30,12 @@ export class Checkbox extends LitElement implements CheckboxProps {
     }
 
     render(): TemplateResult {
+        const checked = this.checked ? 'checked' : '';
         return html`
             ${CSS}
-            <label class="checkbox">
+            <label class="checkbox ${checked}">
                 <input type="checkbox" .checked="${this.checked}" @change=${this._handleChange}/>
-                <span class="check ${this.checked ? 'checked' : ''}"></span>
+                <span class="check"></span>
             </label>
         `;
     }

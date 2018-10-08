@@ -7,7 +7,7 @@ import CSS from './radio-tabs-css';
 
 export interface RadioTabsProps {
     options: FieldOptions;
-    value?: string | number;
+    value: string | number | null;
     name?: string;
 }
 
@@ -19,7 +19,7 @@ export class RadioTabs extends LitElement implements RadioTabsProps {
     options: FieldOptions = [];
 
     @property
-    value?: string | number;
+    value: string | number | null = null;
 
     @property
     name?: string;

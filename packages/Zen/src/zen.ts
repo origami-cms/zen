@@ -21,4 +21,5 @@ export * from '../../RadioTabs/src/RadioTabs';
 export * from '../../Select/src/Select';
 export * from '../../SideMenu/src/SideMenu';
 export * from '../../Tabs/src/Tabs';
+export * from '../../Table/src/Table';
 export * from '../../Tooltip/src/Tooltip';

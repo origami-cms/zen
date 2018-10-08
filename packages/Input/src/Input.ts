@@ -10,7 +10,7 @@ export interface InputProps {
     type: string;
     icon?: string;
     loading?: boolean;
-    value?: string;
+    value: string | null;
     disabled?: string;
 }
 
@@ -35,7 +35,7 @@ export class Input extends LitElement implements InputProps {
     loading?: boolean;
 
     @property
-    value?: string;
+    value: string | null = null;
 
     @property
     disabled?: string;
@@ -65,7 +65,7 @@ export class Input extends LitElement implements InputProps {
                 .value="${v}"
                 type="${type}"
                 placeholder="${placeholder}"
-                ?disabled="${disabled}"
+                .disabled="${disabled}"
                 @input="${this._handleInput}"
             />
 

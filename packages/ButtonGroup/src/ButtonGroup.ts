@@ -31,9 +31,9 @@ export class ButtonGroup extends LitElement implements ButtonGroupProps {
                     .icon=${b.icon}
                     .iconright=${b.iconright}
                     .hollow=${b.hollow}
-                   .color=${b.color}
-                    ?disabled=${b.disabled}
-                    ?loading=${b.loading}
+                    .color=${b.color}
+                    .disabled=${b.disabled}
+                    .loading=${b.loading}
                     @click=${b.onclick}
                 >${b.text}</zen-button>
             `)}

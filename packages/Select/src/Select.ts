@@ -9,7 +9,7 @@ import CSS from './select-css';
 
 export interface SelectProps {
     options: FieldOptions;
-    value ?: string;
+    value: string | null;
     name ?: string;
     placeholder ?: string;
     _open ?: boolean;
@@ -23,7 +23,7 @@ export class Select extends LitElement implements SelectProps {
     options: FieldOptions = [];
 
     @property
-    value?: string;
+    value: string | null = null;
 
     @property
     name?: string;
@@ -64,8 +64,8 @@ export class Select extends LitElement implements SelectProps {
             <zen-input-dropdown
                 .options=${options}
                 .value=${value}
-                @change=${(e: {target: InputDropdown}) => this.value = e.target.value}
-                ?open=${_open}
+                @change=${(e: {target: InputDropdown}) => this.value = e.target.value || null}
+                .open=${_open}
                 @toggle=${(e: {target: InputDropdown}) => this._open = e.target.open}
             ></zen-input-dropdown>
         `;

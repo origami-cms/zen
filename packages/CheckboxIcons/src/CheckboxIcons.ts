@@ -1,6 +1,6 @@
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
+import {dispatchChange} from '@origamijs/zen-lib/lib/decorators';
 import { FieldCheckboxIconsOption } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import { html, LitElement } from '@polymer/lit-element';
+import { html, LitElement, customElement, property } from '@polymer/lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import CSS from './checkbox-icons-css';
 import { TemplateResult } from 'lit-html';
@@ -13,18 +13,19 @@ export interface CheckboxIconsProps {
     columns?: number;
 }
 
-@component('zen-checkbox-icons')
+// @ts-ignore
+@customElement('zen-checkbox-icons')
 export class CheckboxIcons extends LitElement implements CheckboxIconsProps {
-    @property
+    @property()
     options: FieldCheckboxIconsOption[] = [];
 
-    @property
+    @property()
     value: (string | number)[] = [];
 
-    @property
+    @property()
     name?: string;
 
-    @property
+    @property()
     columns?: number;
 
     updated(p: any) {
@@ -42,7 +43,6 @@ export class CheckboxIcons extends LitElement implements CheckboxIconsProps {
         let { value, options } = this;
         value = value || [];
 
-
         return html`
             ${CSS}
             <ul class="options">
@@ -52,8 +52,8 @@ export class CheckboxIcons extends LitElement implements CheckboxIconsProps {
                         @click=${() => this._toggle(o.value)}
                     >
                         <zen-checkbox
-                            ?checked=${value.includes(o.value)}
-                            @click=${() => this._toggle(o.value)}
+                            .checked=${value.includes(o.value)}
+                            @click=${(e: Event) => this._handleCheckbox(e, o.value)}
                         ></zen-checkbox>
                         <div class="img">
                             ${o.icon ? html`<zen-icon .type=${o.icon}></zen-icon>` : '' }
@@ -67,8 +67,16 @@ export class CheckboxIcons extends LitElement implements CheckboxIconsProps {
         `;
     }
 
+    // Fixes bug with double trigger
+    private _handleCheckbox(e: Event, value: string | number) {
+        e.preventDefault();
+        e.stopPropagation();
+        this._toggle(value);
+    }
+
     private _toggle(v: string | number) {
-        let val = this.value || [];
+
+        const val = this.value || [];
 
         if (!val.includes(v)) {
             val.push(v);

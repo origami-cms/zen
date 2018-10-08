@@ -8,7 +8,7 @@ import CSS from './radio-icons-css';
 
 export interface RadioIconsProps {
     options: FieldRadioIconsOption[];
-    value?: string | number;
+    value: string | number | null;
     name?: string;
     columns?: number;
 }
@@ -20,7 +20,7 @@ export class RadioIcons extends LitElement implements RadioIconsProps {
     options: FieldRadioIconsOption[] = [];
 
     @property
-    value?: string | number;
+    value: string | number | null = null;
 
     @property
     name?: string;

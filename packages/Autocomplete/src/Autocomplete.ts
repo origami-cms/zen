@@ -12,8 +12,8 @@ export interface AutocompleteProps {
     name?: string;
     icon?: string;
     loading?: boolean;
-    value?: string;
-    query?: string;
+    value: string | null;
+    query: string | null;
     minlength?: number;
     options: Function | InputDropdownResults;
     _options: InputDropdownResults;
@@ -46,11 +46,11 @@ export class Autocomplete extends LitElement implements AutocompleteProps {
 
     /** Value of the selected item */
     @property
-    value?: string;
+    value: string | null = null;
 
     /** Inputted text */
     @property
-    query?: string;
+    query: string | null = null;
 
     /** Minimum number of characters to enter before searching */
     @property
@@ -99,7 +99,7 @@ export class Autocomplete extends LitElement implements AutocompleteProps {
                 type="text"
                 .placeholder=${placeholder}
                 .icon=${icon}
-                ?loading=${loading}
+                .loading=${loading}
             ></zen-input>
 
             <zen-input-dropdown
@@ -113,8 +113,8 @@ export class Autocomplete extends LitElement implements AutocompleteProps {
     }
 
     _handleChange(e: {target: InputDropdown}) {
-        if (e.target.value == this.value) return;
-        this.value = e.target.value;
+        if (e.target.value === this.value) return;
+        this.value = e.target.value || null;
         this._open = false;
         this._updateQuery();
     }

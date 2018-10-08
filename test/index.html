@@ -56,20 +56,27 @@
     </zen-card-image>
 
 
-    <zen-table>
-        <zen-table-column heading="Name" icon="user">
+    <zen-table selectable striped="striped" hoverable>
+        <zen-table-column heading="" width="4rem">
             <template>
-                {{firstName}} {{lastName}}
+                <img src="{{picture.thumbnail}}" />
             </template>
         </zen-table-column>
 
-        <zen-table-column heading="Age" key="age"></zen-table-column>
+        <zen-table-column heading="Name" icon="user" sortable>
+            <template>
+                {{name.first}} {{name.last}} {{phone}}
+            </template>
+        </zen-table-column>
+
+        <zen-table-column key="gender"></zen-table-column>
+
+        <zen-table-column heading="Age" key="dob.age" align="right" sortable></zen-table-column>
     </zen-table>
 
 
-
     <script>
-        (() => {
+        (async() => {
             const bg = document.querySelector('zen-button-group');
             bg.buttons = [
                 {text: 'Standard'},
@@ -103,6 +110,16 @@
                     icon: 'mail',
                     validate: {
                         alpha: true
+                    }
+                },
+
+                {
+                    name: 'animal',
+                    type: 'radio',
+                    options: {
+                        small: 'Mouse',
+                        medium: 'Dog',
+                        large: 'Elephant'
                     }
                 },
 
@@ -180,12 +197,8 @@
             ]
 
 
-            const table = document.querySelector('zen-table')
-            table.data = [
-                { fname: 'Bob', lname: 'Gander', age: 50 },
-                { fname: 'Bob', lname: 'Gander', age: 50 },
-                { fname: 'Bob', lname: 'Gander', age: 50 }
-            ]
+            const table = document.querySelector('zen-table');
+            table.data = (await fetch('https://randomuser.me/api?results=5').then(r => r.json())).results;
         })()
     </script>
     <script src="../packages/Zen/lib/zen.js"></script>

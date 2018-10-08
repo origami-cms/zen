@@ -7,7 +7,7 @@ import CSS from './radio-css';
 
 export interface RadioProps {
     options: { [key: string]: string };
-    value?: string;
+    value: string | null;
     name?: string;
 }
 
@@ -19,7 +19,7 @@ export class Radio extends LitElement implements RadioProps {
     options = {};
 
     @property
-    value?: string;
+    value: string | null = null;
 
     @property
     name?: string;

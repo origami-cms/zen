@@ -33,7 +33,7 @@ export class Link extends LitElement implements LinkProps {
         });
     }
 
-    _firstRendered() {
+    firstUpdated() {
         installRouter(this._updateClass.bind(this));
     }
 

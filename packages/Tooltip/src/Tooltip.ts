@@ -59,6 +59,7 @@ export class Tooltip extends LitElement implements TooltipProps {
     disconnectedCallback() {
         window.removeEventListener('scroll', this._update);
         window.removeEventListener('resize', this._update);
+        super.disconnectedCallback();
     }
 
     @property

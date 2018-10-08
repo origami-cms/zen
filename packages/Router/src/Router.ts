@@ -1,7 +1,6 @@
 import { LitElement, html, property, customElement } from '@polymer/lit-element';
 import UniversalRouter, { Route } from 'universal-router';
 import { TemplateResult } from 'lit-html';
-// import {component} from '@origamijs/zen-lib/lib/decorators';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers';
@@ -54,7 +53,7 @@ export class Router extends LitElement implements RouterProps {
     private _router?: UniversalRouter<{}, TemplateResult>;
     private _routesCache: {
         [path: string]: TemplateResult
-    } = {}
+    } = {};
 
 
     constructor() {
@@ -76,6 +75,7 @@ export class Router extends LitElement implements RouterProps {
 
     disconnectedCallback() {
         window.removeEventListener(EVENT_NAME, this._updatePath);
+        super.disconnectedCallback();
     }
 
 
@@ -133,26 +133,27 @@ export class Router extends LitElement implements RouterProps {
             // Universal-router route...
             const route: Route<{}, TemplateResult> = {
                 path: r.path,
-            }
+            };
 
             // If route has template...
             if ((r as RouteWithTemplate).template) {
                 const _r = r as RouteWithTemplate;
                 // If route template is a string, return it
-                if (typeof _r.template === 'string') route.action = () => html`${
-                    unsafeHTML(_r.template)
-                    }`;
+                if (typeof _r.template === 'string') {
+                    route.action = () => html`${unsafeHTML(_r.template)}`;
 
                 // If route template is an action, run it
-                else route.action = (ctx, params) => html`${
-                    unsafeHTML((_r.template as Function).call(this, ctx, params))
+                } else {
+                    route.action = (ctx, params) => html`${
+                        unsafeHTML((_r.template as Function).call(this, ctx, params))
                     }`;
+                }
 
 
                 // If the route is an element, render it with attributes
             } else if ((r as RouteWithElement).element) {
                 route.action = () => {
-                    r = r as RouteWithElement
+                    r = r as RouteWithElement;
                     let attrs = '';
 
                     // Build the attributes string
@@ -162,7 +163,7 @@ export class Router extends LitElement implements RouterProps {
                             .join(' ');
                     }
                     return this._generateElement(r.element!, attrs);
-                }
+                };
             }
 
             return route;

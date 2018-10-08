@@ -8,7 +8,7 @@ export interface FormValues {
 }
 export interface FieldBase {
     name: string;
-    value?: any;
+    value: any | null;
     color?: string;
     default?: any;
     required?: boolean;

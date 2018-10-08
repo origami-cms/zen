@@ -1,32 +1,31 @@
-import { bindAttributes, component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
+import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
 import { InputDropdownResults } from '@origamijs/zen-lib/lib/FormValidator';
-import { html, LitElement } from '@polymer/lit-element';
-import CSS from './input-dropdown-css';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import CSS from './input-dropdown-css';
 
 
 export interface InputDropdownProps {
-    value?: string;
+    value: string | null;
     options: InputDropdownResults;
     open: boolean;
     _active?: number;
 }
 
-@component('zen-input-dropdown')
+// @ts-ignore
+@customElement('zen-input-dropdown')
 @dispatchChange()
-@dispatchChange('open', 'toggle')
-@bindAttributes
 export class InputDropdown extends LitElement implements InputDropdownProps {
-    @property
-    value?: string;
+    @property()
+    value: string | null = null;
 
-    @property
+    @property()
     options: InputDropdownResults = [];
 
-    @property
+    @property({reflect: true, type: Boolean})
     open: boolean = false;
 
-    @property
+    @property()
     _active?: number;
 
     // private static _boundAttributes = ['open'];
@@ -45,6 +44,7 @@ export class InputDropdown extends LitElement implements InputDropdownProps {
     disconnectedCallback() {
         document.removeEventListener('keydown', this._handleKeyDown);
         document.removeEventListener('mouseup', this._handleClick);
+        super.disconnectedCallback();
     }
 
     render(): TemplateResult {
@@ -65,6 +65,12 @@ export class InputDropdown extends LitElement implements InputDropdownProps {
                 > ${o.label} </div>
             `)}
         `;
+    }
+
+    updated(p: any) {
+        super.updated(p);
+
+        if (p.has('open')) this.dispatchEvent(new CustomEvent('toggle'));
     }
 
     _didRender() {

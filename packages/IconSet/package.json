@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "origami-icons": "^0.0.15"
+        "origami-icons": "^0.0.16"
     }
 }

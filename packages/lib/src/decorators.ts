@@ -6,7 +6,7 @@ import 'reflect-metadata';
 export interface Property {
     name?: string;
     type?: any;
-    value?: any;
+    value: any | null;
     reflectToAttribute?: boolean;
     readOnly?: boolean;
     notify?: boolean;
@@ -84,18 +84,22 @@ export const style = (css: string) => {
 
 export const dispatchChange = (prop: string = 'value', event: string = 'change') =>
     function classDecorator<T extends { new(...args: any[]): {} }>(constructor: T) {
+
         return class DispatchChange extends constructor {
+            // tslint:disable-next-line
+            __firstUpdated = false;
+
             updated(changedProps: Map<string, any>) {
                 // @ts-ignore
                 super.updated(changedProps);
-                const oldVal = changedProps.get(prop);
 
-                if (oldVal === undefined) return;
-
-                // @ts-ignore
-                if (changedProps.has(prop) && this[prop] !== oldVal) {
+                if (changedProps.has(prop)) {
+                    if (!this.__firstUpdated) return this.__firstUpdated = true;
                     // @ts-ignore
-                    this.dispatchEvent(new CustomEvent(event));
+                    if (this[prop] !== changedProps.get(prop)) {
+                        // @ts-ignore
+                        this.dispatchEvent(new CustomEvent(event));
+                    }
                 }
             }
         };

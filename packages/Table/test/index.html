@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Table test</title>
-    <!-- <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script> -->
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
     <script src="../lib/Table.js"></script>
     <script src="../../IconSet/lib/IconSet.js"></script>
     <script src="../../Icon/lib/Icon.js"></script>
@@ -17,25 +17,34 @@
     </style>
 </head>
 <body>
-    <zen-table selectable striped hoverable>
-        <zen-table-column heading="Name" icon="user">
+    <zen-table selectable striped="striped" hoverable>
+        <zen-table-column heading="" width="4rem">
             <template>
-                {{fname}} {{lname}}
+                <img src="{{picture.thumbnail}}" />
             </template>
         </zen-table-column>
 
-        <zen-table-column heading="Age" key="age" align="right"></zen-table-column>
+        <zen-table-column heading="Name" icon="user" sortable>
+            <template>
+                {{name.first}} {{name.last}} {{phone}}
+            </template>
+        </zen-table-column>
+
+        <zen-table-column key="gender"></zen-table-column>
+
+        <zen-table-column heading="Age" key="dob.age" align="right" sortable></zen-table-column>
     </zen-table>
 
     <zen-icon-set></zen-icon-set>
 
     <script>
-        const table = document.querySelector('zen-table')
-        table.data = [
-            { fname: 'Bob', lname: 'Gander', age: 50 },
-            { fname: 'Bob', lname: 'Gander', age: 50 },
-            { fname: 'Bob', lname: 'Gander', age: 50 }
-        ]
+        (async() => {
+            const table = document.querySelector('zen-table');
+            table.data = (await fetch('https://randomuser.me/api?results=5').then(r => r.json())).results;
+            table.addEventListener('rowclick', (e) => {
+                console.log(e.detail);
+            })
+        })();
     </script>
 
 </body>

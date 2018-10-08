@@ -8,6 +8,9 @@
 @import 'zen-css/import';
 :host {
     @extend %comp-button;
+    transition:
+        filter calc(#{default('transition-time')} * 3/4),
+        transform calc(#{default('transition-time')} / 2);
 
     zen-icon {
         margin-right: default('size-tiny');
@@ -19,6 +22,10 @@
     }
     slot {
         transition: all default('transition-time');
+    }
+
+    &:hover {
+        display: none;
     }
 }
 
@@ -37,6 +44,15 @@
     :host([color="#{$name}"]) {
         background: gradient($name);
     }
+}
+
+:host(:hover) {
+    filter: brightness(1.2);
+    transform: scale(1.05);
+}
+:host(:active) {
+    filter: brightness(0.8);
+    transform: scale(0.98);
 }
 
 :host([loading]),

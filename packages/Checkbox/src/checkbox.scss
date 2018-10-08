@@ -1,4 +1,6 @@
 @import 'zen-css/import';
+@import 'zen-css/animations/checkbox';
+
 :host {
     @extend %comp-checkbox;
 }
