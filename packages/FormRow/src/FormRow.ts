@@ -4,6 +4,7 @@ import { ValidationErrors } from '@origamijs/zen-lib/lib/FormValidator';
 import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
 import { html, LitElement, property, customElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
+import {ifDefined } from 'lit-html/directives/if-defined';
 import CSS from './form-row-css';
 import {Input} from '@origamijs/zen-input';
 
@@ -124,11 +125,12 @@ export class FormRow extends LitElement implements FormRowProps {
                 ></zen-input-color>`;
 
             case 'textarea':
+
                 return html`<textarea
-                    .value=${v}
+                    .value=${ifDefined(v)}
                     @change=${c}
-                    .placeholder=${f.placeholder}
-                    .disabled=${f.disabled}
+                    placeholder=${ifDefined(f.placeholder)}
+                    disabled=${ifDefined(f.disabled)}
                 ></textarea>`;
 
             case 'submit':
