@@ -95,7 +95,7 @@ export class Autocomplete extends LitElement implements AutocompleteProps {
             ${CSS}
             <zen-input
                 .value=${query}
-                @input=${(e: {target: Input}) => this.query = e.target.value}
+                @input=${(e: {target: Input}) => this.query = e.target.value!}
                 type="text"
                 .placeholder=${placeholder}
                 .icon=${icon}
