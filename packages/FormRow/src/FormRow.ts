@@ -1,12 +1,12 @@
 // tslint:disable function-name
-import { bindAttributes, component, dispatchChange } from '@origamijs/zen-lib/lib/decorators';
+import { Input } from '@origamijs/zen-input';
+import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
 import { ValidationErrors } from '@origamijs/zen-lib/lib/FormValidator';
 import { Field } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import { html, LitElement, property, customElement } from '@polymer/lit-element';
+import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-import {ifDefined } from 'lit-html/directives/if-defined';
+import { ifDefined } from 'lit-html/directives/if-defined';
 import CSS from './form-row-css';
-import {Input} from '@origamijs/zen-input';
 
 
 export interface FormRowProps {
