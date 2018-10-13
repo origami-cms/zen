@@ -10,37 +10,22 @@ import CSS from './input-css';
 @dispatchChange()
 export class Input extends LitElement {
 
-    @property(
-        {reflect: true, type: String}
-    )
+    @property({reflect: true, type: String})
     placeholder?: string | null;
 
-    @property(
-        {reflect: true}
-    )
+    @property({reflect: true, type: String})
     name?: string | null;
 
-    @property(
-        {reflect: true}
-    )
+    @property({reflect: true})
     type?: string;
 
-    @property(
-        {reflect: true, type: String}
-    )
+    @property({reflect: true, type: String})
     icon?: string;
 
-    @property(
-        {reflect: true, type: Boolean}
-    )
+    @property({reflect: true, type: Boolean})
     loading?: boolean;
 
-    @property()
-    value?: string | null;
-
-    @property(
-        {reflect: true, type: Boolean}
-    )
+    @property()value: string | null = null;    @property({reflect: true, type: Boolean})
     disabled?: boolean;
 
     constructor() {
