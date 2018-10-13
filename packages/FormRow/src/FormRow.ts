@@ -46,6 +46,7 @@ export class FormRow extends LitElement implements FormRowProps {
     constructor() {
         super();
         this._handleChange = this._handleChange.bind(this);
+        this._handleTextAreaKeyUp = this._handleTextAreaKeyUp.bind(this);
         this.submit = this.submit.bind(this);
 
         this.addEventListener('keyup', this._handleKeyUp.bind(this));
@@ -129,6 +130,7 @@ export class FormRow extends LitElement implements FormRowProps {
                 return html`<textarea
                     .value=${ifDefined(v)}
                     @change=${c}
+                    @keyup=${this._handleTextAreaKeyUp}
                     placeholder=${ifDefined(f.placeholder)}
                     disabled=${ifDefined(f.disabled)}
                 ></textarea>`;
@@ -212,5 +214,10 @@ export class FormRow extends LitElement implements FormRowProps {
                 this.dispatchEvent(new CustomEvent('submit'));
                 break;
         }
+    }
+
+    private _handleTextAreaKeyUp(e: KeyboardEvent) {
+        if (e.key === 'Enter') e.stopPropagation();
+        else this._handleChange(e);
     }
 }

@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Form test</title>
-    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script src="../lib/Form.js"></script>
-    <script src="../../FormRow/lib/FormRow.js"></script>
-    <script src="../../Input/lib/Input.js"></script>
-    <script src="../../Checkbox/lib/Checkbox.js"></script>
+
     <style>
         html {
             font-size: 10px;
@@ -34,7 +30,10 @@
         <h2>Form with children</h2>
         <zen-form class="with-children">
             <input name="name" placeholder="Basic input">
-            <zen-input name="name" placeholder="First name"></zen-input>
+            <div class="wrap">
+                <label for="">I'm wrapped</label>
+                <zen-input name="name" placeholder="First name"></zen-input>
+            </div>
             <zen-checkbox name="check" ></zen-checkbox>
         </zen-form>
         <h3>Values:</h3>
@@ -57,6 +56,7 @@
         fProps.fields = [
             {name: 'name', type: 'text', placeholder: 'First name'},
             {name: 'check', type: 'checkbox'},
+            {name: 'textarea', type: 'textarea'},
         ];
 
         fChildren.addEventListener('change', () => {
@@ -67,5 +67,11 @@
         });
 
     </script>
+
+    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../lib/Form.js"></script>
+    <script src="../../FormRow/lib/FormRow.js"></script>
+    <script src="../../Input/lib/Input.js"></script>
+    <script src="../../Checkbox/lib/Checkbox.js"></script>
 </body>
 </html>

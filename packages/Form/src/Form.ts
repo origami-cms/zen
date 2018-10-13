@@ -186,6 +186,7 @@ export class Form extends LitElement {
                     this._eventMap.set(c, this._handleChange);
                 });
             }
+            // TODO: clear the map
         }
     }
 
