@@ -16,5 +16,8 @@
     },
     "devDependencies": {
         "origami-icons": "^0.0.16"
+    },
+    "dependencies": {
+        "origami-icons": "^0.0.17"
     }
 }

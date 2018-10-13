@@ -135,6 +135,7 @@ export class Form extends LitElement {
 
         this.fieldErrors = {};
 
+        // TODO: add validation for children path
         const v = new Validator({
             fields: this.fields
         });

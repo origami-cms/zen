@@ -217,7 +217,9 @@ export class FormRow extends LitElement implements FormRowProps {
     }
 
     private _handleTextAreaKeyUp(e: KeyboardEvent) {
-        if (e.key === 'Enter') e.stopPropagation();
+        if (e.key === 'Enter') {
+            if (!e.ctrlKey && !e.metaKey) e.stopPropagation();
+        }
         else this._handleChange(e);
     }
 }

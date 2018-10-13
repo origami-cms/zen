@@ -4717,9 +4717,9 @@ origami-icons@^0.0.15:
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/origami-icons/-/origami-icons-0.0.15.tgz#bb44aa52fe6532adcd510831ecc948c2c93fadf4"
 
-origami-icons@^0.0.16:
-  version "0.0.16"
-  resolved "https://registry.yarnpkg.com/origami-icons/-/origami-icons-0.0.16.tgz#aa84e36c3812250254d2359a6f2622d9c380454c"
+origami-icons@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/origami-icons/-/origami-icons-0.0.17.tgz#13c43fdab6d122963070879b54614eef1806b9e2"
 
 os-homedir@^1.0.0, os-homedir@^1.0.1:
   version "1.0.2"
