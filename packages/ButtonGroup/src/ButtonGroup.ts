@@ -20,14 +20,15 @@ export class ButtonGroup extends LitElement implements ButtonGroupProps {
     @property
     buttons: ButtonOptions[] = [];
 
-    render(): TemplateResult {
-        const { buttons } = this;
+    @property
+    size: string = 'main';
 
+    render(): TemplateResult {
         return html`
             ${CSS}
-            ${repeat(buttons, () => {}, b => html`
+            ${repeat(this.buttons, () => {}, b => html`
                 <zen-button
-                    .size=${b.size}
+                    .size=${b.size || this.size}
                     .icon=${b.icon}
                     .iconright=${b.iconright}
                     .hollow=${b.hollow}
