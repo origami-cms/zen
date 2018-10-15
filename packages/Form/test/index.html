@@ -42,9 +42,13 @@
 
     <div class="col">
         <h2>Form with field prop</h2>
-        <zen-form class="with-props"></zen-form>
+        <button onclick="fProps.save()">Save</button>
+        <zen-form class="with-props" saveable></zen-form>
         <h3>Values:</h3>
         <pre class="with-props"></pre>
+
+        <h3>Dirty Values:</h3>
+        <pre class="with-props dirty"></pre>
     </div>
 
     <script>
@@ -52,12 +56,20 @@
         const rChildren = document.querySelector('pre.with-children');
         const fProps = document.querySelector('zen-form.with-props');
         const rProps = document.querySelector('pre.with-props');
+        const rDirtyProps = document.querySelector('pre.with-props.dirty');
 
         fProps.fields = [
             {name: 'name', type: 'text', placeholder: 'First name'},
-            {name: 'check', type: 'checkbox'},
+            {name: 'check', type: 'checkbox', validate: {required: false}},
             {name: 'textarea', type: 'textarea'},
         ];
+        fProps.values = {
+            name: 'Bob'
+        }
+
+        // fProps.addEventListener('dirtyChange', e => {
+        //     fProps.values = {name: 'bob'}
+        // })
 
         fChildren.addEventListener('change', () => {
             rChildren.innerHTML = JSON.stringify(fChildren.values);
@@ -65,6 +77,10 @@
         fProps.addEventListener('change', () => {
             rProps.innerHTML = JSON.stringify(fProps.values);
         });
+
+        window.addEventListener('keyup', () => {
+            rDirtyProps.innerHTML = JSON.stringify(fProps.dirtyValues);
+        })
 
     </script>
 

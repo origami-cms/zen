@@ -10,11 +10,20 @@ import Validator, { ValidateFieldErrors } from '@origamijs/zen-lib/lib/FormValid
 import CSS from './form-css';
 import { component, property } from '@origamijs/zen-lib/lib/decorators';
 
+export const FORM_EVENTS = {
+    SUBMIT: 'submit',
+    VALIDATED: 'validated',
+    CHANGE: 'change',
+    DIRTY_CHANGE: 'dirtyChange'
+};
 
 @component('zen-form')
 export class Form extends LitElement {
     @property
     values: FormValues = {};
+
+    @property
+    dirtyValues: FormValues = {};
 
     @property
     error?: string;
@@ -28,10 +37,14 @@ export class Form extends LitElement {
     @property
     fieldErrors: ValidateFieldErrors = {};
 
+    @property
+    saveable: boolean = false;
+
+
     private _validateOnChange: boolean = false;
     private _showErrors: boolean = false;
-
     private _eventMap: WeakMap<Element, Function> = new WeakMap();
+
 
     constructor() {
         super();
@@ -66,21 +79,29 @@ export class Form extends LitElement {
             return html`${repeat(
                 this.fields,
                 f => f.name,
-                f => html`<zen-form-row
-                    .field=${f}
-                    .value=${this.values[f.name]}
-                    @change=${this._handleChange}
-                    @submit=${this.submit}
-                    .name=${f.name}
-                    .error=${errors[f.name]}
-                    .rowwidth=${f.width}
-                    .disabled=${f.disabled}
-                ></zen-form-row>`
+                f => {
+                    let value = this.dirtyValues[f.name];
+                    if (value === undefined) value = this.values[f.name];
+
+                    return html`<zen-form-row
+                        .field=${f}
+                        .value=${value}
+                        @change=${this._handleChange}
+                        @submit=${this.submit}
+                        .name=${f.name}
+                        .error=${errors[f.name]}
+                        .rowwidth=${f.width}
+                        .disabled=${f.disabled}
+                    ></zen-form-row>`;
+                }
             )}`;
 
         // Use slotted children
         } else {
-            return html`<slot @slotchange=${() => this.requestUpdate()}></slot>`;
+            return html`<slot @slotchange=${() => {
+                this.requestUpdate();
+                this._updatedSlotted();
+            }}></slot>`;
         }
     }
 
@@ -123,7 +144,7 @@ export class Form extends LitElement {
         const active = this.shadowRoot!.querySelector('*:focus') as HTMLElement;
         if (active && active.blur) active.blur();
 
-        this.dispatchEvent(new CustomEvent('submit'));
+        this.dispatchEvent(new CustomEvent(FORM_EVENTS.SUBMIT));
 
         return false;
     }
@@ -140,7 +161,10 @@ export class Form extends LitElement {
             fields: this.fields
         });
 
-        const { valid, fields } = v.validate(this.values);
+        const { valid, fields } = v.validate({
+            ...this.values,
+            ...this.dirtyValues
+        });
 
         if (fields) {
             this.fieldErrors = fields;
@@ -148,7 +172,7 @@ export class Form extends LitElement {
             if (row) row.focus();
         }
 
-        this.dispatchEvent(new CustomEvent('validated', {
+        this.dispatchEvent(new CustomEvent(FORM_EVENTS.VALIDATED, {
             detail: { valid }
         }));
 
@@ -156,27 +180,47 @@ export class Form extends LitElement {
     }
 
 
+    save() {
+        if (!this.saveable || this.validate()) {
+            this.values = {...this.values, ...this.dirtyValues};
+        }
+    }
+
+
+    // Compares all the dirty values to find one that doesn't match the real values
+    get dirty(): Boolean {
+        return this._compareObjects(this.dirtyValues, this.values);
+    }
+
+
+    firstUpdated(p: any) {
+        super.firstUpdated(p);
+        this._updatedSlotted();
+    }
+
+
     updated(p: any) {
         super.updated(p);
         const controls = this._slottedControls;
 
-        if (p && p.get('values')) {
-            if (this._showErrors) this.validate();
-            this.dispatchEvent(new CustomEvent('change'));
-
-            // Updates the slotted children
-            if (controls) {
-                controls.forEach(c => {
-                    const i = c as HTMLInputElement;
-                    // Lookup the value to change based on the element type
-                    const vName = this._getValueNameFromElement(i);
-                    // Update the element's value if it's different from form value
-                    if (
-                        i[vName] !== this.values[i.name] &&
-                        this.values[i.name] !== undefined
-                    ) i[vName] = this.values[i.name];
-                });
+        if (p.get('values')) {
+            if (this._compareObjects(this.values, p.get('values'))) {
+                this.dispatchEvent(new CustomEvent(FORM_EVENTS.CHANGE));
+                if (!this.dirty) {
+                    this.dispatchEvent(new CustomEvent(FORM_EVENTS.DIRTY_CHANGE));
+                }
             }
+
+
+        } else if (p.get('dirtyValues')) {
+            this.dispatchEvent(
+                new CustomEvent(FORM_EVENTS.DIRTY_CHANGE, {detail: this.dirtyValues})
+            );
+            if (this._showErrors) this.validate();
+            if (!this.saveable) this.save();
+            // Updates the slotted children
+            this._updatedSlotted();
+
 
         // Adds the event listeners to the slotted children
         } else if (this._isChildren) {
@@ -196,10 +240,12 @@ export class Form extends LitElement {
         const t = e.target as HTMLInputElement;
         const v = t[this._getValueNameFromElement(t)];
 
-        // @ts-ignore
-        if (this.values[e.target.name] === v) return false;
-        // @ts-ignore
-        this.values = { ...this.values, ...{ [e.target.name]: v } };
+        if (
+            this.dirtyValues[t.name] !== undefined &&
+            this.dirtyValues[t.name] === v
+        ) return false;
+
+        this.dirtyValues = { ...this.dirtyValues, ...{ [t.name]: v } };
     }
 
 
@@ -211,6 +257,33 @@ export class Form extends LitElement {
         ) return 'checked';
 
         else return 'value';
+    }
+
+
+    private _updatedSlotted() {
+        const controls = this._slottedControls;
+        if (controls) {
+            controls.forEach(c => {
+                const i = c as HTMLInputElement;
+                // Lookup the value to change based on the element type
+                const vName = this._getValueNameFromElement(i);
+
+                // Update the element's value if it's different from form value
+                const currentValue = (this.dirtyValues[i.name] !== undefined)
+                    ? this.dirtyValues[i.name]
+                    : this.values[i.name];
+
+                if (i[vName] !== currentValue && currentValue !== undefined) {
+                    i[vName] = currentValue;
+                }
+            });
+        }
+    }
+
+    private _compareObjects(obj1: FormValues, obj2: FormValues) {
+        return Boolean(Object.keys(obj1).find(k =>
+            obj1[k] !== obj2[k]
+        ));
     }
 }
 
