@@ -2,6 +2,8 @@
 
 :host {
     --row-height: var(--table-row-height, #{default('size-main')});
+    --row-selected-border: var(--table-row-selected-border, 2px solid #{default('color-active')});
+    --row-selected-bg: var(--table-row-selected-bg, #{default('color-active-soft')});
 
     --cell-padding: var(--table-cell-padding, #{default('size-tiny')});
     --cell-border-radius: var(--table-cell-table-border-radius,  #{default('border-radius')});
@@ -116,6 +118,11 @@
                 z-index: -1;
                 border-radius: var(--cell-border-radius);
                 box-shadow: var(--data-shadow);
+            }
+
+            &.last.checked:after {
+                border: var(--row-selected-border);
+                background: var(--row-selected-bg);
             }
         }
     }

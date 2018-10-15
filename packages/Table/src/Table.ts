@@ -3,6 +3,7 @@ import { customElement, html, LitElement, property } from '@polymer/lit-element'
 import query from 'json-query';
 import { TemplateResult } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
+import { classMap, ClassInfo } from 'lit-html/directives/classMap';
 import CSS from './table-css';
 import { TableColumn, TableColumnAlign } from './TableColumn';
 export { TableColumn } from './TableColumn';
@@ -128,7 +129,7 @@ export class Table extends LitElement implements TableProps {
 
     private _getColumnTemplate(columns: TableColumnData[]) {
         const widths = columns.map(c => c.width || 'auto');
-        if (this.selectable) widths.unshift('var(--table-row-height)');
+        if (this.selectable) widths.unshift('var(--row-height)');
         return `grid-template-columns: ${widths.join(' ')}`;
     }
 
@@ -203,7 +204,7 @@ export class Table extends LitElement implements TableProps {
 
     // Render TH cell
     private _renderTH(col: TableColumnData, columns: TableColumnData[]) {
-        let classes = this._getCellClasses(col, columns);
+        const extraClasses: ClassInfo = {};
 
         const icon = col.icon
             ? html`<zen-icon type=${col.icon} size="medium"></zen-icon>`
@@ -219,10 +220,12 @@ export class Table extends LitElement implements TableProps {
             }
 
             sort = html`<zen-icon type="${sortIcon}" color=${sortIconColor} size="medium"></zen-icon>`;
-            classes += ' sortable';
+            extraClasses.sortable = true;
         }
+        const classes = this._getCellClasses('th', col, columns, undefined, extraClasses);
 
-        return html`<div class="th ${classes}" @click=${() => this._handleTHClick(col)}>
+
+        return html`<div class=${classes} @click=${() => this._handleTHClick(col)}>
             ${icon}
             <span>${col.heading}</span>
             ${sort}
@@ -237,8 +240,8 @@ export class Table extends LitElement implements TableProps {
         columns: TableColumnData[]
     ): TemplateResult | null {
 
-        const classes = this._getCellClasses(column, columns, row.index);
-        return html`<div class="td ${classes}" @click=${() => this._handleTDClick(row)}>
+        const classes = this._getCellClasses('td', column, columns, row.index);
+        return html`<div class=${classes} @click=${() => this._handleTDClick(row)}>
             <div>${unsafeHTML(row.cells[column.index])}</div>
         </div>`;
 
@@ -246,15 +249,27 @@ export class Table extends LitElement implements TableProps {
 
 
     // Generate the classes for a TH or TD
-    private _getCellClasses(column: TableColumnData, columns: TableColumnData[], index?: number) {
-        const classes = [];
+    private _getCellClasses(
+        type: 'th' | 'td',
+        column: TableColumnData,
+        columns: TableColumnData[],
+        index?: number,
+        extra?: ClassInfo
+    ) {
+        const last = (column.index + 1) % columns.length === 0;
+        const classes: ClassInfo = {
+            [type]: true,
+            first: column.index % columns.length === 0,
+            last,
+            checked: Boolean(last && index && this.selected.includes(index)),
+            stripe: this.striped && index !== undefined && index % 2 === 1
+        };
+        if (column.align) classes[column.align] = true;
 
-        if (column.index % columns.length === 0) classes.push('first');
-        if ((column.index + 1) % columns.length === 0) classes.push('last');
-        if (column.align) classes.push(column.align);
-        if (this.striped && index !== undefined && index % 2 === 1) classes.push('stripe');
-
-        return classes.join(' ');
+        return classMap({
+            ...classes,
+            ...extra
+        });
     }
 
 
@@ -265,7 +280,16 @@ export class Table extends LitElement implements TableProps {
         select: number | 'all'
     ): (TemplateResult | null)[] {
 
-        const handler = (e: Event) => this.select(select, (e.target as Checkbox).checked!);
+        const handler = (e: Event) => {
+            const t = e.target as Checkbox;
+            let next: Element = t.parentElement!;
+            // Toggle the last td with checked class
+            while (next && !next.classList.contains('last')) {
+                next = next.nextElementSibling!;
+            }
+            next.classList.toggle('checked', t.checked);
+            this.select(select, t.checked!);
+        };
 
         if (this.selectable) {
             let stripe = false;
@@ -274,7 +298,14 @@ export class Table extends LitElement implements TableProps {
 
             if (typeof select === 'number') checked = this.selected.includes(select);
 
-            row.unshift(html`<div class="${type} checkbox ${stripe ? 'stripe' : ''}">
+            const classes = classMap({
+                [type]: true,
+                checkbox: true,
+                stripe,
+                checked
+            });
+
+            row.unshift(html`<div class=${classes}>
                 <zen-checkbox
                     .checked=${checked}
                     @change=${handler.bind(this)}
