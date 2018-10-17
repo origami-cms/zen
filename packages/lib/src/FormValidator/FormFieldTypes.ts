@@ -11,7 +11,8 @@ FieldRadioIcons |
 FieldCheckboxIcons |
 FieldAutocomplete |
 FieldSlider |
-FieldColor;
+FieldColor |
+FieldRichTextEditor;
 
 export interface Fieldsets {
     [key: string]: Field[];
@@ -139,3 +140,8 @@ export interface FieldColor extends FieldBase, FieldMixinPlaceholder {
 export type InputDropdownResults = InputDropdownOptions | InputDropdownList;
 export interface InputDropdownOptions { [key: string]: string | number; }
 export type InputDropdownList = string[];
+
+
+export interface FieldRichTextEditor extends FieldBase {
+    type: 'rich-text';
+}

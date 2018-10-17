@@ -15,11 +15,13 @@ export * from '../../InputFile/src/InputFile';
 export * from '../../Link/src/Link';
 export * from '../../Loading/src/Loading';
 export * from '../../Radio/src/Radio';
-export * from '../../Router/src/Router';
 export * from '../../RadioIcons/src/RadioIcons';
 export * from '../../RadioTabs/src/RadioTabs';
+export * from '../../RichTextEditor/src/RTEditor';
+export * from '../../Router/src/Router';
 export * from '../../Select/src/Select';
 export * from '../../SideMenu/src/SideMenu';
-export * from '../../Tabs/src/Tabs';
 export * from '../../Table/src/Table';
+export * from '../../Tabs/src/Tabs';
 export * from '../../Tooltip/src/Tooltip';
+

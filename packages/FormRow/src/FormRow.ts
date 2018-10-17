@@ -204,6 +204,16 @@ export class FormRow extends LitElement implements FormRowProps {
                     .disabled=${f.disabled}
                     .query=${f.query}
                 ></<zen-autocomplete>`;
+
+            case 'rich-text':
+                return html`<zen-rich-text-editor
+                    .value=${v}
+                    @change=${c}
+                ></zen-rich-text-editor>`;
+
+            default:
+                console.warn(`No element found for ${f.type}`);
+                return html``;
         }
     }
 
@@ -223,3 +233,4 @@ export class FormRow extends LitElement implements FormRowProps {
         else this._handleChange(e);
     }
 }
+
