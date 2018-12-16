@@ -1,5 +1,5 @@
-import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
-import { InputDropdownResults } from '@origamijs/zen-lib/lib/FormValidator';
+import { dispatchChange } from '@origami/zen-lib/lib/decorators';
+import { InputDropdownResults } from '@origami/zen-lib/lib/FormValidator';
 import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import CSS from './input-dropdown-css';

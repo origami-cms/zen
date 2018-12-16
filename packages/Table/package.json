@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-table",
+    "name": "@origami/zen-table",
     "version": "0.0.1",
     "main": "lib/Table.js",
     "module": "lib/Table.es.js",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-checkbox": "^0.0.1",
+        "@origami/zen-checkbox": "^0.0.1",
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
     }

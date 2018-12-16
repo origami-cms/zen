@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-radio-tabs",
+    "name": "@origami/zen-radio-tabs",
     "version": "0.0.1",
     "main": "lib/RadioTabs.js",
     "module": "lib/RadioTabs.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

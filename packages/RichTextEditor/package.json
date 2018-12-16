@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-rich-text-editor",
+    "name": "@origami/zen-rich-text-editor",
     "version": "0.0.1",
     "main": "lib/RTEditor.js",
     "typings": "lib/RTEditor.d.ts",

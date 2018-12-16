@@ -1,5 +1,5 @@
-import {dispatchChange} from '@origamijs/zen-lib/lib/decorators';
-import { FieldCheckboxIconsOption } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import {dispatchChange} from '@origami/zen-lib/lib/decorators';
+import { FieldCheckboxIconsOption } from '@origami/zen-lib/lib/FormValidator/FormFieldTypes';
 import { html, LitElement, customElement, property } from '@polymer/lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import CSS from './checkbox-icons-css';

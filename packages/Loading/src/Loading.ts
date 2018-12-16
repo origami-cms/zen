@@ -1,6 +1,6 @@
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
+import { component, property } from '@origami/zen-lib/lib/decorators';
 import CSS from './loading-css';
 
 

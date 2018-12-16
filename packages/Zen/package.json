@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen",
+    "name": "@origami/zen",
     "version": "0.0.1",
     "main": "lib/zen.js",
     "module": "lib/zen.es.js",

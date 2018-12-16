@@ -1,4 +1,4 @@
-import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
+import { dispatchChange } from '@origami/zen-lib/lib/decorators';
 import { customElement, html, LitElement } from '@polymer/lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import { TemplateResult } from 'lit-html';

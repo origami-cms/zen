@@ -1,5 +1,5 @@
-import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
-import { FieldRadioIconsOption } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
+import { component, dispatchChange, property } from '@origami/zen-lib/lib/decorators';
+import { FieldRadioIconsOption } from '@origami/zen-lib/lib/FormValidator/FormFieldTypes';
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';

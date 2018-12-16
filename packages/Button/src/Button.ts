@@ -1,5 +1,5 @@
-import Icon from '@origamijs/zen-icon';
-import { bindAttributes, component } from '@origamijs/zen-lib/lib/decorators';
+import Icon from '@origami/zen-icon';
+import { bindAttributes, component } from '@origami/zen-lib/lib/decorators';
 import { html, LitElement } from '@polymer/lit-element';
 import { property } from 'polymer3-decorators';
 import CSS from './button-css';

@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-icon-set",
+    "name": "@origami/zen-icon-set",
     "version": "0.0.1",
     "main": "lib/IconSet.js",
     "module": "lib/IconSet.es.js",

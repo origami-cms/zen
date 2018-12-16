@@ -1,7 +1,7 @@
-import {InputDropdown} from '@origamijs/zen-input-dropdown';
-import {Input} from '@origamijs/zen-input';
-import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
-import { InputDropdownResults } from '@origamijs/zen-lib/lib/FormValidator';
+import {InputDropdown} from '@origami/zen-input-dropdown';
+import {Input} from '@origami/zen-input';
+import { component, dispatchChange, property } from '@origami/zen-lib/lib/decorators';
+import { InputDropdownResults } from '@origami/zen-lib/lib/FormValidator';
 import { LitElement, html } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import CSS from './autocomplete-css';

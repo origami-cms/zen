@@ -1,8 +1,8 @@
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import { repeat } from 'lit-html/directives/repeat';
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
-import { ButtonProps } from '@origamijs/zen-button';
+import { component, property } from '@origami/zen-lib/lib/decorators';
+import { ButtonProps } from '@origami/zen-button';
 import CSS from './button-group-css';
 
 

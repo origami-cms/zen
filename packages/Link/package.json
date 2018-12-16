@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-link",
+    "name": "@origami/zen-link",
     "version": "0.0.1",
     "main": "lib/Link.js",
     "module": "lib/Link.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

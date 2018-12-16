@@ -2,7 +2,7 @@ import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 // @ts-ignore
 import { installRouter } from 'pwa-helpers/router';
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
+import { component, property } from '@origami/zen-lib/lib/decorators';
 
 
 export interface LinkProps {

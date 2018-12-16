@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-router",
+    "name": "@origami/zen-router",
     "version": "0.0.1",
     "main": "lib/Router.js",
     "module": "lib/Router.es.js",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-lib": "^0.0.1",
+        "@origami/zen-lib": "^0.0.1",
         "@types/universal-router": "^6.0.0",
         "pwa-helpers": "^0.8.3",
         "universal-router": "^6.0.0"

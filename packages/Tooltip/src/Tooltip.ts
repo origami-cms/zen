@@ -1,6 +1,6 @@
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
-import { bindAttributes, component, property } from '@origamijs/zen-lib/lib/decorators';
+import { bindAttributes, component, property } from '@origami/zen-lib/lib/decorators';
 import CSS from './tooltip-css';
 
 

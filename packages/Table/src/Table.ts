@@ -1,4 +1,4 @@
-import { Checkbox } from '@origamijs/zen-checkbox';
+import { Checkbox } from '@origami/zen-checkbox';
 import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import query from 'json-query';
 import { TemplateResult } from 'lit-html';

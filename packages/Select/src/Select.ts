@@ -1,9 +1,9 @@
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import { html } from '@polymer/lit-element';
-import { FieldOption, FieldOptions } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
-import {InputDropdown} from '@origamijs/zen-input-dropdown';
+import { FieldOption, FieldOptions } from '@origami/zen-lib/lib/FormValidator/FormFieldTypes';
+import { component, dispatchChange, property } from '@origami/zen-lib/lib/decorators';
+import {InputDropdown} from '@origami/zen-input-dropdown';
 import CSS from './select-css';
 
 

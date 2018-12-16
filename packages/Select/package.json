@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-select",
+    "name": "@origami/zen-select",
     "version": "0.0.1",
     "main": "lib/Select.js",
     "module": "lib/Select.es.js",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-input-dropdown": "^0.0.1",
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-input-dropdown": "^0.0.1",
+        "@origami/zen-lib": "^0.0.1"
     }
 }

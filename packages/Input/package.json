@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-input",
+    "name": "@origami/zen-input",
     "version": "0.0.1",
     "main": "lib/Input.js",
     "typings": "lib/Input.d.ts",

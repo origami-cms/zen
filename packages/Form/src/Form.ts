@@ -3,12 +3,12 @@
 import { html, LitElement } from '@polymer/lit-element';
 import { repeat } from 'lit-html/directives/repeat';
 import { TemplateResult } from 'lit-html';
-import { FormRow } from '@origamijs/zen-form-row';
+import { FormRow } from '@origami/zen-form-row';
 
-import { Field, FormValues } from '@origamijs/zen-lib/lib/FormValidator/FormFieldTypes';
-import Validator, { ValidateFieldErrors } from '@origamijs/zen-lib/lib/FormValidator/Validator';
+import { Field, FormValues } from '@origami/zen-lib/lib/FormValidator/FormFieldTypes';
+import Validator, { ValidateFieldErrors } from '@origami/zen-lib/lib/FormValidator/Validator';
 import CSS from './form-css';
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
+import { component, property } from '@origami/zen-lib/lib/decorators';
 
 export const FORM_EVENTS = {
     SUBMIT: 'submit',

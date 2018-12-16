@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-input-dropdown",
+    "name": "@origami/zen-input-dropdown",
     "version": "0.0.1",
     "main": "lib/InputDropdown.js",
     "module": "lib/InputDropdown.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

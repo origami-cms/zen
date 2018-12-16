@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-radio-icons",
+    "name": "@origami/zen-radio-icons",
     "version": "0.0.1",
     "main": "lib/RadioIcons.js",
     "module": "lib/RadioIcons.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

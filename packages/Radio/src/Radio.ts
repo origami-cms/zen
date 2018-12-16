@@ -1,4 +1,4 @@
-import { component, dispatchChange, property } from '@origamijs/zen-lib/lib/decorators';
+import { component, dispatchChange, property } from '@origami/zen-lib/lib/decorators';
 import { LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import { html } from '@polymer/lit-element';

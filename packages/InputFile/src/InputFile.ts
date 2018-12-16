@@ -1,4 +1,4 @@
-import { component, property } from '@origamijs/zen-lib/lib/decorators';
+import { component, property } from '@origami/zen-lib/lib/decorators';
 import { html, LitElement } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import CSS from './input-file-css';

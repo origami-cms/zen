@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-button-group",
+    "name": "@origami/zen-button-group",
     "version": "0.0.1",
     "main": "lib/ButtonGroup.js",
     "module": "lib/ButtonGroup.es.js",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-button": "^0.0.1",
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-button": "^0.0.1",
+        "@origami/zen-lib": "^0.0.1"
     }
 }

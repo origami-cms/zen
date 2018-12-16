@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-form-row",
+    "name": "@origami/zen-form-row",
     "version": "0.0.1",
     "main": "lib/FormRow.js",
     "module": "lib/FormRow.es.js",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-input": "^0.0.1",
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-input": "^0.0.1",
+        "@origami/zen-lib": "^0.0.1"
     }
 }

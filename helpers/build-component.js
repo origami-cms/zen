@@ -6,7 +6,7 @@ const run = (func, scope) => new Promise((res, rej) => {
     console.log('Running', func, 'on package', scope);
 
     exec(`
-        npx lerna run ${func} --scope @origamijs/${scope};
+        npx lerna run ${func} --scope @origami/${scope};
     `, (err) => {
         if (err) rej(err);
         else res();

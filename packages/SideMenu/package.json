@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-side-menu",
+    "name": "@origami/zen-side-menu",
     "version": "0.0.1",
     "main": "lib/SideMenu.js",
     "module": "lib/SideMenu.es.js",
@@ -16,6 +16,6 @@
         "test-server": "cd ../; http-server-spa ./ SideMenu/test/index.html"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

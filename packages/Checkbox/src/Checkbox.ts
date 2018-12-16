@@ -1,4 +1,4 @@
-import { dispatchChange } from '@origamijs/zen-lib/lib/decorators';
+import { dispatchChange } from '@origami/zen-lib/lib/decorators';
 import { customElement, html, LitElement, property } from '@polymer/lit-element';
 import { TemplateResult } from 'lit-html';
 import CSS from './checkbox-css';

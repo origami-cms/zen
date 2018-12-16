@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-input-file",
+    "name": "@origami/zen-input-file",
     "version": "0.0.1",
     "main": "lib/InputFile.js",
     "module": "lib/InputFile.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "dependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }

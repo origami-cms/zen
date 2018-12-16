@@ -1,5 +1,5 @@
 {
-    "name": "@origamijs/zen-checkbox-icons",
+    "name": "@origami/zen-checkbox-icons",
     "version": "0.0.1",
     "main": "lib/CheckboxIcons.js",
     "module": "lib/CheckboxIcons.es.js",
@@ -15,6 +15,6 @@
         "postrollup": "rm -f lib/*-css.*"
     },
     "devDependencies": {
-        "@origamijs/zen-lib": "^0.0.1"
+        "@origami/zen-lib": "^0.0.1"
     }
 }
