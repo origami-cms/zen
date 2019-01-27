@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-card-image",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenCardImage.js",
   "module": "build/CardImage.es.js",
   "typings": "build/ZenCardImage.d.ts",

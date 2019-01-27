@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-icon-set",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenIconSet.js",
   "module": "build/IconSet.es.js",
   "typings": "build/ZenIconSet.d.ts",

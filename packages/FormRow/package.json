@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-form-row",
-    "version": "0.0.1",
+    "version": "0.0.2-alpha.0",
     "main": "build/ZenFormRow.js",
     "module": "build/FormRow.es.js",
     "typings": "build/ZenFormRow.d.ts",
@@ -21,7 +21,7 @@
     "dependencies": {
         "@origami/zen-lib": "^0.0.1"
     },
-  "publishConfig": {
-    "access": "public"
-  }
+    "publishConfig": {
+        "access": "public"
+    }
 }

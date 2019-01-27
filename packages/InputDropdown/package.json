@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-input-dropdown",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenInputDropdown.js",
   "module": "build/InputDropdown.es.js",
   "typings": "build/ZenInputDropdown.d.ts",

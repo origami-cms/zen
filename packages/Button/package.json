@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-button",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenButton.js",
   "module": "build/Button.es.js",
   "typings": "build/ZenButton.d.ts",

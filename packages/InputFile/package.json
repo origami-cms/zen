@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-input-file",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenInputFile.js",
   "module": "build/InputFile.es.js",
   "typings": "build/ZenInputFile.d.ts",

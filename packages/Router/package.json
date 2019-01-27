@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-router",
-    "version": "0.0.1",
+    "version": "0.0.2-alpha.0",
     "main": "build/ZenRouter.js",
     "module": "build/Router.es.js",
     "typings": "build/ZenRouter.d.ts",
@@ -20,7 +20,7 @@
         "pwa-helpers": "^0.8.3",
         "universal-router": "^6.0.0"
     },
-  "publishConfig": {
-    "access": "public"
-  }
+    "publishConfig": {
+        "access": "public"
+    }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/zen.js",
   "module": "build/zen.es.js",
   "typings": "build/Zen/src/zen.d.ts",
@@ -15,7 +15,6 @@
     "postrollup": "rm -f build/*-css.*"
   },
   "devDependencies": {
-    "origami-icons": "^0.0.17",
     "@origami/zen-autocomplete": "^0.0.1",
     "@origami/zen-button": "^0.0.1",
     "@origami/zen-button-group": "^0.0.1",
@@ -41,7 +40,8 @@
     "@origami/zen-side-menu": "^0.0.1",
     "@origami/zen-table": "^0.0.1",
     "@origami/zen-tabs": "^0.0.1",
-    "@origami/zen-tooltip": "^0.0.1"
+    "@origami/zen-tooltip": "^0.0.1",
+    "origami-icons": "^0.0.17"
   },
   "publishConfig": {
     "access": "public"

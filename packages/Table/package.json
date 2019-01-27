@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-table",
-    "version": "0.0.1",
+    "version": "0.0.2-alpha.0",
     "main": "build/ZenTable.js",
     "module": "build/Table.es.js",
     "typings": "build/ZenTable.d.ts",
@@ -20,7 +20,7 @@
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
     },
-  "publishConfig": {
-    "access": "public"
-  }
+    "publishConfig": {
+        "access": "public"
+    }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-tooltip",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenTooltip.js",
   "module": "build/Tooltip.es.js",
   "typings": "build/ZenTooltip.d.ts",

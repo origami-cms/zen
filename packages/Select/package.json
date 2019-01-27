@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-select",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenSelect.js",
   "module": "build/Select.es.js",
   "typings": "build/ZenSelect.d.ts",

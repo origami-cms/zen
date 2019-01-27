@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-lib",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/Zenindex.js",
   "module": "build/index.js",
   "author": {

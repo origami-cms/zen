@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-checkbox",
-  "version": "0.0.1",
+  "version": "0.0.2-alpha.0",
   "main": "build/ZenCheckbox.js",
   "module": "build/Checkbox.es.js",
   "typings": "build/ZenCheckbox.d.ts",
