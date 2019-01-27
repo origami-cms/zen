@@ -77,7 +77,6 @@ const publish = async () => {
     info(colors.blue(`🚀 Publishing ${colors.yellow(name)} at version ${colors.yellow.bold(version!)} ${tag ? `🏷 ${tag}` : ''}`));
     const tagFlag = tag ? ['--tag', tag] : [];
     try {
-      console.log('yarn', 'publish', '--non-interactive', `--new-version=${version}`, ...tagFlag);
       await execa(
         'yarn', ['publish', '--non-interactive', `--new-version=${version}`, ...tagFlag],
         { cwd: dir }

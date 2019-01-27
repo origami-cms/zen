@@ -1,7 +1,7 @@
 tsconfig.json
 tslints.json
 .rpt*
-src/
+./src/
 __tests__
 coverage
 test
