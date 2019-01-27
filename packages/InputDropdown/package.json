@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-input-dropdown",
-    "version": "0.0.1",
-    "main": "lib/InputDropdown.js",
-    "module": "lib/InputDropdown.es.js",
-    "typings": "lib/InputDropdown.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/InputDropdown.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-input-dropdown",
+  "version": "0.0.1",
+  "main": "build/ZenInputDropdown.js",
+  "module": "build/InputDropdown.es.js",
+  "typings": "build/ZenInputDropdown.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenInputDropdown.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

@@ -1,11 +1,10 @@
 {
-    "exclude": [
-        "./lib/*"
-    ],
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "build",
-        "declarationDir": "lib"
-    }
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./build",
+    "rootDir": "./src"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
 }

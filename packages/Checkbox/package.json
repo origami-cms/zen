@@ -1,20 +1,23 @@
 {
-    "name": "@origami/zen-checkbox",
-    "version": "0.0.1",
-    "main": "lib/Checkbox.js",
-    "module": "lib/Checkbox.es.js",
-    "typings": "lib/Checkbox.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Checkbox.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-checkbox",
+  "version": "0.0.1",
+  "main": "build/ZenCheckbox.js",
+  "module": "build/Checkbox.es.js",
+  "typings": "build/ZenCheckbox.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenCheckbox.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  },
+  "dependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

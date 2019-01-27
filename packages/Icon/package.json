@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-icon",
-    "version": "0.0.1",
-    "main": "lib/Icon.js",
-    "module": "lib/Icon.es.js",
-    "typings": "lib/Icon.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Icon.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-icon",
+  "version": "0.0.1",
+  "main": "build/ZenIcon.js",
+  "module": "build/Icon.es.js",
+  "typings": "build/ZenIcon.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenIcon.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

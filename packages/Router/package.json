@@ -1,18 +1,18 @@
 {
     "name": "@origami/zen-router",
     "version": "0.0.1",
-    "main": "lib/Router.js",
-    "module": "lib/Router.es.js",
-    "typings": "lib/Router.d.ts",
+    "main": "build/ZenRouter.js",
+    "module": "build/Router.es.js",
+    "typings": "build/ZenRouter.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Router.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "prebuild": "rm -rf build",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenRouter.js",
+        "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
         "@origami/zen-lib": "^0.0.1",

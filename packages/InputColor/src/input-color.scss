@@ -1,50 +1,51 @@
 @import 'zen-css/import';
 
 :host {
-    display: block;
-    position: relative;
-    @extend %comp-form-input-general;
+  display: block;
+  position: relative;
+  @extend %comp-form-input-general;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 0;
+  overflow: hidden;
+
+  &,
+  * {
+    @extend %reset;
+  }
+
+  input {
+    @extend %cover;
+    opacity: 0;
     cursor: pointer;
-    box-sizing: border-box;
-    padding: 0;
-    overflow: hidden;
+  }
 
-    &, * {
-        @extend %reset;
+  span {
+    margin-left: default('size-tiny');
+    vertical-align: middle;
+
+    &:empty {
+      &:after {
+        content: 'No color selected';
+        color: default('color-grey-300');
+      }
     }
+  }
 
-    input {
-        @extend %cover;
-        opacity: 0;
-        cursor: pointer;
+  .color {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: default('input-height');
+    height: default('input-height');
+    zen-icon {
+      @extend %center;
     }
+  }
 
-    span {
-        margin-left: default('size-tiny');
-        vertical-align: middle;
-
-        &:empty {
-            &:after {
-                content: 'No color selected';
-                color: default('color-grey-300');
-            }
-        }
-    }
-
-    .color {
-        position: relative;
-        display: inline-block;
-        vertical-align: top;
-        width: default('input-height');
-        height: default('input-height');
-        zen-icon {
-            @extend %center;
-        }
-    }
-
-    img {
-        @extend %cover;
-        object-fit: contain;
-        border: none;
-    }
+  img {
+    @extend %cover;
+    object-fit: contain;
+    border: none;
+  }
 }

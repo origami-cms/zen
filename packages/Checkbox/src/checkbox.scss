@@ -2,11 +2,11 @@
 @import 'zen-css/animations/checkbox';
 
 :host {
-    @extend %comp-checkbox;
+  @extend %comp-checkbox;
 }
 @each $size in $sizes {
-    :host([size=#{$size}]) {
-        width: default('size-#{$size}');
-        height: default('size-#{$size}');
-    }
+  :host([size='#{$size}']) {
+    width: default('size-#{$size}');
+    height: default('size-#{$size}');
+  }
 }

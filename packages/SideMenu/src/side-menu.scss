@@ -1,31 +1,32 @@
 @import 'zen-css/import';
 
 :host {
+  display: block;
+  user-select: none;
+
+  &,
+  * {
+    @extend %reset;
+  }
+
+  li {
+    list-style: none;
     display: block;
-    user-select: none;
+    font-size: default('font-size-small');
+    color: default('color-grey-300');
+    height: default('size-main');
+    line-height: default('size-main');
 
-    &, * {
-        @extend %reset;
+    zen-link {
+      width: 100%;
     }
 
-    li {
-        list-style: none;
-        display: block;
-        font-size: default('font-size-small');
-        color: default('color-grey-300');
-        height: default('size-main');
-        line-height: default('size-main');
-
-        zen-link {
-            width: 100%;
-        }
-
-        * {
-            vertical-align: middle;
-        }
-
-        .active {
-            color: default('color-main');
-        }
+    * {
+      vertical-align: middle;
     }
+
+    .active {
+      color: default('color-main');
+    }
+  }
 }

@@ -1,20 +1,20 @@
 {
     "name": "@origami/zen-radio-tabs",
     "version": "0.0.1",
-    "main": "lib/RadioTabs.js",
-    "module": "lib/RadioTabs.es.js",
-    "typings": "lib/RadioTabs.d.ts",
+    "main": "build/ZenRadioTabs.js",
+    "module": "build/RadioTabs.es.js",
+    "typings": "build/ZenRadioTabs.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/RadioTabs.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "prebuild": "rm -rf build",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenRadioTabs.js",
+        "postrollup": "rm -f build/*-css.*"
     },
-    "dependencies": {
+    "devDependencies": {
         "@origami/zen-lib": "^0.0.1"
     }
 }

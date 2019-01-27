@@ -1,21 +1,21 @@
 {
-    "name": "@origami/zen-form",
-    "version": "0.0.1",
-    "main": "lib/Form.js",
-    "module": "lib/Form.es.js",
-    "typings": "lib/Form.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Form.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-form-row": "^0.0.1",
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-form",
+  "version": "0.0.1",
+  "main": "build/ZenForm.js",
+  "module": "build/Form.es.js",
+  "typings": "build/ZenForm.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenForm.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-form-row": "^0.0.1",
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

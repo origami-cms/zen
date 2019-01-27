@@ -1,58 +1,59 @@
 @import 'zen-css/import';
 :host {
-    user-select: none;
-    ul.options {
-        @extend %reset;
-        list-style: none;
-        display: grid;
-        grid-template-columns: repeat(var(--radio-icons-columns, 3), 1fr);
-        grid-gap: 2rem;
+  user-select: none;
+  ul.options {
+    @extend %reset;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(var(--radio-icons-columns, 3), 1fr);
+    grid-gap: 2rem;
 
+    li.option {
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+      border: default('border-200');
+      border-radius: default('border-radius');
+      padding: default('size-tiny') 0;
+      padding-top: default('size-main');
+      transition: all default('transition-time');
+      background-color: var(--radio-icons-bg);
+      box-shadow: var(--radio-icons-shadow);
 
-        li.option {
-            position: relative;
-            text-align: center;
-            cursor: pointer;
-            border: default('border-200');
-            border-radius: default('border-radius');
-            padding: default('size-tiny') 0;
-            padding-top: default('size-main');
-            transition: all default('transition-time');
-            background-color: var(--radio-icons-bg);
-            box-shadow: var(--radio-icons-shadow);
+      &:before {
+        @extend %cover;
+        content: '';
+        background-color: default('color-main');
+        opacity: 0;
+        transition: all default('transition-time');
+      }
 
-             &:before {
-                @extend %cover;
-                content: '';
-                background-color: default('color-main');
-                opacity: 0;
-                transition: all default('transition-time');
-            }
-
-            &.active {
-                border: default('border-main');
-                &:before {
-                    opacity: 0.2;
-                }
-            }
-
-            .img {
-                position: relative;
-                &, img, & * {
-                    max-height: calc(default('size-super') * 1.5);
-                }
-            }
-            & > span {
-                display: inline-block;
-                margin-top: default('size-small');
-                white-space: normal;
-            }
-
-            zen-checkbox {
-                position: absolute;
-                left: default('size-tiny');
-                top: default('size-tiny');
-            }
+      &.active {
+        border: default('border-main');
+        &:before {
+          opacity: 0.2;
         }
+      }
+
+      .img {
+        position: relative;
+        &,
+        img,
+        & * {
+          max-height: calc(default('size-super') * 1.5);
+        }
+      }
+      & > span {
+        display: inline-block;
+        margin-top: default('size-small');
+        white-space: normal;
+      }
+
+      zen-checkbox {
+        position: absolute;
+        left: default('size-tiny');
+        top: default('size-tiny');
+      }
     }
+  }
 }

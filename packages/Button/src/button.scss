@@ -7,72 +7,69 @@
 
 @import 'zen-css/import';
 :host {
-    @extend %comp-button;
-    transition:
-        filter calc(#{default('transition-time')} * 3/4),
-        transform calc(#{default('transition-time')} / 2);
+  @extend %comp-button;
+  transition: filter calc(#{default('transition-time')} * 3 / 4),
+    transform calc(#{default('transition-time')} / 2);
 
-    zen-icon {
-        margin-right: default('size-tiny');
-        vertical-align: middle;
-    }
-    zen-loading {
-        display: inline-flex;
-        vertical-align: middle;
-    }
-    slot {
-        transition: all default('transition-time');
-    }
+  zen-icon {
+    margin-right: default('size-tiny');
+    vertical-align: middle;
+  }
+  zen-loading {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  slot {
+    transition: all default('transition-time');
+  }
 
-    &:hover {
-        display: none;
-    }
+  &:hover {
+    display: none;
+  }
 }
 
-
 @each $size in $sizes {
-    :host([size=#{$size}]) {
-        width: auto;
-        height: default('size-#{$size}');
-        line-height: default('size-#{$size}');
-        font-size: calc((1.6/4) * #{default('size-#{$size}')});
-        padding: 0 calc(#{default('size-#{$size}')} / 2);
-    }
+  :host([size='#{$size}']) {
+    width: auto;
+    height: default('size-#{$size}');
+    line-height: default('size-#{$size}');
+    font-size: calc((1.6 / 4) * #{default('size-#{$size}')});
+    padding: 0 calc(#{default('size-#{$size}')} / 2);
+  }
 }
 
 @each $name, $grad in $gradients {
-    :host([color="#{$name}"]) {
-        background: gradient($name);
-    }
+  :host([color='#{$name}']) {
+    background: gradient($name);
+  }
 }
 
 :host(:hover) {
-    filter: brightness(1.2);
-    transform: scale(1.05);
+  filter: brightness(1.2);
+  transform: scale(1.05);
 }
 :host(:active) {
-    filter: brightness(0.8);
-    transform: scale(0.98);
+  filter: brightness(0.8);
+  transform: scale(0.98);
 }
 
 :host([loading]),
 :host([disabled]) {
-    opacity: 0.5;
-    pointer-events: none;
+  opacity: 0.5;
+  pointer-events: none;
 }
 :host(:not([color]):not([hollow])) {
-    background-color: default('btn-bg');
-    background: default('btn-bg');
+  background-color: default('btn-bg');
+  background: default('btn-bg');
 }
 
 :host([iconright]) {
-    @extend %comp-button-icon-right;
+  @extend %comp-button-icon-right;
 }
 
 @each $color in $colors {
-    :host([color=#{$color}][hollow]) {
-        background: transparent;
-        color: var(--color-#{$color});
-    }
+  :host([color='#{$color}'][hollow]) {
+    background: transparent;
+    color: var(--color-#{$color});
+  }
 }
-

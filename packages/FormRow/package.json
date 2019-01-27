@@ -1,21 +1,24 @@
 {
     "name": "@origami/zen-form-row",
     "version": "0.0.1",
-    "main": "lib/FormRow.js",
-    "module": "lib/FormRow.es.js",
-    "typings": "lib/FormRow.d.ts",
+    "main": "build/ZenFormRow.js",
+    "module": "build/FormRow.es.js",
+    "typings": "build/ZenFormRow.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/FormRow.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "prebuild": "rm -rf build",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenFormRow.js",
+        "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
         "@origami/zen-input": "^0.0.1",
+        "@origami/zen-lib": "^0.0.1"
+    },
+    "dependencies": {
         "@origami/zen-lib": "^0.0.1"
     }
 }

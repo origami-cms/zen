@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-radio-icons",
-    "version": "0.0.1",
-    "main": "lib/RadioIcons.js",
-    "module": "lib/RadioIcons.es.js",
-    "typings": "lib/RadioIcons.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/RadioIcons.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-radio-icons",
+  "version": "0.0.1",
+  "main": "build/ZenRadioIcons.js",
+  "module": "build/RadioIcons.es.js",
+  "typings": "build/ZenRadioIcons.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenRadioIcons.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

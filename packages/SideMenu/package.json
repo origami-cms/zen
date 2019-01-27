@@ -1,21 +1,21 @@
 {
-    "name": "@origami/zen-side-menu",
-    "version": "0.0.1",
-    "main": "lib/SideMenu.js",
-    "module": "lib/SideMenu.es.js",
-    "typings": "lib/SideMenu.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/SideMenu.js",
-        "postrollup": "rm -f lib/*-css.*",
-        "test-server": "cd ../; http-server-spa ./ SideMenu/test/index.html"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-side-menu",
+  "version": "0.0.1",
+  "main": "build/ZenSideMenu.js",
+  "module": "build/SideMenu.es.js",
+  "typings": "build/ZenSideMenu.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenSideMenu.js",
+    "postrollup": "rm -f build/*-css.*",
+    "test-server": "cd ../; http-server-spa ./ SideMenu/test/index.html"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

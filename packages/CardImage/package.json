@@ -1,20 +1,23 @@
 {
-    "name": "@origami/zen-card-image",
-    "version": "0.0.1",
-    "main": "lib/CardImage.js",
-    "module": "lib/CardImage.es.js",
-    "typings": "lib/CardImage.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/CardImage.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-card-image",
+  "version": "0.0.1",
+  "main": "build/ZenCardImage.js",
+  "module": "build/CardImage.es.js",
+  "typings": "build/ZenCardImage.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenCardImage.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  },
+  "dependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

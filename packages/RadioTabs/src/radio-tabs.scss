@@ -1,12 +1,12 @@
 @import 'zen-css/import';
 
 :host {
-    .option {
-        text-align: left;
-    }
+  .option {
+    text-align: left;
+  }
 }
 
 :host {
-    @extend %comp-tabs;
-    border-width: 2px;
+  @extend %comp-tabs;
+  border-width: 2px;
 }

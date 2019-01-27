@@ -1,15 +1,18 @@
 {
     "name": "@origami/zen-input",
     "version": "0.0.1",
-    "main": "lib/Input.js",
-    "typings": "lib/Input.d.ts",
+    "main": "build/ZenInput.js",
+    "typings": "build/ZenInput.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "rollup": "rollup -c ../../rollup/component.js build/Input.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenInput.js",
+        "postrollup": "rm -f build/*-css.*"
+    },
+    "devDependencies": {
+        "@origami/zen-lib": "^0.0.1"
     }
 }

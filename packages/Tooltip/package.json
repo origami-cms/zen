@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-tooltip",
-    "version": "0.0.1",
-    "main": "lib/Tooltip.js",
-    "module": "lib/Tooltip.es.js",
-    "typings": "lib/Tooltip.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Tooltip.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-tooltip",
+  "version": "0.0.1",
+  "main": "build/ZenTooltip.js",
+  "module": "build/Tooltip.es.js",
+  "typings": "build/ZenTooltip.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenTooltip.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

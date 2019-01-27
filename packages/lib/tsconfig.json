@@ -1,11 +1,11 @@
 {
-    "exclude": [
-        "./lib/*"
-    ],
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "lib",
-        "declarationDir": "lib"
-    }
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./",
+    "rootDir": "./src",
+    "target": "es2016"
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
 }

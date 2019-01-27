@@ -1,12 +1,21 @@
 {
-    "name": "@origami/zen-lib",
-    "version": "0.0.1",
-    "main": "lib/index.js",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc"
-    }
+  "name": "@origami/zen-lib",
+  "version": "0.0.1",
+  "main": "build/Zenindex.js",
+  "module": "build/index.js",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "prebuild": "sh clean.sh",
+    "build": "tsc --skipLibCheck"
+  },
+  "devDependencies": {
+    "@types/http-status-codes": "^1.2.0"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "polymer3-decorators": "^0.0.1"
+  }
 }

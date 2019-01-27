@@ -1,18 +1,19 @@
 {
     "name": "@origami/zen-rich-text-editor",
     "version": "0.0.1",
-    "main": "lib/RTEditor.js",
-    "typings": "lib/RTEditor.d.ts",
+    "main": "build/ZenRTEditor.js",
+    "typings": "build/ZenRTEditor.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "rollup": "rollup -c ../../rollup/component.js build/RTEditor.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenRTEditor.js",
+        "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
+        "@origami/zen-lib": "^0.0.1",
         "@types/quill": "^2.0.1",
         "quill": "^1.3.6",
         "quill-image-upload": "^0.1.2"

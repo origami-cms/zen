@@ -15,4 +15,8 @@ lib/**/*.ts
 util/**/*.ts
 !util/**/*.d.ts
 
+packages/*/coverage
+packages/*/build
+packages/*/lib
+
 /rollup

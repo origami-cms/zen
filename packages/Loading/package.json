@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-loading",
-    "version": "0.0.1",
-    "main": "lib/Loading.js",
-    "module": "lib/Loading.es.js",
-    "typings": "lib/Loading.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Loading.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-loading",
+  "version": "0.0.1",
+  "main": "build/ZenLoading.js",
+  "module": "build/Loading.es.js",
+  "typings": "build/ZenLoading.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenLoading.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

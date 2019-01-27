@@ -1,27 +1,30 @@
 {
+  "include": [
+    "./scripts/**/*.ts"
+  ],
+  "exclude": [
+    "**/__tests__/"
+  ],
   "compilerOptions": {
-    "target": "ES2016",
+    "target": "es2016",
+    "module": "esnext",
+    "moduleResolution": "node",
     "lib": [
       "es5",
       "es6",
-      "es2015.symbol",
       "es2015.promise",
-      "dom",
+      "es2016.array.include",
       "es2017.object",
-      "es2016.array.include"
+      "dom"
     ],
-    "module": "es6",
-    "skipLibCheck": true,
+    "experimentalDecorators": true,
     "declaration": true,
     "strict": true,
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "baseUrl": "./packages",
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "paths": {
-    }
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

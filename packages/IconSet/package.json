@@ -1,23 +1,21 @@
 {
-    "name": "@origami/zen-icon-set",
-    "version": "0.0.1",
-    "main": "lib/IconSet.js",
-    "module": "lib/IconSet.es.js",
-    "typings": "lib/IconSet.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/IconSet.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "origami-icons": "^0.0.16"
-    },
-    "dependencies": {
-        "origami-icons": "^0.0.17"
-    }
+  "name": "@origami/zen-icon-set",
+  "version": "0.0.1",
+  "main": "build/ZenIconSet.js",
+  "module": "build/IconSet.es.js",
+  "typings": "build/ZenIconSet.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenIconSet.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1",
+    "origami-icons": "^0.0.18"
+  }
 }

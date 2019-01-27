@@ -1,20 +1,20 @@
 {
     "name": "@origami/zen-radio",
     "version": "0.0.1",
-    "main": "lib/Radio.js",
-    "module": "lib/Radio.es.js",
-    "typings": "lib/Radio.d.ts",
+    "main": "build/ZenRadio.js",
+    "module": "build/Radio.es.js",
+    "typings": "build/ZenRadio.d.ts",
     "author": {
         "name": "Tristan Matthias",
         "email": "hello@tristanmatthias.com"
     },
     "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Radio.js",
-        "postrollup": "rm -f lib/*-css.*"
+        "build": "tsc --skipLibCheck",
+        "prebuild": "rm -rf build",
+        "rollup": "rollup -c ../../rollup/component.js build/ZenRadio.js",
+        "postrollup": "rm -f build/*-css.*"
     },
-    "dependencies": {
+    "devDependencies": {
         "@origami/zen-lib": "^0.0.1"
     }
 }

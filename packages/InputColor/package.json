@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-input-color",
-    "version": "0.0.1",
-    "main": "lib/InputColor.js",
-    "module": "lib/InputColor.es.js",
-    "typings": "lib/InputColor.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/InputColor.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-input-color",
+  "version": "0.0.1",
+  "main": "build/ZenInputColor.js",
+  "module": "build/InputColor.es.js",
+  "typings": "build/ZenInputColor.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenInputColor.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-tabs",
-    "version": "0.0.1",
-    "main": "lib/Tabs.js",
-    "module": "lib/Tabs.es.js",
-    "typings": "lib/Tabs.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/Tabs.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "dependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-tabs",
+  "version": "0.0.1",
+  "main": "build/ZenTabs.js",
+  "module": "build/Tabs.es.js",
+  "typings": "build/ZenTabs.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenTabs.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

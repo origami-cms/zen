@@ -1,20 +1,20 @@
 {
-    "name": "@origami/zen-checkbox-icons",
-    "version": "0.0.1",
-    "main": "lib/CheckboxIcons.js",
-    "module": "lib/CheckboxIcons.es.js",
-    "typings": "lib/CheckboxIcons.d.ts",
-    "author": {
-        "name": "Tristan Matthias",
-        "email": "hello@tristanmatthias.com"
-    },
-    "scripts": {
-        "build": "tsc",
-        "prebuild": "rm -rf lib",
-        "rollup": "rollup -c ../../rollup/component.js build/CheckboxIcons.js",
-        "postrollup": "rm -f lib/*-css.*"
-    },
-    "devDependencies": {
-        "@origami/zen-lib": "^0.0.1"
-    }
+  "name": "@origami/zen-checkbox-icons",
+  "version": "0.0.1",
+  "main": "build/ZenCheckboxIcons.js",
+  "module": "build/CheckboxIcons.es.js",
+  "typings": "build/ZenCheckboxIcons.d.ts",
+  "author": {
+    "name": "Tristan Matthias",
+    "email": "hello@tristanmatthias.com"
+  },
+  "scripts": {
+    "build": "tsc --skipLibCheck",
+    "prebuild": "rm -rf build",
+    "rollup": "rollup -c ../../rollup/component.js build/ZenCheckboxIcons.js",
+    "postrollup": "rm -f build/*-css.*"
+  },
+  "devDependencies": {
+    "@origami/zen-lib": "^0.0.1"
+  }
 }

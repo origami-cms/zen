@@ -1,6 +1,9 @@
 {
-    "extends": "tslint-config-origami",
-    "rules": {
-        "function-name": false
-    }
+  "extends": "@origami/tslint-config",
+  "defaultSeverity": "error",
+  "rules": {
+    "no-implicit-dependencies": false,
+    "no-submodule-imports": false,
+    "no-this-assignment": false
+  }
 }

@@ -1,93 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Form test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Form test</title>
 
-    <style>
-        html {
-            font-size: 10px;
-            height: 100%;
-        }
-        pre {
-            font-size: 14px;
-        }
-        body {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            height: 100%;
-        }
-        zen-form {
-            display: block;
-            height: 30%;
-        }
-    </style>
+  <style>
+    html {
+      font-size: 10px;
+      height: 100%;
+    }
+
+    pre {
+      font-size: 14px;
+    }
+
+    body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: 100%;
+    }
+
+    zen-form {
+      display: block;
+      height: 30%;
+    }
+
+  </style>
 </head>
+
 <body>
-    <div class="col">
-        <h2>Form with children</h2>
-        <zen-form class="with-children">
-            <input name="name" placeholder="Basic input">
-            <div class="wrap">
-                <label for="">I'm wrapped</label>
-                <zen-input name="name" placeholder="First name"></zen-input>
-            </div>
-            <zen-checkbox name="check" ></zen-checkbox>
-        </zen-form>
-        <h3>Values:</h3>
-        <pre class="with-children"></pre>
-    </div>
+  <div class="col">
+    <h2>Form with children</h2>
+    <zen-form class="with-children">
+      <input name="name" placeholder="Basic input">
+      <div class="wrap">
+        <label for="">I'm wrapped</label>
+        <zen-input name="name" placeholder="First name"></zen-input>
+      </div>
+      <zen-checkbox name="check"></zen-checkbox>
+    </zen-form>
+    <h3>Values:</h3>
+    <pre class="with-children"></pre>
+  </div>
 
-    <div class="col">
-        <h2>Form with field prop</h2>
-        <button onclick="fProps.save()">Save</button>
-        <zen-form class="with-props" saveable></zen-form>
-        <h3>Values:</h3>
-        <pre class="with-props"></pre>
+  <div class="col">
+    <h2>Form with field prop</h2>
+    <button onclick="fProps.save()">Save</button>
+    <zen-form class="with-props" saveable></zen-form>
+    <h3>Values:</h3>
+    <pre class="with-props"></pre>
 
-        <h3>Dirty Values:</h3>
-        <pre class="with-props dirty"></pre>
-    </div>
+    <h3>Dirty Values:</h3>
+    <pre class="with-props dirty"></pre>
+  </div>
 
-    <script>
-        const fChildren = document.querySelector('zen-form.with-children');
-        const rChildren = document.querySelector('pre.with-children');
-        const fProps = document.querySelector('zen-form.with-props');
-        const rProps = document.querySelector('pre.with-props');
-        const rDirtyProps = document.querySelector('pre.with-props.dirty');
+  <script>
+    const fChildren = document.querySelector('zen-form.with-children');
+    const rChildren = document.querySelector('pre.with-children');
+    const fProps = document.querySelector('zen-form.with-props');
+    const rProps = document.querySelector('pre.with-props');
+    const rDirtyProps = document.querySelector('pre.with-props.dirty');
 
-        fProps.fields = [
-            {name: 'name', type: 'text', placeholder: 'First name'},
-            {name: 'check', type: 'checkbox', validate: {required: false}},
-            {name: 'textarea', type: 'textarea'},
-        ];
-        fProps.values = {
-            name: 'Bob'
+    fProps.fields = [{
+        name: 'name',
+        type: 'text',
+        placeholder: 'First name'
+      },
+      {
+        name: 'check',
+        type: 'checkbox',
+        validate: {
+          required: false
         }
+      },
+      {
+        name: 'textarea',
+        type: 'textarea'
+      },
+    ];
+    fProps.values = {
+      name: 'Bob'
+    }
 
-        // fProps.addEventListener('dirtyChange', e => {
-        //     fProps.values = {name: 'bob'}
-        // })
+    // fProps.addEventListener('dirtyChange', e => {
+    //     fProps.values = {name: 'bob'}
+    // })
 
-        fChildren.addEventListener('change', () => {
-            rChildren.innerHTML = JSON.stringify(fChildren.values);
-        });
-        fProps.addEventListener('change', () => {
-            rProps.innerHTML = JSON.stringify(fProps.values);
-        });
+    fChildren.addEventListener('change', () => {
+      rChildren.innerHTML = JSON.stringify(fChildren.values);
+    });
+    fProps.addEventListener('change', () => {
+      rProps.innerHTML = JSON.stringify(fProps.values);
+    });
 
-        window.addEventListener('keyup', () => {
-            rDirtyProps.innerHTML = JSON.stringify(fProps.dirtyValues);
-        })
+    window.addEventListener('keyup', () => {
+      rDirtyProps.innerHTML = JSON.stringify(fProps.dirtyValues);
+    })
 
-    </script>
+  </script>
 
-    <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-    <script src="../lib/Form.js"></script>
-    <script src="../../FormRow/lib/FormRow.js"></script>
-    <script src="../../Input/lib/Input.js"></script>
-    <script src="../../Checkbox/lib/Checkbox.js"></script>
+  <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../build/Form.js"></script>
+  <script src="../../FormRow/build/FormRow.js"></script>
+  <script src="../../Input/build/Input.js"></script>
+  <script src="../../Checkbox/build/Checkbox.js"></script>
 </body>
+
 </html>

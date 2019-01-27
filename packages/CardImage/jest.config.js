@@ -1,3 +1,3 @@
 module.exports = {
-    "testEnvironment": "jest-environment-webdriver"
+  "testEnvironment": "jest-environment-webdriver"
 }

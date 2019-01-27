@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <title>Test</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        font-size: 10px;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 4rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 2rem;
+      }
+      .card {
+        padding-top: 0;
+        padding: 4rem;
+        border-radius: 1rem;
+        box-shadow: 0 5px 20px rgb(174, 89, 223, 0.2);
+        margin-top: 4rem;
+      }
+      .card.span2 {
+        grid-column: span 2;
+      }
+      h1, h2 {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: -4rem;
+        transform: translateY(-8rem);
+        line-height: 4rem;
+        height: 4rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <zen-icon-set></zen-icon-set>
+
+    <h1>Zen</h1>
+
+    <div class="grid">
+
+
+      <!-- Button -->
+      <div class="card">
+        <h2>Button</h2>
+        <zen-button color="orange" icon="add">Simple button</zen-button>
+        <zen-button color="orange" icon="add" id="btn">ok</zen-button>
+      </div>
+
+      <!-- Button group -->
+      <div class="card">
+        <h2>Button Group</h2>
+        <zen-button-group></zen-button-group>
+      </div>
+
+
+      <!-- Icons -->
+      <div class="card">
+        <h2 id="h2">Icons</h2>
+        <zen-icon type="user"></zen-icon>
+        <zen-icon type="add" color="alt"></zen-icon>
+        <zen-icon type="page" color="error"></zen-icon>
+        <zen-tooltip element="btn" on="hover"> Hey! </zen-tooltip>
+      </div>
+
+
+      <!-- Forms -->
+      <div class="card span2">
+        <h2>Forms</h2>
+        <zen-form></zen-form>
+      </div>
+
+
+      <!-- Tabs -->
+      <div class="card">
+        <h2>Tabs</h2>
+        <zen-tabs>
+          <p>1</p>
+          <p>2</p>
+        </zen-tabs>
+      </div>
+
+      <zen-card-image
+        src="https://source.unsplash.com/random/800x800"
+        heading="ok"
+      >
+        Inside works
+      </zen-card-image>
+
+      <zen-table selectable striped="striped" hoverable>
+        <zen-table-column heading="" width="4rem">
+          <template>
+            <img src="{{ picture.thumbnail }}" />
+          </template>
+        </zen-table-column>
+
+        <zen-table-column heading="Name" icon="user" sortable>
+          <template>
+            {{ name.first }} {{ name.last }} {{ phone }}
+          </template>
+        </zen-table-column>
+
+        <zen-table-column key="gender"></zen-table-column>
+
+        <zen-table-column
+          heading="Age"
+          key="dob.age"
+          align="right"
+          sortable
+        ></zen-table-column>
+      </zen-table>
+    </div>
+
+    <script>
+      (async () => {
+        const bg = document.querySelector('zen-button-group');
+        bg.buttons = [
+          {
+            text: 'Standard'
+          },
+          {
+            text: 'Icon',
+            icon: 'add',
+            color: 'green'
+          },
+          {
+            text: 'Click me!',
+            icon: 'remove',
+            color: 'red',
+            onclick: () => alert('Told ya so!')
+          }
+        ];
+
+        const f = document.querySelector('zen-form');
+        f.values = {
+          text: '123',
+          radio: 'medium',
+          checkbox: true,
+          'radio-icons': [1],
+          'radio-tabs': 'small'
+          // "select": "small"
+        };
+        f.fields = [
+          {
+            name: 'email',
+            type: 'autocomplete',
+            placeholder: 'Email',
+            icon: 'mail',
+            minlength: 4
+          },
+
+          {
+            name: 'text',
+            type: 'text',
+            placeholder: 'Email',
+            icon: 'mail',
+            validate: {
+              alpha: true
+            }
+          },
+
+          {
+            name: 'color',
+            type: 'color',
+            placeholder: 'Color picker'
+          },
+
+          {
+            name: 'file',
+            type: 'file',
+            placeholder: 'File picker'
+          },
+
+          {
+            name: 'textarea',
+            type: 'textarea',
+            placeholder: 'Text areas are fun',
+            validate: {
+              alpha: true
+            }
+          },
+
+          {
+            name: 'select',
+            type: 'radio',
+            options: {
+              small: 'Small',
+              medium: 'Medium',
+              large: 'Large'
+            }
+          },
+
+          {
+            name: 'checkbox',
+            type: 'checkbox',
+            label: 'Check me'
+          },
+
+          {
+            name: 'radio-icons',
+            type: 'checkbox-icons',
+            options: [
+              {
+                value: 1,
+                icon: 'user',
+                label: 'Using icon'
+              },
+              {
+                value: 2,
+                html: '<zen-button>Cool</zen-button>',
+                label: 'Using html'
+              },
+              {
+                value: 3,
+                image: 'http://placehold.it/100x100',
+                label: 'Using img'
+              }
+            ]
+          },
+
+          {
+            name: 'select',
+            type: 'radio-tabs',
+            options: {
+              small: 'Small',
+              medium: 'Medium',
+              large: 'Large'
+            }
+          },
+
+          {
+            name: 'select',
+            type: 'select',
+            placeholder: 'Please select a size',
+            options: {
+              small: 'Small',
+              medium: 'Medium',
+              large: 'Large'
+            }
+          }
+        ];
+
+        const tabs = document.querySelector('zen-tabs');
+        tabs.tabs = [
+          {
+            icon: 'page',
+            text: 'Properties'
+          },
+          {
+            icon: 'dashboard',
+            text: 'Analytics'
+          },
+          {
+            icon: 'user',
+            text: 'Users',
+            disabled: true
+          }
+        ];
+
+        const cardImage = document.querySelector('zen-card-image');
+        cardImage.icons = [
+          {
+            icon: 'page',
+            action: () => alert('Clicked!')
+          }
+        ];
+
+        const table = document.querySelector('zen-table');
+        table.data = (await fetch('https://randomuser.me/api?results=5').then(
+          r => r.json()
+        )).results;
+      })();
+    </script>
+    <script src="../packages/Zen/build/zen.js"></script>
+    <!-- <script src="../packages/Button/build/Button.js"></script> -->
+  </body>
+</html>

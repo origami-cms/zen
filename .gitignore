@@ -8,5 +8,14 @@ dist/
 .rpt*
 *-css.ts
 
-packages/*/build/
-packages/*/lib/
+scripts/build
+
+packages/*/*
+!packages/*/src
+!packages/*/.npmignore
+!packages/*/jest.config.js
+!packages/*/package.json
+!packages/*/README.md
+!packages/*/tsconfig.json
+!packages/*/tslint.json
+!packages/*/*.sh

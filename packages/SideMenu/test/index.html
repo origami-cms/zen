@@ -1,37 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Side menu test</title>
-    <script src="/SideMenu/lib/SideMenu.js"></script>
-    <script src="/IconSet/lib/IconSet.js"></script>
-    <script src="/Router/lib/Router.js"></script>
-    <script src="/Icon/lib/Icon.js"></script>
-    <script src="/Link/lib/Link.js"></script>
-    <style>
-        html {
-            font-size: 10px;
-            background: #eee;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Side menu test</title>
+  <script src="/SideMenu/build/SideMenu.js"></script>
+  <script src="/IconSet/build/IconSet.js"></script>
+  <script src="/Router/build/Router.js"></script>
+  <script src="/Icon/build/Icon.js"></script>
+  <script src="/Link/build/Link.js"></script>
+  <style>
+    html {
+      font-size: 10px;
+      background: #eee;
+    }
+
+  </style>
 </head>
+
 <body>
-    <zen-icon-set></zen-icon-set>
-    <zen-side-menu></zen-side-menu>
-    <zen-router></zen-router>
-    <script>
-        (() => {
-            document.querySelector('zen-side-menu').links = [
-                {text: 'Users', icon: 'user', to: '/users'},
-                {text: 'Settings', icon: 'settings', to: '/settings'}
-            ]
-            document.querySelector('zen-router').routes = [
-                {path: '/users', template: '<h1>Users page</h1>'},
-                {path: '/settings', template: '<h1>Settings page</h1>'}
-            ]
-        })();
-    </script>
+  <zen-icon-set></zen-icon-set>
+  <zen-side-menu></zen-side-menu>
+  <zen-router></zen-router>
+  <script>
+    (() => {
+      document.querySelector('zen-side-menu').links = [{
+          text: 'Users',
+          icon: 'user',
+          to: '/users'
+        },
+        {
+          text: 'Settings',
+          icon: 'settings',
+          to: '/settings'
+        }
+      ]
+      document.querySelector('zen-router').routes = [{
+          path: '/users',
+          template: '<h1>Users page</h1>'
+        },
+        {
+          path: '/settings',
+          template: '<h1>Settings page</h1>'
+        }
+      ]
+    })();
+
+  </script>
 </body>
+
 </html>

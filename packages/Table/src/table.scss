@@ -1,131 +1,149 @@
 @import 'zen-css/import';
+@import 'zen-css/components/type';
+@import 'zen-css/classes/colors';
 
 :host {
-    --row-height: var(--table-row-height, #{default('size-main')});
-    --row-selected-border: var(--table-row-selected-border, 2px solid #{default('color-active')});
-    --row-selected-bg: var(--table-row-selected-bg, #{default('color-active-soft')});
+  --row-height: var(--table-row-height, #{default('size-main')});
+  --row-selected-border: var(
+    --table-row-selected-border,
+    2px solid #{default('color-active')}
+  );
+  --row-selected-bg: var(
+    --table-row-selected-bg,
+    #{default('color-active-soft')}
+  );
 
-    --cell-padding: var(--table-cell-padding, #{default('size-tiny')});
-    --cell-border-radius: var(--table-cell-table-border-radius,  #{default('border-radius')});
+  --cell-padding: var(--table-cell-padding, #{default('size-tiny')});
+  --cell-border-radius: var(
+    --table-cell-table-border-radius,
+    #{default('border-radius')}
+  );
 
-    --header-bg: var(--table-header-bg,  #{default('color-grey-100')});
-    --header-font-size: var(--table-header-table-font-size,  #{default('font-size-small')});
-    --header-text-transform: var(--table-header-text-transform, uppercase);
+  --header-bg: var(--table-header-bg, #{default('color-grey-100')});
+  --header-font-size: var(
+    --table-header-table-font-size,
+    #{default('font-size-small')}
+  );
+  --header-text-transform: var(--table-header-text-transform, uppercase);
 
-    --data-font-size: var(--table-data-table-font-size,  #{default('font-size-main')});
-    --data-bg: var(--table-data-bg, transparent);
-    --data-shadow: var(--table-data-shadow, none);
+  --data-font-size: var(
+    --table-data-table-font-size,
+    #{default('font-size-main')}
+  );
+  --data-bg: var(--table-data-bg, transparent);
+  --data-shadow: var(--table-data-shadow, none);
 
-    --row-gap: var(--table-row-gap, #{default('size-tiny')});
-    --row-hover: var(--table-row-hover, #{default('color-active-soft')});
+  --row-gap: var(--table-row-gap, #{default('size-tiny')});
+  --row-hover: var(--table-row-hover, #{default('color-active-soft')});
 
+  display: block;
+  position: relative;
 
-    display: block;
-    position: relative;
+  .table {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), auto);
+    grid-auto-rows: var(--row-height);
+    row-gap: var(--row-gap);
 
-    .table {
-        display: grid;
-        grid-template-columns: repeat(var(--cols), auto);
-        grid-auto-rows: var(--row-height);
-        row-gap: var(--row-gap);
+    .th,
+    .td {
+      display: flex;
+      align-items: center;
+      padding: var(--cell-padding);
 
-        .th, .td {
-            display: flex;
-            align-items: center;
-            padding: var(--cell-padding);
+      * {
+        position: relative;
+        z-index: 2;
+      }
 
-            * {
-                position: relative;
-                z-index: 2;
-            }
+      &.left {
+        justify-content: flex-start;
+        text-align: left;
+      }
+      &.center {
+        justify-content: center;
+        text-align: center;
+      }
+      &.right {
+        justify-content: flex-end;
+        text-align: right;
+      }
 
-            &.left {
-                justify-content: flex-start;
-                text-align: left;
-            }
-            &.center {
-                justify-content: center;
-                text-align: center;
-            }
-            &.right {
-                justify-content: flex-end;
-                text-align: right;
-            }
+      &.checkbox {
+        justify-content: center;
+        border-top-left-radius: var(--cell-border-radius);
+        border-bottom-left-radius: var(--cell-border-radius);
 
-            &.checkbox {
-                justify-content: center;
-                border-top-left-radius: var(--cell-border-radius);
-                border-bottom-left-radius: var(--cell-border-radius);
-
-                & + .th, & + .td {
-                    border-top-left-radius: 0;
-                    border-bottom-left-radius: 0;
-                }
-            }
-
-            &.first {
-                border-top-left-radius: var(--cell-border-radius);
-                border-bottom-left-radius: var(--cell-border-radius);
-            }
-            &.last {
-                border-top-right-radius: var(--cell-border-radius);
-                border-bottom-right-radius: var(--cell-border-radius);
-            }
+        & + .th,
+        & + .td {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
         }
+      }
 
-        .th {
-            display: flex;
-            font-size: var(--header-font-size);
-            background: var(--header-bg);
-            color: var(--th-color, default('color-text'));
-            font-weight: var(--th-weight, 600);
-            border-bottom: var(--th-color, default('border-200'));
-            user-select: none;
-            cursor: default;
-            text-transform: var(--header-text-transform);
-
-            &.sortable {
-                cursor: pointer;
-            }
-
-            zen-icon + span {
-                margin-left: default('size-tiny');
-            }
-
-            span {
-                flex-grow: 1;
-            }
-        }
-
-        .td {
-            font-size: var(--data-font-size);
-
-            &.stripe {
-                background-color: var(--td-striped, default('color-grey-50'));
-            }
-
-            img {
-                max-width: 100%;
-            }
-
-            &.last:after {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                height: var(--row-height);
-                background: var(--data-bg, transparent);
-                z-index: -1;
-                border-radius: var(--cell-border-radius);
-                box-shadow: var(--data-shadow);
-            }
-
-            &.last.checked:after {
-                border: var(--row-selected-border);
-                background: var(--row-selected-bg);
-            }
-        }
+      &.first {
+        border-top-left-radius: var(--cell-border-radius);
+        border-bottom-left-radius: var(--cell-border-radius);
+      }
+      &.last {
+        border-top-right-radius: var(--cell-border-radius);
+        border-bottom-right-radius: var(--cell-border-radius);
+      }
     }
+
+    .th {
+      display: flex;
+      font-size: var(--header-font-size);
+      background: var(--header-bg);
+      color: var(--th-color, default('color-text'));
+      font-weight: var(--th-weight, 600);
+      border-bottom: var(--th-color, default('border-200'));
+      user-select: none;
+      cursor: default;
+      text-transform: var(--header-text-transform);
+
+      &.sortable {
+        cursor: pointer;
+      }
+
+      zen-icon + span {
+        margin-left: default('size-tiny');
+      }
+
+      span {
+        flex-grow: 1;
+      }
+    }
+
+    .td {
+      font-size: var(--data-font-size);
+
+      &.stripe {
+        background-color: var(--td-striped, default('color-grey-50'));
+      }
+
+      img {
+        max-width: 100%;
+      }
+
+      &.last:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: var(--row-height);
+        background: var(--data-bg, transparent);
+        z-index: -1;
+        border-radius: var(--cell-border-radius);
+        box-shadow: var(--data-shadow);
+      }
+
+      &.last.checked:after {
+        border: var(--row-selected-border);
+        background: var(--row-selected-bg);
+      }
+    }
+  }
 }
 
 // :host([selectable]) {
@@ -135,14 +153,14 @@
 // }
 
 :host([hoverable]) {
-    .td:hover:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: var(--row-height);
-        background: var(--row-hover);
-        z-index: 0;
-        border-radius: var(--cell-border-radius);
-    }
+  .td:hover:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: var(--row-height);
+    background: var(--row-hover);
+    z-index: 0;
+    border-radius: var(--cell-border-radius);
+  }
 }
