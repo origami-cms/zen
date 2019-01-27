@@ -19,5 +19,8 @@
         "@origami/zen-lib": "^0.0.1",
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
-    }
+    },
+  "publishConfig": {
+    "access": "public"
+  }
 }

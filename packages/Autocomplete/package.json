@@ -19,5 +19,8 @@
     "@origami/zen-input": "^0.0.1",
     "@origami/zen-input-dropdown": "^0.0.1",
     "@origami/zen-lib": "^0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

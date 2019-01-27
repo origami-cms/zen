@@ -42,5 +42,8 @@
     "@origami/zen-table": "^0.0.1",
     "@origami/zen-tabs": "^0.0.1",
     "@origami/zen-tooltip": "^0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

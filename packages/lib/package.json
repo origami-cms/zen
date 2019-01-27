@@ -17,5 +17,8 @@
   "sideEffects": false,
   "dependencies": {
     "polymer3-decorators": "^0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -16,5 +16,8 @@
   },
   "devDependencies": {
     "@origami/zen-lib": "^0.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

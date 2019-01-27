@@ -19,5 +19,8 @@
         "@types/universal-router": "^6.0.0",
         "pwa-helpers": "^0.8.3",
         "universal-router": "^6.0.0"
-    }
+    },
+  "publishConfig": {
+    "access": "public"
+  }
 }
