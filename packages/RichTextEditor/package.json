@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-rich-text-editor",
-    "version": "0.0.2-alpha.0",
+    "version": "0.0.3-alpha.0",
     "main": "build/ZenRTEditor.js",
     "typings": "build/ZenRTEditor.d.ts",
     "author": {
@@ -13,7 +13,7 @@
         "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
-        "@origami/zen-lib": "0.0.2-alpha.0",
+        "@origami/zen-lib": "^0.0.3-alpha.0",
         "@types/quill": "^2.0.1",
         "quill": "^1.3.6",
         "quill-image-upload": "^0.1.2"

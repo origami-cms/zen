@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-radio-tabs",
-    "version": "0.0.2-alpha.0",
+    "version": "0.0.3-alpha.0",
     "main": "build/ZenRadioTabs.js",
     "module": "build/RadioTabs.es.js",
     "typings": "build/ZenRadioTabs.d.ts",
@@ -15,7 +15,7 @@
         "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
-        "@origami/zen-lib": "0.0.2-alpha.0"
+        "@origami/zen-lib": "^0.0.3-alpha.0"
     },
     "publishConfig": {
         "access": "public"

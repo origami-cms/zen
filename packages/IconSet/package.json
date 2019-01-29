@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-icon-set",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.3-alpha.0",
   "main": "build/ZenIconSet.js",
   "module": "build/IconSet.es.js",
   "typings": "build/ZenIconSet.d.ts",
@@ -15,7 +15,7 @@
     "postrollup": "rm -f build/*-css.*"
   },
   "devDependencies": {
-    "@origami/zen-lib": "0.0.2-alpha.0",
+    "@origami/zen-lib": "^0.0.3-alpha.0",
     "origami-icons": "^0.0.18"
   },
   "publishConfig": {
