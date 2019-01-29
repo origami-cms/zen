@@ -19,7 +19,7 @@
     "build:sass": "sass-render 'packages/**/**.scss' --suffix=-css.ts -t ./css-template.ts",
     "test": "lerna run test",
     "bundle": "cd packages/Zen; yarn build; yarn rollup",
-    "publish:prerelease": "lerna version prepatch"
+    "publish:prepatch": "lerna version prepatch; lerna publish from-git  --dist-tag alpha"
   },
   "devDependencies": {
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
