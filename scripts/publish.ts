@@ -1,7 +1,6 @@
-import {colors, error, info, success} from '@origami/core-lib';
+import { colors, error, info, success } from '@origami/core-lib';
 import chalk from 'chalk';
 import execa from 'execa';
-import path from 'path';
 import semver from 'semver';
 
 type Type = 'major' | 'minor' | 'patch' | 'prerelease';

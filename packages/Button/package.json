@@ -11,13 +11,13 @@
   "scripts": {
     "build": "tsc --skipLibCheck",
     "prebuild": "rm -rf build",
-    "rollup": "rollup -c ../../rollup/component.js src/ZenButton.ts",
+    "postbuild": "rollup -c ../../rollup/component.js src/ZenButton.ts",
     "postrollup": "rm -f build/*-css.*",
     "test": "jest"
   },
   "devDependencies": {
-    "@origami/zen-icon": "^0.0.1",
-    "@origami/zen-lib": "^0.0.1"
+    "@origami/zen-icon": "0.0.2-alpha.0",
+    "@origami/zen-lib": "0.0.2-alpha.0"
   },
   "publishConfig": {
     "access": "public"

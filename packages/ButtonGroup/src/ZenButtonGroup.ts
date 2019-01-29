@@ -1,6 +1,5 @@
 import { ButtonProps } from '@origami/zen-button';
 import { customElement, html, LitElement, property } from 'lit-element';
-import { TemplateResult } from 'lit-html';
 import { repeat } from 'lit-html/directives/repeat';
 import CSS from './button-group-css';
 

@@ -26,24 +26,46 @@ export const FORM_EVENTS = {
 
 @customElement('zen-form')
 export class ZenForm extends LitElement {
+  /**
+   * Values of the form as a JSON object
+   */
   @property()
   public values: FormValues = {};
 
+  /**
+   * Changed values of the form as a JSON object since save() was called
+   */
   @property()
   public dirtyValues: FormValues = {};
 
+  /**
+   * Error to display at the top of the Form
+   */
   @property()
   public error?: string;
 
+  /**
+   * Array of Fields to render in the form.
+   */
   @property()
   public fields: Field[] = [];
 
+  /**
+   * Set the loading state of the form to disable the components and update the
+   * submit button
+   */
   @property()
   public loading: boolean = false;
 
+  /**
+   * Errors specific to each field
+   */
   @property()
   public fieldErrors: ValidateFieldErrors = {};
 
+  /**
+   * If form is saveable, values will not be updated until save() is called
+   */
   @property()
   public saveable: boolean = false;
 
@@ -74,14 +96,22 @@ export class ZenForm extends LitElement {
     `;
   }
 
+  /**
+   * Determine if the form is rendering children from the LightDOM, or from the
+   * fields` property
+   */
   private get _isChildren() {
     return this.fields.length === 0;
   }
 
+  /**
+   * Render the children from `fields` JSON if set, otherwise expose a <slot>
+   * element for LightDOM children
+   */
   private get _children(): TemplateResult {
     const errors = this.fieldErrors || {};
 
-    // Using this.fields mapped to <form-row>'s
+    // Generate the <form-row>'s for each field in `this.fields`
     if (!this._isChildren) {
       return html`
         ${
@@ -109,14 +139,14 @@ export class ZenForm extends LitElement {
         }
       `;
 
-      // Use slotted children
+      // Expose a slot for LightDOM slotted children
     } else {
       return html`
         <slot
           @slotchange="${
             () => {
               this.requestUpdate();
-              this._updatedSlotted();
+              this._updateSlottedElementValues();
             }
           }"
         ></slot>
@@ -124,22 +154,32 @@ export class ZenForm extends LitElement {
     }
   }
 
-  // Query all slotted children with 'name' attributes
+  /**
+   * Deeply queries for all descendants (slotted LightDOM, or controlled
+   * <form-row>'s) that have the `name` attribute
+   */
   private get _slottedControls(): Element[] | false {
+    // Return false if there are no fields and no slotted elements
     const s = this.shadowRoot!.querySelector('slot');
     if (!this._isChildren || !s) return false;
+
     const nodes = s.assignedNodes().filter((n) => n.nodeType === 1) as Element[];
 
     return nodes.reduce(
       (controls, node) => {
+        // If current node is has `name` attribute add it
         if (node.hasAttribute('name')) controls.push(node);
-        controls.push(...Array.from(node.querySelectorAll('*[name]')));
+        // Otherwise search for any children that have `name` attribute
+        else controls.push(...Array.from(node.querySelectorAll('*[name]')));
         return controls;
       },
       [] as Element[]
     );
   }
 
+  /**
+   * Scrolls the page to the first <form-row> that contains an error
+   */
   public scrollToError() {
     if (!this.fieldErrors) return;
     const row = (Array.from(
@@ -151,6 +191,10 @@ export class ZenForm extends LitElement {
     return row;
   }
 
+  /**
+   * Validates the form fields, and if successful, submits the form
+   * @param e Form submission event
+   */
   public submit(e?: Event) {
     if (e) {
       e.preventDefault();
@@ -167,6 +211,10 @@ export class ZenForm extends LitElement {
     return false;
   }
 
+  /**
+   * Validates each of the fields against a Validator
+   * @param showErrors Set the form to show errors on update
+   */
   public validate(showErrors: boolean = true) {
     this._validateOnChange = true;
     this._showErrors = showErrors;
@@ -183,12 +231,14 @@ export class ZenForm extends LitElement {
       ...this.dirtyValues
     });
 
+    // If there are field errors, focus on the error
     if (fields) {
       this.fieldErrors = fields;
       const row = this.scrollToError();
       if (row) row.focus();
     }
 
+    // Dispatch the valid event with the valid state
     this.dispatchEvent(
       new CustomEvent(FORM_EVENTS.VALIDATED, {
         detail: { valid }
@@ -198,26 +248,35 @@ export class ZenForm extends LitElement {
     return valid;
   }
 
+  /**
+   * Update the `values` with the `dirtyValues`. If `saveable` is false,
+   * the fields are not validated.
+   */
   public save() {
     if (!this.saveable || this.validate()) {
       this.values = { ...this.values, ...this.dirtyValues };
     }
   }
 
-  // Compares all the dirty values to find one that doesn't match the real values
+  /**
+   * Determine if the `dirtyValues` are different to the current `values`
+   */
   get dirty(): Boolean {
     return this._compareObjects(this.dirtyValues, this.values);
   }
 
   public firstUpdated(p: any) {
     super.firstUpdated(p);
-    this._updatedSlotted();
+    // Set the slotted childrens value on first render
+    this._updateSlottedElementValues();
   }
+
 
   public updated(p: any) {
     super.updated(p);
     const controls = this._slottedControls;
 
+    // Dispatch `change` or `dirtyChange` events if the values are changed
     if (p.get('values')) {
       if (this._compareObjects(this.values, p.get('values'))) {
         this.dispatchEvent(new CustomEvent(FORM_EVENTS.CHANGE));
@@ -225,17 +284,21 @@ export class ZenForm extends LitElement {
           this.dispatchEvent(new CustomEvent(FORM_EVENTS.DIRTY_CHANGE));
         }
       }
+
     } else if (p.get('dirtyValues')) {
       this.dispatchEvent(
         new CustomEvent(FORM_EVENTS.DIRTY_CHANGE, { detail: this.dirtyValues })
       );
       if (this._showErrors) this.validate();
       if (!this.saveable) this.save();
-      // Updates the slotted children
-      this._updatedSlotted();
 
-      // Adds the event listeners to the slotted children
+      // Updates the slotted children's values
+      this._updateSlottedElementValues();
+
     } else if (this._isChildren) {
+      // Adds the event listeners to the slotted children
+      // All slotted children should dispatch a 'change' event with a 'value'
+      // property so that Form can control them
       if (controls) {
         controls.forEach((c) => {
           if (this._eventMap.has(c)) return;
@@ -247,10 +310,18 @@ export class ZenForm extends LitElement {
     }
   }
 
+  /**
+   * Retrieve the value from the updated element and update the dirty values
+   * @param e Change event
+   */
   private _handleChange(e: Event) {
     const t = e.target as HTMLInputElement;
+    // Lookup the right attribute to get the value depending on the elements
+    // tag name
     const v = t[this._getValueNameFromElement(t)];
 
+    // If the dirty value is already set to this value, skip the update
+    // (Cause by wrongly or doubly calling _handleChange)
     if (
       this.dirtyValues[t.name] !== undefined &&
       this.dirtyValues[t.name] === v
@@ -258,10 +329,14 @@ export class ZenForm extends LitElement {
       return false;
     }
 
+    // Update the dirty values with the new value
     this.dirtyValues = { ...this.dirtyValues, ...{ [t.name]: v } };
   }
 
-  // Get the value of the input based off the input type
+  /**
+   * Get the value of a field based off the field's tag name/attributes type
+   * @param e HTMLElement to get the value from
+   */
   private _getValueNameFromElement(e: HTMLInputElement) {
     if (
       e.tagName === 'ZEN-CHECKBOX' ||
@@ -271,7 +346,10 @@ export class ZenForm extends LitElement {
     } else return 'value';
   }
 
-  private _updatedSlotted() {
+  /**
+   * Updates each of the slotted LightDOM children with the dirty values
+   */
+  private _updateSlottedElementValues() {
     const controls = this._slottedControls;
     if (controls) {
       controls.forEach((c) => {
@@ -279,12 +357,13 @@ export class ZenForm extends LitElement {
         // Lookup the value to change based on the element type
         const vName = this._getValueNameFromElement(i);
 
-        // Update the element's value if it's different from form value
+        // Get the `dirtyValues` falling back to the `values` value
         const currentValue =
           this.dirtyValues[i.name] !== undefined
             ? this.dirtyValues[i.name]
             : this.values[i.name];
 
+        // Update the element's value if it's different from form value
         if (i[vName] !== currentValue && currentValue !== undefined) {
           i[vName] = currentValue;
         }
@@ -292,8 +371,16 @@ export class ZenForm extends LitElement {
     }
   }
 
+  /**
+   * Shallowly check if two objects entries are different
+   * @param obj1 Any object
+   * @param obj2 Any object
+   */
   private _compareObjects(obj1: FormValues, obj2: FormValues) {
-    return Boolean(Object.keys(obj1).find((k) => obj1[k] !== obj2[k]));
+    return Boolean(
+      Object.keys(obj1)
+        .find((k) => obj1[k] !== obj2[k])
+    );
   }
 }
 

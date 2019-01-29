@@ -74,7 +74,8 @@ export default {
       useTsconfigDeclarationDir: true
     }),
     minify({
-      comments: false
+      comments: false,
+      // plugins: ['transform-object-rest-spread']
     }),
     replace({
       'process.env.NODE_ENV': JSON.stringify('production')

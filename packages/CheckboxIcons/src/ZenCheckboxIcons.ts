@@ -1,11 +1,5 @@
 import { FieldCheckboxIconsOption } from '@origami/zen-lib/FormValidator';
-import {
-  customElement,
-  html,
-  LitElement,
-  property
-} from 'lit-element';
-import { TemplateResult } from 'lit-html';
+import { customElement, html, LitElement, property } from 'lit-element';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import CSS from './checkbox-icons-css';
 

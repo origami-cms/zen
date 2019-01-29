@@ -11,12 +11,12 @@
     "scripts": {
         "build": "tsc --skipLibCheck",
         "prebuild": "rm -rf build",
-        "rollup": "rollup -c ../../rollup/component.js build/ZenTable.js",
+        "postbuild": "rollup -c ../../rollup/component.js build/ZenTable.js",
         "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
-        "@origami/zen-checkbox": "^0.0.1",
-        "@origami/zen-lib": "^0.0.1",
+        "@origami/zen-checkbox": "0.0.2-alpha.0",
+        "@origami/zen-lib": "0.0.2-alpha.0",
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
     },

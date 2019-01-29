@@ -11,14 +11,14 @@
   "scripts": {
     "build": "tsc --skipLibCheck",
     "prebuild": "rm -rf build",
-    "rollup": "rollup -c ../../rollup/component.js build/ZenAutocomplete.js",
+    "postbuild": "rollup -c ../../rollup/component.js build/ZenAutocomplete.js",
     "postrollup": "rm -f build/*-css.*",
     "clean": "rm -rf build"
   },
   "devDependencies": {
-    "@origami/zen-input": "^0.0.1",
-    "@origami/zen-input-dropdown": "^0.0.1",
-    "@origami/zen-lib": "^0.0.1"
+    "@origami/zen-input": "0.0.2-alpha.0",
+    "@origami/zen-input-dropdown": "0.0.2-alpha.0",
+    "@origami/zen-lib": "0.0.2-alpha.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,16 +1,11 @@
 // tslint:disable function-name
-import { ZenInput } from '@origami/zen-input';
+import {ZenInput} from '@origami/zen-input';
 import { dispatchChange } from '@origami/zen-lib/decorators';
 import { Field, ValidationErrors } from '@origami/zen-lib/FormValidator';
-import {
-  customElement,
-  html,
-  LitElement,
-  property
-} from 'lit-element';
+import { customElement, html, LitElement, property } from 'lit-element';
 import { TemplateResult } from 'lit-html';
-import { ifDefined } from 'lit-html/directives/if-defined';
 import CSS from './form-row-css';
+import { CUSTOM_CONTROL_ATTRIBUTE, renderField } from './renderField';
 
 export interface FormRowProps {
   field?: Field;
@@ -45,6 +40,8 @@ export class ZenFormRow extends LitElement implements FormRowProps {
 
   @property({ reflect: true, type: Boolean })
   public disabled: boolean = false;
+
+  private _customControls = new Map<HTMLElement, Function>();
 
   constructor() {
     super();
@@ -87,169 +84,56 @@ export class ZenFormRow extends LitElement implements FormRowProps {
     `;
   }
 
+  /**
+   * Automatically add onChange listeners for all elements containing the
+   * `data-custom-control` attribute. These elements could be anything (specified)
+   * by the `Field.type`, and created in `renderField()`
+   */
+  public updated() {
+    const custom = Array.from(
+      this.shadowRoot!.querySelectorAll<HTMLElement>(`*[${CUSTOM_CONTROL_ATTRIBUTE}]`)
+    );
+
+    // Loop over all controls, and if there is not event listener set in
+    // `this._customControls`, add it
+    custom
+      .forEach((el) => {
+        if (!this._customControls.has(el)) {
+          el.addEventListener('change', this._handleChange);
+          this._customControls.set(el, this._handleChange);
+        }
+      });
+
+    // Clean up any elements that are no longer on the page from the map
+    // and update their value
+    Array.from(this._customControls.entries()).forEach(([e]) => {
+      if (!custom.includes(e)) this._customControls.delete(e);
+      else (e as HTMLInputElement).value = this.value;
+    });
+  }
+
+
   public focus() {
     if (!this.field) return;
     if (
-      ['text', 'number', 'password', 'email', 'date', 'tel'].includes(
-        this.field.type
-      )
+      ['text', 'number', 'password', 'email', 'date', 'tel'].includes(this.field.type)
     ) {
-      this.shadowRoot!.querySelector('zen-input')!.focus();
+      (this.shadowRoot!.querySelector('zen-input'))!.focus();
     }
   }
 
-  public _renderField(f: Field, value: any) {
-    const v = value;
-    const c = this._handleChange;
-    switch (f.type) {
-      case 'text':
-      case 'number':
-      case 'password':
-      case 'email':
-      case 'date':
-      case 'tel':
-        return html`
-          <zen-input
-            .type="${f.type}"
-            .icon="${f.icon}"
-            .value="${v}"
-            @change="${c}"
-            .placeholder="${f.placeholder}"
-            .disabled="${f.disabled}"
-          ></zen-input>
-        `;
+  public submit() {
+    this.dispatchEvent(new CustomEvent('submit'));
+  }
 
-      case 'file':
-        return html`
-          <zen-input-file
-            .type="file"
-            @change="${c}"
-            .placeholder="${f.placeholder}"
-            .placeholderIcon="${f.placeholderIcon}"
-            .placeholderImg="${f.placeholderImg}"
-            .disabled="${f.disabled}"
-          ></zen-input-file>
-        `;
+  public _handleTextAreaKeyUp(e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      if (!e.ctrlKey && !e.metaKey) e.stopPropagation();
+    } else this._handleChange(e);
+  }
 
-      case 'color':
-        return html`
-          <zen-input-color
-            .type="${f.type}"
-            .value="${v}"
-            @change="${c}"
-            .placeholder="${f.placeholder}"
-            .disabled="${f.disabled}"
-          ></zen-input-color>
-        `;
-
-      case 'textarea':
-        return html`
-          <textarea
-            .value="${ifDefined(v)}"
-            @change="${c}"
-            @keyup="${this._handleTextAreaKeyUp}"
-            placeholder="${ifDefined(f.placeholder)}"
-            disabled="${ifDefined(f.disabled)}"
-          ></textarea>
-        `;
-
-      case 'submit':
-        return html`
-          <zen-button
-            .icon="${f.icon}"
-            @click="${this.submit}"
-            .color="${f.color}"
-            .disabled="${f.disabled}"
-            >${f.value}</zen-button
-          >
-        `;
-
-      case 'select':
-        return html`
-          <zen-select
-            .value="${v}"
-            @change="${c}"
-            .options="${f.options}"
-            .placeholder="${f.placeholder}"
-            .disabled="${f.disabled}"
-          ></zen-select>
-        `;
-
-      case 'checkbox':
-        return html`
-          <zen-checkbox
-            .checked="${v}"
-            @change="${c}"
-            .disabled="${f.disabled}"
-          ></zen-checkbox>
-        `;
-
-      case 'radio':
-        return html`
-          <zen-radio
-            .value="${v}"
-            @change="${c}"
-            .options="${f.options}"
-            .disabled="${f.disabled}"
-          ></zen-radio>
-        `;
-
-      case 'radio-tabs':
-        return html`
-          <zen-radio-tabs
-            .value="${v}"
-            @change="${c}"
-            .options="${f.options}"
-            .disabled="${f.disabled}"
-          ></zen-radio-tabs>
-        `;
-
-      case 'radio-icons':
-        return html`
-          <zen-radio-icons
-            .value="${v}"
-            @change="${c}"
-            .options="${f.options}"
-            .columns="${f.columns}"
-            .disabled="${f.disabled}"
-          ></zen-radio-icons>
-        `;
-
-      case 'checkbox-icons':
-        return html`
-          <zen-checkbox-icons
-            .value="${v}"
-            @change="${c}"
-            .options="${f.options}"
-            .columns="${f.columns}"
-            .disabled="${f.disabled}"
-          ></zen-checkbox-icons>
-        `;
-
-      case 'autocomplete':
-        return html`<zen-autocomplete
-                    .icon=${f.icon}
-                    .value=${v}
-                    @change=${c}
-                    .minlength=${f.minlength}
-                    .placeholder=${f.placeholder}
-                    .options=${f.options}
-                    .disabled=${f.disabled}
-                    .query=${f.query}
-                ></<zen-autocomplete>`;
-
-      case 'rich-text':
-        return html`
-          <zen-rich-text-editor
-            .value="${v}"
-            @change="${c}"
-          ></zen-rich-text-editor>
-        `;
-
-      default:
-        console.warn(`No element found for ${f.type}`);
-        return html``;
-    }
+  protected _renderField(f: Field, value: any) {
+    return renderField(this, f, value, this._handleChange);
   }
 
   private _handleChange(e: Event) {
@@ -259,10 +143,6 @@ export class ZenFormRow extends LitElement implements FormRowProps {
     this.value = t.value;
   }
 
-  private submit() {
-    this.dispatchEvent(new CustomEvent('submit'));
-  }
-
   private _handleKeyUp(e: KeyboardEvent) {
     switch (e.key) {
       case 'Enter':
@@ -270,11 +150,7 @@ export class ZenFormRow extends LitElement implements FormRowProps {
     }
   }
 
-  private _handleTextAreaKeyUp(e: KeyboardEvent) {
-    if (e.key === 'Enter') {
-      if (!e.ctrlKey && !e.metaKey) e.stopPropagation();
-    } else this._handleChange(e);
-  }
+
 }
 
 

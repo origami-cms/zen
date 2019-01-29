@@ -11,11 +11,11 @@
   "scripts": {
     "build": "tsc --skipLibCheck",
     "prebuild": "rm -rf build",
-    "rollup": "rollup -c ../../rollup/component.js build/ZenTooltip.js",
+    "postbuild": "rollup -c ../../rollup/component.js build/ZenTooltip.js",
     "postrollup": "rm -f build/*-css.*"
   },
   "devDependencies": {
-    "@origami/zen-lib": "^0.0.1"
+    "@origami/zen-lib": "0.0.2-alpha.0"
   },
   "publishConfig": {
     "access": "public"

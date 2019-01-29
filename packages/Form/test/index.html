@@ -64,6 +64,22 @@
     const rProps = document.querySelector('pre.with-props');
     const rDirtyProps = document.querySelector('pre.with-props.dirty');
 
+
+    window.customElements.define('custom-element', class extends HTMLElement {
+      constructor() {
+        super();
+        this.value = 0;
+        this.style.background = this.getAttribute('color');
+        this.style.padding = '10px';
+        this.innerHTML = 'I am a custom element';
+        this.addEventListener('click', () => {
+          this.value += 1;
+          this.dispatchEvent(new CustomEvent('change'));
+        });
+      }
+    })
+
+
     fProps.fields = [{
         name: 'name',
         type: 'text',
@@ -80,14 +96,17 @@
         name: 'textarea',
         type: 'textarea'
       },
+      {
+        name: 'custom-element',
+        type: 'custom-element',
+        attributes: {
+          "color": '#eeeeee'
+        }
+      },
     ];
     fProps.values = {
       name: 'Bob'
     }
-
-    // fProps.addEventListener('dirtyChange', e => {
-    //     fProps.values = {name: 'bob'}
-    // })
 
     fChildren.addEventListener('change', () => {
       rChildren.innerHTML = JSON.stringify(fChildren.values);
@@ -103,10 +122,10 @@
   </script>
 
   <script src="../../../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
-  <script src="../build/Form.js"></script>
-  <script src="../../FormRow/build/FormRow.js"></script>
-  <script src="../../Input/build/Input.js"></script>
-  <script src="../../Checkbox/build/Checkbox.js"></script>
+  <script src="../build/ZenForm.js"></script>
+  <script src="../../FormRow/build/ZenFormRow.js"></script>
+  <script src="../../Input/build/ZenInput.js"></script>
+  <script src="../../Checkbox/build/ZenCheckbox.js"></script>
 </body>
 
 </html>

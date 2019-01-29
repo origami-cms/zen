@@ -11,11 +11,11 @@
     "scripts": {
         "build": "tsc --skipLibCheck",
         "prebuild": "rm -rf build",
-        "rollup": "rollup -c ../../rollup/component.js build/ZenRouter.js",
+        "postbuild": "rollup -c ../../rollup/component.js build/ZenRouter.js",
         "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
-        "@origami/zen-lib": "^0.0.1",
+        "@origami/zen-lib": "0.0.2-alpha.0",
         "@types/universal-router": "^6.0.0",
         "pwa-helpers": "^0.8.3",
         "universal-router": "^6.0.0"

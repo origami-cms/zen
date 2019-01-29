@@ -170,3 +170,9 @@ export type InputDropdownList = string[];
 export interface FieldRichTextEditor extends FieldBase {
   type: 'rich-text';
 }
+export interface FieldCustomElement extends FieldBase {
+  type: string;
+  attributes?: {
+    [name: string]: string;
+  };
+}
