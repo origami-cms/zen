@@ -1,6 +1,6 @@
+import {singular as singularize} from 'pluralize';
 import { AnyAction } from 'redux';
 import Immutable, { ImmutableArray, ImmutableObject } from 'seamless-immutable';
-
 export type ArrAny = ImmutableArray<any>;
 export type ImmutableResourceState = ImmutableObject<ResourceState>;
 
@@ -35,7 +35,7 @@ export const APIReducer = (
   key: string = 'id'
 ) => {
   const up = resource.toUpperCase();
-  const singular = resource.slice(0, -1);
+  const singular = singularize(resource);
 
   const initialState = Immutable({
     [resource]: Immutable([]) as ArrAny,
@@ -58,8 +58,8 @@ export const APIReducer = (
     const res = state[resource] as ArrAny;
     const resourceList = res.asMutable();
 
-    const findIndexByKey = (res: Resource) =>
-      resourceList.findIndex((r) => r[key] === res[key]);
+    const findIndexByKey = (_res: Resource) =>
+      resourceList.findIndex((r) => r[key] === _res[key]);
 
     switch (action.type) {
       case `${up}_LOADING_SINGLE_START`:
@@ -88,21 +88,21 @@ export const APIReducer = (
 
         let updated = state;
 
-        action[resource].forEach((res: Resource) => {
-          const existing = findIndexByKey(res);
+        action[resource].forEach((_res: Resource) => {
+          const existing = findIndexByKey(_res);
 
           // If there is an existing resource that matches the id,
           // then update it
           if (existing >= 0) {
             updated = updated.setIn([resource, existing.toString()], {
-              ...res[existing],
-              ...res
+              ..._res[existing],
+              ..._res
             });
 
             // Otherwise merge the resource into the array
           } else {
             updated = updated.merge({
-              [resource]: [...(updated[resource] as ArrAny), res],
+              [resource]: [...(updated[resource] as ArrAny), _res],
               loadedInitial: true
             });
           }
@@ -124,12 +124,10 @@ export const APIReducer = (
       case `${up}_UPDATED`:
         const index = findIndexByKey(action[singular]);
 
-        const s = state.setIn([resource, index.toString()], {
+        return state.setIn([resource, index.toString()], {
           ...res[index],
           ...action[singular]
         });
-
-        return s;
 
       case `${up}_CREATE_ERROR`:
         return state.setIn(['_errors', 'post'], action.error);

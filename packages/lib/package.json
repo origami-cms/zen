@@ -12,7 +12,9 @@
     "build": "tsc --skipLibCheck"
   },
   "devDependencies": {
-    "@types/http-status-codes": "^1.2.0"
+    "@types/http-status-codes": "^1.2.0",
+    "@types/pluralize": "^0.0.29",
+    "pluralize": "^7.0.0"
   },
   "sideEffects": false,
   "dependencies": {
