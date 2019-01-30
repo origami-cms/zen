@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-autocomplete",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "main": "build/ZenAutocomplete.js",
   "module": "build/Autocomplete.es.js",
   "typings": "build/ZenAutocomplete.d.ts",
@@ -16,9 +16,9 @@
     "clean": "rm -rf build"
   },
   "devDependencies": {
-    "@origami/zen-input": "^0.0.3-alpha.0",
-    "@origami/zen-input-dropdown": "^0.0.3-alpha.0",
-    "@origami/zen-lib": "^0.0.3-alpha.0"
+    "@origami/zen-input": "^0.0.4-alpha.0",
+    "@origami/zen-input-dropdown": "^0.0.4-alpha.0",
+    "@origami/zen-lib": "^0.0.4-alpha.0"
   },
   "publishConfig": {
     "access": "public"

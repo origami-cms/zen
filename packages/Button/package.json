@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-button",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "main": "build/ZenButton.js",
   "module": "build/Button.es.js",
   "typings": "build/ZenButton.d.ts",
@@ -16,8 +16,8 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@origami/zen-icon": "^0.0.3-alpha.0",
-    "@origami/zen-lib": "^0.0.3-alpha.0"
+    "@origami/zen-icon": "^0.0.4-alpha.0",
+    "@origami/zen-lib": "^0.0.4-alpha.0"
   },
   "publishConfig": {
     "access": "public"

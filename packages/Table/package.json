@@ -1,6 +1,6 @@
 {
     "name": "@origami/zen-table",
-    "version": "0.0.3-alpha.0",
+    "version": "0.0.4-alpha.0",
     "main": "build/ZenTable.js",
     "module": "build/Table.es.js",
     "typings": "build/ZenTable.d.ts",
@@ -15,8 +15,8 @@
         "postrollup": "rm -f build/*-css.*"
     },
     "devDependencies": {
-        "@origami/zen-checkbox": "^0.0.3-alpha.0",
-        "@origami/zen-lib": "^0.0.3-alpha.0",
+        "@origami/zen-checkbox": "^0.0.4-alpha.0",
+        "@origami/zen-lib": "^0.0.4-alpha.0",
         "@types/json-query": "^2.2.0",
         "json-query": "^2.2.2"
     },
