@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-form",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "main": "build/ZenForm.js",
   "module": "build/Form.es.js",
   "typings": "build/ZenForm.d.ts",
@@ -15,8 +15,8 @@
     "postrollup": "rm -f build/*-css.*"
   },
   "devDependencies": {
-    "@origami/zen-form-row": "^0.0.4-alpha.0",
-    "@origami/zen-lib": "^0.0.4-alpha.0"
+    "@origami/zen-form-row": "^0.0.5-alpha.0",
+    "@origami/zen-lib": "^0.0.5-alpha.0"
   },
   "publishConfig": {
     "access": "public"

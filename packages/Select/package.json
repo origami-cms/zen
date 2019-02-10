@@ -1,6 +1,6 @@
 {
   "name": "@origami/zen-select",
-  "version": "0.0.4-alpha.0",
+  "version": "0.0.5-alpha.0",
   "main": "build/ZenSelect.js",
   "module": "build/Select.es.js",
   "typings": "build/ZenSelect.d.ts",
@@ -15,8 +15,8 @@
     "postrollup": "rm -f build/*-css.*"
   },
   "devDependencies": {
-    "@origami/zen-input-dropdown": "^0.0.4-alpha.0",
-    "@origami/zen-lib": "^0.0.4-alpha.0"
+    "@origami/zen-input-dropdown": "^0.0.5-alpha.0",
+    "@origami/zen-lib": "^0.0.5-alpha.0"
   },
   "publishConfig": {
     "access": "public"
