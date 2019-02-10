@@ -17,7 +17,6 @@ export * from '../../Loading/src/ZenLoading';
 export * from '../../Radio/src/ZenRadio';
 export * from '../../RadioIcons/src/ZenRadioIcons';
 export * from '../../RadioTabs/src/ZenRadioTabs';
-export * from '../../RichTextEditor/src/ZenRTEditor';
 export * from '../../Router/src/ZenRouter';
 export * from '../../Select/src/ZenSelect';
 export * from '../../SideMenu/src/ZenSideMenu';

@@ -1,9 +1,0 @@
-{
-  "extends": "@origami/tslint-config",
-  "defaultSeverity": "error",
-  "rules": {
-    "no-implicit-dependencies": false,
-    "no-submodule-imports": false,
-    "no-this-assignment": false
-  }
-}

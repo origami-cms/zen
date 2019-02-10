@@ -137,12 +137,12 @@ export const renderField = (row: ZenFormRow, f: Field, value: any, change: (e: E
         .query=${f.query}>
       </zen-autocomplete>`;
 
-    case 'rich-text':
-      return html`
-      <zen-rich-text-editor
-        .value="${v}"
-        @change="${c}"
-      ></zen-rich-text-editor>`;
+    // case 'rich-text':
+    //   return html`
+    //   <zen-rich-text-editor
+    //     .value="${v}"
+    //     @change="${c}"
+    //   ></zen-rich-text-editor>`;
 
     default:
       const cf = f as FieldCustomElement;

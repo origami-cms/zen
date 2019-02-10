@@ -12,8 +12,8 @@ export type Field =
   | FieldAutocomplete
   | FieldSlider
   | FieldColor
-  | FieldFile
-  | FieldRichTextEditor;
+  | FieldFile;
+  // | FieldRichTextEditor;
 
 export interface Fieldsets {
   [key: string]: Field[];
@@ -167,9 +167,9 @@ export interface InputDropdownOptions {
 }
 export type InputDropdownList = string[];
 
-export interface FieldRichTextEditor extends FieldBase {
-  type: 'rich-text';
-}
+// export interface FieldRichTextEditor extends FieldBase {
+//   type: 'rich-text';
+// }
 export interface FieldCustomElement extends FieldBase {
   type: string;
   attributes?: {

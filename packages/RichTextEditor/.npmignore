@@ -1,8 +1,0 @@
-tsconfig.json
-tslints.json
-.rpt*
-src/
-__tests__
-coverage
-test
-jest.config.js

@@ -1,6 +1,11 @@
 @import 'zen-css/import';
 
 :host {
+  // &,
+  * {
+    @extend %reset;
+  }
+
   display: block;
   position: relative;
   @extend %comp-form-input-general;
@@ -9,10 +14,7 @@
   padding: 0;
   overflow: hidden;
 
-  &,
-  * {
-    @extend %reset;
-  }
+
 
   input {
     @extend %cover;
