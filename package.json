@@ -19,6 +19,7 @@
     "build:sass": "sass-render 'packages/**/**.scss' --suffix=-css.ts -t ./css-template.ts",
     "test": "lerna run test",
     "bundle": "cd packages/Zen; yarn build; yarn rollup",
+    "publish:prerelease": "lerna version prerelease; lerna publish from-git  --dist-tag alpha",
     "publish:prepatch": "lerna version prepatch; lerna publish from-git  --dist-tag alpha"
   },
   "devDependencies": {
