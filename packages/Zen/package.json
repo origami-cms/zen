@@ -40,7 +40,7 @@
     "@origami/zen-table": "^0.0.5-alpha.0",
     "@origami/zen-tabs": "^0.0.5-alpha.0",
     "@origami/zen-tooltip": "^0.0.5-alpha.0",
-    "origami-icons": "^0.0.17"
+    "origami-icons": "^0.0.19"
   },
   "publishConfig": {
     "access": "public"
