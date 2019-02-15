@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@origami/zen-lib": "^0.0.5-alpha.0",
-    "origami-icons": "^0.0.18"
+    "origami-icons": "^0.0.19"
   },
   "publishConfig": {
     "access": "public"
